@@ -89,8 +89,9 @@
 
 # users.users.sniijz.isNormalUser = true;
 home-manager.users.sniijz = { pkgs, ... }: {
-  home.packages = [ pkgs.fish pkgs.starship ];
-  programs.bash.enable = true;
+  home.file = {
+  ".config/starship.toml".source = ./terminal/starship.toml;
+  };
 
   # The state version is required and should stay at the version you
   # originally installed.
