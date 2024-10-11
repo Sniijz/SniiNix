@@ -84,6 +84,9 @@
     isNormalUser = true;
     extraGroups = [ "networkmanager" "wheel" ];
     packages = with pkgs; [];
+    openssh.authorizedKeys.keys = [
+      (builtins.readFile ./keys/authorized-keys) 
+    ];
   };
 
 
