@@ -19,6 +19,5 @@ in {
   imports = [
     (import ./bash.nix {inherit pkgs config;})
     (import ./fish.nix {inherit pkgs config sharedShellAbbrs sharedShellAliases sharedShellFunctions;})
-    (import ./starship.nix {inherit pkgs config;})
   ];
 }
