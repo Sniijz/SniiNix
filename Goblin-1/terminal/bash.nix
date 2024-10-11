@@ -2,8 +2,6 @@
 {
   config,
   pkgs,
-  lib,
-  vars,
   ...
 }: {
   programs.bash = {

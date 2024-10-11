@@ -1,13 +1,14 @@
 {
   config,
   pkgs,
+  lib,
   ...
 }: 
 {
   imports = [
     # Include the results of the hardware scan.
     ./hardware-configuration.nix
-    (import ./terminal {inherit vars pkgs config lib;})
+    (import ./terminal {inherit pkgs config;})
   ];
 
   # Bootloader.
@@ -22,6 +23,7 @@
   # Enable networking
   networking = {
     networkmanager.enable = true;
+    nameservers = ["192.168.1.3" "192.168.1.3"];
     interfaces.eno1.ipv4.addresses = [{
       address = "192.168.1.9";
       prefixLength = 24;
@@ -83,7 +85,8 @@
     packages = with pkgs; [];
   };
 
-  # Allow unfree packages
+
+# Allow unfree packages
   nixpkgs.config.allowUnfree = true;
 
   environment = {

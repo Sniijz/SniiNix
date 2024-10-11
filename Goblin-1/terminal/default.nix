@@ -1,8 +1,6 @@
 {
-  vars,
   pkgs,
   config,
-  lib,
   ...
 }: let
   sharedShellAbbrs = {
@@ -19,7 +17,8 @@
   sharedShellFunctions = {};
 in {
   imports = [
-    (import ./bash.nix {inherit vars pkgs config lib;})
-    (import ./fish.nix {inherit vars pkgs config lib sharedShellAbbrs sharedShellAliases sharedShellFunctions;})
+    (import ./bash.nix {inherit pkgs config;})
+    (import ./fish.nix {inherit pkgs config sharedShellAbbrs sharedShellAliases sharedShellFunctions;})
+    (import ./starship.nix {inherit pkgs config;})
   ];
 }

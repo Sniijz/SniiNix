@@ -2,14 +2,12 @@
 {
   config,
   pkgs,
-  lib,
-  vars,
   sharedShellAbbrs,
   sharedShellAliases,
   sharedShellFunctions,
   ...
 }: {
-  home-manager.users.${vars.user} = {
+
     programs.fish = {
       enable = true;
 
@@ -21,7 +19,5 @@
 
       shellAliases = sharedShellAliases;
 
-      functions = sharedShellFunctions;
     };
-  };
 }
