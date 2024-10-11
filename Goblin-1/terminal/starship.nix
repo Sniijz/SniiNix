@@ -183,7 +183,7 @@ let
   '';
 
 in {
-  home.file = {
+ home.file = {
     ".config/starship.toml" = starshipConfig;
   };
 }

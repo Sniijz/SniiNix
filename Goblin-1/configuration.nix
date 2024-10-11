@@ -87,9 +87,9 @@
   };
 
 
-users.users.eve.isNormalUser = true;
-home-manager.users.eve = { pkgs, ... }: {
-  home.packages = [ pkgs.atool pkgs.httpie ];
+# users.users.sniijz.isNormalUser = true;
+home-manager.users.sniijz = { pkgs, ... }: {
+  home.packages = [ pkgs.fish pkgs.starship ];
   programs.bash.enable = true;
 
   # The state version is required and should stay at the version you
