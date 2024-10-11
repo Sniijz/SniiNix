@@ -8,6 +8,7 @@
   imports = [
     # Include the results of the hardware scan.
     ./hardware-configuration.nix
+    <home-manager/nixos>
     (import ./terminal {inherit pkgs config;})
   ];
 
@@ -84,6 +85,17 @@
     extraGroups = [ "networkmanager" "wheel" ];
     packages = with pkgs; [];
   };
+
+
+users.users.eve.isNormalUser = true;
+home-manager.users.eve = { pkgs, ... }: {
+  home.packages = [ pkgs.atool pkgs.httpie ];
+  programs.bash.enable = true;
+
+  # The state version is required and should stay at the version you
+  # originally installed.
+  home.stateVersion = "24.05";
+};
 
 
 # Allow unfree packages
