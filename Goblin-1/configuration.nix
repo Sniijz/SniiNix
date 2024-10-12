@@ -16,42 +16,15 @@
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
-  # Define your hostname.
-  networking.hostName = "Goblin-1"; 
-  
+######################### Global Settings #########################
 
-
-  # Enable networking
-  networking = {
-    networkmanager.enable = true;
-    nameservers = ["192.168.1.3" "192.168.1.3"];
-    interfaces.eno1.ipv4.addresses = [{
-      address = "192.168.1.9";
-      prefixLength = 24;
-    }];
-    defaultGateway = {
-      address = "192.168.1.1";
-      interface = "eno1";
-    };
-  };
-
-
-  # Configure network proxy if necessary
-  # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
-  # networking.proxy.default = "http://user:password@proxy:port/";
-  # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
-
-  programs.ssh.startAgent = true;
-  services.openssh.enable = true;
-  services.openssh.settings.PasswordAuthentication = false;
-
-  # Open ports in the firewall.
-  # networking.firewall.allowedTCPPorts = [ ... ];
-  # networking.firewall.allowedUDPPorts = [ ... ];
-  # Or disable the firewall altogether.
-  # networking.firewall.enable = false;
-  # List services that you want to enable:
-
+  # This value determines the NixOS release from which the default
+  # settings for stateful data, like file locations and database versions
+  # on your system were taken. It‘s perfectly fine and recommended to leave
+  # this value at the release version of the first install of this system.
+  # Before changing this value read the documentation for this option
+  # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
+  system.stateVersion = "24.05"; # Did you read the comment?
 
   # Set your time zone.
   time.timeZone = "Europe/Paris";
@@ -80,6 +53,45 @@
   # Configure console keymap
   console.keyMap = "fr";
 
+
+######################### Networking #########################
+
+  # Define your hostname.
+  networking.hostName = "Goblin-1"; 
+
+  # Enable networking
+  networking = {
+    networkmanager.enable = true;
+    nameservers = ["192.168.1.2" "192.168.1.3"];
+    interfaces.eno1.ipv4.addresses = [{
+      address = "192.168.1.9";
+      prefixLength = 24;
+    }];
+    defaultGateway = {
+      address = "192.168.1.1";
+      interface = "eno1";
+    };
+  };
+
+  programs.ssh.startAgent = true;
+  services.openssh.enable = true;
+  services.openssh.settings.PasswordAuthentication = false;
+
+  # Configure network proxy if necessary
+  # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
+  # networking.proxy.default = "http://user:password@proxy:port/";
+  # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
+
+  # Open ports in the firewall.
+  # networking.firewall.allowedTCPPorts = [ ... ];
+  # networking.firewall.allowedUDPPorts = [ ... ];
+  # Or disable the firewall altogether.
+  # networking.firewall.enable = false;
+  # List services that you want to enable:
+
+######################### Accounts #########################
+
+
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.sniijz = {
     isNormalUser = true;
@@ -95,6 +107,8 @@
   };
 
 
+######################### Home-Manager #########################
+
 # users.users.sniijz.isNormalUser = true;
 home-manager.users.sniijz = { pkgs, ... }: {
   home.file = {
@@ -106,6 +120,8 @@ home-manager.users.sniijz = { pkgs, ... }: {
   home.stateVersion = "24.05";
 };
 
+
+######################### Packages #########################
 
 # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
@@ -141,7 +157,6 @@ home-manager.users.sniijz = { pkgs, ... }: {
     enable = true;
     serverAddr = "https://192.168.1.30:6443"; 
     token = "K10b47e4a41d9b550fe2730795c930df9ed9965ad1279b8aa0c733b071bc36e7b06::server:mEvZbtzjFk6eejXy4ojtojnTSwUWTxWY72Vgh3BjsnebuZ65WapQHkybv6CeavUY"; 
-#   token = "er8pZJWbQDfC8m#^M3Joc#4Q^x$sUjp@$siA9@hSp4CR8pa!7WH9EfJU!hxVepVR";
     role = "agent";
     extraFlags = toString [
     "--node-name=goblin-1"
@@ -150,13 +165,5 @@ home-manager.users.sniijz = { pkgs, ... }: {
   ];
   };
 
-
-  # This value determines the NixOS release from which the default
-  # settings for stateful data, like file locations and database versions
-  # on your system were taken. It‘s perfectly fine and recommended to leave
-  # this value at the release version of the first install of this system.
-  # Before changing this value read the documentation for this option
-  # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
-  system.stateVersion = "24.05"; # Did you read the comment?
 
 }
