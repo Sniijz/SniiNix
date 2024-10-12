@@ -108,6 +108,9 @@
 
 
 ######################### Home-Manager #########################
+# To install home manager version 24.05 channel :
+# sudo nix-channel --add https://github.com/nix-community/home-manager/archive/release-24.05.tar.gz home-manager
+# sudo nix-channel --update
 
 # users.users.sniijz.isNormalUser = true;
 home-manager.users.sniijz = { pkgs, ... }: {
