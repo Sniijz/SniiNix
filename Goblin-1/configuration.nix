@@ -43,6 +43,7 @@
 
   programs.ssh.startAgent = true;
   services.openssh.enable = true;
+  services.openssh.settings.PasswordAuthentication = false;
 
   # Open ports in the firewall.
   # networking.firewall.allowedTCPPorts = [ ... ];
@@ -135,6 +136,19 @@ home-manager.users.sniijz = { pkgs, ... }: {
   fonts.packages = with pkgs; [
     (nerdfonts.override {fonts = ["DroidSansMono"];})
   ];
+
+  services.k3s = {
+    enable = true;
+    serverAddr = "https://192.168.1.30:6443"; 
+    token = "K10b47e4a41d9b550fe2730795c930df9ed9965ad1279b8aa0c733b071bc36e7b06::server:mEvZbtzjFk6eejXy4ojtojnTSwUWTxWY72Vgh3BjsnebuZ65WapQHkybv6CeavUY"; 
+#   token = "er8pZJWbQDfC8m#^M3Joc#4Q^x$sUjp@$siA9@hSp4CR8pa!7WH9EfJU!hxVepVR";
+    role = "agent";
+    extraFlags = toString [
+    "--node-name=goblin-1"
+    #"--disable servicelb"
+    #"--disable traefik"
+  ];
+  };
 
 
   # This value determines the NixOS release from which the default
