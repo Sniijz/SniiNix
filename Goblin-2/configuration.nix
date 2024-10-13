@@ -150,6 +150,7 @@ home-manager.users.sniijz = { pkgs, ... }: {
       tldr # man summary
       wget # cli tool for download
       termshark # cli packet capture
+      nfs-utils # Needed for Longhorn
     ];
   };
   fonts.packages = with pkgs; [
@@ -168,5 +169,15 @@ home-manager.users.sniijz = { pkgs, ... }: {
   ];
   };
 
+###################### iscsi configuration for longhorn ###########
+  
+  systemd.tmpfiles.rules = [
+    "L+ /usr/local/bin - - - - /run/current-system/sw/bin/"
+  ];
+
+  services.openiscsi = {
+    enable = true;
+    name = "${config.networking.hostName}-initiatorhost";  
+  };
 
 }
