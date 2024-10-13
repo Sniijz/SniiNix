@@ -16,6 +16,9 @@
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
+  # Rook/Ceph support
+  boot.kernelModules = [ "rbd" ];
+
 ######################### Global Settings #########################
 
   # This value determines the NixOS release from which the default
