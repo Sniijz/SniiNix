@@ -134,6 +134,12 @@ home-manager.users.sniijz = { pkgs, ... }: {
   nixpkgs.config.allowUnfree = true;
 
   environment = {
+    variables = {
+      K3S_RESOLV_CONF=/etc/resolv.conf;
+    };
+
+
+
     systemPackages = with pkgs; [
       atuin # Shell History
       rsync # Syncer
@@ -155,6 +161,7 @@ home-manager.users.sniijz = { pkgs, ... }: {
       wget # cli tool for download
       termshark # cli packet capture
       nfs-utils # Needed for Longhorn
+      util-linux # contains nsenter for longhorn	
     ];
   };
   fonts.packages = with pkgs; [
@@ -183,5 +190,7 @@ home-manager.users.sniijz = { pkgs, ... }: {
     enable = true;
     name = "${config.networking.hostName}-initiatorhost";
   };
+
+   virtualisation.docker.logDriver = "json-file";
 
 }
