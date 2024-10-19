@@ -170,18 +170,20 @@ home-manager.users.sniijz = { pkgs, ... }: {
   ];
 
 
-##################### SMB Configuration ##########################
+##################### NFS Configuration ##########################
 
-  fileSystems."/mnt/SniiNAS" = {
-    device = "//192.168.1.5/SniiNAS";
-    fsType = "cifs";
-    options = [
-      "uid=nobody"
-      "gid=nogroup"
-      "file_mode=0777"
-      "dir_mode=0777"
-    ];
-  };
+fileSystems."/mnt/SniiNAS" = {
+  device = "192.168.1.5:/volume1/SniiNAS";
+  fsType = "nfs4";
+  options = [
+    "rw"
+    "hard"
+    "intr"
+    "nolock"
+    "user"
+  ];
+};
+
 
 ##################### K3S Configuration ##########################
 
