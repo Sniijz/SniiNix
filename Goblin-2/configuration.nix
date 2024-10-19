@@ -155,6 +155,7 @@ home-manager.users.sniijz = { pkgs, ... }: {
       wget # cli tool for download
       termshark # cli packet capture
       nfs-utils # Needed for Longhorn
+      jellyfin-ffmpeg # Needed for Jellyfin
     ];
   };
   fonts.packages = with pkgs; [

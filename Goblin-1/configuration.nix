@@ -162,6 +162,7 @@ home-manager.users.sniijz = { pkgs, ... }: {
       termshark # cli packet capture
       nfs-utils # Needed for Longhorn
       util-linux # contains nsenter for longhorn	
+      jellyfin-ffmpeg # Needed for Jellyfin
     ];
   };
   fonts.packages = with pkgs; [
@@ -190,7 +191,5 @@ home-manager.users.sniijz = { pkgs, ... }: {
     enable = true;
     name = "${config.networking.hostName}-initiatorhost";
   };
-
-   virtualisation.docker.logDriver = "json-file";
 
 }
