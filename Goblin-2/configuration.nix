@@ -155,12 +155,30 @@ home-manager.users.sniijz = { pkgs, ... }: {
       wget # cli tool for download
       termshark # cli packet capture
       nfs-utils # Needed for Longhorn
-      jellyfin-ffmpeg # Needed for Jellyfin
+      samba # to mount SniiNAS
     ];
   };
   fonts.packages = with pkgs; [
     (nerdfonts.override {fonts = ["DroidSansMono"];})
   ];
+
+
+##################### SMB Configuration ##########################
+
+  fileSystems."/mnt/SniiNAS" = {
+    device = "//192.168.1.5/SniiNAS";
+    fsType = "cifs";
+    options = [
+      "username=guest" 
+      "password=guest"
+      "uid=nobody"
+      "gid=nogroup"
+      "file_mode=0777"
+      "dir_mode=0777"
+    ];
+  };
+
+##################### K3S Configuration ##########################
 
   services.k3s = {
     enable = true;
