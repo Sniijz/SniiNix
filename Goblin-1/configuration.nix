@@ -162,7 +162,6 @@ home-manager.users.sniijz = { pkgs, ... }: {
       termshark # cli packet capture
       nfs-utils # Needed for Longhorn
       util-linux # contains nsenter for longhorn	
-      samba # to mount SniiNAS
     ];
   };
   fonts.packages = with pkgs; [
