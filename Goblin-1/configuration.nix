@@ -212,6 +212,14 @@ fileSystems."/mnt/SniiNAS" = {
 
 ###################### Docker configuration for Wings ###########
 
-  virtualisation.docker.enable = true;
-  users.extraGroups.docker.members = [ "pterodactyl" ];
+
+      virtualisation.docker = {
+        enable = true;
+        enableOnBoot = true;
+        autoPrune = {
+          enable = true;
+          flags = [ "-af" ];
+        };
+        listenOptions = [ "/run/docker-vm/docker.sock" ];
+      };
 }
