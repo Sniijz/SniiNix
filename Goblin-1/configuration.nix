@@ -210,16 +210,4 @@ fileSystems."/mnt/SniiNAS" = {
     name = "${config.networking.hostName}-initiatorhost";
   };
 
-###################### Docker configuration for Wings ###########
-
-
-      virtualisation.docker = {
-        enable = true;
-        enableOnBoot = true;
-        autoPrune = {
-          enable = true;
-          flags = [ "-af" ];
-        };
-        listenOptions = [ "/run/docker-vm/docker.sock" ];
-      };
 }
