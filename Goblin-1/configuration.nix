@@ -165,6 +165,7 @@ home-manager.users.sniijz = { pkgs, ... }: {
       termshark # cli packet capture
       nfs-utils # Needed for Longhorn
       util-linux # contains nsenter for longhorn
+      docker # To manage pterodactyl wings
       docker-compose # To manage pterodactyl wings
     ];
   };
@@ -215,12 +216,6 @@ fileSystems."/mnt/SniiNAS" = {
   };
 
 ###################### docker configuration for Wings ############
-
-
-  services.docker = {
-    enable = true;
-    enableDockerShim = true;
-  };
 
   systemd.services.pterodactyl-wings = {
     description = "Pterodactyl Wings via Docker Compose";
