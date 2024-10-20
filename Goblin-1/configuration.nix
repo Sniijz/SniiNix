@@ -162,7 +162,6 @@ home-manager.users.sniijz = { pkgs, ... }: {
       termshark # cli packet capture
       nfs-utils # Needed for Longhorn
       util-linux # contains nsenter for longhorn
-      docker # Needed for Pterodactyl Wings
     ];
   };
   fonts.packages = with pkgs; [
@@ -211,4 +210,8 @@ fileSystems."/mnt/SniiNAS" = {
     name = "${config.networking.hostName}-initiatorhost";
   };
 
+###################### Docker configuration for Wings ###########
+
+  virtualisation.docker.enable = true;
+  users.extraGroups.docker.members = [ "pterodactyl" ];
 }

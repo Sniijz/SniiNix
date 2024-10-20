@@ -155,7 +155,6 @@ home-manager.users.sniijz = { pkgs, ... }: {
       wget # cli tool for download
       termshark # cli packet capture
       nfs-utils # Needed for Longhorn
-      docker # Needed for Pterodactyl Wings
     ];
   };
   fonts.packages = with pkgs; [
