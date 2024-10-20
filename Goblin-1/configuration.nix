@@ -4,6 +4,9 @@
   lib,
   ...
 }: 
+let
+  docker-compose-file = "./wings/docker-compose.yml";
+in
 {
   imports = [
     # Include the results of the hardware scan.
@@ -161,7 +164,8 @@ home-manager.users.sniijz = { pkgs, ... }: {
       wget # cli tool for download
       termshark # cli packet capture
       nfs-utils # Needed for Longhorn
-      util-linux # contains nsenter for longhorn	
+      util-linux # contains nsenter for longhorn
+      docker-compose # To manage pterodactyl wings
     ];
   };
   fonts.packages = with pkgs; [
@@ -209,5 +213,33 @@ fileSystems."/mnt/SniiNAS" = {
     enable = true;
     name = "${config.networking.hostName}-initiatorhost";
   };
+
+###################### docker configuration for Wings ############
+
+  {
+    services.docker = {
+      enable = true;
+      enableDockerShim = true;
+    };
+
+    systemd.services.pterodactyl-wings = {
+      description = "Pterodactyl Wings via Docker Compose";
+      after = [ "docker.service" ];
+      requires = [ "docker.service" ];
+
+      serviceConfig = {
+        ExecStart = "${pkgs.docker-compose}/bin/docker-compose -f ${docker-compose-file} up -d";
+        ExecStop = "${pkgs.docker-compose}/bin/docker-compose -f ${docker-compose-file} down";
+        WorkingDirectory = "/etc/pterodactyl";
+        Restart = "always";
+      };
+
+      wantedBy = [ "multi-user.target" ]; # This start the service after every boot
+    };
+
+    # Ouvre les ports nécessaires
+    networking.firewall.allowedTCPPorts = [ 8080 2022 443 ];
+  }
+
 
 }
