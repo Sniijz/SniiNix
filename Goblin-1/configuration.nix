@@ -216,30 +216,28 @@ fileSystems."/mnt/SniiNAS" = {
 
 ###################### docker configuration for Wings ############
 
-  {
-    services.docker = {
-      enable = true;
-      enableDockerShim = true;
+
+  services.docker = {
+    enable = true;
+    enableDockerShim = true;
+  };
+
+  systemd.services.pterodactyl-wings = {
+    description = "Pterodactyl Wings via Docker Compose";
+    after = [ "docker.service" ];
+    requires = [ "docker.service" ];
+
+    serviceConfig = {
+      ExecStart = "${pkgs.docker-compose}/bin/docker-compose -f ${docker-compose-file} up -d";
+      ExecStop = "${pkgs.docker-compose}/bin/docker-compose -f ${docker-compose-file} down";
+      WorkingDirectory = "/etc/pterodactyl";
+      Restart = "always";
     };
 
-    systemd.services.pterodactyl-wings = {
-      description = "Pterodactyl Wings via Docker Compose";
-      after = [ "docker.service" ];
-      requires = [ "docker.service" ];
+    wantedBy = [ "multi-user.target" ]; # This start the service after every boot
+  };
 
-      serviceConfig = {
-        ExecStart = "${pkgs.docker-compose}/bin/docker-compose -f ${docker-compose-file} up -d";
-        ExecStop = "${pkgs.docker-compose}/bin/docker-compose -f ${docker-compose-file} down";
-        WorkingDirectory = "/etc/pterodactyl";
-        Restart = "always";
-      };
-
-      wantedBy = [ "multi-user.target" ]; # This start the service after every boot
-    };
-
-    # Ouvre les ports nécessaires
-    networking.firewall.allowedTCPPorts = [ 8080 2022 443 ];
-  }
-
+  # Ouvre les ports nécessaires
+  networking.firewall.allowedTCPPorts = [ 8080 2022 443 ];
 
 }
