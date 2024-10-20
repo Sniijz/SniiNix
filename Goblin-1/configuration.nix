@@ -4,9 +4,6 @@
   lib,
   ...
 }: 
-let
-  docker-compose-file = "./wings/docker-compose.yml";
-in
 {
   imports = [
     # Include the results of the hardware scan.
