@@ -162,6 +162,8 @@ home-manager.users.sniijz = { pkgs, ... }: {
       termshark # cli packet capture
       nfs-utils # Needed for Longhorn
       util-linux # contains nsenter for longhorn
+      jellyfin-ffmpeg # For Jellyfin transcoding
+      jellyfin-mpv-shim # For Jellyfin transcoding
     ];
   };
   fonts.packages = with pkgs; [
