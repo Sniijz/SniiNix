@@ -92,7 +92,7 @@
   networking.firewall.enable = false;
   # List services that you want to enable:
 
-######################### Accounts #########################
+######################### Accounts ###########################
 
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
