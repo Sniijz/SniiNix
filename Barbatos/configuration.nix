@@ -112,7 +112,7 @@ in {
     alsa.support32Bit = true;
     pulse.enable = true;
     # If you want to use JACK applications, uncomment this
-    #jack.enable = true;
+    jack.enable = true;
 
     # use the example session manager (no others are packaged yet so this is enabled by default,
     # no need to redefine it in your config for now)
@@ -207,8 +207,10 @@ in {
       atuin # Shell History
       ark # Archiving tool
       btop # Top tool written in C++
+      carla # Audio Plugin host
       cmake # Compilation
       cmatrix # matrix effect package
+      corectrl # Control your computer hardware via app profiles, perfect for FAN control
       discord # Audio and Chat platform
       dosbox # PC DOS-Emulator
       eza # modern replacement of ls
@@ -222,6 +224,7 @@ in {
       godot_4 # Video Game Editor
       gotop # top tool written in go
       guitarix # Virtual guitar amplifier
+      gxplugins-lv2 # lv2 plugins from guitarix
       htop # Top tool with colors
       kdePackages.dolphin-plugins # additionals plugins for dolphin file explorer
       kcalc # kde calc
@@ -240,6 +243,9 @@ in {
       obsidian # markdown documentation tool
       pinta # image editor
       (python312.withPackages pythonSubPackages) # Python packages
+      qjackctl # QT app to control Jack Sound Server
+      qpwgraph # Qt graph manager for PipeWire, similar to QjackCtl
+      radeontop # Top like for AMD GPU
       reaper # DAW Music Editor
       remmina # XRDP & VNC Clint
       rsync # Syncer
@@ -251,6 +257,7 @@ in {
       surge-XT # VST3 Synth
       tldr # man summary
       thunderbird # E-mail Client
+      tonelib-gfx # Amp and effects modeling
       unrar-free # rar extractor
       warpinator # Share files across LAN
       wget # cli tool for download

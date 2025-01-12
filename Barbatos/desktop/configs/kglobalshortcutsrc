@@ -206,6 +206,26 @@ playpausemedia=Media Play,Media Play,Démarrer / Mettre en pause la lecture du 
 previousmedia=Media Previous,Media Previous,Lecture du média précédent
 stopmedia=Media Stop,Media Stop,Arrêtez la lecture du média
 
+
+[services][firefox.desktop]
+_launch=Meta+Z
+
+[services][org.kde.konsole.desktop]
+_launch=Ctrl+Alt+T\tMeta+A
+
+[services][org.kde.spectacle.desktop]
+RecordRegion=Meta+Shift+R
+RecordWindow=none
+RectangularRegionScreenShot=Print\tMeta+Shift+S
+_launch=none
+
+[services][systemsettings.desktop]
+_launch=Meta+R\tTools
+
+[org.kde.plasma-systemmonitor.desktop][Global Shortcuts]
+_launch=Ctrl+Shift+Esc; Meta+Esc
+
+
 [org_kde_powerdevil]
 Decrease Keyboard Brightness=Keyboard Brightness Down,Keyboard Brightness Down,Diminuer la luminosité du clavier
 Decrease Screen Brightness=Monitor Brightness Down,Monitor Brightness Down,Diminuer la luminosité de l'écran
@@ -253,19 +273,3 @@ show-on-mouse-pos=Meta+V,Meta+V,Afficher les éléments du presse-papier à la p
 stop current activity=Meta+S,Meta+S,Arrêter l'activité actuelle
 switch to next activity=none,,Basculer vers l'activité suivante
 switch to previous activity=none,,Basculer vers l'activité précédente
-toggle do not disturb=none,,Basculer « Ne pas déranger »
-
-[services][firefox.desktop]
-_launch=Meta+Z
-
-[services][org.kde.konsole.desktop]
-_launch=Ctrl+Alt+T\tMeta+A
-
-[services][org.kde.spectacle.desktop]
-RecordRegion=Meta+Shift+R
-RecordWindow=none
-RectangularRegionScreenShot=Print\tMeta+Shift+S
-_launch=none
-
-[services][systemsettings.desktop]
-_launch=Meta+R\tTools
