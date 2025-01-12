@@ -218,7 +218,7 @@ in {
       fishPlugins.fzf-fish # fzf plugin for fish
       fishPlugins.z # zoxide plugin for fish
       flatpak # Tool to manager container sandboxed apps
-      fzf # fuzzy finder
+      fzf # fuzzy finderz
       godot_4 # Video Game Editor
       gotop # top tool written in go
       guitarix # Virtual guitar amplifier
