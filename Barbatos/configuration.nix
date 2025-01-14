@@ -191,6 +191,9 @@ in {
     localNetworkGameTransfers.openFirewall = true; # Open ports in the firewall for Steam Local Network Game Transfers
   };
 
+  # Install Flatpak
+  services.flatpak.enable = true;
+
   # List packages installed in system profile. To search, run:
   # $ nix search wget
 
@@ -201,17 +204,16 @@ in {
 
     systemPackages = with pkgs; [
       amdgpu_top # Tool to display AMD GPU Usage
+      alsa-scarlett-gui # Gui to configure Focusrite Scarlett audio interface
       ansible # Automation tool
       arandr # graphical tool for monitor/screen mgmt
       aseprite # Pixel art editor
-      atuin # Shell History
       ark # Archiving tool
       btop # Top tool written in C++
-      carla # Audio Plugin host
       cmake # Compilation
       cmatrix # matrix effect package
       corectrl # Control your computer hardware via app profiles, perfect for FAN control
-      discord # Audio and Chat platform
+      discord # Audio and Chat communication tool
       dosbox # PC DOS-Emulator
       eza # modern replacement of ls
       fd # Alternative to find
@@ -250,9 +252,7 @@ in {
       remmina # XRDP & VNC Clint
       rsync # Syncer
       smartmontools # Tool for monitoring health of packages
-      sof-firmware # Sound Open Firmware
       spectacle # screenshot tool
-      spotify # Music Service
       starship # theme for terminal
       surge-XT # VST3 Synth
       tldr # man summary
