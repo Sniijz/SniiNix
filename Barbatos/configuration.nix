@@ -236,7 +236,6 @@ in {
       kubectl # Kubenertes config tool
       lutris # Open Source Gaming Platform
       man # Linux Documentation
-      moonlight-qt # Streaming PC Tool
       neofetch # System Info Script
       neovim # text editor
       ncdu # Disk Usage Analyzer with ncurses interface

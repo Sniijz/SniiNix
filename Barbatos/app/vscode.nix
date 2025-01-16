@@ -53,11 +53,31 @@
           "workbench.colorTheme" = "Visual Studio Dark";
           "workbench.colorCustomizations" = {
             "statusBar.background" = "#1da063ec";
-            "list.activeSelectionBackground" = "#1da063ec";
-            "editor.selectionBackground" = "#1da063ec";
-            "sideBar.dropBackground" = "#1da063ec";
             "statusBar.noFolderBackground" = "#1da063ec";
             "statusBar.debuggingBackground" = "#1da063ec";
+            "list.activeSelectionBackground" = "#1da063ec";
+            "list.focusAndSelectionOutline" = "#1da063ec";
+            "sideBar.dropBackground" = "#1da063ec";
+            "button.background" = "#1da063ec";
+            "scmGraph.historyItemRefColor" = "#1da063ec";
+            "editor.selectionBackground" = "#0f3f29";
+            "menubar.selectionBackground" = "#186943";
+            "menu.selectionBackground" = "#186943";
+            "checkbox.background" = "#186943";
+            "selection.background" = "#186943";
+            "minimap.selectionHighlight" = "#186943";
+            "toolbar.hoverBackground" = "#186943";
+            "editorActionList.background" = "#186943";
+            "settings.dropdownBackground" = "#186943";
+            "dropdown.foreground" = "#186943";
+            "activityBarBadge.background" = "#186943";
+            "list.hoverBackground" = "#186943";
+            "inputOption.activeBorder" = "#186943";
+            "inputOption.activeBackground" = "#186943";
+            "input.activeBorder" = "#186943";
+            "panelInput.border" = "#186943";
+            "focusBorder" = "#186943";
+            "extensionButton.hoverBackground" = "#186943";
           };
           "python.terminal.activateEnvInCurrentTerminal" = true;
           "python.terminal.executeInFileDir" = true;
@@ -70,6 +90,7 @@
           "editor.defaultFormatter" = "esbenp.prettier-vscode";
           "files.autoSave" = "afterDelay";
           "editor.formatOnSave" = true;
+          "terminal.integrated.copyOnSelection" = true;
           "[xml]" = {
             "editor.defaultFormatter" = "DotJoshJohnson.xml";
           };
@@ -128,6 +149,21 @@
           "extensions.autoUpdate" = false;
           "search.followSymlinks" = false;
         };
+        keybindings = [
+          {
+            command = "workbench.action.terminal.new";
+            key = "ctrl+shift+t";
+            when = "terminalFocus && terminalProcessSupported || terminalFocus && terminalWebExtensionContributedProfile";
+          }
+          {
+            command = "workbench.action.togglePanel";
+            key = "ctrl+t";
+          }
+          {
+            command = "editor.action.commentLine";
+            key = "ctrl+[Backquote]";
+          }
+        ];
       };
     };
   };
