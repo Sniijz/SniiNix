@@ -229,6 +229,7 @@ in {
       guitarix # Virtual guitar amplifier
       gxplugins-lv2 # lv2 plugins from guitarix
       htop # Top tool with colors
+      kdePackages.dolphin # File manager
       kdePackages.dolphin-plugins # additionals plugins for dolphin file explorer
       kcalc # kde calc
       k9s # Kubernetes mgmt

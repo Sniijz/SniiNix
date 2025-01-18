@@ -70,10 +70,10 @@ in {
   systemd.user.services.steam-run-url-service = {
     enable = true;
     description = "Listen and starts steam games by id";
-    wantedBy = ["graphical.target"];
-    partOf = ["graphical.target"];
-    wants = ["graphical.target"];
-    after = ["graphical.target"];
+    wantedBy = ["default.target"];
+    partOf = ["default.target"];
+    wants = ["default.target"];
+    after = ["default.target"];
     serviceConfig.Restart = "on-failure";
     script = toString (pkgs.writers.writePython3 "steam-run-url-service" {} ''
       import os
