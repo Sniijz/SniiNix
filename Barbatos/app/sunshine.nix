@@ -1,25 +1,27 @@
 {
-  lib,
   config,
+  lib,
   pkgs,
   ...
 }: let
-  # Creating Smart Command to Launch on Big Picture
-  # https://discourse.nixos.org/t/sunshine-self-hosted-game-stream/25608/24
+  # Helper utility for launching Steam games from Sunshine. This works around
+  # issue where Sunshine's security wrapper prevents Steam from launching.
+  # Examples:
+  #   steam-run-url steam://rungameid/1086940  # Start Baldur's Gate 3
+  #   steam-run-url steam://open/bigpicture    # Start Steam in Big Picture mode
   steam-run-url = pkgs.writeShellApplication {
     name = "steam-run-url";
     text = ''
       echo "$1" > "/run/user/$(id --user)/steam-run-url.fifo"
     '';
     runtimeInputs = [
-      pkgs.coreutils # For id command
+      pkgs.coreutils # For `id` command
     ];
   };
 in {
   # Sunshine Service Configuration
   services.sunshine = {
     enable = true;
-    autoStart = true;
     capSysAdmin = true;
     openFirewall = true;
     settings = {
@@ -32,7 +34,7 @@ in {
         {
           name = "Launch BigSteam";
           detached = [
-            "steam steam://open/gamepadui"
+            "steam-run-url steam://open/gamepadui"
           ];
           image-path = "steam.png";
         }
@@ -40,23 +42,58 @@ in {
     };
   };
 
-  # Overriding the systemd service definition
-  systemd.services.sunshine = lib.mkForce {
-    description = "Sunshine Game Streaming Service";
-    after = ["network.target"];
-    wantedBy = ["multi-user.target"];
+  systemd.user.services.sunshine = {
+    description = "Self-hosted game stream host for Moonlight";
+    path = [steam-run-url]; # Allow running `steam-run-url` from Sunshine without knowing the script's
+    wantedBy = ["graphical.target"];
+    partOf = ["graphical.target"];
+    wants = ["graphical.target"];
+    after = ["graphical.target"];
 
     serviceConfig = {
-      ExecStart = "${pkgs.sunshine}/bin/sunshine"; # Utilise le binaire Sunshine
-      ExecStop = "${pkgs.procps}/bin/pkill -SIGTERM -f sunshine"; # Assure un arrêt propre
+      ExecStop = "${pkgs.procps}/bin/pkill -SIGTERM -f sunshine";
+      ExecStopPost = "${pkgs.procps}/bin/pkill -SIGKILL -f sunshine";
+      KillSignal = "SIGTERM";
       Restart = "on-failure";
-      TimeoutStopSec = "5s";
+      TimeoutStopSec = "10s";
       KillMode = "mixed";
-      AmbientCapabilities = "CAP_SYS_ADMIN"; # Autorise les capacités supplémentaires
-      Environment = "PATH=${lib.makeBinPath [steam-run-url]}:$PATH"; # Ajoute steam-run-url au PATH
+      type = "simple";
     };
   };
 
+  # Allow running `steam-run-url` from shell for testing purposes
   environment.systemPackages = [steam-run-url];
-  systemd.user.services.sunshine.path = [steam-run-url];
+
+  # Service part for `steam-run-url`. This listens for Steam urls from a named
+  # pipe (typically at path `/run/user/1000/steam-run-url.fifo`) and then
+  # launches Steam, passing the url to it.
+  systemd.user.services.steam-run-url-service = {
+    enable = true;
+    description = "Listen and starts steam games by id";
+    wantedBy = ["graphical.target"];
+    partOf = ["graphical.target"];
+    wants = ["graphical.target"];
+    after = ["graphical.target"];
+    serviceConfig.Restart = "on-failure";
+    script = toString (pkgs.writers.writePython3 "steam-run-url-service" {} ''
+      import os
+      from pathlib import Path
+      import subprocess
+
+      pipe_path = Path(f'/run/user/{os.getuid()}/steam-run-url.fifo')
+      try:
+          pipe_path.parent.mkdir(parents=True, exist_ok=True)
+          pipe_path.unlink(missing_ok=True)
+          os.mkfifo(pipe_path, 0o600)
+          while True:
+              with pipe_path.open(encoding='utf-8') as pipe:
+                  subprocess.Popen(['steam', pipe.read().strip()])
+      finally:
+          pipe_path.unlink(missing_ok=True)
+    '');
+    path = [
+      pkgs.gamemode
+      pkgs.steam
+    ];
+  };
 }

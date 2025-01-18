@@ -163,6 +163,7 @@ in {
       ".local/share/konsole/Breeze.colorscheme".source = ./terminal/configs/Breeze.colorscheme;
       ".config/konsolerc".source = ./terminal/configs/konsolerc;
       ".config/kglobalshortcutsrc".source = ./desktop/configs/kglobalshortcutsrc;
+      ".config/autostart/steam.desktop".source = ./desktop/configs/autostart/steam.desktop;
     };
 
     # The state version is required and should stay at the version you
@@ -258,6 +259,8 @@ in {
       thunderbird # E-mail Client
       tonelib-gfx # Amp and effects modeling
       unrar-free # rar extractor
+      vim # text editor
+      vscode # Visual Code Editor
       warpinator # Share files across LAN
       wget # cli tool for download
       wireshark # packet capture for network tshoot
@@ -265,8 +268,6 @@ in {
       yabridge # Use Windows VST2/3 On Linux
       yabridgectl # Utility to setup and update yabridge
       zram-generator # systemd unit generator for zram devices
-      vim # text editor
-      vscode # Visual Code Editor
     ];
   };
   fonts.packages = with pkgs; [

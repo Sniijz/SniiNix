@@ -56,6 +56,7 @@
             "statusBar.noFolderBackground" = "#1da063ec";
             "statusBar.debuggingBackground" = "#1da063ec";
             "list.activeSelectionBackground" = "#1da063ec";
+            "titleBar.activeBackground" = "#1da063ec";
             "list.focusAndSelectionOutline" = "#1da063ec";
             "sideBar.dropBackground" = "#1da063ec";
             "button.background" = "#1da063ec";
@@ -91,6 +92,7 @@
           "files.autoSave" = "afterDelay";
           "editor.formatOnSave" = true;
           "terminal.integrated.copyOnSelection" = true;
+          "terminal.integrated.cwd" = "\${fileDirname}";
           "[xml]" = {
             "editor.defaultFormatter" = "DotJoshJohnson.xml";
           };
