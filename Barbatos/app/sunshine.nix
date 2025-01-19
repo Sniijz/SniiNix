@@ -45,10 +45,10 @@ in {
   systemd.user.services.sunshine = {
     description = "Self-hosted game stream host for Moonlight";
     path = [steam-run-url]; # Allow running `steam-run-url` from Sunshine without knowing the script's
-    wantedBy = ["graphical.target"];
-    partOf = ["graphical.target"];
-    wants = ["graphical.target"];
-    after = ["graphical.target"];
+    wantedBy = ["default.target"];
+    partOf = ["default.target"];
+    wants = ["default.target"];
+    after = ["default.target"];
 
     serviceConfig = {
       ExecStop = "${pkgs.procps}/bin/pkill -SIGTERM -f sunshine";

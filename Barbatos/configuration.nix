@@ -103,6 +103,16 @@ in {
   # Enable CUPS to print documents.
   services.printing.enable = true;
 
+  # Enable touchpad support (enabled default in most desktopManager).
+  # services.xserver.libinput.enable = true;
+
+  # Clean /tmp at boot
+  boot.tmp.cleanOnBoot = true;
+  # Home manager fix
+  home-manager.backupFileExtension = "rebuild";
+
+  ######################### Audio #########################
+
   # Enable sound with pipewire.
   hardware.pulseaudio.enable = false;
   security.rtkit.enable = true;
@@ -113,19 +123,52 @@ in {
     pulse.enable = true;
     # If you want to use JACK applications, uncomment this
     jack.enable = true;
-
+    wireplumber.enable = true;
+    extraConfig.pipewire."92-low-latency" = {
+      "context.properties" = {
+        "default.clock.rate" = 48000;
+        "default.clock.quantum" = 512;
+        "default.clock.min-quantum" = 512;
+        "default.clock.max-quantum" = 512;
+      };
+    };
     # use the example session manager (no others are packaged yet so this is enabled by default,
     # no need to redefine it in your config for now)
     #media-session.enable = true;
   };
 
-  # Enable touchpad support (enabled default in most desktopManager).
-  # services.xserver.libinput.enable = true;
+  services.udev.extraRules = ''
+    KERNEL=="rtc0", GROUP="audio"
+    KERNEL=="hpet", GROUP="audio"
+  '';
 
-  # Clean /tmp at boot
-  boot.tmp.cleanOnBoot = true;
-  # Home manager fix
-  home-manager.backupFileExtension = "rebuild";
+  # Set Audtio Realtime privilege for Yabridgectl and jack for VSTPlugins MAO
+  security.pam.loginLimits = [
+    {
+      domain = "@audio";
+      item = "memlock";
+      type = "-";
+      value = "unlimited";
+    }
+    {
+      domain = "@audio";
+      item = "rtprio";
+      type = "-";
+      value = "99";
+    }
+    {
+      domain = "@audio";
+      item = "nofile";
+      type = "soft";
+      value = "99999";
+    }
+    {
+      domain = "@audio";
+      item = "nofile";
+      type = "hard";
+      value = "99999";
+    }
+  ];
 
   ######################### Networking #########################
 
@@ -145,7 +188,7 @@ in {
   users.users.sniijz = {
     isNormalUser = true;
     description = "Sniijz";
-    extraGroups = ["networkmanager" "wheel"];
+    extraGroups = ["networkmanager" "wheel" "audio"];
     packages = with pkgs; [
     ];
   };
@@ -206,10 +249,11 @@ in {
     systemPackages = with pkgs; [
       amdgpu_top # Tool to display AMD GPU Usage
       alsa-scarlett-gui # Gui to configure Focusrite Scarlett audio interface
+      alsa-utils # Advanced Linux Sound Architecture utils
       ansible # Automation tool
       arandr # graphical tool for monitor/screen mgmt
       aseprite # Pixel art editor
-      ark # Archiving tool
+      bottles # Easy to use wineprefix manager
       btop # Top tool written in C++
       cmake # Compilation
       cmatrix # matrix effect package
@@ -229,6 +273,7 @@ in {
       guitarix # Virtual guitar amplifier
       gxplugins-lv2 # lv2 plugins from guitarix
       htop # Top tool with colors
+      kdePackages.ark # Archive Manager Tool
       kdePackages.dolphin # File manager
       kdePackages.dolphin-plugins # additionals plugins for dolphin file explorer
       kcalc # kde calc
@@ -265,7 +310,8 @@ in {
       warpinator # Share files across LAN
       wget # cli tool for download
       wireshark # packet capture for network tshoot
-      wine # Open Source implementation of the Windows API
+      wineWowPackages.waylandFull # Open Source implementation of the Windows API
+      winetricks # Tool to work around problems in Wine
       yabridge # Use Windows VST2/3 On Linux
       yabridgectl # Utility to setup and update yabridge
       zram-generator # systemd unit generator for zram devices
