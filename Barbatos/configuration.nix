@@ -111,6 +111,9 @@ in {
   # Home manager fix
   home-manager.backupFileExtension = "rebuild";
 
+  # Allow experimental features and commands like nix hash
+  nix.settings.experimental-features = "nix-command";
+
   ######################### Audio #########################
 
   # Enable sound with pipewire.
@@ -206,7 +209,6 @@ in {
       ".local/share/konsole/Breeze.colorscheme".source = ./terminal/configs/Breeze.colorscheme;
       ".config/konsolerc".source = ./terminal/configs/konsolerc;
       ".config/kglobalshortcutsrc".source = ./desktop/configs/kglobalshortcutsrc;
-      ".config/autostart/steam.desktop".source = ./desktop/configs/autostart/steam.desktop;
     };
 
     # The state version is required and should stay at the version you
@@ -233,6 +235,20 @@ in {
     enable = true;
     remotePlay.openFirewall = true; # Open ports in the firewall for Steam Remote Play
     localNetworkGameTransfers.openFirewall = true; # Open ports in the firewall for Steam Local Network Game Transfers
+  };
+
+  systemd.user.services.steam_background = {
+    enable = true;
+    description = "Open Steam in the background at boot";
+    wantedBy = ["default.target"]; # Run after the user session is fully initialized
+    after = ["graphical-session.target"]; # Ensure graphical session is ready
+    serviceConfig = {
+      ExecStart = "${pkgs.steam}/bin/steam -nochatui -nofriendsui -silent %U";
+      ExecStartPre = "${pkgs.coreutils}/bin/sleep 10"; # Delay by 10 seconds to ensure graphical session is ready
+      Restart = "on-failure";
+      RestartSec = "5s";
+      Environment = "DISPLAY=:0";
+    };
   };
 
   # Install Flatpak
@@ -281,12 +297,15 @@ in {
       krita # Image drawing editor
       kronometer # Stopwatch application
       kubectl # Kubenertes config tool
+      lsp-plugins # Collection of open-source audio mastering plugins
       lutris # Open Source Gaming Platform
       man # Linux Documentation
+      ncdu # Disk Usage Analyzer with ncurses interface
       neofetch # System Info Script
       neovim # text editor
-      ncdu # Disk Usage Analyzer with ncurses interface
       nettools # Network Tools
+      nix-index # Files database for nixpkgs : gives nix-locate /bin/sleep command
+      onedriver # Onedrive native linux filesystem for Microsoft Onedrive
       onlyoffice-desktopeditors # Document editor
       obsidian # markdown documentation tool
       pinta # image editor
@@ -304,6 +323,8 @@ in {
       tldr # man summary
       thunderbird # E-mail Client
       tonelib-gfx # Amp and effects modeling
+      tonelib-jam # Rocksmith like tab player
+      tonelib-metal # Metal Amp and effects modeling
       unrar-free # rar extractor
       vim # text editor
       vscode # Visual Code Editor
@@ -319,5 +340,16 @@ in {
   };
   fonts.packages = with pkgs; [
     (nerdfonts.override {fonts = ["DroidSansMono"];})
+  ];
+  # Override Package download for TonelibMetal, fix will be applied in NixOS 25.05
+  nixpkgs.overlays = [
+    (final: prev: {
+      tonelib-metal = prev.tonelib-metal.overrideAttrs (oldAttrs: {
+        src = builtins.fetchurl {
+          url = "https://tonelib.vip/download/24-10-24/ToneLib-Metal-amd64.deb";
+          sha256 = "sha256-H19ZUOFI7prQJPo9NWWAHSOwpZ4RIbpRJHfQVjDp/VA=";
+        };
+      });
+    })
   ];
 }

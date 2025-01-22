@@ -45,12 +45,17 @@ in {
   systemd.user.services.sunshine = {
     description = "Self-hosted game stream host for Moonlight";
     path = [steam-run-url]; # Allow running `steam-run-url` from Sunshine without knowing the script's
-    wantedBy = ["default.target"];
-    partOf = ["default.target"];
-    wants = ["default.target"];
-    after = ["default.target"];
+    # wantedBy = ["default.target"];
+    # partOf = ["default.target"];
+    # wants = ["default.target"];
+    # after = ["default.target"];
+    after = ["graphical-session.target"]; # Ensure graphical session is ready
+    bindsTo = ["graphical-session.target"]; # Stop service when graphical session ends
+    wantedBy = ["default.target"]; # Run after the user session is fully initialized
+    partOf = ["graphical-session.target"];
 
     serviceConfig = {
+      ExecStartPre = "${pkgs.coreutils}/bin/sleep 15"; # Delay by 10 seconds to ensure graphical session is ready
       ExecStop = "${pkgs.procps}/bin/pkill -SIGTERM -f sunshine";
       ExecStopPost = "${pkgs.procps}/bin/pkill -SIGKILL -f sunshine";
       KillSignal = "SIGTERM";
@@ -58,6 +63,8 @@ in {
       TimeoutStopSec = "10s";
       KillMode = "mixed";
       type = "simple";
+      stopWhenUnneeded = true;
+      RemainAfterExit = "no";
     };
   };
 
