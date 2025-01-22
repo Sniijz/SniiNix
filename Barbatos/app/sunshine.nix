@@ -55,7 +55,7 @@ in {
     partOf = ["graphical-session.target"];
 
     serviceConfig = {
-      ExecStartPre = "${pkgs.coreutils}/bin/sleep 15"; # Delay by 10 seconds to ensure graphical session is ready
+      ExecStartPre = "${pkgs.coreutils}/bin/sleep 7"; # Delay by x seconds to ensure graphical session is ready
       ExecStop = "${pkgs.procps}/bin/pkill -SIGTERM -f sunshine";
       ExecStopPost = "${pkgs.procps}/bin/pkill -SIGKILL -f sunshine";
       KillSignal = "SIGTERM";

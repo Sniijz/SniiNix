@@ -244,7 +244,7 @@ in {
     after = ["graphical-session.target"]; # Ensure graphical session is ready
     serviceConfig = {
       ExecStart = "${pkgs.steam}/bin/steam -nochatui -nofriendsui -silent %U";
-      ExecStartPre = "${pkgs.coreutils}/bin/sleep 10"; # Delay by 10 seconds to ensure graphical session is ready
+      ExecStartPre = "${pkgs.coreutils}/bin/sleep 5"; # Delay by x seconds to ensure graphical session is ready
       Restart = "on-failure";
       RestartSec = "5s";
       Environment = "DISPLAY=:0";
@@ -271,6 +271,7 @@ in {
       aseprite # Pixel art editor
       bottles # Easy to use wineprefix manager
       btop # Top tool written in C++
+      cardinal # Music Plugin wrapper around VCV Rack
       cmake # Compilation
       cmatrix # matrix effect package
       corectrl # Control your computer hardware via app profiles, perfect for FAN control
@@ -288,6 +289,7 @@ in {
       gotop # top tool written in go
       guitarix # Virtual guitar amplifier
       gxplugins-lv2 # lv2 plugins from guitarix
+      helm # Music polyphonic synthesizer
       htop # Top tool with colors
       kdePackages.ark # Archive Manager Tool
       kdePackages.dolphin # File manager
@@ -305,6 +307,7 @@ in {
       neovim # text editor
       nettools # Network Tools
       nix-index # Files database for nixpkgs : gives nix-locate /bin/sleep command
+      odin2 # Music Odin2 synthesizer plugin
       onedriver # Onedrive native linux filesystem for Microsoft Onedrive
       onlyoffice-desktopeditors # Document editor
       obsidian # markdown documentation tool
@@ -327,12 +330,15 @@ in {
       tonelib-metal # Metal Amp and effects modeling
       unrar-free # rar extractor
       vim # text editor
+      vital # Music Spectral warping wavetable synth
       vscode # Visual Code Editor
+      vcv-rack # Music Open-source virtual modular synthesizer
       warpinator # Share files across LAN
       wget # cli tool for download
       wireshark # packet capture for network tshoot
       wineWowPackages.waylandFull # Open Source implementation of the Windows API
       winetricks # Tool to work around problems in Wine
+      wolf-shaper # Music Waveshaper plugin with spline-based graph editor
       yabridge # Use Windows VST2/3 On Linux
       yabridgectl # Utility to setup and update yabridge
       zram-generator # systemd unit generator for zram devices
