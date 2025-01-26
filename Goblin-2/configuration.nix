@@ -3,8 +3,7 @@
   pkgs,
   lib,
   ...
-}: 
-{
+}: {
   imports = [
     # Include the results of the hardware scan.
     ./hardware-configuration.nix
@@ -17,9 +16,9 @@
   boot.loader.efi.canTouchEfiVariables = true;
 
   # Rook/Ceph support
-  boot.kernelModules = [ "rbd" ];
+  boot.kernelModules = ["rbd"];
 
-######################### Global Settings #########################
+  ######################### Global Settings #########################
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
@@ -56,20 +55,21 @@
   # Configure console keymap
   console.keyMap = "fr";
 
-
-######################### Networking #########################
+  ######################### Networking #########################
 
   # Define your hostname.
-  networking.hostName = "Goblin-2"; 
+  networking.hostName = "Goblin-2";
 
   # Enable networking
   networking = {
     networkmanager.enable = true;
     nameservers = ["192.168.1.2" "192.168.1.3"];
-    interfaces.eno1.ipv4.addresses = [{
-      address = "192.168.1.10";
-      prefixLength = 24;
-    }];
+    interfaces.eno1.ipv4.addresses = [
+      {
+        address = "192.168.1.10";
+        prefixLength = 24;
+      }
+    ];
     defaultGateway = {
       address = "192.168.1.1";
       interface = "eno1";
@@ -92,13 +92,12 @@
   networking.firewall.enable = false;
   # List services that you want to enable:
 
-######################### Accounts #########################
-
+  ######################### Accounts #########################
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.sniijz = {
     isNormalUser = true;
-    extraGroups = [ "networkmanager" "wheel" ];
+    extraGroups = ["networkmanager" "wheel"];
     packages = with pkgs; [];
     openssh.authorizedKeys.keys = [
       "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQDMNh6mxUA3+3VgfK5zy6IFmHajtKOVIDaSQ5YQUx05NoGtvM/bOOYM/alhoBvZB7C+DUDDv31tm1ON6TALfEFdeCaj7N08mLBvzwe45dTc1dH6sJI1kA9ny/L48fMSCF4qr9FgLDC5uj06RT0lKLP4HDQttLG1VV+jHx7mkBS12WVCTYiB4ZKde4BkrURVx36LqHrxvH8DZsJUr0yd1D8WhqfWvNP1Mn2nGXVkoCp1OcQaxncVFN3U1XBF9wqk+mnHjfwDjyVPoRG6PjuxXxlm4JcvjkTWdEeqlXhAYWPgHQ9KkFTk6QVQNZDV8nkZBkvYY91UcKcerGqR2jZ3PxYmhHWX0YkTz3QrPVWvhJrpQlkybNWqUnmRYRIhcgCsv4k1et6p7tld2qUDrT6O9KpVwWndKJugoHbM2geXQ7c2fsUMcCYF3i6zXobm18oaP4Fzqs1DVfLk/mB3j+9fNscMVJSYG2LaKB6bX4T4+4E6RUGNCQzXSSyjKKLgZZplUWUVsf68vGcWviXSRYmZ/4nHH9BZ/I+3hYb9H0j5QXSKFecX0EWWW7iLZ9zTj1PH+GVS6AnLC6JZzSdty8yHN9ectmP5+TLKpnZaGGKJFQDGORmQG77/156R2VKTs+kkY8xnR67IClUt1zkVLOKX8E6u3sVe4+qV9mW46tF3QRfNJw== sniijz@SniiZone"
@@ -107,30 +106,29 @@
       "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQD0x7yxXnij6HaeMqXcrzNEP5XO87VU9T3VLTya60gFR7pCEStLtItwc7Q5/Pxh+Veg038nIXZUsKgwf7xAuN51Hj2yoQtaFoUMDtP9cALuPj0O9XOG51N9NgnpVQymwc8kpnC23uxuThLGLbffvJw1AUFtbpMmCDfRNCC8NlqV0lq25UT0mvDXy2TGknBw4u8X8X27eeZXaSoQ83QssEQ7nyuGz2bDFDgmS1fatYswqXEKI6AkVSVr6f6w5tpRuhCoQXJ2JQ1m5oc35eFKmZZ0weddH+3CyVQEmKPwcxQKu2icdV5jbV5qalvdBJY6cEsYB5GBzpYJWUTMnPLt1dbVqD0M4M9i89Vm2S4J/O/YK/vn5YxW/k3rVBwVVkgVUDVmZP6Pc9LIVDDd8POD+mFtpNFCAqcEDZhBEECMNyswstemplXSGnNYbJVoEFQtep6RvYflqc+JVr6aVoHpgZAJyuZvuxoF6I3oE1Pa4ISO9hlzCVVjGpaVLYUD7eJk1ZY0LF4/R1kCxDYHN3X5yaEMzJYxfWIR54U00wESWYVtEXZNSOG9OI8lsO95BOXz/BV/RtRNuD5Kk+ui0vwUJ63ba3CLqdbLLWGBd0PVRy+nFS3K9ojZ4Y7YRuL8TEM0pysS8i0Vb1ZaZ40Kp3y5fQbxV+rgbj4CEqt1N3usnHOPew== sniijz@sniiplex"
       "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIJy3YYea/Yfsi3TReN/QSd6yQBsMj/sXrwIZ9qixEczJ robin.cassagne@wanadoo.fr"
       "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIGvrXVUq0NjXODiYASDOjf7MAvjtE56d20aBzc1MuDCU internet@internet"
+      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIK5ebi3Wd0hvlM5OQ3AGnmQqmeus3b5nGWs1NF5peb+h robin.jean.cassagne@gmail.com"
     ];
   };
 
+  ######################### Home-Manager #########################
+  # To install home manager version 24.05 channel :
+  # sudo nix-channel --add https://github.com/nix-community/home-manager/archive/release-24.05.tar.gz home-manager
+  # sudo nix-channel --update
 
-######################### Home-Manager #########################
-# To install home manager version 24.05 channel :
-# sudo nix-channel --add https://github.com/nix-community/home-manager/archive/release-24.05.tar.gz home-manager
-# sudo nix-channel --update
+  # users.users.sniijz.isNormalUser = true;
+  home-manager.users.sniijz = {pkgs, ...}: {
+    home.file = {
+      ".config/starship.toml".source = ./terminal/starship.toml;
+    };
 
-# users.users.sniijz.isNormalUser = true;
-home-manager.users.sniijz = { pkgs, ... }: {
-  home.file = {
-  ".config/starship.toml".source = ./terminal/starship.toml;
+    # The state version is required and should stay at the version you
+    # originally installed.
+    home.stateVersion = "24.05";
   };
 
-  # The state version is required and should stay at the version you
-  # originally installed.
-  home.stateVersion = "24.05";
-};
+  ######################### Packages #########################
 
-
-######################### Packages #########################
-
-# Allow unfree packages
+  # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
 
   environment = {
@@ -163,43 +161,41 @@ home-manager.users.sniijz = { pkgs, ... }: {
     (nerdfonts.override {fonts = ["DroidSansMono"];})
   ];
 
+  ##################### NFS Configuration ##########################
 
-##################### NFS Configuration ##########################
-
-fileSystems."/mnt/SniiNAS" = {
-  device = "192.168.1.5:/volume1/SniiNAS";
-  fsType = "nfs4";
-  options = [
-    "rw"
-    "hard"
-    "intr"
-    "nolock"
-    "user"
-  ];
-};
-##################### K3S Configuration ##########################
+  fileSystems."/mnt/SniiNAS" = {
+    device = "192.168.1.5:/volume1/SniiNAS";
+    fsType = "nfs4";
+    options = [
+      "rw"
+      "hard"
+      "intr"
+      "nolock"
+      "user"
+    ];
+  };
+  ##################### K3S Configuration ##########################
 
   services.k3s = {
     enable = true;
-    serverAddr = "https://192.168.1.30:6443"; 
-    token = "K10b47e4a41d9b550fe2730795c930df9ed9965ad1279b8aa0c733b071bc36e7b06::server:mEvZbtzjFk6eejXy4ojtojnTSwUWTxWY72Vgh3BjsnebuZ65WapQHkybv6CeavUY"; 
+    serverAddr = "https://192.168.1.30:6443";
+    token = "K10b47e4a41d9b550fe2730795c930df9ed9965ad1279b8aa0c733b071bc36e7b06::server:mEvZbtzjFk6eejXy4ojtojnTSwUWTxWY72Vgh3BjsnebuZ65WapQHkybv6CeavUY";
     role = "agent";
     extraFlags = toString [
-    "--node-name=goblin-2"
-    #"--disable servicelb"
-    #"--disable traefik"
-  ];
+      "--node-name=goblin-2"
+      #"--disable servicelb"
+      #"--disable traefik"
+    ];
   };
 
-###################### iscsi configuration for longhorn ###########
-  
+  ###################### iscsi configuration for longhorn ###########
+
   systemd.tmpfiles.rules = [
     "L+ /usr/local/bin - - - - /run/current-system/sw/bin/"
   ];
 
   services.openiscsi = {
     enable = true;
-    name = "${config.networking.hostName}-initiatorhost";  
+    name = "${config.networking.hostName}-initiatorhost";
   };
-
 }
