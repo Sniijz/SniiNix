@@ -131,7 +131,18 @@
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
 
+  # Install and configure git
+  programs.git.enable = true;
+  programs.git.config = {
+    user.name = "Robin CASSAGNE";
+    user.email = "robin.jean.cassagne@gmail.com";
+  };
+
   environment = {
+    variables = {
+      K3S_RESOLV_CONF = /etc/resolv.conf;
+    };
+
     systemPackages = with pkgs; [
       atuin # Shell History
       rsync # Syncer
@@ -139,7 +150,6 @@
       vim # text editor
       neovim # text editor
       cmatrix # matrix effect package
-      git # version control tool
       eza # modern replacement of ls
       fzf # fuzzy finder
       gotop # top tool written in go
@@ -153,6 +163,7 @@
       wget # cli tool for download
       termshark # cli packet capture
       nfs-utils # Needed for Longhorn
+      util-linux # contains nsenter for longhorn
       jellyfin-ffmpeg # For Jellyfin transcoding
       jellyfin-mpv-shim # For Jellyfin transcoding
     ];
@@ -176,15 +187,9 @@
   };
   ##################### K3S Configuration ##########################
 
-  # Install and configure git 
-  programs.git.enable = true;
-  programs.git.config = {
-    user.name = "Robin CASSAGNE";
-    user.email = "robin.jean.cassagne@gmail.com";
-  };
-
   services.k3s = {
     enable = true;
+    package = pkgs.k3s_1_30;
     serverAddr = "https://192.168.1.30:6443";
     token = "K10b47e4a41d9b550fe2730795c930df9ed9965ad1279b8aa0c733b071bc36e7b06::server:mEvZbtzjFk6eejXy4ojtojnTSwUWTxWY72Vgh3BjsnebuZ65WapQHkybv6CeavUY";
     role = "agent";

@@ -131,7 +131,7 @@
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
 
-  # Install and configure git 
+  # Install and configure git
   programs.git.enable = true;
   programs.git.config = {
     user.name = "Robin CASSAGNE";
