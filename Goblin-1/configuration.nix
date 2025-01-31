@@ -201,7 +201,7 @@
     package = pkgs.fetchFromGitHub {
     owner = "k3s-io";
     repo = "k3s";
-    rev = "v1.30.4";
+    rev = "v1.30.4+k3s1";
     sha256 = "0lvy2v7fa13yi1w2a7knrbn8nlzsk4mzbsb3s088xa6rf1w2p57v";
     };
   };
