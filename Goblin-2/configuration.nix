@@ -176,6 +176,13 @@
   };
   ##################### K3S Configuration ##########################
 
+  # Install and configure git 
+  programs.git.enable = true;
+  programs.git.config = {
+    user.name = "Robin CASSAGNE";
+    user.email = "robin.jean.cassagne@gmail.com";
+  };
+
   services.k3s = {
     enable = true;
     serverAddr = "https://192.168.1.30:6443";
