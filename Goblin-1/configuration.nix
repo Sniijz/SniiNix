@@ -190,6 +190,7 @@
 
   services.k3s = {
     enable = true;
+    package = pkgs.k3s_1_30;
     serverAddr = "https://192.168.1.30:6443";
     token = "K10b47e4a41d9b550fe2730795c930df9ed9965ad1279b8aa0c733b071bc36e7b06::server:mEvZbtzjFk6eejXy4ojtojnTSwUWTxWY72Vgh3BjsnebuZ65WapQHkybv6CeavUY";
     role = "agent";
@@ -198,12 +199,6 @@
       #"--disable servicelb"
       #"--disable traefik"
     ];
-    package = pkgs.fetchFromGitHub {
-    owner = "k3s-io";
-    repo = "k3s";
-    rev = "v1.30.4+k3s1";
-    sha256 = "BmuipA8KDu5V37idsfC9m+k9cTJ/AtJbIHDt2IA8j8c=";
-    };
   };
 
   ###################### iscsi configuration for longhorn ###########
