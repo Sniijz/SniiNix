@@ -123,13 +123,20 @@
 
     # The state version is required and should stay at the version you
     # originally installed.
-    home.stateVersion = "24.05";
+    home.stateVersion = "24.11";
   };
 
   ######################### Packages #########################
 
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
+
+  # Install and configure git 
+  programs.git.enable = true;
+  programs.git.config = {
+    user.name = "Robin CASSAGNE";
+    user.email = "robin.jean.cassagne@gmail.com";
+  };
 
   environment = {
     variables = {
@@ -143,7 +150,6 @@
       vim # text editor
       neovim # text editor
       cmatrix # matrix effect package
-      git # version control tool
       eza # modern replacement of ls
       fzf # fuzzy finder
       gotop # top tool written in go
