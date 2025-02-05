@@ -46,6 +46,9 @@ in {
     (import ./terminal {inherit pkgs config;})
     (import ./desktop {inherit vars pkgs config lib;})
     (import ./app {inherit vars pkgs config lib;})
+    (import ./editor {inherit vars pkgs config lib;})
+    (import ./compose/ollama/docker-compose.nix {inherit vars pkgs config lib;})
+    #(import ./compose/wolf/docker-compose.nix {inherit vars pkgs config lib;})
 
     # Include the results of the hardware scan.
     ./hardware-configuration.nix
@@ -269,12 +272,14 @@ in {
       ansible # Automation tool
       arandr # graphical tool for monitor/screen mgmt
       aseprite # Pixel art editor
+      bat # Better version of bat
       bottles # Easy to use wineprefix manager
       btop # Top tool written in C++
       cardinal # Music Plugin wrapper around VCV Rack
       cmake # Compilation
       cmatrix # matrix effect package
       corectrl # Control your computer hardware via app profiles, perfect for FAN control
+      compose2nix # Tool to convert docker-compose files for nix
       discord # Audio and Chat communication tool
       dosbox # PC DOS-Emulator
       eza # modern replacement of ls
@@ -285,6 +290,8 @@ in {
       fishPlugins.z # zoxide plugin for fish
       flatpak # Tool to manager container sandboxed apps
       fzf # fuzzy finderz
+      ghostty # New Terminal Emulator by Hashimoto, Hashicorp creator
+      go # Golang language
       godot_4 # Video Game Editor
       gotop # top tool written in go
       guitarix # Virtual guitar amplifier
@@ -307,6 +314,7 @@ in {
       neovim # text editor
       nettools # Network Tools
       nix-index # Files database for nixpkgs : gives nix-locate /bin/sleep command
+      nix-search-cli # Tool to search for nixpkgs
       odin2 # Music Odin2 synthesizer plugin
       onedriver # Onedrive native linux filesystem for Microsoft Onedrive
       onlyoffice-desktopeditors # Document editor

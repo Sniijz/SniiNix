@@ -10,6 +10,7 @@
     vim = "nvim";
     vi = "nvim";
     k = "${pkgs.kubectl}/bin/kubectl";
+    cat = "bat";
   };
 
   sharedShellAliases = {};

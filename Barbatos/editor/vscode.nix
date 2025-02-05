@@ -43,6 +43,10 @@
           hashicorp.terraform
           # Gitignore
           codezombiech.gitignore
+          # gitmoji
+          seatonjiang.gitmoji-vscode
+          # Docker
+          ms-azuretools.vscode-docker
         ];
 
         userSettings = {
