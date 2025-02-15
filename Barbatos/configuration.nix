@@ -48,6 +48,7 @@ in {
     (import ./app {inherit vars pkgs config lib;})
     (import ./editor {inherit vars pkgs config lib;})
     (import ./compose/ollama/docker-compose.nix {inherit vars pkgs config lib;})
+    (import ./compose/syncthing/docker-compose.nix {inherit vars pkgs config lib;})
     #(import ./compose/wolf/docker-compose.nix {inherit vars pkgs config lib;})
 
     # Include the results of the hardware scan.
@@ -341,6 +342,7 @@ in {
       vital # Music Spectral warping wavetable synth
       vscode # Visual Code Editor
       vcv-rack # Music Open-source virtual modular synthesizer
+      vlc # Video player
       warpinator # Share files across LAN
       wget # cli tool for download
       wireshark # packet capture for network tshoot
