@@ -292,6 +292,7 @@ in {
       flatpak # Tool to manager container sandboxed apps
       fzf # fuzzy finderz
       ghostty # New Terminal Emulator by Hashimoto, Hashicorp creator
+      gitmoji-cli # Git commit emjoji-cli support
       go # Golang language
       godot_4 # Video Game Editor
       gotop # top tool written in go

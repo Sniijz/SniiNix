@@ -7,18 +7,16 @@
   sharedShellFunctions,
   ...
 }: {
+  programs.fish = {
+    enable = true;
 
-    programs.fish = {
-      enable = true;
+    shellInit = ''
+      starship init fish | source
+      set -U fish_user_paths (go env GOPATH)/bin $fish_user_paths
+    '';
 
-      shellInit = ''
-        starship init fish | source
-      '';
+    shellAbbrs = sharedShellAbbrs;
 
-      shellAbbrs = sharedShellAbbrs;
-
-      shellAliases = sharedShellAliases;
-
-    };
+    shellAliases = sharedShellAliases;
+  };
 }
-
