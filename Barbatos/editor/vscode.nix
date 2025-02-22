@@ -97,6 +97,8 @@
           "editor.formatOnSave" = true;
           "terminal.integrated.copyOnSelection" = true;
           "terminal.integrated.cwd" = "\${fileDirname}";
+          "files.trimTrailingWhitespace" = true;
+          "files.trimFinalNewlines" = true;
           "[xml]" = {
             "editor.defaultFormatter" = "DotJoshJohnson.xml";
           };
