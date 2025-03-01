@@ -267,9 +267,9 @@ in {
     };
 
     systemPackages = with pkgs; [
-      amdgpu_top # Tool to display AMD GPU Usage
       alsa-scarlett-gui # Gui to configure Focusrite Scarlett audio interface
       alsa-utils # Advanced Linux Sound Architecture utils
+      amdgpu_top # Tool to display AMD GPU Usage
       ansible # Automation tool
       arandr # graphical tool for monitor/screen mgmt
       aseprite # Pixel art editor
@@ -284,13 +284,12 @@ in {
       discord # Audio and Chat communication tool
       dosbox # PC DOS-Emulator
       eza # modern replacement of ls
-      fd # Alternative to find
-      filelight # Disk Usage information viewer
-      fish # alternative to bash
+      fd # Alternative to finddu -hd 1 | sort -h
       fishPlugins.fzf-fish # fzf plugin for fish
       fishPlugins.z # zoxide plugin for fish
       flatpak # Tool to manager container sandboxed apps
       fzf # fuzzy finderz
+      gamemode # daemon and library to optimize games
       ghostty # New Terminal Emulator by Hashimoto, Hashicorp creator
       gitmoji-cli # Git commit emjoji-cli support
       go # Golang language
@@ -311,6 +310,7 @@ in {
       lsp-plugins # Collection of open-source audio mastering plugins
       lutris # Open Source Gaming Platform
       man # Linux Documentation
+      mangohud # overlay for monitoring system  perf inside app or games
       ncdu # Disk Usage Analyzer with ncurses interface
       neofetch # System Info Script
       neovim # text editor

@@ -11,6 +11,7 @@
     vi = "nvim";
     k = "${pkgs.kubectl}/bin/kubectl";
     cat = "bat";
+    fs = "du -hd 1 | sort -h";
   };
 
   sharedShellAliases = {};
