@@ -11,6 +11,9 @@
     "com.spotify.Client"
   ];
 in {
+  # Install Flatpak
+  services.flatpak.enable = true;
+
   system.activationScripts.flatpakManagement = {
     text = ''
       # 2. Ensure the Flathub repo is added

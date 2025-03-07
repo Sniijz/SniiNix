@@ -26,7 +26,7 @@ in {
     openFirewall = true;
     settings = {
       sunshine_name = "Barbatos-NixOS";
-      output_name = 0;
+      output_name = 1;
       key_rightalt_to_key_win = "enabled";
     };
     applications = {

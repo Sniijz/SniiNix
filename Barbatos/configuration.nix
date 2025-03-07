@@ -195,7 +195,7 @@ in {
   users.users.sniijz = {
     isNormalUser = true;
     description = "Sniijz";
-    extraGroups = ["networkmanager" "wheel" "audio" "docker" "video" "input"];
+    extraGroups = ["networkmanager" "wheel" "audio" "docker" "video" "input" "gamemode"];
     packages = with pkgs; [
     ];
   };
@@ -234,30 +234,6 @@ in {
   # Install firefox.
   programs.firefox.enable = true;
 
-  # Install Steam
-  programs.steam = {
-    enable = true;
-    remotePlay.openFirewall = true; # Open ports in the firewall for Steam Remote Play
-    localNetworkGameTransfers.openFirewall = true; # Open ports in the firewall for Steam Local Network Game Transfers
-  };
-
-  systemd.user.services.steam_background = {
-    enable = true;
-    description = "Open Steam in the background at boot";
-    wantedBy = ["default.target"]; # Run after the user session is fully initialized
-    after = ["graphical-session.target"]; # Ensure graphical session is ready
-    serviceConfig = {
-      ExecStart = "${pkgs.steam}/bin/steam -nochatui -nofriendsui -silent %U";
-      ExecStartPre = "${pkgs.coreutils}/bin/sleep 5"; # Delay by x seconds to ensure graphical session is ready
-      Restart = "on-failure";
-      RestartSec = "5s";
-      Environment = "DISPLAY=:0";
-    };
-  };
-
-  # Install Flatpak
-  services.flatpak.enable = true;
-
   # List packages installed in system profile. To search, run:
   # $ nix search wget
 
@@ -284,17 +260,19 @@ in {
       discord # Audio and Chat communication tool
       dosbox # PC DOS-Emulator
       eza # modern replacement of ls
+      fastfetch # display system information in ascii format
       fd # Alternative to finddu -hd 1 | sort -h
       fishPlugins.fzf-fish # fzf plugin for fish
       fishPlugins.z # zoxide plugin for fish
       flatpak # Tool to manager container sandboxed apps
       fzf # fuzzy finderz
-      gamemode # daemon and library to optimize games
       ghostty # New Terminal Emulator by Hashimoto, Hashicorp creator
       gitmoji-cli # Git commit emjoji-cli support
+      glances # Top nicolargo tool
       go # Golang language
       godot_4 # Video Game Editor
       gotop # top tool written in go
+      goverlay # GUI to configure Mangohud
       guitarix # Virtual guitar amplifier
       gxplugins-lv2 # lv2 plugins from guitarix
       helm # Music polyphonic synthesizer
@@ -302,6 +280,7 @@ in {
       kdePackages.ark # Archive Manager Tool
       kdePackages.dolphin # File manager
       kdePackages.dolphin-plugins # additionals plugins for dolphin file explorer
+      kdePackages.kscreen # Additional options to display & monitor in kde
       kcalc # kde calc
       k9s # Kubernetes mgmt
       krita # Image drawing editor
@@ -333,6 +312,9 @@ in {
       spectacle # screenshot tool
       starship # theme for terminal
       surge-XT # VST3 Synth
+      sweethome3d.application # Design and visualize your future home
+      sweethome3d.furniture-editor # Furnitures for sh3d
+      sweethome3d.textures-editor # textures for sh3d
       tldr # man summary
       thunderbird # E-mail Client
       tonelib-gfx # Amp and effects modeling
