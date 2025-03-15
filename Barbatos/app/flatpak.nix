@@ -8,7 +8,7 @@
 
   # 1. Declare the Flatpaks you *want* on your system
   desiredFlatpaks = [
-    "com.spotify.Client"
+    #"com.spotify.Client"
   ];
 in {
   # Install Flatpak

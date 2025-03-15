@@ -5,6 +5,9 @@
 }: let
 in {
   # Install Steam
+  # Don't forget to also modify : /home/sniijz/.config/autostart/steam.desktop
+  # Add the following parameter : Exec=steam %U -nochatui -nofriendsui -silent -steamos3
+  # To fix later
   programs.steam = {
     enable = true;
     remotePlay.openFirewall = true; # Open ports in the firewall for Steam Remote Play
@@ -44,17 +47,17 @@ in {
     };
   };
 
-  systemd.user.services.steam_background = {
-    enable = true;
-    description = "Open Steam in the background at boot";
-    wantedBy = ["default.target"]; # Run after the user session is fully initialized
-    after = ["graphical-session.target"]; # Ensure graphical session is ready
-    serviceConfig = {
-      ExecStart = "${pkgs.steam}/bin/steam -nochatui -nofriendsui -silent %U";
-      ExecStartPre = "${pkgs.coreutils}/bin/sleep 5"; # Delay by x seconds to ensure graphical session is ready
-      Restart = "on-failure";
-      RestartSec = "5s";
-      Environment = "DISPLAY=:0";
-    };
-  };
+  # systemd.user.services.steam_background = {
+  #   enable = true;
+  #   description = "Open Steam in the background at boot";
+  #   wantedBy = ["default.target"]; # Run after the user session is fully initialized
+  #   after = ["graphical-session.target"]; # Ensure graphical session is ready
+  #   serviceConfig = {
+  #     ExecStart = "${pkgs.steam}/bin/steam -nochatui -nofriendsui -silent %U";
+  #     ExecStartPre = "${pkgs.coreutils}/bin/sleep 5"; # Delay by x seconds to ensure graphical session is ready
+  #     Restart = "on-failure";
+  #     RestartSec = "5s";
+  #     Environment = "DISPLAY=:0";
+  #   };
+  # };
 }

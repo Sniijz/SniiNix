@@ -12,7 +12,6 @@ in {
 
     settings = {
       general = {
-        renice = 10;
         softrealtime = "auto";
         desiredgov = "performance";
         desiredprof = "performance";

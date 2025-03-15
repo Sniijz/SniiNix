@@ -101,8 +101,19 @@ in {
   services.xserver.enable = true;
   services.xserver.videoDrivers = ["amdgpu"];
 
-  # Configure console keymap
-  console.keyMap = "fr";
+  # Configure console/tty keymap
+  # console.keyMap = "fr";
+  console = {
+    earlySetup = true;
+    # font = "${pkgs.terminus_font}/share/consolefonts/ter-i32n.psf.gz";
+    font = "eurlatgr";
+    keyMap = "fr";
+  };
+
+  # Install DroidSansMono NerdFont
+  fonts.packages = with pkgs; [
+    (nerdfonts.override {fonts = ["DroidSansMono"];})
+  ];
 
   # Enable CUPS to print documents.
   services.printing.enable = true;
@@ -117,6 +128,11 @@ in {
 
   # Allow experimental features and commands like nix hash
   nix.settings.experimental-features = "nix-command";
+
+  # enables support for Bluetooth
+  hardware.bluetooth.enable = true;
+  # powers up the default Bluetooth controller on boot
+  hardware.bluetooth.powerOnBoot = true;
 
   ######################### Audio #########################
 
@@ -266,6 +282,9 @@ in {
       fishPlugins.z # zoxide plugin for fish
       flatpak # Tool to manager container sandboxed apps
       fzf # fuzzy finderz
+      gamemode # game performance tuning tool
+      gamescope # game performance HDR tool
+      gamescope-wsi # game performance HDR tool
       ghostty # New Terminal Emulator by Hashimoto, Hashicorp creator
       gitmoji-cli # Git commit emjoji-cli support
       glances # Top nicolargo tool
@@ -297,7 +316,7 @@ in {
       nix-index # Files database for nixpkgs : gives nix-locate /bin/sleep command
       nix-search-cli # Tool to search for nixpkgs
       odin2 # Music Odin2 synthesizer plugin
-      onedriver # Onedrive native linux filesystem for Microsoft Onedrive
+      onedrive # Onedrive native linux filesystem for Microsoft Onedrive
       onlyoffice-desktopeditors # Document editor
       obsidian # markdown documentation tool
       pinta # image editor
@@ -310,6 +329,7 @@ in {
       rsync # Syncer
       smartmontools # Tool for monitoring health of packages
       spectacle # screenshot tool
+      spotify # Music Streaming Service
       starship # theme for terminal
       surge-XT # VST3 Synth
       sweethome3d.application # Design and visualize your future home
@@ -317,6 +337,7 @@ in {
       sweethome3d.textures-editor # textures for sh3d
       tldr # man summary
       thunderbird # E-mail Client
+      tmux # Terminal multiplexer
       tonelib-gfx # Amp and effects modeling
       tonelib-jam # Rocksmith like tab player
       tonelib-metal # Metal Amp and effects modeling
@@ -337,9 +358,6 @@ in {
       zram-generator # systemd unit generator for zram devices
     ];
   };
-  fonts.packages = with pkgs; [
-    (nerdfonts.override {fonts = ["DroidSansMono"];})
-  ];
   # Override Package download for TonelibMetal, fix will be applied in NixOS 25.05
   nixpkgs.overlays = [
     (final: prev: {
