@@ -14,12 +14,15 @@
     fs = "du -hd 1 | sort -h";
   };
 
-  sharedShellAliases = {};
+  sharedShellAliases = {
+    tmux = "tmux new-session -A";
+  };
 
   sharedShellFunctions = {};
 in {
   imports = [
     (import ./bash.nix {inherit pkgs config;})
     (import ./fish.nix {inherit pkgs config sharedShellAbbrs sharedShellAliases sharedShellFunctions;})
+    (import ./tmux.nix {inherit pkgs config sharedShellAbbrs sharedShellAliases sharedShellFunctions;})
   ];
 }

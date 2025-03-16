@@ -316,6 +316,7 @@ in {
       nix-search-cli # Tool to search for nixpkgs
       odin2 # Music Odin2 synthesizer plugin
       onedrive # Onedrive native linux filesystem for Microsoft Onedrive
+      onedrivegui # Gui for onedrive configuration
       onlyoffice-desktopeditors # Document editor
       obsidian # markdown documentation tool
       pinta # image editor
