@@ -1,4 +1,4 @@
-# FISH
+# tmux
 {
   config,
   pkgs,
@@ -87,9 +87,6 @@
       bind -n M-8 select-window -t 8  # Alt + _ → 8
       bind -n M-9 select-window -t 9  # Alt + ç → 9
       bind -n M-0 select-window -t 0  # Alt + à → 0
-
-      # Enable mouse control (clickable windows, panes, resizable panes)
-      set -g mouse on
 
 
       ####### Theme #######
