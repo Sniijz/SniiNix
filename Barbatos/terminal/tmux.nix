@@ -46,6 +46,8 @@
       # Stay in same path when creating a new windows
       bind c new-window -c "#{pane_current_path}"
 
+      # Enable mouse scrolling
+      set -g terminal-overrides 'xterm*:smcup@:rmcup@'
 
       ####### Bindings #######
       # Set the prefix to Ctrl+a
