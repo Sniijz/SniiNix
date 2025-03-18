@@ -17,6 +17,7 @@
       logging
       fzf-tmux-url
       cpu
+      yank
       mode-indicator
     ];
     extraConfig = ''
@@ -26,9 +27,6 @@
 
       # start with pane 1
       set -g pane-base-index 1
-
-      # enable vi mode keys
-      set-window-option -g mode-keys vi
 
       # set default terminal mode to 256 colors
       set -g default-terminal "xterm-256color"
@@ -46,8 +44,10 @@
       # Stay in same path when creating a new windows
       bind c new-window -c "#{pane_current_path}"
 
-      # Enable mouse scrolling
-      set -g terminal-overrides 'xterm*:smcup@:rmcup@'
+      # Enable mouse + scrolling + copy paste
+      set -g mouse on
+      set -g @yank_selection 'clipboard'
+      set -g @yank_selection_mouse 'clipboard'
 
       ####### Bindings #######
       # Set the prefix to Ctrl+a
