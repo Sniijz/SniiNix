@@ -10,33 +10,24 @@
   programs.tmux = {
     enable = true;
     shortcut = "a";
-    aggressiveResize = true;
-    keyMode = "vi";
-    terminal = "screen-256color";
+    terminal = "tmux-256color";
+    clock24 = true;
+    escapeTime = 100;
+    historyLimit = 100000;
     plugins = with pkgs.tmuxPlugins; [
-      logging
-      fzf-tmux-url
       cpu
       yank
-      mode-indicator
     ];
     extraConfig = ''
-      ####### General  #######
+      ####### General tmux config  #######
       # start with window 1 (instead of 0)
       set -g base-index 1
 
       # start with pane 1
       set -g pane-base-index 1
 
-      # set default terminal mode to 256 colors
-      set -g default-terminal "xterm-256color"
-      set -ga terminal-overrides ",xterm-256color:Tc"
-
       # allow focus events to get through to applications running in tmux
       set -g focus-events on
-
-      # Increase History
-      set-option -g history-limit 5000
 
       # Automaticly renumber windows when shutting one
       set -g renumber-windows on
@@ -46,6 +37,7 @@
 
       # Enable mouse + scrolling + copy paste
       set -g mouse on
+      set -s set-clipboard off
       set -g @yank_selection 'clipboard'
       set -g @yank_selection_mouse 'clipboard'
 
@@ -102,7 +94,7 @@
       setw -g window-status-separator ""
 
       set -g status-left "#[fg=colour248,bg=colour241] #S #[fg=colour241,bg=colour237,nobold,nounderscore,noitalics]"
-      set -g status-right "#[fg=colour239,bg=colour237,nobold,nounderscore,noitalics]#[fg=colour246,bg=colour239] %Y-%m-%d %H:%M  CPU 🖥️: #{cpu_percentage} RAM 🗄️: #{ram_percentage} #[fg=colour248,bg=colour239,nobold,nounderscore,noitalics]#[fg=colour237,bg=colour248] #h  #{tmux_mode_indicator}"
+      set -g status-right "#[fg=colour239,bg=colour237,nobold,nounderscore,noitalics]#[fg=colour246,bg=colour239] %Y-%m-%d %H:%M  CPU 🖥️: #{cpu_percentage} RAM 🗄️: #{ram_percentage} #[fg=colour248,bg=colour239,nobold,nounderscore,noitalics]#[fg=colour237,bg=colour248] #h"
       setw -g window-status-format "#[fg=colour237,bg=colour239,noitalics]#[fg=colour223,bg=colour239] #I #[fg=colour223,bg=colour239] #W #[fg=colour239,bg=colour237,noitalics]"
       setw -g window-status-current-format "#[fg=colour239,bg=colour248,:nobold,nounderscore,noitalics]#[fg=colour239,bg=colour214] #I #[fg=colour239,bg=colour214,bold] #W #[fg=colour214,bg=colour237,nobold,nounderscore,noitalics]"
       run-shell ${pkgs.tmuxPlugins.cpu}/share/tmux-plugins/cpu/cpu.tmux
