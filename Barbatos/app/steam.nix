@@ -7,6 +7,7 @@ in {
   # Install Steam
   # Don't forget to also modify : /home/sniijz/.config/autostart/steam.desktop
   # Add the following parameter : Exec=steam %U -nochatui -nofriendsui -silent -steamos3
+  # Launch a game in HDR with RT in 4k within gamescope : gamemoderun gamescope -f -e -r 120 -W 3840 -H 2160 --hdr-enabled --force-grab-cursor --hdr-debug-force-output --hdr-itm-enable --steam env ENABLE_GAMESCOPE_WSI=1 DXVK_HDR=1 RADV_PERFTEST='rt' DISABLE_HDR_WSI=1 MANGOHUD=1 -- %command%
   # To fix later
   programs.steam = {
     enable = true;
