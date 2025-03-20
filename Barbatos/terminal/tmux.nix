@@ -15,6 +15,9 @@
     escapeTime = 100;
     historyLimit = 100000;
     plugins = with pkgs.tmuxPlugins; [
+      logging
+      resurrect
+      better-mouse-mode
       cpu
       yank
     ];
@@ -38,6 +41,7 @@
       # Enable mouse + scrolling + copy paste
       set -g mouse on
       set -s set-clipboard off
+      set -s copy-command 'xsel -i'
       set -g @yank_selection 'clipboard'
       set -g @yank_selection_mouse 'clipboard'
 
@@ -81,6 +85,10 @@
       bind -n M-8 select-window -t 8  # Alt + _ → 8
       bind -n M-9 select-window -t 9  # Alt + ç → 9
       bind -n M-0 select-window -t 0  # Alt + à → 0
+
+      # Specific S3NS Shortcuts
+      bind g new-window -n "VPN" 'vpn-gs1-stg'
+      bind h new-window -n "VPN-OOB" 'vpn-oob-gs1-stg'
 
 
       ####### Theme #######
