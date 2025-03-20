@@ -2,9 +2,6 @@
 {
   config,
   pkgs,
-  sharedShellAbbrs,
-  sharedShellAliases,
-  sharedShellFunctions,
   ...
 }: {
   programs.tmux = {
@@ -40,8 +37,7 @@
 
       # Enable mouse + scrolling + copy paste
       set -g mouse on
-      set -s set-clipboard off
-      set -s copy-command 'xsel -i'
+      set -s set-clipboard on
       set -g @yank_selection 'clipboard'
       set -g @yank_selection_mouse 'clipboard'
 
@@ -86,10 +82,13 @@
       bind -n M-9 select-window -t 9  # Alt + ç → 9
       bind -n M-0 select-window -t 0  # Alt + à → 0
 
-      # Specific S3NS Shortcuts
-      bind g new-window -n "VPN" 'vpn-gs1-stg'
-      bind h new-window -n "VPN-OOB" 'vpn-oob-gs1-stg'
+      # Specific Home Shortcus
+      bind-key k new-window -n "k9s" "k9s"
+      bind-key l new-window -n "logs" "journalctl -fe"
 
+      # Specific S3NS Shortcuts
+      bind-key g new-window -n "VPN" "vpn-gs1-stg"
+      bind-key h new-window -n "VPN" "vpn-oob-gs1-stg"
 
       ####### Theme #######
       # This tmux statusbar config was created based on gruvbox colorscheme

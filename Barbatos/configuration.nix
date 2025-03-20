@@ -15,6 +15,17 @@
     editor = "code";
   };
 
+  # latestKonsole = pkgs.konsole.overrideAttrs (oldAttrs: rec {
+  #   version = "25.03.80"; # Replace with the latest version
+  #   src = pkgs.fetchFromGitHub {
+  #     owner = "KDE";
+  #     repo = "konsole";
+  #     rev = "v25.03.80";
+  #     # nix-prefetch-url --unpack https://github.com/KDE/konsole/archive/refs/tags/v25.03.80.tar.gz
+  #     sha256 = "1hsmy26bf0paycdq1jzgvqaf709nlh0x3hnl8bbh34yp9pqrdby1";
+  #   };
+  # });
+
   pythonSubPackages = ps:
     with ps; [
       ansible # ansible love nix
@@ -358,9 +369,11 @@ in {
       zram-generator # systemd unit generator for zram devices
     ];
   };
-  # Override Package download for TonelibMetal, fix will be applied in NixOS 25.05
+
+  # Override Package download, fix will be applied in NixOS 25.05
   nixpkgs.overlays = [
     (final: prev: {
+      # Override Package download for TonelibMetal
       tonelib-metal = prev.tonelib-metal.overrideAttrs (oldAttrs: {
         src = builtins.fetchurl {
           url = "https://tonelib.vip/download/24-10-24/ToneLib-Metal-amd64.deb";

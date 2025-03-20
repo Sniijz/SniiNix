@@ -23,6 +23,7 @@ in {
   imports = [
     (import ./bash.nix {inherit pkgs config;})
     (import ./fish.nix {inherit pkgs config sharedShellAbbrs sharedShellAliases sharedShellFunctions;})
-    (import ./tmux.nix {inherit pkgs config sharedShellAbbrs sharedShellAliases sharedShellFunctions;})
+    (import ./tmux.nix {inherit pkgs config;})
+    (import ./neovim.nix {inherit pkgs config;})
   ];
 }
