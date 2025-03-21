@@ -33,4 +33,9 @@
 
   # Fix issue of having both gnome and plasma5 :
   # programs.ssh.askPassword = pkgs.lib.mkForce "${pkgs.gnome.seahorse.out}/libexec/seahorse/ssh-askpass";
+
+  # Stop using home manager for KDE shortcut, it's painfull
+  # home-manager.users.${vars.user} = {
+  #   home.file.".config/kglobalshortcutsrc".source = ./configs/kglobalshortcutsrc;
+  # };
 }

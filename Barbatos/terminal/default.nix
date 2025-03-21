@@ -1,5 +1,7 @@
 {
+  vars,
   pkgs,
+  lib,
   config,
   ...
 }: let
@@ -10,7 +12,6 @@
     vim = "nvim";
     vi = "nvim";
     k = "${pkgs.kubectl}/bin/kubectl";
-    cat = "bat";
     fs = "du -hd 1 | sort -h";
   };
 
@@ -21,9 +22,12 @@
   sharedShellFunctions = {};
 in {
   imports = [
-    (import ./bash.nix {inherit pkgs config;})
-    (import ./fish.nix {inherit pkgs config sharedShellAbbrs sharedShellAliases sharedShellFunctions;})
-    (import ./tmux.nix {inherit pkgs config;})
-    (import ./neovim.nix {inherit pkgs config;})
+    (import ./bash/bash.nix {inherit pkgs config;})
+    (import ./fish/fish.nix {inherit pkgs config sharedShellAbbrs sharedShellAliases sharedShellFunctions;})
+    (import ./tmux/tmux.nix {inherit pkgs config;})
+    (import ./neovim/neovim.nix {inherit pkgs config;})
+    (import ./starship/starship.nix {inherit vars pkgs config;})
+    (import ./konsole/konsole.nix {inherit vars pkgs config;})
+    (import ./ghostty/ghostty.nix {inherit vars lib pkgs config;})
   ];
 }

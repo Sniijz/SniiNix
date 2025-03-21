@@ -7,6 +7,6 @@
 }: let
 in {
   imports = [
-    (import ./kde.nix {inherit vars pkgs config lib;})
+    (import ./kde/kde.nix {inherit vars pkgs config lib;})
   ];
 }

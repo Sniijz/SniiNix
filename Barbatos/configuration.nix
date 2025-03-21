@@ -11,7 +11,7 @@
     user = "sniijz";
     location = "$HOME/.setup";
     gitUser = "robin.cassagne";
-    terminal = "konsole";
+    terminal = "ghostty";
     editor = "code";
   };
 
@@ -54,16 +54,15 @@
     ];
 in {
   imports = [
-    (import ./terminal {inherit pkgs config;})
+    (import ./terminal {inherit vars lib pkgs config;})
     (import ./desktop {inherit vars pkgs config lib;})
     (import ./app {inherit vars pkgs config lib;})
     (import ./editor {inherit vars pkgs config lib;})
-    (import ./compose/ollama/docker-compose.nix {inherit vars pkgs config lib;})
-    (import ./compose/syncthing/docker-compose.nix {inherit vars pkgs config lib;})
-    #(import ./compose/wolf/docker-compose.nix {inherit vars pkgs config lib;})
+    (import ./compose {inherit vars pkgs config lib;})
 
     # Include the results of the hardware scan.
     ./hardware-configuration.nix
+    # Install home manager as a module : https://nix-community.github.io/home-manager/index.xhtml#sec-install-nixos-module
     <home-manager/nixos>
   ];
 
@@ -234,11 +233,14 @@ in {
   # users.users.sniijz.isNormalUser = true;
   home-manager.users.${vars.user} = {pkgs, ...}: {
     home.file = {
-      ".config/starship.toml".source = ./terminal/configs/starship.toml;
-      ".local/share/konsole/Sniijz.profile".source = ./terminal/configs/SniijzKonsole.profile;
-      ".local/share/konsole/Breeze.colorscheme".source = ./terminal/configs/Breeze.colorscheme;
-      ".config/konsolerc".source = ./terminal/configs/konsolerc;
-      ".config/kglobalshortcutsrc".source = ./desktop/configs/kglobalshortcutsrc;
+      #".config/starship.toml".source = ./terminal/configs/starship.toml;
+      # ".local/share/konsole/Sniijz.profile".source = ./terminal/configs/SniijzKonsole.profile;
+      # ".local/share/konsole/Breeze.colorscheme".source = ./terminal/configs/Breeze.colorscheme;
+      # ".config/konsolerc".source = ./terminal/configs/konsolerc;
+      # ".config/kglobalshortcutsrc".source = ./desktop/configs/kglobalshortcutsrc;
+    };
+
+    home.sessionVariables = {
     };
 
     # The state version is required and should stay at the version you
@@ -257,15 +259,11 @@ in {
     user.email = "robin.jean.cassagne@gmail.com";
   };
 
-  # Install firefox.
-  programs.firefox.enable = true;
-
-  # List packages installed in system profile. To search, run:
-  # $ nix search wget
-
   environment = {
     variables = {
-      K3S_RESOLV_CONF = /etc/resolv.conf;
+      TERMINAL = "${vars.terminal}";
+      EDITOR = "${vars.editor}";
+      VISUAL = "${vars.editor}";
     };
 
     systemPackages = with pkgs; [
@@ -288,6 +286,7 @@ in {
       eza # modern replacement of ls
       fastfetch # display system information in ascii format
       fd # Alternative to finddu -hd 1 | sort -h
+      firefox # Web Browser
       fishPlugins.fzf-fish # fzf plugin for fish
       fishPlugins.z # zoxide plugin for fish
       flatpak # Tool to manager container sandboxed apps
