@@ -29,5 +29,6 @@ in {
     (import ./starship/starship.nix {inherit vars pkgs config;})
     (import ./konsole/konsole.nix {inherit vars pkgs config;})
     (import ./ghostty/ghostty.nix {inherit vars lib pkgs config;})
+    (import ./kitty/kitty.nix {inherit vars lib pkgs config;})
   ];
 }

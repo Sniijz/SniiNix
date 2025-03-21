@@ -231,6 +231,8 @@ in {
   # sudo nix-channel --update
 
   # users.users.sniijz.isNormalUser = true;
+  # To check for home manager nix module availability
+  # https://github.com/nix-community/home-manager/blob/master/modules/programs/starship.nix
   home-manager.users.${vars.user} = {pkgs, ...}: {
     home.file = {
       #".config/starship.toml".source = ./terminal/configs/starship.toml;
@@ -305,12 +307,13 @@ in {
       gxplugins-lv2 # lv2 plugins from guitarix
       helm # Music polyphonic synthesizer
       htop # Top tool with colors
+      k9s # Kubernetes mgmt
+      kcalc # kde calc
       kdePackages.ark # Archive Manager Tool
       kdePackages.dolphin # File manager
       kdePackages.dolphin-plugins # additionals plugins for dolphin file explorer
       kdePackages.kscreen # Additional options to display & monitor in kde
-      kcalc # kde calc
-      k9s # Kubernetes mgmt
+      kitty # Terminal emulator
       krita # Image drawing editor
       kronometer # Stopwatch application
       kubectl # Kubenertes config tool

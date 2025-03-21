@@ -27,7 +27,10 @@
       # package = ghostty-updated;
       settings = {
         font-family = "DroidSansM Nerd Font";
+        theme = "Horizon";
         background-opacity = "0.7";
+        background = "#1B1E20";
+        window-padding-balance = true;
         maximize = true;
         window-decoration = "auto";
         confirm-close-surface = false;
@@ -40,6 +43,8 @@
           "ctrl+t=new_split:auto"
           "super+q=close_window"
           "ctrl+0=reset_font_size"
+          # "keybind = ctrl+tab=next_tab"
+          # "keybind = ctrl+shift+tab=previous_tab"
           # "ctrl+scroll_up=increase_font_size"
           # "ctrl+scroll_down=decrease_font_size"
           # "ctrl+a>c=new_tab"
