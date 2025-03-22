@@ -47,6 +47,8 @@
           seatonjiang.gitmoji-vscode
           # Docker
           ms-azuretools.vscode-docker
+          # errorlens
+          usernamehw.errorlens
         ];
 
         userSettings = {

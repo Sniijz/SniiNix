@@ -103,7 +103,7 @@
         {
           screen = 1;
           location = "bottom";
-          height = 44;
+          height = 40;
           hiding = "normalpanel";
           floating = false;
           widgets = [
