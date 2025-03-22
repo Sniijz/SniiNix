@@ -366,6 +366,7 @@ in {
       wineWowPackages.waylandFull # Open Source implementation of the Windows API
       winetricks # Tool to work around problems in Wine
       wolf-shaper # Music Waveshaper plugin with spline-based graph editor
+      xclip # xclip copying clipboard tool
       yabridge # Use Windows VST2/3 On Linux
       yabridgectl # Utility to setup and update yabridge
       zram-generator # systemd unit generator for zram devices

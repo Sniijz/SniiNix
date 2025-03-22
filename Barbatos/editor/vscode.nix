@@ -69,7 +69,7 @@
             "menubar.selectionBackground" = "#186943";
             "menu.selectionBackground" = "#186943";
             "checkbox.background" = "#186943";
-            "selection.background" = "#186943";
+            "selection.background" = "#1da063ec";
             "minimap.selectionHighlight" = "#186943";
             "toolbar.hoverBackground" = "#186943";
             "editorActionList.background" = "#186943";
