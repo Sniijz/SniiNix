@@ -42,12 +42,109 @@
   # Add Plasma KDE custom module
   # To run rc2nix and copy :
   # nix run github:nix-community/plasma-manager --extra-experimental-features flakes | xclip -selection clipboard
+  # All options are available here : https://nix-community.github.io/plasma-manager/options.xhtml
   home-manager.users.${vars.user} = {
     imports = [
       <plasma-manager/modules>
     ];
     programs.plasma = {
       enable = true;
+      workspace = {
+        theme = "breeze-dark";
+        clickItemTo = "select";
+        lookAndFeel = "org.kde.breezedark.desktop";
+        wallpaperSlideShow = {
+          path = "/home/sniijz/Pictures/Wallpapers/";
+          interval = 300;
+        };
+      };
+      windows = {
+        allowWindowsToRememberPositions = true;
+      };
+      panels = [
+        {
+          screen = 0;
+          location = "bottom";
+          height = 44;
+          hiding = "normalpanel";
+          floating = false;
+          widgets = [
+            {
+              name = "org.kde.plasma.kickoff";
+              config = {
+                General.icon = "nix-snowflake-white";
+                alphaSort = true;
+              };
+            }
+            {
+              name = "org.kde.plasma.icontasks";
+              config = {
+                General.launchers = [
+                  "applications:org.kde.dolphin.desktop"
+                  "applications:org.kde.konsole.desktop"
+                  "applications:firefox.desktop"
+                  "applications:thunderbird.desktop"
+                  "applications:code.desktop"
+                  "applications:org.godotengine.Godot4.desktop"
+                  "applications:obsidian.desktop"
+                  "applications:spotify.desktop"
+                  "applications:cockos-reaper.desktop"
+                  "applications:systemsettings.desktop"
+                ];
+              };
+            }
+            "org.kde.plasma.pager"
+            "org.kde.plasma.colorpicker"
+            "org.kde.plasma.systemtray"
+            "org.kde.plasma.digitalclock"
+            "org.kde.plasma.showdesktop"
+          ];
+        }
+        {
+          screen = 1;
+          location = "bottom";
+          height = 44;
+          hiding = "normalpanel";
+          floating = false;
+          widgets = [
+            {
+              name = "org.kde.plasma.kickoff";
+              config = {
+                General.icon = "nix-snowflake-white";
+                alphaSort = true;
+              };
+            }
+            {
+              name = "org.kde.plasma.icontasks";
+              config = {
+                General.launchers = [
+                  "applications:org.kde.dolphin.desktop"
+                  "applications:org.kde.konsole.desktop"
+                  "applications:firefox.desktop"
+                  "applications:thunderbird.desktop"
+                  "applications:code.desktop"
+                  "applications:org.godotengine.Godot4.desktop"
+                  "applications:obsidian.desktop"
+                  "applications:spotify.desktop"
+                  "applications:cockos-reaper.desktop"
+                  "applications:systemsettings.desktop"
+                ];
+              };
+            }
+            "org.kde.plasma.pager"
+            "org.kde.plasma.colorpicker"
+            "org.kde.plasma.systemtray"
+            "org.kde.plasma.digitalclock"
+            "org.kde.plasma.showdesktop"
+          ];
+        }
+      ];
+      kwin = {
+        virtualDesktops.names = [
+          "Desktop 1"
+          "Desktop 2"
+        ];
+      };
       shortcuts = {
         "KDE Keyboard Layout Switcher"."Switch to Last-Used Keyboard Layout" = "Meta+Alt+L";
         "KDE Keyboard Layout Switcher"."Switch to Next Keyboard Layout" = "Meta+Alt+K";
@@ -90,7 +187,8 @@
         "kwin"."MoveZoomLeft" = [];
         "kwin"."MoveZoomRight" = [];
         "kwin"."MoveZoomUp" = [];
-        "kwin"."Overview" = ["Meta+W" "Meta+Tab,Meta+W,Toggle Overview"];
+        # "kwin"."Overview" = ["Meta+W" "Meta+Tab,Meta+W,Toggle Overview"];
+        "kwin"."Overview" = ["Meta+W" "Meta+Tab"];
         "kwin"."Setup Window Shortcut" = "none,,Setup Window Shortcut";
         "kwin"."Show Desktop" = "Meta+D";
         "kwin"."Switch One Desktop Down" = "Meta+Ctrl+Down";
@@ -121,9 +219,9 @@
         "kwin"."Switch to Desktop 7" = "none,,Switch to Desktop 7";
         "kwin"."Switch to Desktop 8" = "none,,Switch to Desktop 8";
         "kwin"."Switch to Desktop 9" = "none,,Switch to Desktop 9";
-        "kwin"."Switch to Next Desktop" = "none,,Switch to Next Desktop";
+        "kwin"."Switch to Next Desktop" = "Ctrl+Alt+Right";
         "kwin"."Switch to Next Screen" = "none,,Switch to Next Screen";
-        "kwin"."Switch to Previous Desktop" = "none,,Switch to Previous Desktop";
+        "kwin"."Switch to Previous Desktop" = "Ctrl+Alt+Left";
         "kwin"."Switch to Previous Screen" = "none,,Switch to Previous Screen";
         "kwin"."Switch to Screen 0" = "none,,Switch to Screen 0";
         "kwin"."Switch to Screen 1" = "none,,Switch to Screen 1";
@@ -164,8 +262,8 @@
         "kwin"."Window On All Desktops" = "none,,Keep Window on All Desktops";
         "kwin"."Window One Desktop Down" = "Meta+Ctrl+Shift+Down";
         "kwin"."Window One Desktop Up" = "Meta+Ctrl+Shift+Up";
-        "kwin"."Window One Desktop to the Left" = "Meta+Ctrl+Shift+Left";
-        "kwin"."Window One Desktop to the Right" = "Meta+Ctrl+Shift+Right";
+        "kwin"."Window One Desktop to the Left" = "Ctrl+Alt+Shift+Left";
+        "kwin"."Window One Desktop to the Right" = "Ctrl+Alt+Shift+Right";
         "kwin"."Window One Screen Down" = "none,,Move Window One Screen Down";
         "kwin"."Window One Screen Up" = "none,,Move Window One Screen Up";
         "kwin"."Window One Screen to the Left" = "none,,Move Window One Screen to the Left";
@@ -266,6 +364,7 @@
         "plasmashell"."toggle do not disturb" = "none,,Toggle do not disturb";
         # "services/com.mitchellh.ghostty.desktop"."_launch" = "Meta+A";
         "services/org.kde.konsole.desktop"."_launch" = ["Meta+A" "Ctrl+Alt+T"];
+        "services/code.desktop"."_launch" = "Meta+C";
         "services/firefox.desktop"."_launch" = "Meta+Z";
         "services/org.kde.spectacle.desktop"."RectangularRegionScreenShot" = ["Meta+Shift+S" "Meta+Shift+Print"];
         "services/org.kde.spectacle.desktop"."_launch" = [];
@@ -335,9 +434,6 @@
         "ktrashrc"."\\/home\\/sniijz\\/.local\\/share\\/Trash"."Percent" = 10;
         "ktrashrc"."\\/home\\/sniijz\\/.local\\/share\\/Trash"."UseSizeLimit" = true;
         "ktrashrc"."\\/home\\/sniijz\\/.local\\/share\\/Trash"."UseTimeLimit" = false;
-        "kwinrc"."Desktops"."Id_1" = "d9c47716-4c8a-4cc8-ae04-cd7b3dc81042";
-        "kwinrc"."Desktops"."Number" = 1;
-        "kwinrc"."Desktops"."Rows" = 1;
         "kwinrc"."Effect-overview"."BorderActivate" = 9;
         "kwinrc"."Plugins"."shakecursorEnabled" = false;
         "plasma-localerc"."Formats"."LANG" = "en_US.UTF-8";
