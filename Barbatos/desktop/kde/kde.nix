@@ -93,6 +93,7 @@
                 ];
               };
             }
+            "org.kde.plasma.timer"
             "org.kde.plasma.pager"
             "org.kde.plasma.colorpicker"
             "org.kde.plasma.systemtray"
@@ -103,7 +104,7 @@
         {
           screen = 1;
           location = "bottom";
-          height = 40;
+          height = 44;
           hiding = "normalpanel";
           floating = false;
           widgets = [
