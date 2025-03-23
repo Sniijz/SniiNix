@@ -143,6 +143,16 @@ in {
   # powers up the default Bluetooth controller on boot
   hardware.bluetooth.powerOnBoot = true;
 
+  # Force bluetooth service to restart if it crashes
+  systemd.services.bluetooth = {
+    enable = true;
+    wantedBy = ["multi-user.target"];
+    serviceConfig = {
+      Restart = "always";
+      RestartSec = "5s";
+    };
+  };
+
   ######################### Audio #########################
 
   # Enable sound with pipewire.
