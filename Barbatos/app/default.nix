@@ -7,9 +7,9 @@
 }: let
 in {
   imports = [
-    (import ./flatpak.nix {inherit vars pkgs config;})
-    (import ./gamemode.nix {inherit vars pkgs config;})
-    (import ./steam.nix {inherit vars pkgs config;})
-    # (import ./sunshine.nix {inherit vars pkgs config lib;})
+    (import ./flatpak.nix {inherit vars lib pkgs config;})
+    (import ./gamemode.nix {inherit vars lib pkgs config;})
+    (import ./steam.nix {inherit vars lib pkgs config;})
+    (import ./sunshine.nix {inherit vars lib pkgs config;})
   ];
 }

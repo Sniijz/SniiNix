@@ -66,6 +66,27 @@ in {
     <home-manager/nixos>
   ];
 
+  customModules = {
+    # Terminal
+    ghostty.enable = false;
+    kitty.enable = false;
+    konsole.enable = true;
+    neovim.enable = true;
+    # Editor
+    vscode.enable = true;
+    # Desktop
+    kde.enable = true;
+    # Compose
+    ollama.enable = false;
+    wolf.enable = false;
+    syncthing.enable = true;
+    # App
+    flatpak.enable = true;
+    gamemode.enable = true;
+    steam.enable = true;
+    sunshine.enable = false;
+  };
+
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
@@ -142,16 +163,6 @@ in {
   hardware.bluetooth.enable = true;
   # powers up the default Bluetooth controller on boot
   hardware.bluetooth.powerOnBoot = true;
-
-  # Force bluetooth service to restart if it crashes
-  systemd.services.bluetooth = {
-    enable = true;
-    wantedBy = ["multi-user.target"];
-    serviceConfig = {
-      Restart = "always";
-      RestartSec = "5s";
-    };
-  };
 
   ######################### Audio #########################
 
@@ -303,10 +314,8 @@ in {
       fishPlugins.z # zoxide plugin for fish
       flatpak # Tool to manager container sandboxed apps
       fzf # fuzzy finderz
-      gamemode # game performance tuning tool
       gamescope # game performance HDR tool
       gamescope-wsi # game performance HDR tool
-      ghostty # New Terminal Emulator by Hashimoto, Hashicorp creator
       gitmoji-cli # Git commit emjoji-cli support
       glances # Top nicolargo tool
       go # Golang language
@@ -323,7 +332,6 @@ in {
       kdePackages.dolphin # File manager
       kdePackages.dolphin-plugins # additionals plugins for dolphin file explorer
       kdePackages.kscreen # Additional options to display & monitor in kde
-      kitty # Terminal emulator
       krita # Image drawing editor
       kronometer # Stopwatch application
       kubectl # Kubenertes config tool
@@ -367,7 +375,6 @@ in {
       unrar-free # rar extractor
       vim # text editor
       vital # Music Spectral warping wavetable synth
-      vscode # Visual Code Editor
       vcv-rack # Music Open-source virtual modular synthesizer
       vlc # Video player
       warpinator # Share files across LAN

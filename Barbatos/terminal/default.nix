@@ -25,9 +25,9 @@ in {
     (import ./bash/bash.nix {inherit pkgs config;})
     (import ./fish/fish.nix {inherit pkgs config sharedShellAbbrs sharedShellAliases sharedShellFunctions;})
     (import ./tmux/tmux.nix {inherit pkgs config;})
-    (import ./neovim/neovim.nix {inherit pkgs config;})
+    (import ./neovim/neovim.nix {inherit pkgs lib config;})
     (import ./starship/starship.nix {inherit vars pkgs config;})
-    (import ./konsole/konsole.nix {inherit vars pkgs config;})
+    (import ./konsole/konsole.nix {inherit vars lib pkgs config;})
     (import ./ghostty/ghostty.nix {inherit vars lib pkgs config;})
     (import ./kitty/kitty.nix {inherit vars lib pkgs config;})
   ];
