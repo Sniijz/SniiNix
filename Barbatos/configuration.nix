@@ -149,7 +149,27 @@ in {
   ];
 
   # Enable CUPS to print documents.
-  services.printing.enable = true;
+  services.printing = {
+    enable = true;
+    drivers = with pkgs; [epson-escpr epson-escpr2];
+    browsing = true;
+    defaultShared = true;
+  };
+
+  # Scanner activation
+  hardware.sane = {
+    enable = true;
+    extraBackends = [pkgs.epsonscan2];
+  };
+
+  # Enable Network Avahi/Bonjour network discovery
+  services.avahi = {
+    enable = true;
+    nssmdns4 = true;
+    publish.enable = true;
+    publish.addresses = true;
+    publish.userServices = true;
+  };
 
   # Enable touchpad support (enabled default in most desktopManager).
   # services.xserver.libinput.enable = true;
@@ -244,7 +264,7 @@ in {
   users.users.sniijz = {
     isNormalUser = true;
     description = "Sniijz";
-    extraGroups = ["networkmanager" "wheel" "audio" "docker" "video" "input" "gamemode"];
+    extraGroups = ["networkmanager" "wheel" "audio" "docker" "video" "input" "gamemode" "lp" "scanner"];
     packages = with pkgs; [
     ];
   };
@@ -310,6 +330,8 @@ in {
       discord # Audio and Chat communication tool
       dosbox # PC DOS-Emulator
       eza # modern replacement of ls
+      epson-escpr # Drivers for epson printer
+      epsonscan2 # Drivers for epson scanner
       fastfetch # display system information in ascii format
       fd # Alternative to finddu -hd 1 | sort -h
       firefox # Web Browser
@@ -320,6 +342,7 @@ in {
       gamescope # game performance HDR tool
       gamescope-wsi # game performance HDR tool
       gitmoji-cli # Git commit emjoji-cli support
+      gimp # Image editor
       glances # Top nicolargo tool
       go # Golang language
       godot_4 # Video Game Editor
@@ -335,6 +358,7 @@ in {
       kdePackages.dolphin # File manager
       kdePackages.dolphin-plugins # additionals plugins for dolphin file explorer
       kdePackages.kscreen # Additional options to display & monitor in kde
+      kdePackages.skanlite # KDE Scanner tool
       krita # Image drawing editor
       kronometer # Stopwatch application
       kubectl # Kubenertes config tool
@@ -387,6 +411,7 @@ in {
       winetricks # Tool to work around problems in Wine
       wolf-shaper # Music Waveshaper plugin with spline-based graph editor
       xclip # xclip copying clipboard tool
+      (xsane.override {gimpSupport = true;}) # scanner tool + gimp support
       yabridge # Use Windows VST2/3 On Linux
       yabridgectl # Utility to setup and update yabridge
       zram-generator # systemd unit generator for zram devices
