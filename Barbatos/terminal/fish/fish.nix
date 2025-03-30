@@ -21,6 +21,13 @@
           commandline -r (find . | fzf)
       end
       bind \cf fzf_find
+
+      bind \ck 'k9s'
+
+      function journalctl_fzf
+          journalctl -n 1500 --no-pager | fzf
+      end
+      bind \cl journalctl_fzf
     '';
 
     shellAbbrs = sharedShellAbbrs;

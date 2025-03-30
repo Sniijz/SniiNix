@@ -21,6 +21,7 @@ in {
     # Konsole home-manager example :
     # https://github.com/gboncoffee/nix-configs/blob/bfd9ee135e76009e7f59f5cb86368676b6c332cd/home-manager.nix#L15
     # https://nix-community.github.io/plasma-manager/options.xhtml
+    # https://docs.kde.org/stable5/en/konsole/konsole/key-bindings.html
     home-manager.users.${vars.user} = {
       programs.konsole = {
         enable = true;
@@ -52,6 +53,11 @@ in {
 
               MainWindow = {
                 ToolBarsMovable = "Disabled";
+              };
+
+              # Scrollback HistorySize default value changed from 1000 to 2000
+              Scrolling = {
+                HistorySize = 2000;
               };
 
               "Notification Messages" = {
