@@ -76,6 +76,7 @@ in {
     vscode.enable = true;
     # Desktop
     kde.enable = true;
+    dolphin.enable = true;
     # Compose
     ollama.enable = false;
     wolf.enable = false;
