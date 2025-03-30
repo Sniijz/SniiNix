@@ -46,7 +46,7 @@ in {
         General = {
           GlobalViewProps = false;
           ConfirmClosingMultipleTabs = false;
-          RememberOpenedTabs = false;
+          RememberOpenedTabs = true;
           ShowFullPath = true;
         };
         "KFileDialog Settings" = {
