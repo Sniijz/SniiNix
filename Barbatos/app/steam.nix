@@ -16,12 +16,15 @@ in {
     };
   };
   config = lib.mkIf cfg.enable {
+    # Add the following to add more gamepad support
+    hardware.steam-hardware.enable = true;
     # Install Steam
     # Don't forget to also modify : /home/sniijz/.config/autostart/steam.desktop
     # Add the following parameter : Exec=steam %U -nochatui -nofriendsui -silent -steamos3
     # Launch a game in HDR with RT in 4k within gamescope : gamemoderun gamescope -f -e -r 120 -W 3840 -H 2160 --hdr-enabled --force-grab-cursor --hdr-debug-force-output --hdr-itm-enable --steam env ENABLE_GAMESCOPE_WSI=1 DXVK_HDR=1 RADV_PERFTEST='rt' DISABLE_HDR_WSI=1 MANGOHUD=1 -- %command%
     # Same without RT : gamemoderun gamescope -f -e -W 3840 -H 2160 --hdr-enabled --force-grab-cursor --hdr-debug-force-output --hdr-itm-enable --steam env ENABLE_GAMESCOPE_WSI=1 DXVK_HDR=1 DISABLE_HDR_WSI=1 MANGOHUD=1 -- %command%
     # For 2k Screen : gamemoderun  gamescope -f -e -r 120 -W 2560 -H 1440 --hdr-enabled --force-grab-cursor --hdr-debug-force-output --hdr-itm-enable --steam env ENABLE_GAMESCOPE_WSI=1 DXVK_HDR=1 RADV_PERFTEST='rt' DISABLE_HDR_WSI=1 MANGOHUD=1 -- %command%
+    # For MH Wilds : gamemoderun gamescope -f -e -W 3840 -H 2160 --hdr-enabled --force-grab-cursor --hdr-debug-force-output --hdr-itm-enable --steam env ENABLE_GAMESCOPE_WSI=1 DXVK_HDR=1 VKD3D_DISABLE_EXTENSIONS=VK_NV_low_latency2 DISABLE_HDR_WSI=1 MANGOHUD=1 -- %command%
     # To fix later
     programs.steam = {
       enable = true;

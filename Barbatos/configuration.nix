@@ -172,6 +172,13 @@ in {
     publish.userServices = true;
   };
 
+  # enables support for Bluetooth
+  hardware.bluetooth.enable = true;
+  # powers up the default Bluetooth controller on boot
+  hardware.bluetooth.powerOnBoot = true;
+  # Blueman soft instead of kdePackages.bluedevil, disabling applet from systemtray
+  services.blueman.enable = true;
+
   # Enable touchpad support (enabled default in most desktopManager).
   # services.xserver.libinput.enable = true;
 
@@ -182,11 +189,6 @@ in {
 
   # Allow experimental features and commands like nix hash
   nix.settings.experimental-features = "nix-command";
-
-  # enables support for Bluetooth
-  hardware.bluetooth.enable = true;
-  # powers up the default Bluetooth controller on boot
-  hardware.bluetooth.powerOnBoot = true;
 
   ######################### Audio #########################
 
@@ -367,6 +369,7 @@ in {
       lutris # Open Source Gaming Platform
       man # Linux Documentation
       mangohud # overlay for monitoring system  perf inside app or games
+      mesa # Open source 3D library drivers
       ncdu # Disk Usage Analyzer with ncurses interface
       neofetch # System Info Script
       neovim # text editor

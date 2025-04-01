@@ -41,7 +41,7 @@ in {
 
     # To exclude default plasma packages
     environment.plasma5.excludePackages = with pkgs.libsForQt5; [elisa];
-    environment.plasma6.excludePackages = with pkgs.kdePackages; [];
+    environment.plasma6.excludePackages = with pkgs.kdePackages; [bluedevil];
 
     # Fix issue of having both gnome and plasma5 :
     # programs.ssh.askPassword = pkgs.lib.mkForce "${pkgs.gnome.seahorse.out}/libexec/seahorse/ssh-askpass";
