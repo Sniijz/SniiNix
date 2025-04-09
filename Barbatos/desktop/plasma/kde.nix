@@ -41,7 +41,7 @@ in {
 
     # To exclude default plasma packages
     environment.plasma5.excludePackages = with pkgs.libsForQt5; [elisa];
-    environment.plasma6.excludePackages = with pkgs.kdePackages; [bluedevil];
+    environment.plasma6.excludePackages = with pkgs.kdePackages; [];
 
     # Fix issue of having both gnome and plasma5 :
     # programs.ssh.askPassword = pkgs.lib.mkForce "${pkgs.gnome.seahorse.out}/libexec/seahorse/ssh-askpass";
@@ -204,8 +204,6 @@ in {
           "kwin"."Overview" = ["Meta+W" "Meta+Tab"];
           "kwin"."Setup Window Shortcut" = "none,,Setup Window Shortcut";
           "kwin"."Show Desktop" = "Meta+D";
-          "kwin"."Switch One Desktop Down" = "Meta+Ctrl+Down";
-          "kwin"."Switch One Desktop Up" = "Meta+Ctrl+Up";
           "kwin"."Switch One Desktop to the Left" = "Meta+Ctrl+Left";
           "kwin"."Switch One Desktop to the Right" = "Meta+Ctrl+Right";
           "kwin"."Switch Window Down" = "Meta+Alt+Down";
@@ -232,10 +230,6 @@ in {
           "kwin"."Switch to Desktop 7" = "none,,Switch to Desktop 7";
           "kwin"."Switch to Desktop 8" = "none,,Switch to Desktop 8";
           "kwin"."Switch to Desktop 9" = "none,,Switch to Desktop 9";
-          "kwin"."Switch to Next Desktop" = "Ctrl+Alt+Right";
-          "kwin"."Switch to Next Screen" = "none,,Switch to Next Screen";
-          "kwin"."Switch to Previous Desktop" = "Ctrl+Alt+Left";
-          "kwin"."Switch to Previous Screen" = "none,,Switch to Previous Screen";
           "kwin"."Switch to Screen 0" = "none,,Switch to Screen 0";
           "kwin"."Switch to Screen 1" = "none,,Switch to Screen 1";
           "kwin"."Switch to Screen 2" = "none,,Switch to Screen 2";
@@ -273,8 +267,15 @@ in {
           "kwin"."Window Move Center" = "none,,Move Window to the Center";
           "kwin"."Window No Border" = "none,,Toggle Window Titlebar and Frame";
           "kwin"."Window On All Desktops" = "none,,Keep Window on All Desktops";
-          "kwin"."Window One Desktop Down" = "Meta+Ctrl+Shift+Down";
-          "kwin"."Window One Desktop Up" = "Meta+Ctrl+Shift+Up";
+          # Custom Virtual Desktop motions
+          "kwin"."Switch to Next Desktop" = "Ctrl+Alt+Right";
+          "kwin"."Switch to Next Screen" = "none,,Switch to Next Screen";
+          "kwin"."Switch to Previous Desktop" = "Ctrl+Alt+Left";
+          "kwin"."Switch to Previous Screen" = "none,,Switch to Previous Screen";
+          "kwin"."Switch One Desktop Down" = "Ctrl+Alt+Down";
+          "kwin"."Switch One Desktop Up" = "Ctrl+Alt+Up";
+          "kwin"."Window One Desktop Down" = "Ctrl+Alt+Shift+Down";
+          "kwin"."Window One Desktop Up" = "Ctrl+Alt+Shift+Up";
           "kwin"."Window One Desktop to the Left" = "Ctrl+Alt+Shift+Left";
           "kwin"."Window One Desktop to the Right" = "Ctrl+Alt+Shift+Right";
           "kwin"."Window One Screen Down" = "none,,Move Window One Screen Down";
@@ -447,6 +448,17 @@ in {
           "ktrashrc"."\\/home\\/sniijz\\/.local\\/share\\/Trash"."Percent" = 10;
           "ktrashrc"."\\/home\\/sniijz\\/.local\\/share\\/Trash"."UseSizeLimit" = true;
           "ktrashrc"."\\/home\\/sniijz\\/.local\\/share\\/Trash"."UseTimeLimit" = false;
+          "kwinrc"."Windows"."RollOverDesktops" = true; # Navigation wraps around for virtual desktop
+          "kwinrc"."Desktops"."Id_1" = "Desktop_1";
+          "kwinrc"."Desktops"."Id_2" = "Desktop_2";
+          "kwinrc"."Desktops"."Id_3" = "Desktop_3";
+          "kwinrc"."Desktops"."Id_4" = "Desktop_4";
+          "kwinrc"."Desktops"."Name_1" = "Desktop 1";
+          "kwinrc"."Desktops"."Name_2" = "Desktop 2";
+          "kwinrc"."Desktops"."Name_3" = "Desktop 3";
+          "kwinrc"."Desktops"."Name_4" = "Desktop 4";
+          "kwinrc"."Desktops"."Number" = lib.mkForce 4;
+          "kwinrc"."Desktops"."Rows" = 2;
           "kwinrc"."Effect-overview"."BorderActivate" = 9;
           "kwinrc"."Plugins"."shakecursorEnabled" = false;
           "plasma-localerc"."Formats"."LANG" = "en_US.UTF-8";

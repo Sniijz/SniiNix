@@ -25,44 +25,54 @@ in {
         vscode = {
           enable = true;
           mutableExtensionsDir = false;
-          extensions = with pkgs.vscode-extensions; [
-            # General
-            oderwat.indent-rainbow
-            esbenp.prettier-vscode
-            christian-kohler.path-intellisense
-            foxundermoon.shell-format
-            # Nix Formater
-            kamadorueda.alejandra
-            bbenoist.nix
-            # Markdown
-            yzhang.markdown-all-in-one
-            bierner.markdown-mermaid
-            # Jinja
-            samuelcolvin.jinjahtml
-            wholroyd.jinja
-            # YAML
-            redhat.vscode-yaml
-            # Ansible
-            redhat.ansible
-            # Python
-            ms-python.python
-            ms-python.debugpy
-            ms-python.vscode-pylance
-            # Golang
-            golang.go
-            # Kubernetes
-            ms-kubernetes-tools.vscode-kubernetes-tools
-            # Terraform
-            hashicorp.terraform
-            # Gitignore
-            codezombiech.gitignore
-            # gitmoji
-            seatonjiang.gitmoji-vscode
-            # Docker
-            ms-azuretools.vscode-docker
-            # errorlens
-            usernamehw.errorlens
-          ];
+          # https://github.com/NixOS/nixpkgs/tree/master/pkgs/applications/editors/vscode/extensions
+          extensions = with pkgs.vscode-extensions;
+            [
+              # General
+              oderwat.indent-rainbow
+              esbenp.prettier-vscode
+              christian-kohler.path-intellisense
+              foxundermoon.shell-format
+              # Nix Formater
+              kamadorueda.alejandra
+              bbenoist.nix
+              # Markdown
+              yzhang.markdown-all-in-one
+              bierner.markdown-mermaid
+              # Jinja
+              samuelcolvin.jinjahtml
+              wholroyd.jinja
+              # YAML
+              redhat.vscode-yaml
+              # Ansible
+              redhat.ansible
+              # Python
+              ms-python.python
+              ms-python.debugpy
+              ms-python.vscode-pylance
+              # Golang
+              golang.go
+              # Kubernetes
+              ms-kubernetes-tools.vscode-kubernetes-tools
+              # Terraform
+              hashicorp.terraform
+              # Gitignore
+              codezombiech.gitignore
+              # gitmoji
+              seatonjiang.gitmoji-vscode
+              # Docker
+              ms-azuretools.vscode-docker
+              # errorlens
+              usernamehw.errorlens
+            ]
+            ++ pkgs.vscode-utils.extensionsFromVscodeMarketplace [
+              {
+                name = "vscode-proto3";
+                publisher = "zxh404";
+                version = "0.5.5";
+                hash = "sha256-Em+w3FyJLXrpVAe9N7zsHRoMcpvl+psmG1new7nA8iE=";
+              }
+            ];
 
           userSettings = {
             "editor.mouseWheelZoom" = true;

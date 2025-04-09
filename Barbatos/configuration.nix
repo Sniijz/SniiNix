@@ -133,8 +133,13 @@ in {
   services.xserver.enable = true;
   services.xserver.videoDrivers = ["amdgpu"];
 
-  # install 32-bit drivers for 32-bit applications (such as Wine).
-  hardware.graphics.enable32Bit = true;
+  # install unstables mesa/amd drivers for 64 and 32 bits apps
+  hardware.graphics = {
+    enable = true;
+    extraPackages = [pkgs.mesa];
+    enable32Bit = true;
+    extraPackages32 = [pkgs.driversi686Linux.mesa];
+  };
 
   # Configure console/tty keymap
   # console.keyMap = "fr";
@@ -177,7 +182,7 @@ in {
   # powers up the default Bluetooth controller on boot
   hardware.bluetooth.powerOnBoot = true;
   # Blueman soft instead of kdePackages.bluedevil, disabling applet from systemtray
-  services.blueman.enable = true;
+  # services.blueman.enable = true;
 
   # Enable touchpad support (enabled default in most desktopManager).
   # services.xserver.libinput.enable = true;
@@ -355,6 +360,7 @@ in {
       gxplugins-lv2 # lv2 plugins from guitarix
       helm # Music polyphonic synthesizer
       htop # Top tool with colors
+      ifuse # Tpol to plug iphone through usb
       k9s # Kubernetes mgmt
       kcalc # kde calc
       kdePackages.ark # Archive Manager Tool
@@ -366,10 +372,11 @@ in {
       kronometer # Stopwatch application
       kubectl # Kubenertes config tool
       lsp-plugins # Collection of open-source audio mastering plugins
+      libimobiledevice # package to plug iphone through usb
       lutris # Open Source Gaming Platform
       man # Linux Documentation
       mangohud # overlay for monitoring system  perf inside app or games
-      mesa # Open source 3D library drivers
+      mesa-demos # Mesa tools/utilities
       ncdu # Disk Usage Analyzer with ncurses interface
       neofetch # System Info Script
       neovim # text editor
@@ -404,6 +411,7 @@ in {
       tonelib-jam # Rocksmith like tab player
       tonelib-metal # Metal Amp and effects modeling
       unrar-free # rar extractor
+      usbmuxd # Drivers to plug iphone through usb
       vim # text editor
       vital # Music Spectral warping wavetable synth
       vcv-rack # Music Open-source virtual modular synthesizer
