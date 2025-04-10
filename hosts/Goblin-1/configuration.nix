@@ -126,10 +126,6 @@ in {
 
   # users.users.sniijz.isNormalUser = true;
   home-manager.users.sniijz = {pkgs, ...}: {
-    home.file = {
-      ".config/starship.toml".source = ./terminal/starship.toml;
-    };
-
     # The state version is required and should stay at the version you
     # originally installed.
     home.stateVersion = "24.11";
