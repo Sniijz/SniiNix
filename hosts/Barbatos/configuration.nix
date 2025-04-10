@@ -11,7 +11,7 @@
     user = "sniijz";
     location = "$HOME/.setup";
     gitUser = "robin.cassagne";
-    terminal = "ghostty";
+    terminal = "konsole";
     editor = "code";
   };
 

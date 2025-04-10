@@ -5,6 +5,11 @@
   ...
 }: let
   secrets = import ./secrets.nix;
+  vars = {
+    user = "sniijz";
+    location = "$HOME/.setup";
+    gitUser = "robin.cassagne";
+  };
 in {
   imports = [
     # Include the results of the hardware scan.
