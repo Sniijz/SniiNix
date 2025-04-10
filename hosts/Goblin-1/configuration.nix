@@ -10,8 +10,18 @@ in {
     # Include the results of the hardware scan.
     ./hardware-configuration.nix
     <home-manager/nixos>
-    (import ./terminal {inherit pkgs config;})
+    (import ../../common/terminal {inherit vars lib pkgs config;})
+    (import ../../common/desktop {inherit vars pkgs config lib;})
+    (import ../../common/app {inherit vars pkgs config lib;})
+    (import ../../common/editor {inherit vars pkgs config lib;})
+    (import ../../common/compose {inherit vars pkgs config lib;})
   ];
+
+  customModules = {
+    # Terminal
+    starship.GruvboxRainbow.enable = true;
+    starship.PastelPowerline.enable = false;
+  };
 
   # Bootloader.
   boot.loader.systemd-boot.enable = true;

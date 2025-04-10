@@ -72,6 +72,8 @@ in {
     kitty.enable = false;
     konsole.enable = true;
     neovim.enable = true;
+    starship.GruvboxRainbow.enable = true;
+    starship.PastelPowerline.enable = false;
     # Editor
     vscode.enable = true;
     # Desktop
