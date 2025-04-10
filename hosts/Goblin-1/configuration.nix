@@ -157,6 +157,7 @@ in {
       cmatrix # matrix effect package
       eza # modern replacement of ls
       fzf # fuzzy finder
+      go # Golang language
       gotop # top tool written in go
       btop # Top tool written in C++
       htop # Graphical top
