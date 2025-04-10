@@ -25,8 +25,8 @@ in {
 
   customModules = {
     # Terminal
-    starship.GruvboxRainbow.enable = true;
-    starship.PastelPowerline.enable = false;
+    starship.PastelPowerline.enable = true;
+    neovim.enable = true;
   };
 
   # Bootloader.
