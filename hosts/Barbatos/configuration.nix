@@ -54,11 +54,11 @@
     ];
 in {
   imports = [
-    (import ./terminal {inherit vars lib pkgs config;})
-    (import ./desktop {inherit vars pkgs config lib;})
-    (import ./app {inherit vars pkgs config lib;})
-    (import ./editor {inherit vars pkgs config lib;})
-    (import ./compose {inherit vars pkgs config lib;})
+    (import ../../common/terminal {inherit vars lib pkgs config;})
+    (import ../../common/desktop {inherit vars pkgs config lib;})
+    (import ../../common/app {inherit vars pkgs config lib;})
+    (import ../../common/editor {inherit vars pkgs config lib;})
+    (import ../../common/compose {inherit vars pkgs config lib;})
 
     # Include the results of the hardware scan.
     ./hardware-configuration.nix
@@ -358,6 +358,7 @@ in {
       goverlay # GUI to configure Mangohud
       guitarix # Virtual guitar amplifier
       gxplugins-lv2 # lv2 plugins from guitarix
+      hollywood # flex hacker package
       helm # Music polyphonic synthesizer
       htop # Top tool with colors
       ifuse # Tpol to plug iphone through usb
