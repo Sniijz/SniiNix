@@ -15,7 +15,6 @@ in {
     # Include the results of the hardware scan.
     ./hardware-configuration.nix
     <home-manager/nixos>
-    (import ./terminal {inherit pkgs config;})
     (import ../../common/terminal {inherit vars lib pkgs config;})
     (import ../../common/desktop {inherit vars pkgs config lib;})
     (import ../../common/app {inherit vars pkgs config lib;})
