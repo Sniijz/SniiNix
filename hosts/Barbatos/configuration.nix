@@ -118,11 +118,6 @@ in {
     extraPackages32 = [pkgs.driversi686Linux.mesa];
   };
 
-  # Install DroidSansMono NerdFont
-  fonts.packages = with pkgs; [
-    (nerdfonts.override {fonts = ["DroidSansMono"];})
-  ];
-
   # Enable Network Avahi/Bonjour network discovery
   services.avahi = {
     enable = true;

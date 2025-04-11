@@ -137,9 +137,6 @@ in {
       jellyfin-mpv-shim # For Jellyfin transcoding
     ];
   };
-  fonts.packages = with pkgs; [
-    (nerdfonts.override {fonts = ["DroidSansMono"];})
-  ];
 
   ##################### NFS Configuration ##########################
 

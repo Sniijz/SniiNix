@@ -7,6 +7,11 @@
   sharedShellFunctions,
   ...
 }: {
+  # Install DroidSansMono NerdFont
+  fonts.packages = with pkgs; [
+    (nerdfonts.override {fonts = ["DroidSansMono"];})
+  ];
+
   programs.fish = {
     enable = true;
 
