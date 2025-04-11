@@ -89,6 +89,8 @@ in {
     gamemode.enable = true;
     steam.enable = true;
     sunshine.enable = false;
+    # System
+    printer.enable = true;
   };
 
   ######################### Global Settings #########################
