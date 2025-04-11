@@ -20,6 +20,7 @@ in {
     (import ../../common/app {inherit vars pkgs config lib;})
     (import ../../common/editor {inherit vars pkgs config lib;})
     (import ../../common/compose {inherit vars pkgs config lib;})
+    (import ../../common/system {inherit vars pkgs config lib;})
   ];
 
   customModules = {
@@ -27,10 +28,6 @@ in {
     starship.PastelPowerline.enable = true;
     neovim.enable = true;
   };
-
-  # Bootloader.
-  boot.loader.systemd-boot.enable = true;
-  boot.loader.efi.canTouchEfiVariables = true;
 
   # Rook/Ceph support
   boot.kernelModules = ["rbd"];
@@ -44,33 +41,6 @@ in {
   # Before changing this value read the documentation for this option
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
   system.stateVersion = "24.05"; # Did you read the comment?
-
-  # Set your time zone.
-  time.timeZone = "Europe/Paris";
-
-  # Select internationalisation properties.
-  i18n.defaultLocale = "en_US.UTF-8";
-
-  i18n.extraLocaleSettings = {
-    LC_ADDRESS = "fr_FR.UTF-8";
-    LC_IDENTIFICATION = "fr_FR.UTF-8";
-    LC_MEASUREMENT = "fr_FR.UTF-8";
-    LC_MONETARY = "fr_FR.UTF-8";
-    LC_NAME = "fr_FR.UTF-8";
-    LC_NUMERIC = "fr_FR.UTF-8";
-    LC_PAPER = "fr_FR.UTF-8";
-    LC_TELEPHONE = "fr_FR.UTF-8";
-    LC_TIME = "fr_FR.UTF-8";
-  };
-
-  # Configure keymap in X11
-  services.xserver.xkb = {
-    layout = "fr";
-    variant = "";
-  };
-
-  # Configure console keymap
-  console.keyMap = "fr";
 
   ######################### Networking #########################
 

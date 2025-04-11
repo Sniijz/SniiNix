@@ -66,7 +66,7 @@ in {
           clickItemTo = "select";
           lookAndFeel = "org.kde.breezedark.desktop";
           wallpaperSlideShow = {
-            path = "/home/sniijz/Pictures/Wallpapers/";
+            path = "/home/${vars.user}/Pictures/Wallpapers/${config.networking.hostName}/";
             interval = 300;
           };
         };
@@ -75,7 +75,7 @@ in {
         };
         panels = [
           {
-            screen = 0;
+            screen = "all";
             location = "bottom";
             height = 44;
             hiding = "normalpanel";
@@ -106,44 +106,6 @@ in {
                 };
               }
               "org.kde.plasma.timer"
-              "org.kde.plasma.pager"
-              "org.kde.plasma.colorpicker"
-              "org.kde.plasma.systemtray"
-              "org.kde.plasma.digitalclock"
-              "org.kde.plasma.showdesktop"
-            ];
-          }
-          {
-            screen = 1;
-            location = "bottom";
-            height = 44;
-            hiding = "normalpanel";
-            floating = false;
-            widgets = [
-              {
-                name = "org.kde.plasma.kickoff";
-                config = {
-                  General.icon = "nix-snowflake-white";
-                  alphaSort = true;
-                };
-              }
-              {
-                name = "org.kde.plasma.icontasks";
-                config = {
-                  General.launchers = [
-                    "applications:org.kde.dolphin.desktop"
-                    "applications:org.kde.konsole.desktop"
-                    "applications:firefox.desktop"
-                    "applications:thunderbird.desktop"
-                    "applications:code.desktop"
-                    "applications:org.godotengine.Godot4.desktop"
-                    "applications:obsidian.desktop"
-                    "applications:spotify.desktop"
-                    "applications:cockos-reaper.desktop"
-                    "applications:systemsettings.desktop"
-                  ];
-                };
-              }
               "org.kde.plasma.pager"
               "org.kde.plasma.colorpicker"
               "org.kde.plasma.systemtray"

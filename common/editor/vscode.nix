@@ -115,6 +115,7 @@ in {
             "explorer.confirmDelete" = false;
             "editor.fontFamily" = "DroidSansM Nerd Font";
             "git.confirmSync" = false;
+            "explorer.confirmDragAndDrop" = false;
             "redhat.telemetry.enabled" = false;
             "security.workspace.trust.untrustedFiles" = "open";
             "editor.defaultFormatter" = "esbenp.prettier-vscode";

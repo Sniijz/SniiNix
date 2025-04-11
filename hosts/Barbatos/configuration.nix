@@ -59,6 +59,7 @@ in {
     (import ../../common/app {inherit vars pkgs config lib;})
     (import ../../common/editor {inherit vars pkgs config lib;})
     (import ../../common/compose {inherit vars pkgs config lib;})
+    (import ../../common/system {inherit vars pkgs config lib;})
 
     # Include the results of the hardware scan.
     ./hardware-configuration.nix
@@ -90,10 +91,6 @@ in {
     sunshine.enable = false;
   };
 
-  # Bootloader.
-  boot.loader.systemd-boot.enable = true;
-  boot.loader.efi.canTouchEfiVariables = true;
-
   ######################### Global Settings #########################
 
   # This value determines the NixOS release from which the default
@@ -103,30 +100,6 @@ in {
   # Before changing this value read the documentation for this option
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
   system.stateVersion = "24.11"; # Did you read the comment?
-
-  # Set your time zone.
-  time.timeZone = "Europe/Paris";
-
-  # Select internationalisation properties.
-  i18n.defaultLocale = "en_US.UTF-8";
-
-  i18n.extraLocaleSettings = {
-    LC_ADDRESS = "fr_FR.UTF-8";
-    LC_IDENTIFICATION = "fr_FR.UTF-8";
-    LC_MEASUREMENT = "fr_FR.UTF-8";
-    LC_MONETARY = "fr_FR.UTF-8";
-    LC_NAME = "fr_FR.UTF-8";
-    LC_NUMERIC = "fr_FR.UTF-8";
-    LC_PAPER = "fr_FR.UTF-8";
-    LC_TELEPHONE = "fr_FR.UTF-8";
-    LC_TIME = "fr_FR.UTF-8";
-  };
-
-  # Configure keymap in X11
-  services.xserver.xkb = {
-    layout = "fr";
-    variant = "";
-  };
 
   # Configure kernel with amdgpu driver
   boot.initrd.kernelModules = ["amdgpu"];
@@ -143,32 +116,10 @@ in {
     extraPackages32 = [pkgs.driversi686Linux.mesa];
   };
 
-  # Configure console/tty keymap
-  # console.keyMap = "fr";
-  console = {
-    earlySetup = true;
-    font = "eurlatgr";
-    keyMap = "fr";
-  };
-
   # Install DroidSansMono NerdFont
   fonts.packages = with pkgs; [
     (nerdfonts.override {fonts = ["DroidSansMono"];})
   ];
-
-  # Enable CUPS to print documents.
-  services.printing = {
-    enable = true;
-    drivers = with pkgs; [epson-escpr epson-escpr2];
-    browsing = true;
-    defaultShared = true;
-  };
-
-  # Scanner activation
-  hardware.sane = {
-    enable = true;
-    extraBackends = [pkgs.epsonscan2];
-  };
 
   # Enable Network Avahi/Bonjour network discovery
   services.avahi = {
@@ -191,8 +142,6 @@ in {
 
   # Clean /tmp at boot
   boot.tmp.cleanOnBoot = true;
-  # Home manager fix
-  home-manager.backupFileExtension = "rebuild";
 
   # Allow experimental features and commands like nix hash
   nix.settings.experimental-features = "nix-command";
@@ -304,16 +253,13 @@ in {
     home.stateVersion = "24.11";
   };
 
+  # Home manager fix
+  home-manager.backupFileExtension = "rebuild";
+
   ######################### Packages #########################
 
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
-
-  programs.git.enable = true;
-  programs.git.config = {
-    user.name = "Robin CASSAGNE";
-    user.email = "robin.jean.cassagne@gmail.com";
-  };
 
   environment = {
     variables = {

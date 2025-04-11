@@ -27,7 +27,7 @@ in {
         enable = true;
         defaultProfile = "Sniinix";
         customColorSchemes = {
-          SniiBreeze = ./configs/Breeze.colorscheme;
+          SniiBreeze = ../../assets/konsole/Breeze.colorscheme;
         };
         profiles = {
           SniiNix = {

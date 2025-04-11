@@ -25,7 +25,7 @@ in {
   config = lib.mkIf (activeTheme != null) {
     home-manager.users.${vars.user} = {
       programs.starship.enable = true;
-      home.file.".config/starship.toml".source = ./configs/starship-${activeTheme}.toml;
+      home.file.".config/starship.toml".source = ../../assets/starship/starship-${activeTheme}.toml;
     };
   };
 }
