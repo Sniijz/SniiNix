@@ -60,7 +60,6 @@ in {
     (import ../../common/editor {inherit vars pkgs config lib;})
     (import ../../common/compose {inherit vars pkgs config lib;})
     (import ../../common/system {inherit vars pkgs config lib;})
-
     # Include the results of the hardware scan.
     ./hardware-configuration.nix
     # Install home manager as a module : https://nix-community.github.io/home-manager/index.xhtml#sec-install-nixos-module
@@ -89,6 +88,7 @@ in {
     gamemode.enable = true;
     steam.enable = true;
     sunshine.enable = false;
+    lazyjournal.enable = true;
     # System
     printer.enable = true;
   };
@@ -281,18 +281,6 @@ in {
       corectrl # Control your computer hardware via app profiles, perfect for FAN control
       compose2nix # Tool to convert docker-compose files for nix
       discord # Audio and Chat communication tool
-      dosbox # PC DOS-Emulator
-      eza # modern replacement of ls
-      epson-escpr # Drivers for epson printer
-      epsonscan2 # Drivers for epson scanner
-      fastfetch # display system information in ascii format
-      fd # Alternative to finddu -hd 1 | sort -h
-      firefox # Web Browser
-      fishPlugins.fzf-fish # fzf plugin for fish
-      fishPlugins.z # zoxide plugin for fish
-      flatpak # Tool to manager container sandboxed apps
-      fzf # fuzzy finderz
-      gamescope # game performance HDR tool
       gamescope-wsi # game performance HDR tool
       gitmoji-cli # Git commit emjoji-cli support
       gimp # Image editor
@@ -327,6 +315,7 @@ in {
       neofetch # System Info Script
       neovim # text editor
       nettools # Network Tools
+      niv # Painless dependencies for Nix projects
       nix-index # Files database for nixpkgs : gives nix-locate /bin/sleep command
       nix-search-cli # Tool to search for nixpkgs
       odin2 # Music Odin2 synthesizer plugin

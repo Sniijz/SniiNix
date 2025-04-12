@@ -11,5 +11,6 @@ in {
     (import ./gamemode.nix {inherit vars lib pkgs config;})
     (import ./steam.nix {inherit vars lib pkgs config;})
     (import ./sunshine.nix {inherit vars lib pkgs config;})
+    (import ./lazyjournal.nix {inherit vars lib pkgs config;})
   ];
 }
