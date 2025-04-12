@@ -281,6 +281,7 @@ in {
       corectrl # Control your computer hardware via app profiles, perfect for FAN control
       compose2nix # Tool to convert docker-compose files for nix
       discord # Audio and Chat communication tool
+      firefox # Web browser
       gamescope-wsi # game performance HDR tool
       gitmoji-cli # Git commit emjoji-cli support
       gimp # Image editor
