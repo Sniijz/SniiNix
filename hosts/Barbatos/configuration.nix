@@ -90,6 +90,8 @@ in {
     sunshine.enable = false;
     lazyjournal.enable = true;
     # System
+    audio.enable = true;
+    bluetooth.enable = true;
     printer.enable = true;
   };
 
@@ -102,6 +104,8 @@ in {
   # Before changing this value read the documentation for this option
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
   system.stateVersion = "24.11"; # Did you read the comment?
+
+  ######################### Graphics Settings #########################
 
   # Configure kernel with amdgpu driver
   boot.initrd.kernelModules = ["amdgpu"];
@@ -127,13 +131,6 @@ in {
     publish.userServices = true;
   };
 
-  # enables support for Bluetooth
-  hardware.bluetooth.enable = true;
-  # powers up the default Bluetooth controller on boot
-  hardware.bluetooth.powerOnBoot = true;
-  # Blueman soft instead of kdePackages.bluedevil, disabling applet from systemtray
-  # services.blueman.enable = true;
-
   # Enable touchpad support (enabled default in most desktopManager).
   # services.xserver.libinput.enable = true;
 
@@ -142,65 +139,6 @@ in {
 
   # Allow experimental features and commands like nix hash
   nix.settings.experimental-features = "nix-command";
-
-  ######################### Audio #########################
-
-  # Enable sound with pipewire.
-  hardware.pulseaudio.enable = false;
-  security.rtkit.enable = true;
-  services.pipewire = {
-    enable = true;
-    alsa.enable = true;
-    alsa.support32Bit = true;
-    pulse.enable = true;
-    # If you want to use JACK applications, uncomment this
-    jack.enable = true;
-    wireplumber.enable = true;
-    extraConfig.pipewire."92-low-latency" = {
-      "context.properties" = {
-        "default.clock.rate" = 48000;
-        "default.clock.quantum" = 512;
-        "default.clock.min-quantum" = 512;
-        "default.clock.max-quantum" = 512;
-      };
-    };
-    # use the example session manager (no others are packaged yet so this is enabled by default,
-    # no need to redefine it in your config for now)
-    #media-session.enable = true;
-  };
-
-  services.udev.extraRules = ''
-    KERNEL=="rtc0", GROUP="audio"
-    KERNEL=="hpet", GROUP="audio"
-  '';
-
-  # Set Audtio Realtime privilege for Yabridgectl and jack for VSTPlugins MAO
-  security.pam.loginLimits = [
-    {
-      domain = "@audio";
-      item = "memlock";
-      type = "-";
-      value = "unlimited";
-    }
-    {
-      domain = "@audio";
-      item = "rtprio";
-      type = "-";
-      value = "99";
-    }
-    {
-      domain = "@audio";
-      item = "nofile";
-      type = "soft";
-      value = "99999";
-    }
-    {
-      domain = "@audio";
-      item = "nofile";
-      type = "hard";
-      value = "99999";
-    }
-  ];
 
   ######################### Networking #########################
 
