@@ -219,7 +219,9 @@ in {
       corectrl # Control your computer hardware via app profiles, perfect for FAN control
       compose2nix # Tool to convert docker-compose files for nix
       discord # Audio and Chat communication tool
+      eza # Modern replacement of ls
       firefox # Web browser
+      fzf # Fuzzy finder
       gamescope-wsi # game performance HDR tool
       gitmoji-cli # Git commit emjoji-cli support
       gimp # Image editor
@@ -286,6 +288,7 @@ in {
       tonelib-metal # Metal Amp and effects modeling
       unrar-free # rar extractor
       usbmuxd # Drivers to plug iphone through usb
+      vesktop # Alternate client for Discord
       vim # text editor
       vital # Music Spectral warping wavetable synth
       vcv-rack # Music Open-source virtual modular synthesizer
