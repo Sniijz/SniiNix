@@ -13,5 +13,6 @@ in {
     (import ./sunshine.nix {inherit vars lib pkgs config;})
     (import ./lazyjournal.nix {inherit vars lib pkgs config;})
     (import ./discord.nix {inherit vars lib pkgs config;})
+    (import ./turtlewow.nix {inherit vars lib pkgs config;})
   ];
 }

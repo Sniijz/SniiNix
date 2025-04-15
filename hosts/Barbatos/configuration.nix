@@ -90,6 +90,7 @@ in {
     sunshine.enable = false;
     lazyjournal.enable = true;
     discord.enable = true;
+    TurtleWoW.enable = true;
     # System
     audio.enable = true;
     bluetooth.enable = true;
@@ -209,6 +210,7 @@ in {
       alsa-utils # Advanced Linux Sound Architecture utils
       amdgpu_top # Tool to display AMD GPU Usage
       ansible # Automation tool
+      appimage-run # Tool to run appimage on nixos
       arandr # graphical tool for monitor/screen mgmt
       aseprite # Pixel art editor
       bat # Better version of bat
@@ -277,9 +279,6 @@ in {
       spotify # Music Streaming Service
       starship # theme for terminal
       surge-XT # VST3 Synth
-      sweethome3d.application # Design and visualize your future home
-      sweethome3d.furniture-editor # Furnitures for sh3d
-      sweethome3d.textures-editor # textures for sh3d
       tldr # man summary
       thunderbird # E-mail Client
       tmux # Terminal multiplexer
