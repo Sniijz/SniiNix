@@ -10,7 +10,6 @@
   # 1. Declare the Flatpaks you *want* on your system
   desiredFlatpaks = [
     #"com.spotify.Client"
-    "ru.linux_gaming.PortProton"
     "com.sweethome3d.Sweethome3d"
   ];
   cfg = config.customModules.flatpak;
