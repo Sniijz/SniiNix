@@ -71,7 +71,7 @@ in {
         domain = "@audio";
         item = "nofile";
         type = "hard";
-        value = "99999";
+        value = "524288";
       }
     ];
   };

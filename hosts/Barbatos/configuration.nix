@@ -90,7 +90,9 @@ in {
     sunshine.enable = false;
     lazyjournal.enable = true;
     discord.enable = true;
+    # Games
     TurtleWoW.enable = true;
+    WarThunder.enable = true;
     # System
     audio.enable = true;
     bluetooth.enable = true;
