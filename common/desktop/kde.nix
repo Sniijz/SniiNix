@@ -25,8 +25,8 @@ in {
     # Enable sddm login screen
     services.displayManager.sddm.enable = true;
     # Configure displayManager autologin
-    services.displayManager.autoLogin.enable = true;
-    services.displayManager.autoLogin.user = "sniijz";
+    # services.displayManager.autoLogin.enable = true;
+    # services.displayManager.autoLogin.user = "sniijz";
 
     # To force plasma in x11 in plasma5
     # services.displayManager.defaultSession = "plasma";
