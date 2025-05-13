@@ -12,6 +12,13 @@
     (nerdfonts.override {fonts = ["DroidSansMono"];})
   ];
 
+  environment.systemPackages = with pkgs; [
+    fishPlugins.done
+    fishPlugins.fzf-fish
+    fishPlugins.z
+    fzf
+  ];
+
   programs.fish = {
     enable = true;
 
