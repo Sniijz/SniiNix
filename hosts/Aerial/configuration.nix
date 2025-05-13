@@ -98,7 +98,6 @@ in {
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
   system.stateVersion = "24.11"; # Did you read the comment?
 
-
   # Disk Encrypt
   boot.initrd.luks.devices."luks-00286d7d-7c2f-4912-9d83-aaa0c992f906".device = "/dev/disk/by-uuid/00286d7d-7c2f-4912-9d83-aaa0c992f906";
 
@@ -256,7 +255,9 @@ in {
       spectacle # screenshot tool
       spotify # Music Streaming Service
       starship # theme for terminal
+      steam # Valve gaming platform
       surge-XT # VST3 Synth
+      tailscale # wireguard vpn home access 
       tldr # man summary
       thunderbird # E-mail Client
       tmux # Terminal multiplexer

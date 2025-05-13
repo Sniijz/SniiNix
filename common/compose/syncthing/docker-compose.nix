@@ -33,6 +33,7 @@ in {
       };
       volumes = [
         "/home/sniijz/Documents/syncthing/:/var/syncthing:rw"
+        "/home/sniijz/Games/:/var/Games:rw"
       ];
       ports = [
         "8384:8384/tcp"
@@ -46,7 +47,7 @@ in {
         "--health-interval=1m0s"
         "--health-retries=3"
         "--health-timeout=10s"
-        "--hostname=Sniibrain-nix"
+        "--hostname=${config.networking.hostName}"
         "--network-alias=syncthing"
         "--network=syncthing_default"
       ];
