@@ -80,7 +80,7 @@ in {
     lazyjournal.enable = true;
     discord.enable = true;
     # Games
-    TurtleWoW.enable = true;
+    TurtleWoW.enable = false;
     WarThunder.enable = false;
     # System
     audio.enable = true;
@@ -97,6 +97,10 @@ in {
   # Before changing this value read the documentation for this option
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
   system.stateVersion = "24.11"; # Did you read the comment?
+
+
+  # Disk Encrypt
+  boot.initrd.luks.devices."luks-00286d7d-7c2f-4912-9d83-aaa0c992f906".device = "/dev/disk/by-uuid/00286d7d-7c2f-4912-9d83-aaa0c992f906";
 
   ######################### Graphics Settings #########################
 
