@@ -81,7 +81,7 @@ in {
     lazyjournal.enable = true;
     discord.enable = true;
     # Games
-    TurtleWoW.enable = false;
+    TurtleWoW.enable = true;
     WarThunder.enable = false;
     # System
     audio.enable = true;
