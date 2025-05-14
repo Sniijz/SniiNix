@@ -46,6 +46,7 @@ in {
     (import ../../common/terminal {inherit vars lib pkgs config;})
     (import ../../common/desktop {inherit vars pkgs config lib;})
     (import ../../common/app {inherit vars pkgs config lib;})
+    (import ../../common/games {inherit vars pkgs config lib;})
     (import ../../common/editor {inherit vars pkgs config lib;})
     (import ../../common/compose {inherit vars pkgs config lib;})
     (import ../../common/system {inherit vars pkgs config lib;})
@@ -257,7 +258,7 @@ in {
       starship # theme for terminal
       steam # Valve gaming platform
       surge-XT # VST3 Synth
-      tailscale # wireguard vpn home access 
+      tailscale # wireguard vpn home access
       tldr # man summary
       thunderbird # E-mail Client
       tmux # Terminal multiplexer

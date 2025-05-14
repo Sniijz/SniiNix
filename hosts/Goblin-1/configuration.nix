@@ -18,6 +18,7 @@ in {
     (import ../../common/terminal {inherit vars lib pkgs config;})
     (import ../../common/desktop {inherit vars pkgs config lib;})
     (import ../../common/app {inherit vars pkgs config lib;})
+    (import ../../common/games {inherit vars pkgs config lib;})
     (import ../../common/editor {inherit vars pkgs config lib;})
     (import ../../common/compose {inherit vars pkgs config lib;})
     (import ../../common/system {inherit vars pkgs config lib;})
