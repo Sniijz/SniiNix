@@ -11,6 +11,7 @@
   desiredFlatpaks = [
     #"com.spotify.Client"
     "com.sweethome3d.Sweethome3d"
+    "com.vysp3r.ProtonPlus"
   ];
   cfg = config.customModules.flatpak;
 in {

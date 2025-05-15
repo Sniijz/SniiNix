@@ -225,6 +225,7 @@ in {
       corectrl # Control your computer hardware via app profiles, perfect for FAN control
       compose2nix # Tool to convert docker-compose files for nix
       eza # Modern replacement of ls
+      etlegacy # Wolfenstein open source
       firefox # Web browser
       fzf # Fuzzy finder
       gamescope-wsi # game performance HDR tool
@@ -290,6 +291,7 @@ in {
       tonelib-metal # Metal Amp and effects modeling
       unrar-free # rar extractor
       usbmuxd # Drivers to plug iphone through usb
+      urbanterror # Urban Terror Game
       vim # text editor
       vital # Music Spectral warping wavetable synth
       vcv-rack # Music Open-source virtual modular synthesizer
