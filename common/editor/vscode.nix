@@ -78,6 +78,7 @@ in {
             "editor.mouseWheelZoom" = true;
             "diffEditor.renderSideBySide" = true;
             "workbench.startupEditor" = "newUntitledFile";
+            "terminal.integrated.allowChords" = true;
             "git.autofetch" = true;
             "workbench.colorTheme" = "Visual Studio Dark";
             "workbench.colorCustomizations" = {

@@ -134,6 +134,10 @@ in {
   # Enable networking
   networking.networkmanager.enable = true;
 
+  # Tailscale configuration
+  services.tailscale.enable = true;
+  services.tailscale.useRoutingFeatures = "client";
+
   ######################### Accounts ##########################
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
