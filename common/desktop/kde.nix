@@ -77,7 +77,7 @@ in {
           {
             screen = "all";
             location = "bottom";
-            height = 44;
+            height = 40;
             hiding = "normalpanel";
             floating = false;
             widgets = [
