@@ -102,6 +102,11 @@ in {
   # Disk Encrypt
   boot.initrd.luks.devices."luks-00286d7d-7c2f-4912-9d83-aaa0c992f906".device = "/dev/disk/by-uuid/00286d7d-7c2f-4912-9d83-aaa0c992f906";
 
+  # Enable Hibernation
+  # boot.kernelParams = ["resume_offset=38553600"]; # swap physical offset got through sudo filefrag -v /var/lib/swapfile | head
+  boot.resumeDevice = "/dev/disk/by-uuid/e19036f3-3de5-4783-847d-28646b2c095a"; # L'UUID du swap déverouillé
+  powerManagement.enable = true;
+
   ######################### Graphics Settings #########################
 
   # Enable Network Avahi/Bonjour network discovery
@@ -263,6 +268,7 @@ in {
       steam # Valve gaming platform
       surge-XT # VST3 Synth
       tailscale # wireguard vpn home access
+      tcpdump # packet capture network tool
       tldr # man summary
       thunderbird # E-mail Client
       tmux # Terminal multiplexer
