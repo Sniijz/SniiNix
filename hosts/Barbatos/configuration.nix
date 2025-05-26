@@ -93,7 +93,7 @@ in {
     discord.enable = true;
     # Games
     TurtleWoW.enable = true;
-    WarThunder.enable = true;
+    WarThunder.enable = false;
     # System
     audio.enable = true;
     bluetooth.enable = true;
@@ -247,6 +247,7 @@ in {
       kdePackages.ark # Archive Manager Tool
       kdePackages.dolphin # File manager
       kdePackages.dolphin-plugins # additionals plugins for dolphin file explorer
+      kdePackages.isoimagewriter # Iso Writer for bootable USB key
       kdePackages.kscreen # Additional options to display & monitor in kde
       kdePackages.skanlite # KDE Scanner tool
       krita # Image drawing editor
