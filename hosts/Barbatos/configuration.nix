@@ -279,6 +279,7 @@ in {
       reaper # DAW Music Editor
       remmina # XRDP & VNC Clint
       rsync # Syncer
+      signal-desktop # Desktop app for signal chat
       smartmontools # Tool for monitoring health of packages
       spectacle # screenshot tool
       spotify # Music Streaming Service
