@@ -224,6 +224,7 @@ in {
       cmatrix # matrix effect package
       corectrl # Control your computer hardware via app profiles, perfect for FAN control
       compose2nix # Tool to convert docker-compose files for nix
+      easyeffects # pipewire mastering tool
       eza # Modern replacement of ls
       etlegacy # Wolfenstein open source
       firefox # Web browser
