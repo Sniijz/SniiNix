@@ -91,6 +91,7 @@ in {
     sunshine.enable = false;
     lazyjournal.enable = true;
     discord.enable = true;
+    onedrive.enable = true;
     # Games
     TurtleWoW.enable = true;
     WarThunder.enable = false;
