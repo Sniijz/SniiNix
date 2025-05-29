@@ -97,7 +97,7 @@ in {
                     "applications:firefox.desktop"
                     "applications:thunderbird.desktop"
                     "applications:code.desktop"
-                    "applications:org.godotengine.Godot4.desktop"
+                    "applications:org.godotengine.Godot4.4.desktop"
                     "applications:obsidian.desktop"
                     "applications:spotify.desktop"
                     "applications:cockos-reaper.desktop"
