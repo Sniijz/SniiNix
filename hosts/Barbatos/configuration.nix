@@ -245,13 +245,14 @@ in {
       htop # Top tool with colors
       ifuse # Tpol to plug iphone through usb
       k9s # Kubernetes mgmt
-      kcalc # kde calc
+      kdePackages.kcalc # kde calc
       kdePackages.ark # Archive Manager Tool
       kdePackages.dolphin # File manager
       kdePackages.dolphin-plugins # additionals plugins for dolphin file explorer
       kdePackages.isoimagewriter # Iso Writer for bootable USB key
       kdePackages.kscreen # Additional options to display & monitor in kde
       kdePackages.skanlite # KDE Scanner tool
+      kdePackages.spectacle # screenshot tool
       krita # Image drawing editor
       kronometer # Stopwatch application
       kubectl # Kubenertes config tool
@@ -283,7 +284,6 @@ in {
       rsync # Syncer
       signal-desktop # Desktop app for signal chat
       smartmontools # Tool for monitoring health of packages
-      spectacle # screenshot tool
       spotify # Music Streaming Service
       starship # theme for terminal
       surge-XT # VST3 Synth

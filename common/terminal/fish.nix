@@ -9,7 +9,7 @@
 }: {
   # Install DroidSansMono NerdFont
   fonts.packages = with pkgs; [
-    (nerdfonts.override {fonts = ["DroidSansMono"];})
+    nerd-fonts.droid-sans-mono
   ];
 
   environment.systemPackages = with pkgs; [

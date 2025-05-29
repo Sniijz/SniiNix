@@ -20,13 +20,31 @@ in {
   };
   config = lib.mkIf cfg.enable {
     home-manager.users.${vars.user} = {
+      # Update actual launcher with --password-store parameter to solve kwallet issue
+      # https://github.com/microsoft/vscode/issues/248978
+      xdg.desktopEntries."code" = {
+        name = "Visual Studio Code Sniijz";
+        genericName = "Text Editor";
+        comment = "Code Editing. Redefined.";
+        exec = "${pkgs.vscode}/bin/code --password-store=basic %F";
+        icon = "vscode";
+        terminal = false;
+        type = "Application";
+        categories = ["Utility" "TextEditor" "Development" "IDE"];
+        mimeType = [
+          "text/plain"
+          "inode/directory"
+          "application/x-code-workspace"
+        ];
+      };
+
       nixpkgs.config.allowUnfree = true;
       programs = {
         vscode = {
           enable = true;
           mutableExtensionsDir = false;
           # https://github.com/NixOS/nixpkgs/tree/master/pkgs/applications/editors/vscode/extensions
-          extensions = with pkgs.vscode-extensions;
+          profiles.default.extensions = with pkgs.vscode-extensions;
             [
               # General
               oderwat.indent-rainbow
@@ -74,7 +92,8 @@ in {
               }
             ];
 
-          userSettings = {
+          profiles.default.userSettings = {
+            "gnome-keyring.password-store" = "basic";
             "editor.mouseWheelZoom" = true;
             "diffEditor.renderSideBySide" = true;
             "workbench.startupEditor" = "newUntitledFile";
@@ -184,7 +203,7 @@ in {
             "extensions.autoUpdate" = false;
             "search.followSymlinks" = false;
           };
-          keybindings = [
+          profiles.default.keybindings = [
             {
               command = "workbench.action.terminal.new";
               key = "ctrl+shift+t";
