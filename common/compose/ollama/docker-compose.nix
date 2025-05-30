@@ -26,7 +26,7 @@ in {
 
     # Containers
     virtualisation.oci-containers.containers."ollama-ollama" = {
-      image = "ollama/ollama:rocm";
+      image = "ollama/ollama:latest";
       volumes = [
         "/home/sniijz/.docker/volumes/ollama:/root/.ollama:rw"
       ];

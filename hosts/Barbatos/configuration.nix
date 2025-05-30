@@ -81,7 +81,7 @@ in {
     kde.enable = true;
     dolphin.enable = true;
     # Compose
-    ollama.enable = false;
+    ollama.enable = true;
     wolf.enable = false;
     syncthing.enable = true;
     # App
@@ -195,7 +195,7 @@ in {
   };
 
   # Home manager fix
-  home-manager.backupFileExtension = "rebuild";
+  home-manager.backupFileExtension = "backup";
 
   ######################### Packages #########################
 

@@ -51,6 +51,8 @@ in {
               esbenp.prettier-vscode
               christian-kohler.path-intellisense
               foxundermoon.shell-format
+              # AI Assistant
+              continue.continue
               # Nix Formater
               kamadorueda.alejandra
               bbenoist.nix
