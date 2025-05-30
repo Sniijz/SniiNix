@@ -80,6 +80,7 @@ in {
     sunshine.enable = false;
     lazyjournal.enable = true;
     discord.enable = true;
+    onedrive.enable = true;
     # Games
     TurtleWoW.enable = true;
     WarThunder.enable = false;
@@ -226,13 +227,15 @@ in {
       helm # Music polyphonic synthesizer
       htop # Top tool with colors
       ifuse # Tpol to plug iphone through usb
+      inetutils # network tools like telnet
       k9s # Kubernetes mgmt
-      kcalc # kde calc
+      kdePackages.kcalc # kde calc
       kdePackages.ark # Archive Manager Tool
       kdePackages.dolphin # File manager
       kdePackages.dolphin-plugins # additionals plugins for dolphin file explorer
       kdePackages.kscreen # Additional options to display & monitor in kde
       kdePackages.skanlite # KDE Scanner tool
+      kdePackages.spectacle # screenshot tool
       krita # Image drawing editor
       kronometer # Stopwatch application
       kubectl # Kubenertes config tool
@@ -263,7 +266,6 @@ in {
       rsync # Syncer
       signal-desktop # Desktop app for signal chat
       smartmontools # Tool for monitoring health of packages
-      spectacle # screenshot tool
       spotify # Music Streaming Service
       starship # theme for terminal
       steam # Valve gaming platform
