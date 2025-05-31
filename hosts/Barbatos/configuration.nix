@@ -195,7 +195,7 @@ in {
   };
 
   # Home manager fix
-  home-manager.backupFileExtension = "backup";
+  home-manager.backupFileExtension = "rebuild";
 
   ######################### Packages #########################
 
