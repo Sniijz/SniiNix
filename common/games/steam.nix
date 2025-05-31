@@ -27,6 +27,7 @@ in {
     # For 2k Screen : gamemoderun  gamescope -f -e -r 120 -W 2560 -H 1440 --hdr-enabled --force-grab-cursor --hdr-debug-force-output --hdr-itm-enable --steam env ENABLE_GAMESCOPE_WSI=1 DXVK_HDR=1 RADV_PERFTEST='rt' DISABLE_HDR_WSI=1 MANGOHUD=1 -- %command%
     # For MH Wilds : gamemoderun gamescope -f -e -W 3840 -H 2160 --hdr-enabled --force-grab-cursor --hdr-debug-force-output --hdr-itm-enable --steam env ENABLE_GAMESCOPE_WSI=1 DXVK_HDR=1 VKD3D_DISABLE_EXTENSIONS=VK_NV_low_latency2 DISABLE_HDR_WSI=1 MANGOHUD=1 -- %command%
     # For Spiderman 2 : gamemoderun gamescope -f -e -r 120 -W 3840 -H 2160 --hdr-enabled --force-grab-cursor --hdr-debug-force-output --hdr-itm-enable --steam env ENABLE_GAMESCOPE_WSI=1 DXVK_HDR=1 RADV_PERFTEST='rt' DISABLE_HDR_WSI=1 MANGOHUD=1 -- %command%
+    # For Doom Eternal : gamemoderun gamescope -f -r 120 -W 2560 -H 1440 --force-grab-cursor -- %command% +in_terminal 1 +com_skipIntroVideo 1 +com_skipKeyPressOnLoadScreens 1
     # gamemoderun gamescope -f -e -r 120 -W 3840 -H 2160 --hdr-enabled --force-grab-cursor --steam env ENABLE_GAMESCOPE_WSI=1 DXVK_HDR=1 -- %command%
     # Run steam in gamescope : gamescope -e -- steam -steamdeck -f -e -r 120 -W 3840 -H 2160 --hdr-enabled --force-grab-cursor --steam env ENABLE_GAMESCOPE_WSI=1 DXVK_HDR=1 -- %command%
     # To fix later
