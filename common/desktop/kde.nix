@@ -299,12 +299,12 @@ in {
           "kwin"."view_zoom_out" = "Meta+-";
           "mediacontrol"."mediavolumedown" = "none,,Media volume down";
           "mediacontrol"."mediavolumeup" = "none,,Media volume up";
-          "mediacontrol"."nextmedia" = "Media Next";
+          "mediacontrol"."nextmedia" = ["Search" "Media Next,Media Next,Media playback next"];
           "mediacontrol"."pausemedia" = "Media Pause";
           "mediacontrol"."playmedia" = "none,,Play media playback";
-          "mediacontrol"."playpausemedia" = "Media Play";
-          "mediacontrol"."previousmedia" = "Media Previous";
-          "mediacontrol"."stopmedia" = "Media Stop";
+          "mediacontrol"."playpausemedia" = ["Launch Mail" "Media Play,Media Play,Play/Pause media playback"];
+          "mediacontrol"."previousmedia" = ["Calculator" "Media Previous,Media Previous,Media playback previous"];
+          "mediacontrol"."stopmedia" = ["Home Page" "Media Stop,Media Stop,Stop media playback"];
           "org_kde_powerdevil"."Decrease Keyboard Brightness" = "Keyboard Brightness Down";
           "org_kde_powerdevil"."Decrease Screen Brightness" = "Monitor Brightness Down";
           "org_kde_powerdevil"."Decrease Screen Brightness Small" = "Shift+Monitor Brightness Down";

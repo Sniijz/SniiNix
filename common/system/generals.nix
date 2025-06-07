@@ -7,6 +7,13 @@
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
+  # boot.loader.timeout = 10;
+  # boot.loader.grub = {
+  #   enable = true;
+  #   device = "nodev";
+  #   efiSupport = true;
+  #   useOSProber = true;
+  # };
 
   # Set your time zone.
   time.timeZone = "Europe/Paris";

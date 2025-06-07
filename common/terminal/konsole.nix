@@ -231,6 +231,11 @@ in {
         <Action name="edit_paste"/>
         <Action name="edit_find"/>
         <Action name="hamburger_menu"/>
+        <Action name="hamburger_menu"/>
+        <Action name="hamburger_menu"/>
+        <Action name="hamburger_menu"/>
+        <Action name="hamburger_menu"/>
+        <Action name="hamburger_menu"/>
         </ToolBar>
         <ActionProperties scheme="Default">
         <Action name="edit_copy_contextmenu" shortcut="Ctrl+Shift+C"/>
