@@ -120,6 +120,8 @@ in {
   services.xserver.enable = true;
   services.xserver.videoDrivers = ["amdgpu"];
 
+  hardware.enableAllFirmware = true;
+
   # install unstables mesa/amd drivers for 64 and 32 bits apps
   hardware.graphics = {
     enable = true;
@@ -258,6 +260,7 @@ in {
       kubectl # Kubenertes config tool
       lsp-plugins # Collection of open-source audio mastering plugins
       libimobiledevice # package to plug iphone through usb
+      linux-firmware # Binary firmware collection needed for ollama
       lutris # Open Source Gaming Platform
       man # Linux Documentation
       mangohud # overlay for monitoring system  perf inside app or games
@@ -280,7 +283,8 @@ in {
       qpwgraph # Qt graph manager for PipeWire, similar to QjackCtl
       radeontop # Top like for AMD GPU
       reaper # DAW Music Editor
-      remmina # XRDP & VNC Clint
+      remmina # XRDP & VNC Client
+      rocmPackages.rocminfo
       rsync # Syncer
       signal-desktop # Desktop app for signal chat
       smartmontools # Tool for monitoring health of packages
