@@ -272,6 +272,7 @@ in {
       niv # Painless dependencies for Nix projects
       nix-index # Files database for nixpkgs : gives nix-locate /bin/sleep command
       nix-search-cli # Tool to search for nixpkgs
+      nvtopPackages.amd # GPU tui graph tool for amd gpu
       odin2 # Music Odin2 synthesizer plugin
       onedrive # Onedrive native linux filesystem for Microsoft Onedrive
       onedrivegui # Gui for onedrive configuration
