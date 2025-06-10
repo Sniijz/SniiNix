@@ -228,6 +228,7 @@ in {
       corectrl # Control your computer hardware via app profiles, perfect for FAN control
       compose2nix # Tool to convert docker-compose files for nix
       easyeffects # pipewire mastering tool
+      gnomeExtensions.easyeffects-preset-selector # Presets easyeffects
       eza # Modern replacement of ls
       etlegacy # Wolfenstein open source
       firefox # Web browser
@@ -262,6 +263,7 @@ in {
       libimobiledevice # package to plug iphone through usb
       linux-firmware # Binary firmware collection needed for ollama
       lutris # Open Source Gaming Platform
+      lyrebird # Voice changing tool
       man # Linux Documentation
       mangohud # overlay for monitoring system  perf inside app or games
       mesa-demos # Mesa tools/utilities
