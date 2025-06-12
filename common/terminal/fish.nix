@@ -39,7 +39,7 @@
       function journalctl_fzf
           journalctl -n 1500 --no-pager | fzf
       end
-      bind \cl journalctl_fzf
+      bind \cj journalctl_fzf
     '';
 
     shellAbbrs = sharedShellAbbrs;

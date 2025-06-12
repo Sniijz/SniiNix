@@ -160,6 +160,17 @@ in {
   # Enable networking
   networking.networkmanager.enable = true;
 
+  # Firewall open for kdeconnect
+  networking.firewall = rec {
+    allowedTCPPortRanges = [
+      {
+        from = 1714;
+        to = 1764;
+      }
+    ];
+    allowedUDPPortRanges = allowedTCPPortRanges;
+  };
+
   ######################### Accounts ##########################
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
@@ -248,11 +259,12 @@ in {
       htop # Top tool with colors
       ifuse # Tpol to plug iphone through usb
       k9s # Kubernetes mgmt
-      kdePackages.kcalc # kde calc
       kdePackages.ark # Archive Manager Tool
       kdePackages.dolphin # File manager
       kdePackages.dolphin-plugins # additionals plugins for dolphin file explorer
       kdePackages.isoimagewriter # Iso Writer for bootable USB key
+      kdePackages.kcalc # kde calc
+      kdePackages.kdeconnect-kde # Mobile management
       kdePackages.kscreen # Additional options to display & monitor in kde
       kdePackages.skanlite # KDE Scanner tool
       kdePackages.spectacle # screenshot tool
