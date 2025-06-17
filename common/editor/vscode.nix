@@ -72,6 +72,7 @@ in {
               ms-python.vscode-pylance
               # Golang
               golang.go
+              # Golang Linter
               # Kubernetes
               ms-kubernetes-tools.vscode-kubernetes-tools
               # Terraform
@@ -102,6 +103,11 @@ in {
             "terminal.integrated.allowChords" = true;
             "git.autofetch" = true;
             "workbench.colorTheme" = "Visual Studio Dark";
+            "go.useLanguageServer" = true;
+            "go.toolsManagement.autoUpdate" = false;
+            "go.formatTool" = "gofmt";
+            "go.lintTool" = "golint";
+            "go.testOnSave" = false;
             "workbench.colorCustomizations" = {
               "statusBar.background" = "#1da063ec";
               "statusBar.noFolderBackground" = "#1da063ec";
@@ -155,6 +161,10 @@ in {
             };
             "[javascript]" = {
               "editor.defaultFormatter" = "esbenp.prettier-vscode";
+            };
+            "[go]" = {
+              "editor.defaultFormatter" = "golang.go";
+              "editor.formatOnSave" = true;
             };
             "[terraform]" = {
               "editor.defaultFormatter" = "hashicorp.terraform";
