@@ -258,6 +258,7 @@ in {
       helm # Music polyphonic synthesizer
       htop # Top tool with colors
       ifuse # Tpol to plug iphone through usb
+      iperf # Network latency tool
       k9s # Kubernetes mgmt
       kdePackages.ark # Archive Manager Tool
       kdePackages.dolphin # File manager

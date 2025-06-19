@@ -228,6 +228,7 @@ in {
       htop # Top tool with colors
       ifuse # Tpol to plug iphone through usb
       inetutils # network tools like telnet
+      iperf # Network latency tool
       k9s # Kubernetes mgmt
       kdePackages.kcalc # kde calc
       kdePackages.ark # Archive Manager Tool
