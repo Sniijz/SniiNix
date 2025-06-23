@@ -12,6 +12,7 @@
     #"com.spotify.Client"
     "com.sweethome3d.Sweethome3d"
     "com.vysp3r.ProtonPlus"
+    "org.jdownloader.JDownloader"
   ];
   cfg = config.customModules.flatpak;
 in {
