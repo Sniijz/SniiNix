@@ -153,9 +153,6 @@ in {
             "terminal.integrated.cwd" = "\${fileDirname}";
             "files.trimTrailingWhitespace" = true;
             "files.trimFinalNewlines" = true;
-            "[xml]" = {
-              "editor.defaultFormatter" = "DotJoshJohnson.xml";
-            };
             "[shellscript]" = {
               "editor.defaultFormatter" = "foxundermoon.shell-format";
             };

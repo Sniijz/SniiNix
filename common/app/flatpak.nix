@@ -13,6 +13,7 @@
     "com.sweethome3d.Sweethome3d"
     "com.vysp3r.ProtonPlus"
     "org.jdownloader.JDownloader"
+    "com.github.Matoking.protontricks"
   ];
   cfg = config.customModules.flatpak;
 in {

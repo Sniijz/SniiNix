@@ -231,6 +231,7 @@ in {
       arandr # graphical tool for monitor/screen mgmt
       aseprite # Pixel art editor
       bat # Better version of bat
+      bitwarden-desktop # Password Manager
       bottles # Easy to use wineprefix manager
       btop # Top tool written in C++
       cardinal # Music Plugin wrapper around VCV Rack
@@ -302,7 +303,7 @@ in {
       remmina # XRDP & VNC Client
       rocmPackages.rocminfo
       rsync # Syncer
-      signal-desktop # Desktop app for signal chat
+      # signal-desktop # Desktop app for signal chat
       smartmontools # Tool for monitoring health of packages
       spotify # Music Streaming Service
       starship # theme for terminal

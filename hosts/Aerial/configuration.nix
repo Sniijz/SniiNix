@@ -203,6 +203,7 @@ in {
       arandr # graphical tool for monitor/screen mgmt
       aseprite # Pixel art editor
       bat # Better version of bat
+      bitwarden-desktop # Password Manager
       bottles # Easy to use wineprefix manager
       btop # Top tool written in C++
       cardinal # Music Plugin wrapper around VCV Rack
