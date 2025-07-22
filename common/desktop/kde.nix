@@ -230,16 +230,16 @@ in {
           "kwin"."Window No Border" = "none,,Toggle Window Titlebar and Frame";
           "kwin"."Window On All Desktops" = "none,,Keep Window on All Desktops";
           # Custom Virtual Desktop motions
-          "kwin"."Switch to Next Desktop" = "Ctrl+Alt+Right";
+          "kwin"."Switch to Next Desktop" = ["Ctrl+Alt+Right" "Ctrl+Alt+l"];
           "kwin"."Switch to Next Screen" = "none,,Switch to Next Screen";
-          "kwin"."Switch to Previous Desktop" = "Ctrl+Alt+Left";
+          "kwin"."Switch to Previous Desktop" = ["Ctrl+Alt+Left" "Ctrl+Alt+h"];
           "kwin"."Switch to Previous Screen" = "none,,Switch to Previous Screen";
-          "kwin"."Switch One Desktop Down" = "Ctrl+Alt+Down";
-          "kwin"."Switch One Desktop Up" = "Ctrl+Alt+Up";
-          "kwin"."Window One Desktop Down" = "Ctrl+Alt+Shift+Down";
-          "kwin"."Window One Desktop Up" = "Ctrl+Alt+Shift+Up";
-          "kwin"."Window One Desktop to the Left" = "Ctrl+Alt+Shift+Left";
-          "kwin"."Window One Desktop to the Right" = "Ctrl+Alt+Shift+Right";
+          "kwin"."Switch One Desktop Down" = ["Ctrl+Alt+Down" "Ctrl+Alt+j"];
+          "kwin"."Switch One Desktop Up" = ["Ctrl+Alt+Up" "Ctrl+Alt+k"];
+          "kwin"."Window One Desktop Down" = ["Ctrl+Alt+Shift+Down" "Ctrl+Alt+Shift+j"];
+          "kwin"."Window One Desktop Up" = ["Ctrl+Alt+Shift+Up" "Ctrl+Alt+Shift+k"];
+          "kwin"."Window One Desktop to the Left" = ["Ctrl+Alt+Shift+Left" "Ctrl+Alt+Shift+h"];
+          "kwin"."Window One Desktop to the Right" = ["Ctrl+Alt+Shift+Right" "Ctrl+Alt+Shift+l"];
           "kwin"."Window One Screen Down" = "none,,Move Window One Screen Down";
           "kwin"."Window One Screen Up" = "none,,Move Window One Screen Up";
           "kwin"."Window One Screen to the Left" = "none,,Move Window One Screen to the Left";
