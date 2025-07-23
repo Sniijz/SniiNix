@@ -143,6 +143,7 @@ in {
             "explorer.confirmDelete" = false;
             "editor.fontFamily" = "DroidSansM Nerd Font";
             "git.confirmSync" = false;
+            "git.blame.editorDecoration.enabled" = true;
             "explorer.confirmDragAndDrop" = false;
             "redhat.telemetry.enabled" = false;
             "security.workspace.trust.untrustedFiles" = "open";

@@ -58,7 +58,7 @@ in {
 
   customModules = {
     # Terminal
-    ghostty.enable = false;
+    ghostty.enable = true;
     kitty.enable = false;
     konsole.enable = true;
     neovim.enable = true;
