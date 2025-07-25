@@ -37,19 +37,20 @@
 
       # Enable mouse + scrolling + copy paste
       set -g mouse on
-      set -s set-clipboard on
+      set -s set-clipboard off
+      set -s copy-command 'xsel -i'
       set -g @yank_selection 'clipboard'
       set -g @yank_selection_mouse 'clipboard'
 
       ####### Bindings #######
       # Set the prefix to Ctrl+a
-      set -g prefix C-a
+      set -g prefix C-q
 
       # Remove the old prefix
       unbind C-b
 
       # Send key to applications by pressing it twice
-      bind-key -n C-a send-prefix
+      bind-key -n C-q send-prefix
 
       ### Split panes bindings
       # Split panes horizontal and keep actual path
@@ -59,15 +60,29 @@
       unbind '"'
       unbind %
 
-      # Switch panes using Alt-arrow without prefix
-      bind -n M-Left select-pane -L
-      bind -n M-Right select-pane -R
-      bind -n M-Up select-pane -U
-      bind -n M-Down select-pane -D
+      # Switch panes using Ctrl-arrow without prefix
+      bind -n C-Left select-pane -L
+      bind -n C-Right select-pane -R
+      bind -n C-Up select-pane -U
+      bind -n C-Down select-pane -D
 
-      # Switch tabs/windows
+      # Switch panes using vim motions h j k l
+      bind -n C-h select-pane -L
+      bind -n C-j select-pane -D
+      bind -n C-k select-pane -U
+      bind -n C-l select-pane -R
+
+      # Restore a closed pane
+      bind u respawn-pane -k
+
+      # Switch tabs/window with arrows
       bind -n S-M-Left previous-window
       bind -n S-M-Right next-window
+
+      # Switch tabs/window with h l
+      bind -n S-M-h previous-window
+      bind -n S-M-l next-window
+
       # toggle to last window used
       bind Space last-window
       # Rebind window selection for Azerty keyboard
@@ -82,13 +97,10 @@
       bind -n M-9 select-window -t 9  # Alt + ç → 9
       bind -n M-0 select-window -t 0  # Alt + à → 0
 
-      # Specific Home Shortcus
-      bind-key k new-window -n "k9s" "k9s"
-      bind-key l new-window -n "logs" "journalctl -fe"
-
       # Specific S3NS Shortcuts
-      bind-key g new-window -n "VPN" "vpn-gs1-stg"
-      bind-key h new-window -n "VPN" "vpn-oob-gs1-stg"
+      bind g new-window -n "VPN" 'vpn-gs1-stg'
+      bind h new-window -n "VPN-OOB" 'vpn-oob-gs1-stg'
+
 
       ####### Theme #######
       # This tmux statusbar config was created based on gruvbox colorscheme

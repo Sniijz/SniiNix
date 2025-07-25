@@ -40,7 +40,8 @@ in {
         settings = {
           font-family = "DroidSansM Nerd Font";
           theme = "Horizon";
-          background-opacity = "0.7";
+          background-opacity = "0.8";
+          background-blur = true;
           background = "#1B1E20";
           window-padding-balance = true;
           maximize = true;

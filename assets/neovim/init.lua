@@ -16,8 +16,11 @@ vim.opt.incsearch = true     -- Show search results incrementally
 vim.opt.undofile = true      -- Enable persistent undo
 vim.opt.updatetime = 300     -- Faster update time for CursorHold events (e.g., LSP hover)
 vim.opt.signcolumn = "yes"   -- Always show the sign column to avoid layout shifts
+vim.opt.wrap = true          -- Force vim to show all text in actual window/pane
+vim.opt.linebreak = true     -- Avoid to open a new line in a middle of a word for too long lines
 vim.g.mapleader = " " -- Set leader key to space
 vim.g.maplocalleader = " " -- Set localleader key to space
+
 if vim.fn.has("clipboard") == 1 then
   vim.opt.clipboard = "unnamedplus"
 end
@@ -31,7 +34,25 @@ vim.g.minimap_width = 10
 vim.g.minimap_auto_start = true
 vim.g.minimap_auto_start_win_enter = true
 
-vim.cmd.colorscheme('catppuccin-mocha')
+-- Move actual line/selection with Alt + j/k
+vim.keymap.set('n', '<A-j>', ':m+1<CR>==')
+vim.keymap.set('n', '<A-k>', ':m-2<CR>==')
+vim.keymap.set('v', '<A-j>', ":m'>+1<CR>gv=gv")
+vim.keymap.set('v', '<A-k>', ":m'<-2<CR>gv=gv")
+
+-- Move actual line/selection with arrow keys
+vim.keymap.set('n', '<A-Down>', ':m+1<CR>==')
+vim.keymap.set('n', '<A-Up>',   ':m-2<CR>==')
+vim.keymap.set('v', '<A-Down>', ":m'>+1<CR>gv=gv")
+vim.keymap.set('v', '<A-Up>',   ":m'<-2<CR>gv=gv")
+
+-- NeoVim Theme
+vim.cmd.colorscheme('vscode')
+
+-- Transparency
+vim.api.nvim_set_hl(0, "Normal", { bg = "none" })
+vim.api.nvim_set_hl(0, "NormalFloat", { bg = "none" })
+
 
 -- hl on yank
 vim.api.nvim_create_autocmd('TextYankPost', {
@@ -193,6 +214,19 @@ cmp.setup.cmdline(':', {
     { name = 'path' },
     { name = 'cmdline' }
   })
+})
+
+-- Configure autoIndent on save
+vim.api.nvim_create_autocmd("BufWritePre", {
+  pattern = "*",
+  callback = function()
+    -- Sauvegarde la position du curseur et de la vue
+    local view = vim.fn.winsaveview()
+    -- Indente tout le fichier (gg=G)
+    vim.cmd('normal! gg=G')
+    -- Restaure la position du curseur et de la vue
+    vim.fn.winrestview(view)
+  end,
 })
 
 -- Setup Telescope (fuzzy finder)
