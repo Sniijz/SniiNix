@@ -1,3 +1,6 @@
+-- disable netrw at the very start of your init.lua
+vim.g.loaded_netrw = 1
+vim.g.loaded_netrwPlugin = 1
 -- Basic Neovim Options
 vim.opt.termguicolors = true -- Enable true color support
 vim.opt.number = true        -- Show line numbers
@@ -29,10 +32,32 @@ vim.diagnostic.config({
   signs = true,
 })
 
--- Minimap Plugin Configuration
-vim.g.minimap_width = 10
-vim.g.minimap_auto_start = true
-vim.g.minimap_auto_start_win_enter = true
+-- nvim-tree config
+-- empty setup using defaults
+require("nvim-tree").setup()
+
+-- OR setup with some options
+require("nvim-tree").setup({
+  sort = {
+    sorter = "case_sensitive",
+  },
+  view = {
+    width = 30,
+  },
+  renderer = {
+    group_empty = true,
+  },
+  filters = {
+    dotfiles = true,
+  },
+})
+-- Hotkey configuration for nvim-tree
+-- <C-b> means Ctrl + b in normal mode
+vim.keymap.set("n", "<C-b>", ":NvimTreeToggle<CR>", {
+  noremap = true,
+  silent = true,
+})
+
 
 -- Move actual line/selection with Alt + j/k
 vim.keymap.set('n', '<A-j>', ':m+1<CR>==')
@@ -104,7 +129,7 @@ local on_attach = function(client, bufnr)
 
   -- Enable formatting via conformif the LSP server doesn't provide it natively
   if client.server_capabilities.documentFormattingProvider then
-      map("n", "<leader>f", function() vim.lsp.buf.format({ async = true }) end, { buffer = bufnr, desc = "LSP: Format" })
+    map("n", "<leader>f", function() vim.lsp.buf.format({ async = true }) end, { buffer = bufnr, desc = "LSP: Format" })
   end
 end
 
