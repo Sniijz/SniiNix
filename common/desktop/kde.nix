@@ -1,10 +1,10 @@
 # KDE
 {
-  vars,
-  pkgs,
-  config,
-  lib,
-  ...
+vars,
+pkgs,
+config,
+lib,
+...
 }: let
   cfg = config.customModules.kde;
 in {
@@ -421,8 +421,10 @@ in {
           "kwinrc"."Desktops"."Name_4" = "Desktop 4";
           "kwinrc"."Desktops"."Number" = lib.mkForce 4;
           "kwinrc"."Desktops"."Rows" = 2;
-          "kwinrc"."Effect-overview"."BorderActivate" = 9;
           "kwinrc"."Plugins"."shakecursorEnabled" = false;
+          "kwinrc"."Effect-overview"."BorderActivate" = 9;
+          "kwinrc"."Effect-blur"."BlurStrength" = 4;
+          "kwinrc"."Plugins"."blurEnabled" = true;
           "plasma-localerc"."Formats"."LANG" = "en_US.UTF-8";
           "plasmanotifyrc"."Applications/com.usebottles.bottles"."Seen" = true;
           "plasmanotifyrc"."Applications/discord"."Seen" = true;

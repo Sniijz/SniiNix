@@ -1,16 +1,14 @@
 {
-  vars,
-  pkgs,
-  lib,
-  config,
-  ...
+vars,
+pkgs,
+lib,
+config,
+...
 }: let
   sharedShellAbbrs = {
     # General Terminal Aliases
     ll = "exa -alh";
     tree = "exa --tree";
-    vim = "nvim";
-    vi = "nvim";
     k = "${pkgs.kubectl}/bin/kubectl";
     fs = "du -hd 1 | sort -h";
   };

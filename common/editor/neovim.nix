@@ -89,7 +89,7 @@ in {
         vim-gitgutter # to show modifications made in the gutter (left side of editor)
         vim-fugitive # better git for merge conflict, blame
       ];
-      extraLuaConfig = builtins.readFile ../assets/neovim/init.lua;
+      extraLuaConfig = builtins.readFile ../../assets/neovim/init.lua;
       };
     };
   };

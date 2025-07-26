@@ -1,10 +1,10 @@
 # konsole
 {
-  vars,
-  config,
-  lib,
-  pkgs,
-  ...
+vars,
+config,
+lib,
+pkgs,
+...
 }: let
   cfg = config.customModules.konsole;
 in {
@@ -39,6 +39,7 @@ in {
             extraConfig = {
               Appearance = {
                 ColorScheme = "SniiBreeze";
+                BackgroundMode = "Blur"; 
               };
 
               General = {
