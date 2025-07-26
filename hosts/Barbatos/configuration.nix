@@ -2,10 +2,10 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 {
-  config,
-  pkgs,
-  lib,
-  ...
+config,
+pkgs,
+lib,
+...
 }: let
   vars = {
     user = "sniijz";
@@ -327,6 +327,7 @@ in {
       wineWowPackages.waylandFull # Open Source implementation of the Windows API
       winetricks # Tool to work around problems in Wine
       wolf-shaper # Music Waveshaper plugin with spline-based graph editor
+      wl-clipboard # xclip copy clipboard tool equivalent under wayland     
       xclip # xclip copying clipboard tool
       (xsane.override {gimpSupport = true;}) # scanner tool + gimp support
       yabridge # Use Windows VST2/3 On Linux

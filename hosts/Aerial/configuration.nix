@@ -2,10 +2,10 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 {
-  config,
-  pkgs,
-  lib,
-  ...
+config,
+pkgs,
+lib,
+...
 }: let
   vars = {
     user = "sniijz";
@@ -294,6 +294,7 @@ in {
       winetricks # Tool to work around problems in Wine
       wolf-shaper # Music Waveshaper plugin with spline-based graph editor
       xclip # xclip copying clipboard tool
+      wl-clipboard # xclip copy clipboard tool equivalent under wayland 
       (xsane.override {gimpSupport = true;}) # scanner tool + gimp support
       yabridge # Use Windows VST2/3 On Linux
       yabridgectl # Utility to setup and update yabridge
