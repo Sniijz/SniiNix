@@ -14,7 +14,6 @@ config,
   };
 
   sharedShellAliases = {
-    tmux = "tmux new-session -A";
   };
 
   sharedShellFunctions = {};
