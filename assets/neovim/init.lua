@@ -76,7 +76,7 @@ vim.cmd.colorscheme('vscode')
 
 -- Transparency
 vim.api.nvim_set_hl(0, "Normal", { bg = "none" })
-vim.api.nvim_set_hl(0, "NormalFloat", { bg = "none" })
+-- vim.api.nvim_set_hl(0, "NormalFloat", { bg = "none" })
 
 
 -- hl on yank
@@ -119,9 +119,13 @@ local capabilities = cmp_nvim_lsp.default_capabilities(vim.lsp.protocol.make_cli
 local on_attach = function(client, bufnr)
   map('n', 'gd', vim.lsp.buf.definition, { buffer = bufnr, desc = "LSP: Go to Definition" })
   map('n', 'K', vim.lsp.buf.hover, { buffer = bufnr, desc = "LSP: Hover Documentation" })
+  vim.api.nvim_create_autocmd('CursorHold', {
+    buffer = bufnr,
+    callback = vim.lsp.buf.hover,
+  })
   map('n', 'gi', vim.lsp.buf.implementation, { buffer = bufnr, desc = "LSP: Go to Implementation" })
   map('n', 'gr', vim.lsp.buf.references, { buffer = bufnr, desc = "LSP: Show References" })
-  map('n', '<leader>rn', vim.lsp.buf.rename, { buffer = bufnr, desc = "LSP: Rename" })
+  map('n', '<F2>', vim.lsp.buf.rename, { buffer = bufnr, desc = "LSP: Rename" })
   map('n', '<leader>ca', vim.lsp.buf.code_action, { buffer = bufnr, desc = "LSP: Code Action" })
   map('n', 'gl', vim.diagnostic.open_float, { buffer = bufnr, desc = "LSP: Show Line Diagnostics" })
   map('n', '[d', vim.diagnostic.goto_prev, { buffer = bufnr, desc = "LSP: Previous Diagnostic" })

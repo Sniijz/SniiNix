@@ -49,6 +49,8 @@ in {
           alejandra
           ripgrep
           fd
+          gopls
+          lua-language-server
         ];
         plugins = with pkgs.vimPlugins; [
           # --- Core Dependencies ---

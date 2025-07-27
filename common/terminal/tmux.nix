@@ -1,8 +1,8 @@
 # tmux
 {
-  config,
-  pkgs,
-  ...
+config,
+pkgs,
+...
 }: {
   programs.tmux = {
     enable = true;
@@ -14,6 +14,7 @@
     plugins = with pkgs.tmuxPlugins; [
       logging
       resurrect
+      continuum
       better-mouse-mode
       cpu
       yank

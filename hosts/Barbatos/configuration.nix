@@ -277,6 +277,7 @@ in {
       libimobiledevice # package to plug iphone through usb
       linux-firmware # Binary firmware collection needed for ollama
       lutris # Open Source Gaming Platform
+      lua-language-server # lua lsp for vim
       lyrebird # Voice changing tool
       man # Linux Documentation
       mangohud # overlay for monitoring system  perf inside app or games

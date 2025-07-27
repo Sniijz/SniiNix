@@ -244,6 +244,7 @@ in {
       lsp-plugins # Collection of open-source audio mastering plugins
       libimobiledevice # package to plug iphone through usb
       lutris # Open Source Gaming Platform
+      lua-language-server # lua lsp for vim
       man # Linux Documentation
       mangohud # overlay for monitoring system  perf inside app or games
       mesa-demos # Mesa tools/utilities
