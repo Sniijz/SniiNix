@@ -50,6 +50,7 @@ in {
           ripgrep
           fd
           gopls
+          terraform-ls
           lua-language-server
         ];
         plugins = with pkgs.vimPlugins; [

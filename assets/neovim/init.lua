@@ -1,7 +1,14 @@
--- disable netrw at the very start of your init.lua
+-- =======================================================================================
+-- Global Variables and Settings
+-- =======================================================================================
 vim.g.loaded_netrw = 1
 vim.g.loaded_netrwPlugin = 1
+vim.g.mapleader = " " -- Set leader key to space
+vim.g.maplocalleader = " " -- Set localleader key to space
+
+-- =======================================================================================
 -- Basic Neovim Options
+-- =======================================================================================
 vim.opt.termguicolors = true -- Enable true color support
 vim.opt.number = true        -- Show line numbers
 vim.opt.relativenumber = true -- Show relative line numbers
@@ -11,7 +18,6 @@ vim.opt.tabstop = 2          -- Number of spaces tabs count for
 vim.opt.softtabstop = 2      -- Number of spaces tabs count for in editing operations
 vim.opt.ignorecase = true    -- Ignore case when searching
 vim.opt.smartcase = true     -- Override ignorecase if search pattern has uppercase letters
-vim.opt.wrap = false         -- Do not wrap lines
 vim.opt.scrolloff = 8        -- Keep 8 lines visible above/below cursor when scrolling
 vim.opt.sidescrolloff = 8    -- Keep 8 columns visible left/right of cursor when scrolling
 vim.opt.hlsearch = true      -- Highlight search results
@@ -21,22 +27,81 @@ vim.opt.updatetime = 300     -- Faster update time for CursorHold events (e.g., 
 vim.opt.signcolumn = "yes"   -- Always show the sign column to avoid layout shifts
 vim.opt.wrap = true          -- Force vim to show all text in actual window/pane
 vim.opt.linebreak = true     -- Avoid to open a new line in a middle of a word for too long lines
-vim.g.mapleader = " " -- Set leader key to space
-vim.g.maplocalleader = " " -- Set localleader key to space
+vim.opt.completeopt = {'menu', 'menuone'} -- Setup completion
 
-if vim.fn.has("clipboard") == 1 then
+if vim.fn.has("clipboard") == 1 then -- Configure unique clipboard between vim and system
   vim.opt.clipboard = "unnamedplus"
 end
+
 vim.diagnostic.config({
   virtual_lines= true,
   signs = true,
 })
 
--- nvim-tree config
--- empty setup using defaults
-require("nvim-tree").setup()
+-- =======================================================================================
+-- Keymaps
+-- =======================================================================================
+-- Helper function for keymaps
+local function map(mode, lhs, rhs, opts)
+  local options = { noremap = true, silent = true }
+  if opts then
+    options = vim.tbl_extend('force', options, opts)
+  end
+  vim.keymap.set(mode, lhs, rhs, options)
+end
 
--- OR setup with some options
+-- Move lines up/down
+map('n', '<A-j>', ':m+1<CR>==', { desc = "Move line down" })
+map('n', '<A-k>', ':m-2<CR>==', { desc = "Move line up" })
+map('v', '<A-j>', ":m'>+1<CR>gv=gv", { desc = "Move selection down" })
+map('v', '<A-k>', ":m'<-2<CR>gv=gv", { desc = "Move selection up" })
+map('n', '<A-Down>', ':m+1<CR>==', { desc = "Move line down" })
+map('n', '<A-Up>', ':m-2<CR>==', { desc = "Move line up" })
+map('v', '<A-Down>', ":m'>+1<CR>gv=gv", { desc = "Move selection down" })
+map('v', '<A-Up>', ":m'<-2<CR>gv=gv", { desc = "Move selection up" })
+
+-- Add keymaps for Telescope
+map('n', '<leader>ff', '<cmd>Telescope find_files<cr>', { desc = "Find Files" })
+map('n', '<leader>fg', '<cmd>Telescope live_grep<cr>', { desc = "Live Grep" })
+map('n', '<leader>fb', '<cmd>Telescope buffers<cr>', { desc = "Find Buffers" })
+map('n', '<leader>fh', '<cmd>Telescope help_tags<cr>', { desc = "Help Tags" })
+map('n', '<leader>fo', '<cmd>Telescope oldfiles<cr>', { desc = "previous files" })
+
+-- Hotkey configuration for nvim-tree
+-- <C-b> means Ctrl + b in normal mode
+map("n", "<C-b>", ":NvimTreeToggle<CR>", { desc = "Toggle NvimTree" })
+
+
+-- =======================================================================================
+-- Neovim Theme
+-- =======================================================================================
+-- colorscheme
+vim.cmd.colorscheme('vscode')
+
+-- Transparency
+vim.api.nvim_set_hl(0, "Normal", { bg = "none" })
+-- vim.api.nvim_set_hl(0, "NormalFloat", { bg = "none" })
+
+
+-- =======================================================================================
+-- Autocmds
+-- =======================================================================================
+
+-- hl on yank
+vim.api.nvim_create_autocmd('TextYankPost', {
+  group = vim.api.nvim_create_augroup('highlight_yank', {}),
+  pattern = '*',
+  callback = function()
+    vim.highlight.on_yank({ higroup = 'IncSearch', timeout = 150 })
+  end,
+})
+
+-- =======================================================================================
+-- Plugin Configuration
+-- =======================================================================================
+
+-- nvim-tree config
+-- setup with some options
 require("nvim-tree").setup({
   sort = {
     sorter = "case_sensitive",
@@ -51,51 +116,6 @@ require("nvim-tree").setup({
     dotfiles = true,
   },
 })
--- Hotkey configuration for nvim-tree
--- <C-b> means Ctrl + b in normal mode
-vim.keymap.set("n", "<C-b>", ":NvimTreeToggle<CR>", {
-  noremap = true,
-  silent = true,
-})
-
-
--- Move actual line/selection with Alt + j/k
-vim.keymap.set('n', '<A-j>', ':m+1<CR>==')
-vim.keymap.set('n', '<A-k>', ':m-2<CR>==')
-vim.keymap.set('v', '<A-j>', ":m'>+1<CR>gv=gv")
-vim.keymap.set('v', '<A-k>', ":m'<-2<CR>gv=gv")
-
--- Move actual line/selection with arrow keys
-vim.keymap.set('n', '<A-Down>', ':m+1<CR>==')
-vim.keymap.set('n', '<A-Up>',   ':m-2<CR>==')
-vim.keymap.set('v', '<A-Down>', ":m'>+1<CR>gv=gv")
-vim.keymap.set('v', '<A-Up>',   ":m'<-2<CR>gv=gv")
-
--- NeoVim Theme
-vim.cmd.colorscheme('vscode')
-
--- Transparency
-vim.api.nvim_set_hl(0, "Normal", { bg = "none" })
--- vim.api.nvim_set_hl(0, "NormalFloat", { bg = "none" })
-
-
--- hl on yank
-vim.api.nvim_create_autocmd('TextYankPost', {
-  group = vim.api.nvim_create_augroup('highlight_yank', {}),
-  pattern = '*',
-  callback = function()
-    vim.highlight.on_yank({ higroup = 'IncSearch', timeout = 150 })
-  end,
-})
-
--- Helper function for keymaps
-local function map(mode, lhs, rhs, opts)
-  local options = { noremap = true, silent = true }
-  if opts then
-    options = vim.tbl_extend('force', options, opts)
-  end
-  vim.keymap.set(mode, lhs, rhs, options)
-end
 
 -- Setup Treesitter
 require('nvim-treesitter.configs').setup {
@@ -107,6 +127,10 @@ require('nvim-treesitter.configs').setup {
     enable = true,
   },
 }
+
+-- =======================================================================================
+-- LSP Configuration
+-- =======================================================================================
 
 -- Setup LSP (nvim-lspconfig)
 local lspconfig = require('lspconfig')
@@ -134,6 +158,23 @@ local on_attach = function(client, bufnr)
   -- Enable formatting via conformif the LSP server doesn't provide it natively
   if client.server_capabilities.documentFormattingProvider then
     map("n", "<leader>f", function() vim.lsp.buf.format({ async = true }) end, { buffer = bufnr, desc = "LSP: Format" })
+  end
+
+  -- Auto import package on save for go
+  if client.name == "gopls" then
+    if client.supports_method("textDocument/codeAction") then
+      local augroup = vim.api.nvim_create_augroup("GoImportsOnSave", { clear = true })
+      vim.api.nvim_create_autocmd("BufWritePre", {
+        group = augroup,
+        buffer = bufnr,
+        callback = function()
+          vim.lsp.buf.code_action({
+            context = { only = { "source.organizeImports" }, diagnostics = vim.diagnostic.get(bufnr) },
+            apply = true,
+          })
+        end,
+      })
+    end
   end
 end
 
@@ -201,9 +242,21 @@ lspconfig.lua_ls.setup {
   };
 }
 
--- Setup completion
-vim.opt.completeopt = {'menu', 'menuone'}
+-- Configure gopls language server
+lspconfig.gopls.setup({
+  on_attach = on_attach,
+  capabilities = capabilities,
+  settings = {
+    gopls = {
+      staticcheck = true,
+      gofumpt = true,
+    }
+  }
+})
 
+-- =======================================================================================
+-- CMP Configuration
+-- =======================================================================================
 local cmp = require('cmp')
 local luasnip = require('luasnip')
 
@@ -245,19 +298,6 @@ cmp.setup.cmdline(':', {
   })
 })
 
--- Configure autoIndent on save
-vim.api.nvim_create_autocmd("BufWritePre", {
-  pattern = "*",
-  callback = function()
-    -- Sauvegarde la position du curseur et de la vue
-    local view = vim.fn.winsaveview()
-    -- Indente tout le fichier (gg=G)
-    vim.cmd('normal! gg=G')
-    -- Restaure la position du curseur et de la vue
-    vim.fn.winrestview(view)
-  end,
-})
-
 -- Setup Telescope (fuzzy finder)
 local telescope = require('telescope')
 telescope.setup {
@@ -280,14 +320,8 @@ telescope.setup {
     -- Load extensions if you add any
   }
 }
--- Add keymaps for Telescope
-map('n', '<leader>ff', '<cmd>Telescope find_files<cr>', { desc = "Find Files" })
-map('n', '<leader>fg', '<cmd>Telescope live_grep<cr>', { desc = "Live Grep" })
-map('n', '<leader>fb', '<cmd>Telescope buffers<cr>', { desc = "Find Buffers" })
-map('n', '<leader>fh', '<cmd>Telescope help_tags<cr>', { desc = "Help Tags" })
-map('n', '<leader>fo', '<cmd>Telescope oldfiles<cr>', { desc = "previous files" })
+
 
 -- Setup Telescope File Browser
 require('telescope').load_extension('file_browser')
--- Add keympas for Telescope File Browser
-map('n', '<leader>fe', '<cmd>Telescope file_browser<cr>', { desc = "Browse Files" })
+
