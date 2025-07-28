@@ -3,38 +3,38 @@
 -- =======================================================================================
 vim.g.loaded_netrw = 1
 vim.g.loaded_netrwPlugin = 1
-vim.g.mapleader = " " -- Set leader key to space
+vim.g.mapleader = " "      -- Set leader key to space
 vim.g.maplocalleader = " " -- Set localleader key to space
 
 -- =======================================================================================
 -- Basic Neovim Options
 -- =======================================================================================
-vim.opt.termguicolors = true -- Enable true color support
-vim.opt.number = true        -- Show line numbers
-vim.opt.relativenumber = true -- Show relative line numbers
-vim.opt.expandtab = true     -- Use spaces instead of tabs
-vim.opt.shiftwidth = 2       -- Size of an indent
-vim.opt.tabstop = 2          -- Number of spaces tabs count for
-vim.opt.softtabstop = 2      -- Number of spaces tabs count for in editing operations
-vim.opt.ignorecase = true    -- Ignore case when searching
-vim.opt.smartcase = true     -- Override ignorecase if search pattern has uppercase letters
-vim.opt.scrolloff = 8        -- Keep 8 lines visible above/below cursor when scrolling
-vim.opt.sidescrolloff = 8    -- Keep 8 columns visible left/right of cursor when scrolling
-vim.opt.hlsearch = true      -- Highlight search results
-vim.opt.incsearch = true     -- Show search results incrementally
-vim.opt.undofile = true      -- Enable persistent undo
-vim.opt.updatetime = 300     -- Faster update time for CursorHold events (e.g., LSP hover)
-vim.opt.signcolumn = "yes"   -- Always show the sign column to avoid layout shifts
-vim.opt.wrap = true          -- Force vim to show all text in actual window/pane
-vim.opt.linebreak = true     -- Avoid to open a new line in a middle of a word for too long lines
-vim.opt.completeopt = {'menu', 'menuone'} -- Setup completion
+vim.opt.termguicolors = true                -- Enable true color support
+vim.opt.number = true                       -- Show line numbers
+vim.opt.relativenumber = true               -- Show relative line numbers
+vim.opt.expandtab = true                    -- Use spaces instead of tabs
+vim.opt.shiftwidth = 2                      -- Size of an indent
+vim.opt.tabstop = 2                         -- Number of spaces tabs count for
+vim.opt.softtabstop = 2                     -- Number of spaces tabs count for in editing operations
+vim.opt.ignorecase = true                   -- Ignore case when searching
+vim.opt.smartcase = true                    -- Override ignorecase if search pattern has uppercase letters
+vim.opt.scrolloff = 8                       -- Keep 8 lines visible above/below cursor when scrolling
+vim.opt.sidescrolloff = 8                   -- Keep 8 columns visible left/right of cursor when scrolling
+vim.opt.hlsearch = true                     -- Highlight search results
+vim.opt.incsearch = true                    -- Show search results incrementally
+vim.opt.undofile = true                     -- Enable persistent undo
+vim.opt.updatetime = 300                    -- Faster update time for CursorHold events (e.g., LSP hover)
+vim.opt.signcolumn = "yes"                  -- Always show the sign column to avoid layout shifts
+vim.opt.wrap = true                         -- Force vim to show all text in actual window/pane
+vim.opt.linebreak = true                    -- Avoid to open a new line in a middle of a word for too long lines
+vim.opt.completeopt = { 'menu', 'menuone' } -- Setup completion
 
-if vim.fn.has("clipboard") == 1 then -- Configure unique clipboard between vim and system
+if vim.fn.has("clipboard") == 1 then        -- Configure unique clipboard between vim and system
   vim.opt.clipboard = "unnamedplus"
 end
 
 vim.diagnostic.config({
-  virtual_lines= true,
+  virtual_lines = true,
   signs = true,
 })
 
@@ -60,12 +60,20 @@ map('n', '<A-Up>', ':m-2<CR>==', { desc = "Move line up" })
 map('v', '<A-Down>', ":m'>+1<CR>gv=gv", { desc = "Move selection down" })
 map('v', '<A-Up>', ":m'<-2<CR>gv=gv", { desc = "Move selection up" })
 
+-- Move half pages up/down and keep cursor in the middle with zz
+map('n', '<C-d>', '<C-d>zz', { desc = "Move line down with cursor midscreen" })
+map('n', '<C-u>', '<C-u>zz', { desc = "Move line up with cursor midscreen" })
+map('n', 'n', 'nzzzv', { desc = "Move to next occurence with cursor midscreen" })
+map('n', 'N', 'Nzzzv', { desc = "Move to previous occurence with cursor midscreen" })
+
+
 -- Add keymaps for Telescope
 map('n', '<leader>ff', '<cmd>Telescope find_files<cr>', { desc = "Find Files" })
 map('n', '<leader>fg', '<cmd>Telescope live_grep<cr>', { desc = "Live Grep" })
+map('n', '<leader>fo', '<cmd>Telescope oldfiles<cr>', { desc = "previous files" })
+map('n', '<leader>fe', '<cmd>Telescope file_browser<cr>', { desc = "Browse Files" })
 map('n', '<leader>fb', '<cmd>Telescope buffers<cr>', { desc = "Find Buffers" })
 map('n', '<leader>fh', '<cmd>Telescope help_tags<cr>', { desc = "Help Tags" })
-map('n', '<leader>fo', '<cmd>Telescope oldfiles<cr>', { desc = "previous files" })
 
 -- Hotkey configuration for nvim-tree
 -- <C-b> means Ctrl + b in normal mode
@@ -211,31 +219,31 @@ lspconfig.nixd.setup {
   settings = {
     nixd = {
       formatting = {
-        command = { "alejandra" };
-      };
-    };
-  };
+        command = { "alejandra" },
+      },
+    },
+  },
 }
 -- Configure lua_ls language server
 lspconfig.lua_ls.setup {
   on_attach = on_attach,
   capabilities = capabilities,
   settings = {
-    Lua= {
+    Lua = {
       workspace = {
         library = vim.api.nvim_get_runtime_file("", true),
       },
       diagnostics = {
         globals = { 'vim' },
-      };
+      },
       format = {
         enable = true,
       },
       hint = {
         enable = true,
       },
-    };
-  };
+    },
+  },
 }
 
 -- Configure gopls language server
@@ -320,4 +328,3 @@ telescope.setup {
 
 -- Setup Telescope File Browser
 require('telescope').load_extension('file_browser')
-

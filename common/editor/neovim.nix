@@ -52,6 +52,9 @@ in {
           gopls
           terraform-ls
           lua-language-server
+          tree-sitter
+          gccgo
+          nodejs-slim
         ];
         plugins = with pkgs.vimPlugins; [
           # --- Core Dependencies ---
@@ -92,6 +95,9 @@ in {
           # --- git ---
           vim-gitgutter # to show modifications made in the gutter (left side of editor)
           vim-fugitive # better git for merge conflict, blame
+
+          # --- Vim Game ---
+          vim-be-good
         ];
         extraLuaConfig = builtins.readFile ../../assets/neovim/init.lua;
       };

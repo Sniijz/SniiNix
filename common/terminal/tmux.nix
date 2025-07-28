@@ -38,6 +38,10 @@ pkgs,
       # Enabling tmux-continuum for session save
       set -g @continuum-boot 'on'
 
+      # True color support
+      set-option -a terminal-features 'xterm-256color:RGB'
+      
+
       # Enable mouse + scrolling + copy paste
       set -g mouse on
       set -s set-clipboard off

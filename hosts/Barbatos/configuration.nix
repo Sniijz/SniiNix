@@ -81,7 +81,7 @@ in {
     kde.enable = true;
     dolphin.enable = true;
     # Compose
-    ollama.enable = true;
+    ollama.enable = false;
     wolf.enable = false;
     syncthing.enable = true;
     # App
