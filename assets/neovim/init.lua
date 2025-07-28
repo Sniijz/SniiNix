@@ -143,10 +143,6 @@ local capabilities = cmp_nvim_lsp.default_capabilities(vim.lsp.protocol.make_cli
 local on_attach = function(client, bufnr)
   map('n', 'gd', vim.lsp.buf.definition, { buffer = bufnr, desc = "LSP: Go to Definition" })
   map('n', 'K', vim.lsp.buf.hover, { buffer = bufnr, desc = "LSP: Hover Documentation" })
-  vim.api.nvim_create_autocmd('CursorHold', {
-    buffer = bufnr,
-    callback = vim.lsp.buf.hover,
-  })
   map('n', 'gi', vim.lsp.buf.implementation, { buffer = bufnr, desc = "LSP: Go to Implementation" })
   map('n', 'gr', vim.lsp.buf.references, { buffer = bufnr, desc = "LSP: Show References" })
   map('n', '<F2>', vim.lsp.buf.rename, { buffer = bufnr, desc = "LSP: Rename" })

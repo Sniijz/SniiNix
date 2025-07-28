@@ -1,6 +1,5 @@
 # tmux
 {
-config,
 pkgs,
 ...
 }: {
@@ -35,6 +34,9 @@ pkgs,
 
       # Stay in same path when creating a new windows
       bind c new-window -c "#{pane_current_path}"
+
+      # Enabling tmux-continuum for session save
+      set -g @continuum-boot 'on'
 
       # Enable mouse + scrolling + copy paste
       set -g mouse on
@@ -97,6 +99,10 @@ pkgs,
       bind -n M-8 select-window -t 8  # Alt + _ → 8
       bind -n M-9 select-window -t 9  # Alt + ç → 9
       bind -n M-0 select-window -t 0  # Alt + à → 0
+
+      # Save Terminal output in log file 
+      # hotkey (prefix + p) to save all pane in a file with date
+      bind-key p run-shell "tmux capture-pane -S - ; tmux save-buffer - | cat > ~/Desktop/output-$(date +'%Y%m%d-%H%M%S').txt" \; display-message "Pane saved to Desktop"
 
       # Specific S3NS Shortcuts
       bind g new-window -n "VPN" 'vpn-gs1-stg'
