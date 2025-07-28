@@ -111,7 +111,12 @@ pkgs,
       # Specific S3NS Shortcuts
       bind g new-window -n "VPN" 'vpn-gs1-stg'
       bind h new-window -n "VPN-OOB" 'vpn-oob-gs1-stg'
-
+      
+      # tmux resurrect configuration
+      set -g @resurrect-strategy-nvim 'session'
+      resurrect_dir=~/.tmux/resurrect/
+      set -g @resurrect-dir $resurrect_dir
+      set -g @resurrect-hook-post-save-all "sed -i 's| --cmd .*-vim-pack-dir||g; s|/etc/profiles/per-user/$USER/bin/||g; s|/nix/store/.*/bin/||g' $(readlink -f $resurrect_dir/last)"
 
       ####### Theme #######
       # This tmux statusbar config was created based on gruvbox colorscheme
