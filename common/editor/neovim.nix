@@ -52,6 +52,7 @@ in {
           gopls
           terraform-ls
           lua-language-server
+          yaml-language-server
           tree-sitter
           gccgo
           nodejs-slim
