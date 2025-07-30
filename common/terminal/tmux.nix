@@ -119,19 +119,54 @@ pkgs,
       set -g @resurrect-hook-post-save-all "sed -i 's| --cmd .*-vim-pack-dir||g; s|/etc/profiles/per-user/$USER/bin/||g; s|/nix/store/.*/bin/||g' $(readlink -f $resurrect_dir/last)"
 
       ####### Theme #######
-      # This tmux statusbar config was created based on gruvbox colorscheme
+      # # This tmux statusbar config was created based on gruvbox colorscheme
 
+      # set -g status "on"
+      # set -g status-justify "left"
+      # set -g status-left-length "100"
+      # set -g status-right-length "100"
+      # set -g status-bg "colour237"
+      # setw -g window-status-separator ""
+
+      # set -g status-left "#[fg=colour248,bg=colour241] #S #[fg=colour241,bg=colour237,nobold,nounderscore,noitalics]"
+      # set -g status-right "#[fg=colour239,bg=colour237,nobold,nounderscore,noitalics]#[fg=colour246,bg=colour239] %Y-%m-%d %H:%M  CPU 🖥️: #{cpu_percentage} RAM 🗄️: #{ram_percentage} #[fg=colour248,bg=colour239,nobold,nounderscore,noitalics]#[fg=colour237,bg=colour248] #h"
+      # setw -g window-status-format "#[fg=colour237,bg=colour239,noitalics]#[fg=colour223,bg=colour239] #I #[fg=colour223,bg=colour239] #W #[fg=colour239,bg=colour237,noitalics]"
+      # setw -g window-status-current-format "#[fg=colour239,bg=colour248,:nobold,nounderscore,noitalics]#[fg=colour239,bg=colour214] #I #[fg=colour239,bg=colour214,bold] #W #[fg=colour214,bg=colour237,nobold,nounderscore,noitalics]"
+      # run-shell ${pkgs.tmuxPlugins.cpu}/share/tmux-plugins/cpu/cpu.tmux
+
+
+
+      # -- COULEURS DE BASE --
+      # Fond principal de la barre (gris très foncé, proche du fond de VSCode)
+      set -g status-bg colour235
+      # Fond des fenêtres inactives (gris moyen)
+      setw -g window-status-style bg=colour240
+      # Fond de la fenêtre active (bleu vif de VSCode)
+      setw -g window-status-current-style bg=colour33
+
+      # -- CONFIGURATION GÉNÉRALE --
       set -g status "on"
       set -g status-justify "left"
       set -g status-left-length "100"
       set -g status-right-length "100"
-      set -g status-bg "colour237"
       setw -g window-status-separator ""
 
-      set -g status-left "#[fg=colour248,bg=colour241] #S #[fg=colour241,bg=colour237,nobold,nounderscore,noitalics]"
-      set -g status-right "#[fg=colour239,bg=colour237,nobold,nounderscore,noitalics]#[fg=colour246,bg=colour239] %Y-%m-%d %H:%M  CPU 🖥️: #{cpu_percentage} RAM 🗄️: #{ram_percentage} #[fg=colour248,bg=colour239,nobold,nounderscore,noitalics]#[fg=colour237,bg=colour248] #h"
-      setw -g window-status-format "#[fg=colour237,bg=colour239,noitalics]#[fg=colour223,bg=colour239] #I #[fg=colour223,bg=colour239] #W #[fg=colour239,bg=colour237,noitalics]"
-      setw -g window-status-current-format "#[fg=colour239,bg=colour248,:nobold,nounderscore,noitalics]#[fg=colour239,bg=colour214] #I #[fg=colour239,bg=colour214,bold] #W #[fg=colour214,bg=colour237,nobold,nounderscore,noitalics]"
+      # -- PARTIE GAUCHE (NOM DE SESSION) --
+      # Texte blanc sur fond gris foncé, avec flèche vers le fond principal
+      set -g status-left "#[fg=colour231,bg=colour237,bold] #S #[fg=colour237,bg=colour235,nobold,nounderscore,noitalics]"
+
+      # -- PARTIE DROITE (INFOS SYSTÈME ET HEURE) --
+      # Texte gris clair sur fond gris moyen, avec le nom d'hôte sur fond plus clair
+      set -g status-right "#[fg=colour252,bg=colour240] %Y-%m-%d %H:%M  🖥️ #{cpu_percentage} 🗄️ #{ram_percentage} #[fg=colour244,bg=colour240]#[fg=colour231,bg=colour244,bold] #h "
+
+      # -- FORMAT DES FENÊTRES INACTIVES --
+      # Texte gris clair sur fond gris moyen
+      setw -g window-status-format "#[fg=colour235,bg=colour240,nobold,nounderscore,noitalics]#[fg=colour252,bg=colour240] #I  #W #[fg=colour240,bg=colour235,nobold,nounderscore,noitalics]"
+
+      # -- FORMAT DE LA FENÊTRE ACTIVE --
+      # Texte blanc sur fond bleu vif
+      setw -g window-status-current-format "#[fg=colour235,bg=colour33,nobold,nounderscore,noitalics]#[fg=colour231,bg=colour33,bold] #I  #W #[fg=colour33,bg=colour235,nobold,nounderscore,noitalics]"
+
       run-shell ${pkgs.tmuxPlugins.cpu}/share/tmux-plugins/cpu/cpu.tmux
     '';
   };

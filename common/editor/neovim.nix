@@ -87,6 +87,9 @@ in {
 
           # --- User Interface & Utility ---
           lualine-nvim # Status line
+          bufferline-nvim # Buffer Tab tool 
+          toggleterm-nvim # integrated nvim term
+          nvim-web-devicons # nice icons
           nvim-tree-lua # File Tree for navigation
           telescope-nvim # Fuzzy finder (files, buffers, grep, etc.)
           telescope-file-browser-nvim # File browser

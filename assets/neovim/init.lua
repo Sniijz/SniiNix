@@ -79,6 +79,11 @@ map('n', '<leader>fh', '<cmd>Telescope help_tags<cr>', { desc = "Help Tags" })
 -- <C-b> means Ctrl + b in normal mode
 map("n", "<C-b>", ":NvimTreeToggle<CR>", { desc = "Toggle NvimTree" })
 
+-- Keymaps for bufferline
+map('n', '<leader>bn', ':BufferLineCycleNext<CR>', { desc = "Next buffer" })
+map('n', '<leader>bp', ':BufferLineCyclePrev<CR>', { desc = "Previous buffer" })
+
+
 
 -- =======================================================================================
 -- Neovim Theme
@@ -89,6 +94,68 @@ vim.cmd.colorscheme('vscode')
 -- Transparency
 vim.api.nvim_set_hl(0, "Normal", { bg = "none" })
 -- vim.api.nvim_set_hl(0, "NormalFloat", { bg = "none" })
+
+-- Lualine & Bufferline Configuration
+-- Configuration de Lualine (status bar)
+require('lualine').setup {
+  options = {
+    theme = 'vscode',
+    icons_enabled = true,
+    component_separators = { left = '', right = ''},
+    section_separators = { left = '', right = ''},
+    disabled_filetypes = {
+      statusline = {},
+      winbar = {},
+    },
+    ignore_focus = {},
+    always_divide_middle = true,
+    globalstatus = true,
+    refresh = {
+      statusline = 1000,
+      tabline = 1000,
+      winbar = 1000,
+    }
+  },
+  sections = {
+    lualine_a = {'mode'},
+    lualine_b = {'branch', 'diff', 'diagnostics'},
+    lualine_c = {'filename'},
+    lualine_x = {'encoding', 'fileformat', 'filetype'},
+    lualine_y = {'progress'},
+    lualine_z = {'location'}
+  },
+  inactive_sections = {
+    lualine_a = {},
+    lualine_b = {},
+    lualine_c = {'filename'},
+    lualine_x = {'location'},
+    lualine_y = {},
+    lualine_z = {}
+  },
+  tabline = {},
+  winbar = {},
+  inactive_winbar = {},
+  extensions = {'nvim-tree'}
+}
+
+-- Configuration de Bufferline (onglets)
+require('bufferline').setup {
+  options = {
+    mode = "buffers", -- style of tabs
+    separator_style = "thin", -- thin vertical bar to separate tabs
+    numbers = "ordinal", -- show buffers numbers
+    show_buffer_close_icons = true, -- close icons
+    show_close_icon = true,
+    offsets = {     -- Offset tabs to not overlap nvimtree
+        {
+            filetype = "NvimTree",
+            text = "File Explorer",
+            text_align = "center",
+            separator = true
+        }
+    }
+  }
+}
 
 
 -- =======================================================================================
