@@ -25,6 +25,7 @@ vars,
     p.nix
     p.python
     p.yaml
+    p.regex
   ]);
 in {
   options.customModules.neovim = {
@@ -62,7 +63,6 @@ in {
           plenary-nvim
 
           # --- ColorScheme ---
-          # gruvbox-nvim
           vscode-nvim
 
           # --- LSP (Language Server Protocol) ---
@@ -75,15 +75,16 @@ in {
           cmp-path # Completion source for filesystem paths
           luasnip # Snippet engine
           cmp_luasnip # Luasnip completion source for nvim-cmp
-          # Optional: Provides useful snippets for many languages
-          friendly-snippets
+          friendly-snippets # Provides useful snippets for many languages
+          lspkind-nvim # Nice icons in lsp helps messages
 
           # --- Syntax Highlighting ---
           nvim-treesitter-with-parsers # Treesitter for better syntax highlighting
 
-          # --- Formatting ---
+          # --- Typing and Formatting ---
           conform-nvim # Lightweight formatting plugin
           auto-pairs # Pluging to autoclose opening brackets
+          vim-commentary # comment tool
 
           # --- User Interface & Utility ---
           lualine-nvim # Status line
@@ -94,7 +95,9 @@ in {
           telescope-nvim # Fuzzy finder (files, buffers, grep, etc.)
           telescope-file-browser-nvim # File browser
           vim-tmux-navigator # tmux plugin for vim
-          vim-commentary # comment tool
+          noice-nvim # Replaces the UI for messages and cmdline
+          nui-nvim # Dependency for noice
+          nvim-notify # Recommended dependency for better notifications
 
           # --- git ---
           vim-gitgutter # to show modifications made in the gutter (left side of editor)
