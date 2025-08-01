@@ -14,7 +14,6 @@ pkgs,
       logging
       resurrect
       continuum
-      better-mouse-mode
       cpu
       yank
     ];
@@ -42,12 +41,21 @@ pkgs,
       set-option -a terminal-features 'xterm-256color:RGB'
       
 
-      # Enable mouse + scrolling + copy paste
+      # Enable mouse + scrolling + copy paste + vim keymaps
       set -g mouse on
-      set -s set-clipboard off
-      set -s copy-command 'xsel -i'
-      set -g @yank_selection 'clipboard'
-      set -g @yank_selection_mouse 'clipboard'
+      # Enable VI keymaps in copymode
+      set-window-option -g mode-keys vi
+
+      # Enter copy mode with Prefix + Enter
+      bind Enter copy-mode
+      # Quit copy-mode with escape
+      bind-key -T copy-mode-vi Escape send-keys -X cancel
+
+      # Start selection with v (like vim)
+      bind-key -T copy-mode-vi v send-keys -X begin-selection
+
+      # Copy selection in system clipboard with 'y'
+      bind-key -T copy-mode-vi y send-keys -X copy-pipe 'xsel -i --clipboard'
 
       ####### Bindings #######
       # Set the prefix to Ctrl+a
