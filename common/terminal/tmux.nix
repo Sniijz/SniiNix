@@ -37,22 +37,21 @@
       # True color support
       set-option -a terminal-features 'xterm-256color:RGB'
 
-
+      ######## Copy ##########
       # Enable mouse + scrolling + copy paste + vim keymaps
       set -g mouse on
       # Enable VI keymaps in copymode
       set-window-option -g mode-keys vi
-
       # Enter copy mode with Prefix + Enter
       bind Enter copy-mode
       # Quit copy-mode with escape
       bind-key -T copy-mode-vi Escape send-keys -X cancel
-
       # Start selection with v (like vim)
       bind-key -T copy-mode-vi v send-keys -X begin-selection
-
       # Copy selection in system clipboard with 'y'
       bind-key -T copy-mode-vi y send-keys -X copy-pipe 'xsel -i --clipboard'
+      # Copy selection with mouse without exiting copy-mode
+      bind-key -T copy-mode-vi MouseDragEnd1Pane send-keys -X copy-pipe 'xsel -i --clipboard'
 
       ####### Bindings #######
       # Set the prefix to Ctrl+a
