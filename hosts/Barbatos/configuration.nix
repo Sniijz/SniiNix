@@ -29,28 +29,28 @@ lib,
   pythonSubPackages = ps:
     with ps; [
       ansible # ansible love nix
-      pip # python package manager
-      pyyaml # yaml on python
-      scp # ssh copy
-      python-box # make python dict easy
-      jinja2 # text renderer
-      pynetbox # official api sdk netbox
-      netaddr # handle ip with python
-      paramiko # ssh pythonic
-      netmiko # network oriented paramiko extension
-      textfsm # text parser
-      ttp # text parser
-      ttp-templates # bunch of ttp community templates
-      requests # python http
-      rich # make beautiful ux on cli with python
       backoff # enable retry on web requests
       black # most used python formatter
-      tqdm # lightweight progress bar
+      jinja2 # text renderer
       mitogen # ansible accelerator
-      pexpect # expect on python
-      passlib # generate hash for cisco switches
-      pandas # data manipulation
+      netaddr # handle ip with python
+      netmiko # network oriented paramiko extension
       openpyxl # openpyxl to read/write excel sheet
+      pandas # data manipulation
+      paramiko # ssh pythonic
+      passlib # generate hash for cisco switches
+      pexpect # expect on python
+      pip # python package manager
+      pynetbox # official api sdk netbox
+      python-box # make python dict easy
+      pyyaml # yaml on python
+      requests # python http
+      rich # make beautiful ux on cli with python
+      scp # ssh copy
+      textfsm # text parser
+      tqdm # lightweight progress bar
+      ttp # text parser
+      ttp-templates # bunch of ttp community templates
     ];
 in {
   imports = [
@@ -223,6 +223,9 @@ in {
     };
 
     systemPackages = with pkgs; [
+      # signal-desktop # Desktop app for signal chat
+      (python312.withPackages pythonSubPackages) # Python packages
+      (xsane.override {gimpSupport = true;}) # scanner tool + gimp support
       alsa-scarlett-gui # Gui to configure Focusrite Scarlett audio interface
       alsa-utils # Advanced Linux Sound Architecture utils
       amdgpu_top # Tool to display AMD GPU Usage
@@ -237,26 +240,26 @@ in {
       cardinal # Music Plugin wrapper around VCV Rack
       cmake # Compilation
       cmatrix # matrix effect package
-      corectrl # Control your computer hardware via app profiles, perfect for FAN control
       compose2nix # Tool to convert docker-compose files for nix
+      corectrl # Control your computer hardware via app profiles, perfect for FAN control
       easyeffects # pipewire mastering tool
-      gnomeExtensions.easyeffects-preset-selector # Presets easyeffects
-      eza # Modern replacement of ls
       etlegacy # Wolfenstein open source
+      eza # Modern replacement of ls
       firefox # Web browser
       fzf # Fuzzy finder
       gamescope-wsi # game performance HDR tool
-      gitmoji-cli # Git commit emjoji-cli support
       gimp # Image editor
+      gitmoji-cli # Git commit emjoji-cli support
       glances # Top nicolargo tool
+      gnomeExtensions.easyeffects-preset-selector # Presets easyeffects
       go # Golang language
       godot_4 # Video Game Editor
       gotop # top tool written in go
       goverlay # GUI to configure Mangohud
       guitarix # Virtual guitar amplifier
       gxplugins-lv2 # lv2 plugins from guitarix
-      hollywood # flex hacker package
       helm # Music polyphonic synthesizer
+      hollywood # flex hacker package
       htop # Top tool with colors
       ifuse # Tpol to plug iphone through usb
       iperf # Network latency tool
@@ -273,11 +276,11 @@ in {
       krita # Image drawing editor
       kronometer # Stopwatch application
       kubectl # Kubenertes config tool
-      lsp-plugins # Collection of open-source audio mastering plugins
       libimobiledevice # package to plug iphone through usb
       linux-firmware # Binary firmware collection needed for ollama
-      lutris # Open Source Gaming Platform
+      lsp-plugins # Collection of open-source audio mastering plugins
       lua-language-server # lua lsp for vim
+      lutris # Open Source Gaming Platform
       lyrebird # Voice changing tool
       man # Linux Documentation
       mangohud # overlay for monitoring system  perf inside app or games
@@ -290,13 +293,12 @@ in {
       nix-index # Files database for nixpkgs : gives nix-locate /bin/sleep command
       nix-search-cli # Tool to search for nixpkgs
       nvtopPackages.amd # GPU tui graph tool for amd gpu
+      obsidian # markdown documentation tool
       odin2 # Music Odin2 synthesizer plugin
       onedrive # Onedrive native linux filesystem for Microsoft Onedrive
       onedrivegui # Gui for onedrive configuration
       onlyoffice-desktopeditors # Document editor
-      obsidian # markdown documentation tool
       pinta # image editor
-      (python312.withPackages pythonSubPackages) # Python packages
       qjackctl # QT app to control Jack Sound Server
       qpwgraph # Qt graph manager for PipeWire, similar to QjackCtl
       radeontop # Top like for AMD GPU
@@ -304,33 +306,31 @@ in {
       remmina # XRDP & VNC Client
       rocmPackages.rocminfo
       rsync # Syncer
-      # signal-desktop # Desktop app for signal chat
       smartmontools # Tool for monitoring health of packages
       spotify # Music Streaming Service
       starship # theme for terminal
       surge-XT # VST3 Synth
-      tldr # man summary
       thunderbird # E-mail Client
+      tldr # man summary
       tmux # Terminal multiplexer
       tonelib-gfx # Amp and effects modeling
       tonelib-jam # Rocksmith like tab player
       tonelib-metal # Metal Amp and effects modeling
       unrar-free # rar extractor
-      usbmuxd # Drivers to plug iphone through usb
       urbanterror # Urban Terror Game
+      usbmuxd # Drivers to plug iphone through usb
+      vcv-rack # Music Open-source virtual modular synthesizer
       vim # text editor
       vital # Music Spectral warping wavetable synth
-      vcv-rack # Music Open-source virtual modular synthesizer
       vlc # Video player
       warpinator # Share files across LAN
       wget # cli tool for download
-      wireshark # packet capture for network tshoot
       wineWowPackages.waylandFull # Open Source implementation of the Windows API
       winetricks # Tool to work around problems in Wine
-      wolf-shaper # Music Waveshaper plugin with spline-based graph editor
+      wireshark # packet capture for network tshoot
       wl-clipboard # xclip copy clipboard tool equivalent under wayland     
+      wolf-shaper # Music Waveshaper plugin with spline-based graph editor
       xclip # xclip copying clipboard tool
-      (xsane.override {gimpSupport = true;}) # scanner tool + gimp support
       yabridge # Use Windows VST2/3 On Linux
       yabridgectl # Utility to setup and update yabridge
       zram-generator # systemd unit generator for zram devices

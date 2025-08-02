@@ -45,18 +45,24 @@ in {
         viAlias = true;
         vimAlias = true;
         extraPackages = with pkgs; [
-          nixd
-          statix
           alejandra
-          ripgrep
+          ansible-lint
+          black
           fd
-          gopls
-          terraform-ls
-          lua-language-server
-          yaml-language-server
-          tree-sitter
           gccgo
+          gofumpt
+          gopls
+          isort
+          lua-language-server
+          nixd
+          nodePackages.prettier
           nodejs-slim
+          ripgrep
+          statix
+          stylua
+          terraform-ls
+          tree-sitter
+          yaml-language-server
         ];
         plugins = with pkgs.vimPlugins; [
           # --- Core Dependencies ---

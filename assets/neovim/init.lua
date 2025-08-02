@@ -26,7 +26,7 @@ vim.opt.undofile = true      -- Enable persistent undo
 vim.opt.updatetime = 300     -- Faster update time for CursorHold events (e.g., LSP hover)
 vim.opt.signcolumn = "yes"   -- Always show the sign column to avoid layout shifts
 vim.opt.laststatus = 3       -- Use a global statusline, required for lualine
-vim.opt.wrap = true          -- Force vim to show all text in actual window/pane
+vim.opt.wrap = false          -- Force vim to show all text in actual window/pane
 vim.opt.linebreak = true     -- Avoid to open a new line in a middle of a word for too long lines
 vim.opt.completeopt = {'menu', 'menuone'} -- Setup completion
 
@@ -218,6 +218,27 @@ require('noice').setup({
 -- Configuration pour nvim-notify
 require("notify").setup({
   background_colour = "#000000",
+})
+
+-- Autoformat on save
+require('conform').setup({
+  -- Configure formatters for specific file types
+  formatters_by_ft = {
+    _ = { "prettier" }, -- configure prettier by default
+    lua = { "stylua" },
+    go = { "gofumpt", "goimports" },
+    python = { "isort", "black" },
+    nix = { "alejandra" },
+    yaml = { "prettier" },
+    json = {"prettier"},
+    ansible = {"ansible-lint"},
+  },
+
+  -- Enable format on save
+  format_on_save = {
+    timeout_ms = 500,
+    lsp_fallback = true, -- use lsp formatter as fallback
+  },
 })
 
 -- =======================================================================================
