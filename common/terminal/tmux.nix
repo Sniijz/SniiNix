@@ -1,8 +1,5 @@
 # tmux
-{
-pkgs,
-...
-}: {
+{pkgs, ...}: {
   programs.tmux = {
     enable = true;
     shortcut = "a";
@@ -39,7 +36,7 @@ pkgs,
 
       # True color support
       set-option -a terminal-features 'xterm-256color:RGB'
-      
+
 
       # Enable mouse + scrolling + copy paste + vim keymaps
       set -g mouse on
@@ -112,19 +109,19 @@ pkgs,
       bind -n M-9 select-window -t 9  # Alt + ç → 9
       bind -n M-0 select-window -t 0  # Alt + à → 0
 
-      # Save Terminal output in log file 
+      # Save Terminal output in log file
       # hotkey (prefix + p) to save all pane in a file with date
       bind-key p run-shell "tmux capture-pane -S - ; tmux save-buffer - | cat > ~/Desktop/output-$(date +'%Y%m%d-%H%M%S').txt" \; display-message "Pane saved to Desktop"
 
       # Specific S3NS Shortcuts
       bind g new-window -n "VPN" 'vpn-gs1-stg'
       bind h new-window -n "VPN-OOB" 'vpn-oob-gs1-stg'
-      
+
       # tmux resurrect configuration
       set -g @resurrect-strategy-nvim 'session'
       resurrect_dir=~/.tmux/resurrect/
       set -g @resurrect-dir $resurrect_dir
-      set -g @resurrect-hook-post-save-all "sed -i 's| --cmd .*-vim-pack-dir||g; s|/etc/profiles/per-user/$USER/bin/||g; s|/nix/store/.*/bin/||g' $(readlink -f $resurrect_dir/last)"
+      set -g @resurrect-hook-post-save-all 'target=$(readlink -f $resurrect_dir/last); sed "s| --cmd .*-vim-pack-dir||g; s|/etc/profiles/per-user/$USER/bin/||g; s|/home/$USER/.nix-profile/bin/||g" $target | sponge $target'
 
       ####### Theme #######
       # # This tmux statusbar config was created based on gruvbox colorscheme

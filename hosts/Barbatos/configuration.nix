@@ -2,10 +2,10 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 {
-config,
-pkgs,
-lib,
-...
+  config,
+  pkgs,
+  lib,
+  ...
 }: let
   vars = {
     user = "sniijz";
@@ -285,6 +285,7 @@ in {
       man # Linux Documentation
       mangohud # overlay for monitoring system  perf inside app or games
       mesa-demos # Mesa tools/utilities
+      moreutils # unix tools like sponge for tmux
       ncdu # Disk Usage Analyzer with ncurses interface
       neofetch # System Info Script
       neovim # text editor
@@ -309,6 +310,7 @@ in {
       smartmontools # Tool for monitoring health of packages
       spotify # Music Streaming Service
       starship # theme for terminal
+      strace # debugging log tool
       surge-XT # VST3 Synth
       thunderbird # E-mail Client
       tldr # man summary
@@ -328,7 +330,7 @@ in {
       wineWowPackages.waylandFull # Open Source implementation of the Windows API
       winetricks # Tool to work around problems in Wine
       wireshark # packet capture for network tshoot
-      wl-clipboard # xclip copy clipboard tool equivalent under wayland     
+      wl-clipboard # xclip copy clipboard tool equivalent under wayland
       wolf-shaper # Music Waveshaper plugin with spline-based graph editor
       xclip # xclip copying clipboard tool
       yabridge # Use Windows VST2/3 On Linux

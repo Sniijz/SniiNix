@@ -2,10 +2,10 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 {
-config,
-pkgs,
-lib,
-...
+  config,
+  pkgs,
+  lib,
+  ...
 }: let
   vars = {
     user = "sniijz";
@@ -196,6 +196,8 @@ in {
     };
 
     systemPackages = with pkgs; [
+      (python312.withPackages pythonSubPackages) # Python packages
+      (xsane.override {gimpSupport = true;}) # scanner tool + gimp support
       alsa-scarlett-gui # Gui to configure Focusrite Scarlett audio interface
       alsa-utils # Advanced Linux Sound Architecture utils
       ansible # Automation tool
@@ -209,14 +211,14 @@ in {
       cardinal # Music Plugin wrapper around VCV Rack
       cmake # Compilation
       cmatrix # matrix effect package
-      corectrl # Control your computer hardware via app profiles, perfect for FAN control
       compose2nix # Tool to convert docker-compose files for nix
+      corectrl # Control your computer hardware via app profiles, perfect for FAN control
       eza # Modern replacement of ls
       firefox # Web browser
       fzf # Fuzzy finder
       gamescope-wsi # game performance HDR tool
-      gitmoji-cli # Git commit emjoji-cli support
       gimp # Image editor
+      gitmoji-cli # Git commit emjoji-cli support
       glances # Top nicolargo tool
       go # Golang language
       godot_4 # Video Game Editor
@@ -224,30 +226,31 @@ in {
       goverlay # GUI to configure Mangohud
       guitarix # Virtual guitar amplifier
       gxplugins-lv2 # lv2 plugins from guitarix
-      hollywood # flex hacker package
       helm # Music polyphonic synthesizer
+      hollywood # flex hacker package
       htop # Top tool with colors
       ifuse # Tpol to plug iphone through usb
       inetutils # network tools like telnet
       iperf # Network latency tool
       k9s # Kubernetes mgmt
-      kdePackages.kcalc # kde calc
       kdePackages.ark # Archive Manager Tool
       kdePackages.dolphin # File manager
       kdePackages.dolphin-plugins # additionals plugins for dolphin file explorer
+      kdePackages.kcalc # kde calc
       kdePackages.kscreen # Additional options to display & monitor in kde
       kdePackages.skanlite # KDE Scanner tool
       kdePackages.spectacle # screenshot tool
       krita # Image drawing editor
       kronometer # Stopwatch application
       kubectl # Kubenertes config tool
-      lsp-plugins # Collection of open-source audio mastering plugins
       libimobiledevice # package to plug iphone through usb
-      lutris # Open Source Gaming Platform
+      lsp-plugins # Collection of open-source audio mastering plugins
       lua-language-server # lua lsp for vim
+      lutris # Open Source Gaming Platform
       man # Linux Documentation
       mangohud # overlay for monitoring system  perf inside app or games
       mesa-demos # Mesa tools/utilities
+      moreutils # more unix tools like sponge for tmux
       ncdu # Disk Usage Analyzer with ncurses interface
       neofetch # System Info Script
       neovim # text editor
@@ -256,13 +259,12 @@ in {
       nix-index # Files database for nixpkgs : gives nix-locate /bin/sleep command
       nix-search-cli # Tool to search for nixpkgs
       nvtopPackages.amd # GPU tui graph tool for amd gpu
+      obsidian # markdown documentation tool
       odin2 # Music Odin2 synthesizer plugin
       onedrive # Onedrive native linux filesystem for Microsoft Onedrive
       onedrivegui # Gui for onedrive configuration
       onlyoffice-desktopeditors # Document editor
-      obsidian # markdown documentation tool
       pinta # image editor
-      (python312.withPackages pythonSubPackages) # Python packages
       qjackctl # QT app to control Jack Sound Server
       qpwgraph # Qt graph manager for PipeWire, similar to QjackCtl
       reaper # DAW Music Editor
@@ -273,30 +275,30 @@ in {
       spotify # Music Streaming Service
       starship # theme for terminal
       steam # Valve gaming platform
+      strace # high debugging log tool
       surge-XT # VST3 Synth
       tailscale # wireguard vpn home access
       tcpdump # packet capture network tool
-      tldr # man summary
       thunderbird # E-mail Client
+      tldr # man summary
       tmux # Terminal multiplexer
       tonelib-gfx # Amp and effects modeling
       tonelib-jam # Rocksmith like tab player
       tonelib-metal # Metal Amp and effects modeling
       unrar-free # rar extractor
       usbmuxd # Drivers to plug iphone through usb
+      vcv-rack # Music Open-source virtual modular synthesizer
       vim # text editor
       vital # Music Spectral warping wavetable synth
-      vcv-rack # Music Open-source virtual modular synthesizer
       vlc # Video player
       warpinator # Share files across LAN
       wget # cli tool for download
-      wireshark # packet capture for network tshoot
       wineWowPackages.waylandFull # Open Source implementation of the Windows API
       winetricks # Tool to work around problems in Wine
+      wireshark # packet capture for network tshoot
+      wl-clipboard # xclip copy clipboard tool equivalent under wayland
       wolf-shaper # Music Waveshaper plugin with spline-based graph editor
       xclip # xclip copying clipboard tool
-      wl-clipboard # xclip copy clipboard tool equivalent under wayland 
-      (xsane.override {gimpSupport = true;}) # scanner tool + gimp support
       yabridge # Use Windows VST2/3 On Linux
       yabridgectl # Utility to setup and update yabridge
       zram-generator # systemd unit generator for zram devices

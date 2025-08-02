@@ -1,10 +1,10 @@
 # neovim
 {
-config,
-pkgs,
-lib,
-vars,
-...
+  config,
+  pkgs,
+  lib,
+  vars,
+  ...
 }: let
   cfg = config.customModules.neovim;
   # minimap-vim = pkgs.vimUtils.buildVimPlugin {
@@ -24,8 +24,8 @@ vars,
     p.markdown
     p.nix
     p.python
-    p.yaml
     p.regex
+    p.yaml
   ]);
 in {
   options.customModules.neovim = {
@@ -76,13 +76,13 @@ in {
           cmp-nvim-lsp # LSP completion source for nvim-cmp
 
           # --- Completion ---
-          nvim-cmp # Autocompletion plugin
           cmp-buffer # Completion source for text in current buffer
           cmp-path # Completion source for filesystem paths
-          luasnip # Snippet engine
           cmp_luasnip # Luasnip completion source for nvim-cmp
           friendly-snippets # Provides useful snippets for many languages
           lspkind-nvim # Nice icons in lsp helps messages
+          luasnip # Snippet engine
+          nvim-cmp # Autocompletion plugin
 
           # --- Syntax Highlighting ---
           nvim-treesitter-with-parsers # Treesitter for better syntax highlighting
@@ -93,21 +93,22 @@ in {
           vim-commentary # comment tool
 
           # --- User Interface & Utility ---
+          auto-session # automatic session recover
+          bufferline-nvim # Buffer Tab tool
           lualine-nvim # Status line
-          bufferline-nvim # Buffer Tab tool 
-          toggleterm-nvim # integrated nvim term
-          nvim-web-devicons # nice icons
-          nvim-tree-lua # File Tree for navigation
-          telescope-nvim # Fuzzy finder (files, buffers, grep, etc.)
-          telescope-file-browser-nvim # File browser
-          vim-tmux-navigator # tmux plugin for vim
           noice-nvim # Replaces the UI for messages and cmdline
           nui-nvim # Dependency for noice
           nvim-notify # Recommended dependency for better notifications
+          nvim-tree-lua # File Tree for navigation
+          nvim-web-devicons # nice icons
+          telescope-file-browser-nvim # File browser
+          telescope-nvim # Fuzzy finder (files, buffers, grep, etc.)
+          toggleterm-nvim # integrated nvim term
+          vim-tmux-navigator # tmux plugin for vim
 
           # --- git ---
-          vim-gitgutter # to show modifications made in the gutter (left side of editor)
           vim-fugitive # better git for merge conflict, blame
+          vim-gitgutter # to show modifications made in the gutter (left side of editor)
 
           # --- Vim Game ---
           vim-be-good
