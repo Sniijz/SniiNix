@@ -301,8 +301,13 @@ local on_attach = function(client, bufnr)
 				group = augroup,
 				buffer = bufnr,
 				callback = function()
+					vim.lsp.buf.format()
 					vim.lsp.buf.code_action({
 						context = { only = { "source.organizeImports" }, diagnostics = vim.diagnostic.get(bufnr) },
+						apply = true,
+					})
+					vim.lsp.buf.code_action({
+						context = { only = { "source.fixAll" }, diagnostics = vim.diagnostic.get(bufnr) },
 						apply = true,
 					})
 				end,
