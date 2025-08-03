@@ -34,10 +34,30 @@ if vim.fn.has("clipboard") == 1 then -- Configure unique clipboard between vim a
 	vim.opt.clipboard = "unnamedplus"
 end
 
+-- Configure diagnostics/errors/warning/info
+-- vim.diagnostic.config({
+-- 	virtual_lines = true,
+-- 	signs = true,
+-- })
+
 vim.diagnostic.config({
-	virtual_lines = true,
-	signs = true,
+	signs = {
+		text = {
+			[vim.diagnostic.severity.ERROR] = "",
+			[vim.diagnostic.severity.WARN] = "",
+			[vim.diagnostic.severity.INFO] = "󰋼",
+			[vim.diagnostic.severity.HINT] = "󰌵",
+		},
+	},
+	virtual_text = true,
+	underline = true,
+	update_in_insert = false,
+	severity_sort = true,
 })
+
+-- Show line diagnostics automatically in hover window
+vim.o.updatetime = 250
+vim.cmd([[autocmd CursorHold,CursorHoldI * lua vim.diagnostic.open_float(nil, {focus=false})]])
 
 -- =======================================================================================
 -- Keymaps
