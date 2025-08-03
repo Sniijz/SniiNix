@@ -105,6 +105,7 @@ in {
           telescope-nvim # Fuzzy finder (files, buffers, grep, etc.)
           toggleterm-nvim # integrated nvim term
           vim-tmux-navigator # tmux plugin for vim
+          zoomwintab-vim # plugin to zoominout with ctrl+w + o
 
           # --- git ---
           vim-fugitive # better git for merge conflict, blame

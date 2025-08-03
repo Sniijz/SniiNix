@@ -76,6 +76,11 @@ map("n", "<C-b>", ":NvimTreeToggle<CR>", { desc = "Toggle NvimTree" })
 map("n", "<leader>bn", ":BufferLineCycleNext<CR>", { desc = "Next buffer" })
 map("n", "<leader>bp", ":BufferLineCyclePrev<CR>", { desc = "Previous buffer" })
 
+-- Keymaps for Toggleterm
+-- Keymaps for opening horizontal terminal
+map("n", "<A-t>", "<cmd>ToggleTerm<CR>", { desc = "Toggle Terminal horizontally" }) -- horizontal term toggle in insert mode
+map("t", "<A-t>", [[<Cmd>ToggleTerm<CR>]], { desc = "Toggle Terminal" }) -- horizontal term toggle in terminal mode
+
 -- =======================================================================================
 -- Neovim Theme
 -- =======================================================================================
@@ -242,6 +247,20 @@ require("conform").setup({
 require("auto-session").setup({
 	log_level = "error",
 	auto_session_suppress_dirs = { "~/", "~/Projects" },
+})
+
+-- Toggleterm configuration
+require("toggleterm").setup({
+	direction = "horizontal", -- open termin in split horizontal
+	size = 20, -- Height of terminal (20 lines)
+	start_in_insert = true, -- Start in insert mode at opening
+	close_on_exit = true, -- Close windows on shell closing
+})
+
+-- Autoclose toggleterm when leaving vim
+vim.api.nvim_create_autocmd("VimLeave", {
+	pattern = "*",
+	command = "ToggleTermToggleAll",
 })
 
 -- =======================================================================================
