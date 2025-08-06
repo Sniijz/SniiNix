@@ -51,17 +51,20 @@ in {
           fd
           gccgo
           gofumpt
+          golangci-lint
           gopls
           isort
           lua-language-server
           nixd
           nodePackages.prettier
           nodejs-slim
+          pylint
           ripgrep
           statix
           stylua
           terraform-ls
           tree-sitter
+          vale
           yaml-language-server
         ];
         plugins = with pkgs.vimPlugins; [
@@ -74,6 +77,7 @@ in {
           # --- LSP (Language Server Protocol) ---
           nvim-lspconfig # Configurations for the built-in LSP client
           cmp-nvim-lsp # LSP completion source for nvim-cmp
+          nvim-lint # nvim linter
 
           # --- Completion ---
           cmp-buffer # Completion source for text in current buffer

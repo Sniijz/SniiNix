@@ -29,16 +29,11 @@ vim.opt.laststatus = 3 -- Use a global statusline, required for lualine
 vim.opt.wrap = false -- Force vim to show all text in actual window/pane
 vim.opt.linebreak = true -- Avoid to open a new line in a middle of a word for too long lines
 vim.opt.completeopt = { "menu", "menuone" } -- Setup completion
+vim.opt.autoread = true -- Tells vim it can reload files for updates
 
 if vim.fn.has("clipboard") == 1 then -- Configure unique clipboard between vim and system
 	vim.opt.clipboard = "unnamedplus"
 end
-
--- Configure diagnostics/errors/warning/info
--- vim.diagnostic.config({
--- 	virtual_lines = true,
--- 	signs = true,
--- })
 
 vim.diagnostic.config({
 	signs = {
@@ -238,27 +233,6 @@ require("notify").setup({
 	background_colour = "#000000",
 })
 
--- Autoformat on save
-require("conform").setup({
-	-- Configure formatters for specific file types
-	formatters_by_ft = {
-		_ = { "prettier" }, -- configure prettier by default
-		lua = { "stylua" },
-		go = { "gofumpt", "goimports" },
-		python = { "isort", "black" },
-		nix = { "alejandra" },
-		yaml = { "prettier" },
-		json = { "prettier" },
-		ansible = { "ansible-lint" },
-	},
-
-	-- Enable format on save
-	format_on_save = {
-		timeout_ms = 500,
-		lsp_fallback = true, -- use lsp formatter as fallback
-	},
-})
-
 -- Autosession plugin to save and resurrect session
 require("auto-session").setup({
 	log_level = "error",
@@ -282,6 +256,49 @@ vim.api.nvim_create_autocmd("VimLeave", {
 -- =======================================================================================
 -- LSP Configuration
 -- =======================================================================================
+
+-- Autoformat on save
+require("conform").setup({
+	-- Configure formatters for specific file types
+	formatters_by_ft = {
+		_ = { "prettier" }, -- configure prettier by default
+		lua = { "stylua" },
+		go = { "gofumpt", "goimports" },
+		python = { "isort", "black" },
+		nix = { "alejandra" },
+		yaml = { "prettier" },
+		json = { "prettier" },
+		ansible = { "ansible-lint" },
+	},
+
+	-- Enable format on save
+	format_on_save = {
+		timeout_ms = 500,
+		lsp_fallback = true, -- use lsp formatter as fallback
+	},
+})
+
+-- Linters
+-- https://github.com/mfussenegger/nvim-lint
+require("lint").linters_by_ft = {
+	ansible = { "ansiblelint" },
+	go = { "golangcilint" },
+	markdown = { "vale" },
+	nix = { "statix" },
+	python = { "pylint" },
+	yaml = { "yamllint" },
+}
+
+-- Lint à chaque sauvegarde
+local lint = require("lint")
+local lint_augroup = vim.api.nvim_create_augroup("lint", { clear = true })
+
+vim.api.nvim_create_autocmd({ "BufEnter", "BufWritePost", "InsertLeave" }, {
+	group = lint_augroup,
+	callback = function()
+		lint.try_lint()
+	end,
+})
 
 -- Setup LSP (nvim-lspconfig)
 local lspconfig = require("lspconfig")
@@ -402,8 +419,21 @@ lspconfig.gopls.setup({
 	capabilities = capabilities,
 	settings = {
 		gopls = {
-			staticcheck = true,
 			gofumpt = true,
+			staticcheck = true,
+			ui = {
+				semanticTokens = true,
+			},
+			analyses = {
+				unusedparams = true,
+				unreachable = true,
+				fieldalignment = true,
+				shadow = true,
+				ifaceassert = true,
+				unusedwrite = true,
+				nilness = true,
+				ifelse = true,
+			},
 		},
 	},
 })
