@@ -226,7 +226,6 @@ in {
       goverlay # GUI to configure Mangohud
       guitarix # Virtual guitar amplifier
       gxplugins-lv2 # lv2 plugins from guitarix
-      helm # Music polyphonic synthesizer
       hollywood # flex hacker package
       htop # Top tool with colors
       ifuse # Tpol to plug iphone through usb
@@ -242,7 +241,8 @@ in {
       kdePackages.spectacle # screenshot tool
       krita # Image drawing editor
       kronometer # Stopwatch application
-      kubectl # Kubenertes config tool
+      kubectl # Kubernetes config tool
+      kubernetes-helm # Kubernetes package manager
       libimobiledevice # package to plug iphone through usb
       lsp-plugins # Collection of open-source audio mastering plugins
       lua-language-server # lua lsp for vim
