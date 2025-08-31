@@ -145,9 +145,9 @@ in {
     device = "192.168.1.5:/volume1/SniiNAS";
     fsType = "nfs4";
     options = [
+      "_netdev"
       "rw"
       "hard"
-      "intr"
       "nolock"
       "user"
     ];
