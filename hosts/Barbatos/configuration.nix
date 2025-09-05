@@ -277,6 +277,7 @@ in {
       kubectl # Kubenertes config tool
       kubectl # Kubernetes config tool
       kubernetes-helm # Kubernetes package manager
+      lazygit # git tui tool
       libimobiledevice # package to plug iphone through usb
       linux-firmware # Binary firmware collection needed for ollama
       lsp-plugins # Collection of open-source audio mastering plugins

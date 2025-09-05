@@ -54,6 +54,7 @@ in {
           golangci-lint
           gopls
           isort
+          lazygit
           lua-language-server
           nixd
           nodePackages.prettier
@@ -108,6 +109,7 @@ in {
           telescope-file-browser-nvim # File browser
           telescope-nvim # Fuzzy finder (files, buffers, grep, etc.)
           toggleterm-nvim # integrated nvim term
+          vim-floaterm # integrated floating nvim terminal
           vim-tmux-navigator # tmux plugin for vim
           zoomwintab-vim # plugin to zoominout with ctrl+w + o
 

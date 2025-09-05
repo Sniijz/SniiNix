@@ -87,10 +87,18 @@ map("n", "<C-b>", ":NvimTreeToggle<CR>", { desc = "Toggle NvimTree" })
 map("n", "<leader>bn", ":BufferLineCycleNext<CR>", { desc = "Next buffer" })
 map("n", "<leader>bp", ":BufferLineCyclePrev<CR>", { desc = "Previous buffer" })
 
+-- Keymaps for LazyGit
+map("n", "<leader>lg", ":LazyGitCurrentFile<CR>", { desc = "Open LazyGit on current file" })
+
 -- Keymaps for Toggleterm
 -- Keymaps for opening horizontal terminal
 map("n", "<A-t>", "<cmd>ToggleTerm<CR>", { desc = "Toggle Terminal horizontally" }) -- horizontal term toggle in insert mode
 map("t", "<A-t>", [[<Cmd>ToggleTerm<CR>]], { desc = "Toggle Terminal" }) -- horizontal term toggle in terminal mode
+
+-- Keymaps for Floaterm
+-- Keymaps for opening horizontal terminal
+map("n", "<F9>", ":FloatermToggle<CR>", { desc = "Toggle Floating terminal on current file" })
+map("t", "<F9>", "<C-\\><C-n>:FloatermToggle<CR>", { desc = "Toggle Floating terminal on current file" })
 
 -- =======================================================================================
 -- Neovim Theme
@@ -252,6 +260,10 @@ vim.api.nvim_create_autocmd("VimLeave", {
 	pattern = "*",
 	command = "ToggleTermToggleAll",
 })
+
+-- Floaterm configuration
+vim.g.floaterm_width = 0.95 -- Uses xx% screen width
+vim.g.floaterm_height = 0.95 -- Uses xx% screen height
 
 -- =======================================================================================
 -- LSP Configuration

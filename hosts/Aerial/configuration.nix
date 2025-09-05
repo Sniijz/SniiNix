@@ -243,6 +243,7 @@ in {
       kronometer # Stopwatch application
       kubectl # Kubernetes config tool
       kubernetes-helm # Kubernetes package manager
+      lazygit # git tui tool
       libimobiledevice # package to plug iphone through usb
       lsp-plugins # Collection of open-source audio mastering plugins
       lua-language-server # lua lsp for vim
