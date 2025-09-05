@@ -116,6 +116,7 @@ in {
           # --- git ---
           vim-fugitive # better git for merge conflict, blame
           vim-gitgutter # to show modifications made in the gutter (left side of editor)
+          lazygit-nvim # lazygit nvim for git tui
 
           # --- Vim Game ---
           vim-be-good
