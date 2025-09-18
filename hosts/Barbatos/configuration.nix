@@ -117,8 +117,12 @@ in {
   boot.initrd.kernelModules = ["amdgpu"];
 
   # Force xserver to uses amdgpu driver
-  services.xserver.enable = true;
-  services.xserver.videoDrivers = ["amdgpu"];
+  services = {
+    xserver = {
+      enable = true;
+      videoDrivers = ["amdgpu"];
+    };
+  };
 
   hardware.enableAllFirmware = true;
 
@@ -134,9 +138,11 @@ in {
   services.avahi = {
     enable = true;
     nssmdns4 = true;
-    publish.enable = true;
-    publish.addresses = true;
-    publish.userServices = true;
+    publish = {
+      enable = true;
+      addresses = true;
+      userServices = true;
+    };
   };
 
   # Enable touchpad support (enabled default in most desktopManager).
@@ -150,25 +156,28 @@ in {
 
   ######################### Networking #########################
 
-  networking.hostName = "Barbatos"; # Define your hostname.
-  # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
+  networking = {
+    hostName = "Barbatos"; # Define your hostname.
 
-  # Configure network proxy if necessary
-  # networking.proxy.default = "http://user:password@proxy:port/";
-  # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
+    # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
 
-  # Enable networking
-  networking.networkmanager.enable = true;
+    # Configure network proxy if necessary
+    # networking.proxy.default = "http://user:password@proxy:port/";
+    # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
 
-  # Firewall open for kdeconnect
-  networking.firewall = rec {
-    allowedTCPPortRanges = [
-      {
-        from = 1714;
-        to = 1764;
-      }
-    ];
-    allowedUDPPortRanges = allowedTCPPortRanges;
+    # Enable networking
+    networkmanager.enable = true;
+
+    # Firewall open for kdeconnect
+    firewall = rec {
+      allowedTCPPortRanges = [
+        {
+          from = 1714;
+          to = 1764;
+        }
+      ];
+      allowedUDPPortRanges = allowedTCPPortRanges;
+    };
   };
 
   ######################### Accounts ##########################
@@ -178,8 +187,6 @@ in {
     isNormalUser = true;
     description = "Sniijz";
     extraGroups = ["networkmanager" "wheel" "audio" "docker" "video" "input" "gamemode" "lp" "scanner"];
-    packages = with pkgs; [
-    ];
   };
 
   ######################### Home-Manager #########################
@@ -191,20 +198,22 @@ in {
   # To check for home manager nix module availability
   # https://github.com/nix-community/home-manager/blob/master/modules/programs/starship.nix
   home-manager.users.${vars.user} = {pkgs, ...}: {
-    home.file = {
-      #".config/starship.toml".source = ./terminal/configs/starship.toml;
-      # ".local/share/konsole/Sniijz.profile".source = ./terminal/configs/SniijzKonsole.profile;
-      # ".local/share/konsole/Breeze.colorscheme".source = ./terminal/configs/Breeze.colorscheme;
-      # ".config/konsolerc".source = ./terminal/configs/konsolerc;
-      # ".config/kglobalshortcutsrc".source = ./desktop/configs/kglobalshortcutsrc;
-    };
+    home = {
+      file = {
+        #".config/starship.toml".source = ./terminal/configs/starship.toml;
+        # ".local/share/konsole/Sniijz.profile".source = ./terminal/configs/SniijzKonsole.profile;
+        # ".local/share/konsole/Breeze.colorscheme".source = ./terminal/configs/Breeze.colorscheme;
+        # ".config/konsolerc".source = ./terminal/configs/konsolerc;
+        # ".config/kglobalshortcutsrc".source = ./desktop/configs/kglobalshortcutsrc;
+      };
 
-    home.sessionVariables = {
-    };
+      sessionVariables = {
+      };
 
-    # The state version is required and should stay at the version you
-    # originally installed.
-    home.stateVersion = "24.11";
+      # The state version is required and should stay at the version you
+      # originally installed.
+      stateVersion = "24.11";
+    };
   };
 
   # Home manager fix
