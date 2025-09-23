@@ -103,6 +103,34 @@ in {
             "terminal.integrated.allowChords" = true;
             "git.autofetch" = true;
             "workbench.colorTheme" = "Visual Studio Dark";
+            "nix.enableLanguageServer" = true;
+            "nix.serverPath" = "nixd";
+            "nix.serverSettings" = {
+              # settings for 'nil' LSP
+              "nil" = {
+                "diagnostics" = {
+                  "ignored" = [
+                    "unused_binding"
+                    "unused_with"
+                  ];
+                };
+                "formatting" = {
+                  "command" = [
+                    "nixfmt"
+                    "--width=80"
+                  ];
+                };
+              };
+              # settings for 'nixd' LSP
+              "nixd" = {
+                "formatting" = {
+                  "command" = [
+                    "nixfmt"
+                    "--width=80"
+                  ];
+                };
+              };
+            };
             "go.useLanguageServer" = true;
             "go.toolsManagement.autoUpdate" = false;
             "go.formatTool" = "gofmt";
@@ -137,13 +165,13 @@ in {
               "focusBorder" = "#186943";
               "extensionButton.hoverBackground" = "#186943";
             };
+            "git.blame.editorDecoration.enabled" = true;
             "python.terminal.activateEnvInCurrentTerminal" = true;
             "python.terminal.executeInFileDir" = true;
             "git.enableSmartCommit" = true;
             "explorer.confirmDelete" = false;
             "editor.fontFamily" = "DroidSansM Nerd Font";
             "git.confirmSync" = false;
-            "git.blame.editorDecoration.enabled" = true;
             "explorer.confirmDragAndDrop" = false;
             "redhat.telemetry.enabled" = false;
             "security.workspace.trust.untrustedFiles" = "open";
@@ -154,6 +182,9 @@ in {
             "terminal.integrated.cwd" = "\${fileDirname}";
             "files.trimTrailingWhitespace" = true;
             "files.trimFinalNewlines" = true;
+            "[xml]" = {
+              "editor.defaultFormatter" = "DotJoshJohnson.xml";
+            };
             "[shellscript]" = {
               "editor.defaultFormatter" = "foxundermoon.shell-format";
             };
@@ -166,9 +197,11 @@ in {
             };
             "[terraform]" = {
               "editor.defaultFormatter" = "hashicorp.terraform";
+              "editor.formatOnSave" = true;
+              "editor.formatOnSaveMode" = "file";
             };
-            "[nix]" = {
-              "editor.defaultFormatter" = "kamadorueda.alejandra";
+            "terraform-ls.experimentalFeatures" = {
+              "validateOnSave" = true;
             };
             "[YAML]" = {
               "editor.defaultFormatter" = "redhat.vscode-yaml";
@@ -177,19 +210,6 @@ in {
               "editor.defaultFormatter" = "codezombiech.gitignore";
             };
             "git.ignoreRebaseWarning" = true;
-            "nix.enableLanguageServer" = true;
-            "nix.serverPath" = "nil";
-            "nix.serverSettings" = {
-              # settings for 'nil' LSP
-              "nil" = {
-                "diagnostics" = {
-                  "ignored" = ["unused_binding" "unused_with"];
-                };
-                "formatting" = {
-                  "command" = ["alejandra"];
-                };
-              };
-            };
             "files.exclude" = {
               "**/tmp/**" = true;
               "**/node_modules/**" = true;

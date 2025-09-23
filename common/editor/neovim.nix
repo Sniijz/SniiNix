@@ -5,8 +5,7 @@
   lib,
   vars,
   ...
-}:
-let
+}: let
   cfg = config.customModules.neovim;
   # minimap-vim = pkgs.vimUtils.buildVimPlugin {
   #   name = "minimap-vim";
@@ -28,8 +27,7 @@ let
     p.regex
     p.yaml
   ]);
-in
-{
+in {
   options.customModules.neovim = {
     enable = lib.mkOption {
       type = lib.types.bool;
@@ -47,7 +45,6 @@ in
         viAlias = true;
         vimAlias = true;
         extraPackages = with pkgs; [
-          alejandra
           ansible-lint
           black
           fd
@@ -70,7 +67,6 @@ in
           yaml-language-server
         ];
         plugins = with pkgs.vimPlugins; [
-
           # --- Core Dependencies ---
           plenary-nvim
 
@@ -80,7 +76,7 @@ in
           # --- LSP (Language Server Protocol) ---
           nvim-lspconfig # Configurations for the built-in LSP client
           cmp-nvim-lsp # LSP completion source for nvim-cmp
-          none-ls-nvim # allows external linters and formatters
+          nvim-lint # nvim linter
 
           # --- Completion ---
           cmp-buffer # Completion source for text in current buffer

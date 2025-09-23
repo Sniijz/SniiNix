@@ -254,48 +254,6 @@ require("gitblame").setup({
 	enabled = false,
 })
 
-local null_ls = require("null-ls")
-
-null_ls.setup({
-	sources = {
-		-- === Formaters ===
-		null_ls.builtins.formatting.prettier.with({
-			filetypes = { "yaml", "json", "markdown" }, -- Prettier
-		}),
-		null_ls.builtins.formatting.stylua, -- for Lua
-		null_ls.builtins.formatting.gofumpt, -- for Go
-		null_ls.builtins.formatting.goimports, -- for Go
-		null_ls.builtins.formatting.isort, -- for Python
-		null_ls.builtins.formatting.black, -- for Python
-		null_ls.builtins.formatting.nixfmt.with({ -- for Nix
-			extra_args = { "--width", "80" },
-		}),
-
-		-- === Linters ===
-		null_ls.builtins.diagnostics.ansiblelint, -- for Ansible
-		null_ls.builtins.diagnostics.golangci_lint.with({ -- for Go
-			extra_args = { "--fast", "--enable-all", "--exclude-use-default=false" },
-		}),
-		null_ls.builtins.diagnostics.vale, -- for Markdown
-		null_ls.builtins.diagnostics.statix, -- for Nix
-		null_ls.builtins.diagnostics.pylint, -- for Python
-		null_ls.builtins.diagnostics.yamllint, -- for YAML
-	},
-
-	-- format on save
-	on_attach = function(client, bufnr)
-		if client.supports_method("textDocument/formatting") then
-			vim.api.nvim_create_autocmd("BufWritePre", {
-				group = vim.api.nvim_create_augroup("LspFormatting", { clear = true }),
-				buffer = bufnr,
-				callback = function()
-					vim.lsp.buf.format({ bufnr = bufnr })
-				end,
-			})
-		end
-	end,
-})
-
 -- Autosession plugin to save and resurrect session
 require("auto-session").setup({
 	log_level = "error",
@@ -323,6 +281,51 @@ vim.g.floaterm_height = 0.95 -- Uses xx% screen height
 -- =======================================================================================
 -- LSP Configuration
 -- =======================================================================================
+
+-- Autoformat on save
+require("conform").setup({
+	-- Configure formatters for specific file types
+	formatters_by_ft = {
+		_ = { "prettier" }, -- configure prettier by default
+		lua = { "stylua" },
+		go = { "gofumpt", "goimports" },
+		python = { "isort", "black" },
+        nix = {
+            { command = "nixfmt", args = { "--width", "80" } },
+        },
+		yaml = { "prettier" },
+		json = { "prettier" },
+		ansible = { "ansible-lint" },
+	},
+
+	-- Enable format on save
+	format_on_save = {
+		timeout_ms = 500,
+		lsp_fallback = true, -- use lsp formatter as fallback
+	},
+})
+
+-- Linters
+-- https://github.com/mfussenegger/nvim-lint
+require("lint").linters_by_ft = {
+	ansible = { "ansiblelint" },
+	go = { "golangcilint" },
+	markdown = { "vale" },
+	nix = { "statix" },
+	python = { "pylint" },
+	yaml = { "yamllint" },
+}
+
+-- Lint on save
+local lint = require("lint")
+local lint_augroup = vim.api.nvim_create_augroup("lint", { clear = true })
+
+vim.api.nvim_create_autocmd({ "BufEnter", "BufWritePost", "InsertLeave" }, {
+	group = lint_augroup,
+	callback = function()
+		lint.try_lint()
+	end,
+})
 
 -- Setup LSP (nvim-lspconfig)
 local lspconfig = require("lspconfig")
@@ -443,8 +446,21 @@ lspconfig.gopls.setup({
 	capabilities = capabilities,
 	settings = {
 		gopls = {
-			staticcheck = true,
 			gofumpt = true,
+			staticcheck = true,
+			ui = {
+				semanticTokens = true,
+			},
+			analyses = {
+				unusedparams = true,
+				unreachable = true,
+				fieldalignment = true,
+				shadow = true,
+				ifaceassert = true,
+				unusedwrite = true,
+				nilness = true,
+				ifelse = true,
+			},
 		},
 	},
 })
