@@ -5,7 +5,8 @@
   lib,
   vars,
   ...
-}: let
+}:
+let
   cfg = config.customModules.neovim;
   # minimap-vim = pkgs.vimUtils.buildVimPlugin {
   #   name = "minimap-vim";
@@ -27,7 +28,8 @@
     p.regex
     p.yaml
   ]);
-in {
+in
+{
   options.customModules.neovim = {
     enable = lib.mkOption {
       type = lib.types.bool;
@@ -57,18 +59,18 @@ in {
           lazygit
           lua-language-server
           nixd
+          nixfmt-rfc-style
           nodePackages.prettier
           nodejs-slim
-          pylint
           ripgrep
           statix
           stylua
           terraform-ls
           tree-sitter
-          vale
           yaml-language-server
         ];
         plugins = with pkgs.vimPlugins; [
+
           # --- Core Dependencies ---
           plenary-nvim
 
@@ -78,14 +80,14 @@ in {
           # --- LSP (Language Server Protocol) ---
           nvim-lspconfig # Configurations for the built-in LSP client
           cmp-nvim-lsp # LSP completion source for nvim-cmp
-          nvim-lint # nvim linter
+          none-ls-nvim # allows external linters and formatters
 
           # --- Completion ---
           cmp-buffer # Completion source for text in current buffer
           cmp-path # Completion source for filesystem paths
           cmp_luasnip # Luasnip completion source for nvim-cmp
           friendly-snippets # Provides useful snippets for many languages
-          lspkind-nvim # Nice icons in lsp helps messages
+          lspkind-nvim # Nice icons in lsp helps messages
           luasnip # Snippet engine
           nvim-cmp # Autocompletion plugin
 
@@ -93,9 +95,9 @@ in {
           nvim-treesitter-with-parsers # Treesitter for better syntax highlighting
 
           # --- Typing and Formatting ---
-          conform-nvim # Lightweight formatting plugin
           auto-pairs # Pluging to autoclose opening brackets
-          vim-commentary # comment tool
+          conform-nvim # Lightweight formatting plugin
+          vim-commentary # comment tool
 
           # --- User Interface & Utility ---
           auto-session # automatic session recover
@@ -112,11 +114,13 @@ in {
           vim-floaterm # integrated floating nvim terminal
           vim-tmux-navigator # tmux plugin for vim
           zoomwintab-vim # plugin to zoominout with ctrl+w + o
+          zoxide-vim # add zoxide z support in vim -> :Z
 
           # --- git ---
-          vim-fugitive # better git for merge conflict, blame
+          lazygit-nvim # to integrate lazygit into vim
+          vim-fugitive # better git for merge conflict, blame
           vim-gitgutter # to show modifications made in the gutter (left side of editor)
-          lazygit-nvim # lazygit nvim for git tui
+          git-blame-nvim # git blame inline plugin
 
           # --- Vim Game ---
           vim-be-good
