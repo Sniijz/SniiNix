@@ -29,6 +29,7 @@ vim.opt.laststatus = 3 -- Use a global statusline, required for lualine
 vim.opt.wrap = false -- Force vim to show all text in actual window/pane
 vim.opt.linebreak = true -- Avoid to open a new line in a middle of a word for too long lines
 vim.opt.completeopt = { "menu", "menuone" } -- Setup completion
+vim.opt.sessionoptions = "blank,buffers,curdir,folds,help,tabpages,winsize,winpos,terminal,localoptions"
 
 if vim.fn.has("clipboard") == 1 then -- Configure unique clipboard between vim and system
 	vim.opt.clipboard = "unnamedplus"
@@ -91,6 +92,7 @@ map("n", "<C-b>", ":NvimTreeToggle<CR>", { desc = "Toggle NvimTree" })
 -- Keymaps for bufferline
 map("n", "<leader>bn", ":bnext<CR>", { desc = "Next buffer" })
 map("n", "<leader>bp", ":bprevious<CR>", { desc = "Previous buffer" })
+map("n", "<leader>bq", ":bdelete<CR>", { desc = "Close actual buffer" })
 
 -- Keymaps for git blame
 map("n", "<leader>gb", ":GitBlameToggle<CR>", { desc = "Toggle Git blame" })
@@ -257,7 +259,7 @@ require("gitblame").setup({
 -- Autosession plugin to save and resurrect session
 require("auto-session").setup({
 	log_level = "error",
-	auto_session_suppress_dirs = { "~/", "~/Projects" },
+	suppressed_dirs = { "~/", "~/Projects" },
 })
 
 -- Toggleterm configuration
@@ -285,16 +287,21 @@ vim.g.floaterm_height = 0.95 -- Uses xx% screen height
 -- Autoformat on save
 require("conform").setup({
 	-- Configure formatters for specific file types
+	formatters = {
+		nixfmt_with_args = {
+			command = "nixfmt",
+			args = { "--width", "80" },
+		},
+	},
+
 	formatters_by_ft = {
 		_ = { "prettier" }, -- configure prettier by default
 		lua = { "stylua" },
 		go = { "gofumpt", "goimports" },
 		python = { "isort", "black" },
-        nix = {
-            { command = "nixfmt", args = { "--width", "80" } },
-        },
+		nix = { "nixfmt_with_args" },
 		yaml = { "prettier" },
-		json = { "prettier" },
+		json = { "jq" },
 		ansible = { "ansible-lint" },
 	},
 
@@ -314,6 +321,7 @@ require("lint").linters_by_ft = {
 	nix = { "statix" },
 	python = { "pylint" },
 	yaml = { "yamllint" },
+	json = { "jsonlint" },
 }
 
 -- Lint on save
@@ -377,93 +385,77 @@ local on_attach = function(client, bufnr)
 end
 
 local servers = {
-	"bashls",
-	"gopls",
-	"jsonls",
-	"terraformls",
-	"yamlls",
+	-- Default values servers
+	bashls = {},
+	jsonls = {},
+	terraformls = {},
+	yamlls = {},
+
+	-- Specific configurations servers
+	gopls = {
+		settings = {
+			gopls = {
+				gofumpt = true,
+				staticcheck = true,
+				ui = {
+					semanticTokens = true,
+				},
+				analyses = {
+					unusedparams = true,
+					unreachable = true,
+					fieldalignment = true,
+					shadow = true,
+					ifaceassert = true,
+					unusedwrite = true,
+					nilness = true,
+					ifelse = true,
+				},
+			},
+		},
+	},
+
+	pyright = {
+		settings = {
+			python = {
+				pythonPath = vim.fn.exepath("python"),
+				analysis = {
+					autoSearchPaths = true,
+					useLibraryCodeForTypes = true,
+					typeCheckingMode = "basic",
+				},
+			},
+		},
+	},
+
+	lua_ls = {
+		settings = {
+			Lua = {
+				workspace = {
+					library = vim.api.nvim_get_runtime_file("", true),
+				},
+				diagnostics = {
+					globals = { "vim" },
+				},
+				format = {
+					enable = true,
+				},
+				hint = {
+					enable = true,
+				},
+			},
+		},
+	},
 }
-for _, lsp in ipairs(servers) do
-	lspconfig[lsp].setup({
+
+-- Loop to start all servers
+for server_name, custom_config in pairs(servers) do
+	local final_config = vim.tbl_deep_extend("force", {
 		on_attach = on_attach,
 		capabilities = capabilities,
-	})
+	}, custom_config)
+
+	lspconfig[server_name].setup(final_config)
 end
-
--- Configure pyright (Python)
-lspconfig.pyright.setup({
-	on_attach = on_attach,
-	capabilities = capabilities,
-	settings = {
-		python = {
-			pythonPath = vim.fn.exepath("python"),
-			analysis = {
-				autoSearchPaths = true,
-				useLibraryCodeForTypes = true,
-				typeCheckingMode = "basic",
-			},
-		},
-	},
-})
-
--- Configure nixd language server
-lspconfig.nixd.setup({
-	on_attach = on_attach,
-	capabilities = capabilities,
-	settings = {
-		nixd = {
-			formatting = {
-				command = { "alejandra" },
-			},
-		},
-	},
-})
--- Configure lua_ls language server
-lspconfig.lua_ls.setup({
-	on_attach = on_attach,
-	capabilities = capabilities,
-	settings = {
-		Lua = {
-			workspace = {
-				library = vim.api.nvim_get_runtime_file("", true),
-			},
-			diagnostics = {
-				globals = { "vim" },
-			},
-			format = {
-				enable = true,
-			},
-			hint = {
-				enable = true,
-			},
-		},
-	},
-})
-
--- Configure gopls language server
-lspconfig.gopls.setup({
-	on_attach = on_attach,
-	capabilities = capabilities,
-	settings = {
-		gopls = {
-			gofumpt = true,
-			staticcheck = true,
-			ui = {
-				semanticTokens = true,
-			},
-			analyses = {
-				unusedparams = true,
-				unreachable = true,
-				fieldalignment = true,
-				shadow = true,
-				ifaceassert = true,
-				unusedwrite = true,
-				nilness = true,
-				ifelse = true,
-			},
-		},
-	},
-})
 
 -- =======================================================================================
 -- CMP Configuration

@@ -5,7 +5,8 @@
   lib,
   vars,
   ...
-}: let
+}:
+let
   cfg = config.customModules.neovim;
   # minimap-vim = pkgs.vimUtils.buildVimPlugin {
   #   name = "minimap-vim";
@@ -27,7 +28,8 @@
     p.regex
     p.yaml
   ]);
-in {
+in
+{
   options.customModules.neovim = {
     enable = lib.mkOption {
       type = lib.types.bool;
@@ -52,19 +54,24 @@ in {
           gofumpt
           golangci-lint
           gopls
+          gotools
           isort
           lazygit
           lua-language-server
           nixd
           nixfmt-rfc-style
+          nodePackages.jsonlint
           nodePackages.prettier
           nodejs-slim
+          python313Packages.pynvim
           ripgrep
           statix
           stylua
           terraform-ls
           tree-sitter
+          vscode-langservers-extracted
           yaml-language-server
+          yq
         ];
         plugins = with pkgs.vimPlugins; [
           # --- Core Dependencies ---
