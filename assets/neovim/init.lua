@@ -295,12 +295,12 @@ require("conform").setup({
 	},
 
 	formatters_by_ft = {
-		_ = { "prettier" }, -- configure prettier by default
+		_ = { "dprint" }, -- configure dprint by default
 		lua = { "stylua" },
 		go = { "gofumpt", "goimports" },
 		python = { "isort", "black" },
 		nix = { "nixfmt_with_args" },
-		yaml = { "prettier" },
+		yaml = { "dprint" },
 		json = { "jq" },
 		ansible = { "ansible-lint" },
 	},

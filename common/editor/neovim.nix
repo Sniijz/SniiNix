@@ -49,6 +49,7 @@ in
         extraPackages = with pkgs; [
           ansible-lint
           black
+          dprint
           fd
           gccgo
           gofumpt
@@ -61,7 +62,6 @@ in
           nixd
           nixfmt-rfc-style
           nodePackages.jsonlint
-          nodePackages.prettier
           nodejs-slim
           python313Packages.pynvim
           ripgrep
@@ -71,6 +71,8 @@ in
           tree-sitter
           vscode-langservers-extracted
           yaml-language-server
+          yamlfmt
+          yamllint
           yq
         ];
         plugins = with pkgs.vimPlugins; [
