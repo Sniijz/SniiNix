@@ -537,4 +537,3 @@ telescope.setup({
 -- Setup Telescope Extensions
 require("telescope").load_extension("file_browser")
 require("telescope").load_extension("media_files")
-equire("telescope").load_extension("media_files")
