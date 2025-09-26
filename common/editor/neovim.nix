@@ -18,6 +18,9 @@ let
   #   };
   # };
   nvim-treesitter-with-parsers = pkgs.vimPlugins.nvim-treesitter.withPlugins (p: [
+    p.html
+    p.latex
+    p.markdown_inline
     p.bash
     p.go
     p.json
@@ -61,7 +64,11 @@ in
           isort
           lazygit
           lua-language-server
-          markdownlint-cli
+          nixd
+          nixfmt-rfc-style
+          nodePackages.jsonlint
+          nodejs-slim
+          lua-language-server
           nixd
           nixfmt-rfc-style
           nodePackages.jsonlint
@@ -110,6 +117,7 @@ in
           # --- User Interface & Utility ---
           auto-session # automatic session recover
           bufferline-nvim # Buffer Tab tool
+          glow-nvim # Markdown rendering tool
           lualine-nvim # Status line
           noice-nvim # Replaces the UI for messages and cmdline
           nui-nvim # Dependency for noice

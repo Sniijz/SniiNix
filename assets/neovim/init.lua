@@ -280,6 +280,9 @@ vim.api.nvim_create_autocmd("VimLeave", {
 vim.g.floaterm_width = 0.95 -- Uses xx% screen width
 vim.g.floaterm_height = 0.95 -- Uses xx% screen height
 
+-- Render-markdown configuration
+require("render-markdown").setup({})
+
 -- =======================================================================================
 -- LSP Configuration
 -- =======================================================================================
@@ -317,7 +320,6 @@ require("conform").setup({
 require("lint").linters_by_ft = {
 	ansible = { "ansiblelint" },
 	go = { "golangcilint" },
-	markdown = { "markdownlint" },
 	nix = { "statix" },
 	python = { "pylint" },
 	yaml = { "yamllint" },
@@ -535,3 +537,4 @@ telescope.setup({
 -- Setup Telescope Extensions
 require("telescope").load_extension("file_browser")
 require("telescope").load_extension("media_files")
+equire("telescope").load_extension("media_files")

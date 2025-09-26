@@ -6,7 +6,8 @@
   pkgs,
   lib,
   ...
-}: let
+}:
+let
   vars = {
     user = "sniijz";
     location = "$HOME/.setup";
@@ -15,8 +16,8 @@
     editor = "code";
   };
 
-  pythonSubPackages = ps:
-    with ps; [
+  pythonSubPackages =
+    ps: with ps; [
       ansible # ansible love nix
       pip # python package manager
       pyyaml # yaml on python
@@ -41,15 +42,65 @@
       pandas # data manipulation
       openpyxl # openpyxl to read/write excel sheet
     ];
-in {
+in
+{
   imports = [
-    (import ../../common/terminal {inherit vars lib pkgs config;})
-    (import ../../common/desktop {inherit vars pkgs config lib;})
-    (import ../../common/app {inherit vars pkgs config lib;})
-    (import ../../common/games {inherit vars pkgs config lib;})
-    (import ../../common/editor {inherit vars pkgs config lib;})
-    (import ../../common/compose {inherit vars pkgs config lib;})
-    (import ../../common/system {inherit vars pkgs config lib;})
+    (import ../../common/terminal {
+      inherit
+        vars
+        lib
+        pkgs
+        config
+        ;
+    })
+    (import ../../common/desktop {
+      inherit
+        vars
+        pkgs
+        config
+        lib
+        ;
+    })
+    (import ../../common/app {
+      inherit
+        vars
+        pkgs
+        config
+        lib
+        ;
+    })
+    (import ../../common/games {
+      inherit
+        vars
+        pkgs
+        config
+        lib
+        ;
+    })
+    (import ../../common/editor {
+      inherit
+        vars
+        pkgs
+        config
+        lib
+        ;
+    })
+    (import ../../common/compose {
+      inherit
+        vars
+        pkgs
+        config
+        lib
+        ;
+    })
+    (import ../../common/system {
+      inherit
+        vars
+        pkgs
+        config
+        lib
+        ;
+    })
     # Include the results of the hardware scan.
     ./hardware-configuration.nix
     # Install home manager as a module : https://nix-community.github.io/home-manager/index.xhtml#sec-install-nixos-module
@@ -101,7 +152,8 @@ in {
   system.stateVersion = "24.11"; # Did you read the comment?
 
   # Disk Encrypt
-  boot.initrd.luks.devices."luks-00286d7d-7c2f-4912-9d83-aaa0c992f906".device = "/dev/disk/by-uuid/00286d7d-7c2f-4912-9d83-aaa0c992f906";
+  boot.initrd.luks.devices."luks-00286d7d-7c2f-4912-9d83-aaa0c992f906".device =
+    "/dev/disk/by-uuid/00286d7d-7c2f-4912-9d83-aaa0c992f906";
 
   # Enable Hibernation
   # boot.kernelParams = ["resume_offset=38553600"]; # swap physical offset got through sudo filefrag -v /var/lib/swapfile | head
@@ -150,7 +202,17 @@ in {
   users.users.sniijz = {
     isNormalUser = true;
     description = "Sniijz";
-    extraGroups = ["networkmanager" "wheel" "audio" "docker" "video" "input" "gamemode" "lp" "scanner"];
+    extraGroups = [
+      "networkmanager"
+      "wheel"
+      "audio"
+      "docker"
+      "video"
+      "input"
+      "gamemode"
+      "lp"
+      "scanner"
+    ];
     packages = with pkgs; [
     ];
   };
@@ -163,22 +225,24 @@ in {
   # users.users.sniijz.isNormalUser = true;
   # To check for home manager nix module availability
   # https://github.com/nix-community/home-manager/blob/master/modules/programs/starship.nix
-  home-manager.users.${vars.user} = {pkgs, ...}: {
-    home.file = {
-      #".config/starship.toml".source = ./terminal/configs/starship.toml;
-      # ".local/share/konsole/Sniijz.profile".source = ./terminal/configs/SniijzKonsole.profile;
-      # ".local/share/konsole/Breeze.colorscheme".source = ./terminal/configs/Breeze.colorscheme;
-      # ".config/konsolerc".source = ./terminal/configs/konsolerc;
-      # ".config/kglobalshortcutsrc".source = ./desktop/configs/kglobalshortcutsrc;
-    };
+  home-manager.users.${vars.user} =
+    { pkgs, ... }:
+    {
+      home.file = {
+        #".config/starship.toml".source = ./terminal/configs/starship.toml;
+        # ".local/share/konsole/Sniijz.profile".source = ./terminal/configs/SniijzKonsole.profile;
+        # ".local/share/konsole/Breeze.colorscheme".source = ./terminal/configs/Breeze.colorscheme;
+        # ".config/konsolerc".source = ./terminal/configs/konsolerc;
+        # ".config/kglobalshortcutsrc".source = ./desktop/configs/kglobalshortcutsrc;
+      };
 
-    home.sessionVariables = {
-    };
+      home.sessionVariables = {
+      };
 
-    # The state version is required and should stay at the version you
-    # originally installed.
-    home.stateVersion = "24.11";
-  };
+      # The state version is required and should stay at the version you
+      # originally installed.
+      home.stateVersion = "24.11";
+    };
 
   # Home manager fix
   home-manager.backupFileExtension = "rebuild";
@@ -197,7 +261,7 @@ in {
 
     systemPackages = with pkgs; [
       (python312.withPackages pythonSubPackages) # Python packages
-      (xsane.override {gimpSupport = true;}) # scanner tool + gimp support
+      (xsane.override { gimpSupport = true; }) # scanner tool + gimp support
       alsa-scarlett-gui # Gui to configure Focusrite Scarlett audio interface
       alsa-utils # Advanced Linux Sound Architecture utils
       ansible # Automation tool
@@ -220,6 +284,7 @@ in {
       gimp # Image editor
       gitmoji-cli # Git commit emjoji-cli support
       glances # Top nicolargo tool
+      glow # markdown documentation renderer
       go # Golang language
       godot_4 # Video Game Editor
       gotop # top tool written in go

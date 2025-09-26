@@ -6,7 +6,8 @@
   pkgs,
   lib,
   ...
-}: let
+}:
+let
   vars = {
     user = "sniijz";
     location = "$HOME/.setup";
@@ -26,8 +27,8 @@
   #   };
   # });
 
-  pythonSubPackages = ps:
-    with ps; [
+  pythonSubPackages =
+    ps: with ps; [
       ansible # ansible love nix
       backoff # enable retry on web requests
       black # most used python formatter
@@ -52,15 +53,65 @@
       ttp # text parser
       ttp-templates # bunch of ttp community templates
     ];
-in {
+in
+{
   imports = [
-    (import ../../common/terminal {inherit vars lib pkgs config;})
-    (import ../../common/desktop {inherit vars pkgs config lib;})
-    (import ../../common/app {inherit vars pkgs config lib;})
-    (import ../../common/games {inherit vars pkgs config lib;})
-    (import ../../common/editor {inherit vars pkgs config lib;})
-    (import ../../common/compose {inherit vars pkgs config lib;})
-    (import ../../common/system {inherit vars pkgs config lib;})
+    (import ../../common/terminal {
+      inherit
+        vars
+        lib
+        pkgs
+        config
+        ;
+    })
+    (import ../../common/desktop {
+      inherit
+        vars
+        pkgs
+        config
+        lib
+        ;
+    })
+    (import ../../common/app {
+      inherit
+        vars
+        pkgs
+        config
+        lib
+        ;
+    })
+    (import ../../common/games {
+      inherit
+        vars
+        pkgs
+        config
+        lib
+        ;
+    })
+    (import ../../common/editor {
+      inherit
+        vars
+        pkgs
+        config
+        lib
+        ;
+    })
+    (import ../../common/compose {
+      inherit
+        vars
+        pkgs
+        config
+        lib
+        ;
+    })
+    (import ../../common/system {
+      inherit
+        vars
+        pkgs
+        config
+        lib
+        ;
+    })
     # Include the results of the hardware scan.
     ./hardware-configuration.nix
     # Install home manager as a module : https://nix-community.github.io/home-manager/index.xhtml#sec-install-nixos-module
@@ -114,13 +165,13 @@ in {
   ######################### Graphics Settings #########################
 
   # Configure kernel with amdgpu driver
-  boot.initrd.kernelModules = ["amdgpu"];
+  boot.initrd.kernelModules = [ "amdgpu" ];
 
   # Force xserver to uses amdgpu driver
   services = {
     xserver = {
       enable = true;
-      videoDrivers = ["amdgpu"];
+      videoDrivers = [ "amdgpu" ];
     };
   };
 
@@ -129,9 +180,9 @@ in {
   # install unstables mesa/amd drivers for 64 and 32 bits apps
   hardware.graphics = {
     enable = true;
-    extraPackages = [pkgs.mesa];
+    extraPackages = [ pkgs.mesa ];
     enable32Bit = true;
-    extraPackages32 = [pkgs.driversi686Linux.mesa];
+    extraPackages32 = [ pkgs.driversi686Linux.mesa ];
   };
 
   # Enable Network Avahi/Bonjour network discovery
@@ -186,7 +237,17 @@ in {
   users.users.sniijz = {
     isNormalUser = true;
     description = "Sniijz";
-    extraGroups = ["networkmanager" "wheel" "audio" "docker" "video" "input" "gamemode" "lp" "scanner"];
+    extraGroups = [
+      "networkmanager"
+      "wheel"
+      "audio"
+      "docker"
+      "video"
+      "input"
+      "gamemode"
+      "lp"
+      "scanner"
+    ];
   };
 
   ######################### Home-Manager #########################
@@ -197,24 +258,26 @@ in {
   # users.users.sniijz.isNormalUser = true;
   # To check for home manager nix module availability
   # https://github.com/nix-community/home-manager/blob/master/modules/programs/starship.nix
-  home-manager.users.${vars.user} = {pkgs, ...}: {
-    home = {
-      file = {
-        #".config/starship.toml".source = ./terminal/configs/starship.toml;
-        # ".local/share/konsole/Sniijz.profile".source = ./terminal/configs/SniijzKonsole.profile;
-        # ".local/share/konsole/Breeze.colorscheme".source = ./terminal/configs/Breeze.colorscheme;
-        # ".config/konsolerc".source = ./terminal/configs/konsolerc;
-        # ".config/kglobalshortcutsrc".source = ./desktop/configs/kglobalshortcutsrc;
-      };
+  home-manager.users.${vars.user} =
+    { pkgs, ... }:
+    {
+      home = {
+        file = {
+          #".config/starship.toml".source = ./terminal/configs/starship.toml;
+          # ".local/share/konsole/Sniijz.profile".source = ./terminal/configs/SniijzKonsole.profile;
+          # ".local/share/konsole/Breeze.colorscheme".source = ./terminal/configs/Breeze.colorscheme;
+          # ".config/konsolerc".source = ./terminal/configs/konsolerc;
+          # ".config/kglobalshortcutsrc".source = ./desktop/configs/kglobalshortcutsrc;
+        };
 
-      sessionVariables = {
-      };
+        sessionVariables = {
+        };
 
-      # The state version is required and should stay at the version you
-      # originally installed.
-      stateVersion = "24.11";
+        # The state version is required and should stay at the version you
+        # originally installed.
+        stateVersion = "24.11";
+      };
     };
-  };
 
   # Home manager fix
   home-manager.backupFileExtension = "rebuild";
@@ -234,7 +297,7 @@ in {
     systemPackages = with pkgs; [
       # signal-desktop # Desktop app for signal chat
       (python312.withPackages pythonSubPackages) # Python packages
-      (xsane.override {gimpSupport = true;}) # scanner tool + gimp support
+      (xsane.override { gimpSupport = true; }) # scanner tool + gimp support
       alsa-scarlett-gui # Gui to configure Focusrite Scarlett audio interface
       alsa-utils # Advanced Linux Sound Architecture utils
       amdgpu_top # Tool to display AMD GPU Usage
@@ -260,6 +323,7 @@ in {
       gimp # Image editor
       gitmoji-cli # Git commit emjoji-cli support
       glances # Top nicolargo tool
+      glow # terminal markdown renderer
       gnomeExtensions.easyeffects-preset-selector # Presets easyeffects
       go # Golang language
       godot_4 # Video Game Editor
