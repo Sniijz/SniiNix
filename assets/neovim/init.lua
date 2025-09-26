@@ -300,7 +300,7 @@ require("conform").setup({
 		go = { "gofumpt", "goimports" },
 		python = { "isort", "black" },
 		nix = { "nixfmt_with_args" },
-		yaml = { "dprint" },
+		yaml = { "yamlfmt" },
 		json = { "jq" },
 		ansible = { "ansible-lint" },
 	},
@@ -317,7 +317,7 @@ require("conform").setup({
 require("lint").linters_by_ft = {
 	ansible = { "ansiblelint" },
 	go = { "golangcilint" },
-	markdown = { "vale" },
+	markdown = { "markdownlint" },
 	nix = { "statix" },
 	python = { "pylint" },
 	yaml = { "yamllint" },
@@ -532,5 +532,6 @@ telescope.setup({
 	},
 })
 
--- Setup Telescope File Browser
+-- Setup Telescope Extensions
 require("telescope").load_extension("file_browser")
+require("telescope").load_extension("media_files")

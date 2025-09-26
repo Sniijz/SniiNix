@@ -49,8 +49,10 @@ in
         extraPackages = with pkgs; [
           ansible-lint
           black
+          chafa
           dprint
           fd
+          fontpreview
           gccgo
           gofumpt
           golangci-lint
@@ -59,6 +61,7 @@ in
           isort
           lazygit
           lua-language-server
+          markdownlint-cli
           nixd
           nixfmt-rfc-style
           nodePackages.jsonlint
@@ -113,8 +116,10 @@ in
           nvim-notify # Recommended dependency for better notifications
           nvim-tree-lua # File Tree for navigation
           nvim-web-devicons # nice icons
+          render-markdown-nvim # Render markdown inside nvim
           telescope-file-browser-nvim # File browser
           telescope-nvim # Fuzzy finder (files, buffers, grep, etc.)
+          telescope-media-files-nvim # media file previewer for telescope
           toggleterm-nvim # integrated nvim term
           vim-floaterm # integrated floating nvim terminal
           vim-tmux-navigator # tmux plugin for vim
