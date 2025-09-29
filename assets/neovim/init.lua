@@ -282,6 +282,11 @@ vim.g.floaterm_height = 0.95 -- Uses xx% screen height
 
 -- Enabling markdown rendering tools
 require("glow").setup({})
+require("render-markdown").setup({
+	heading = {
+		atx = false,
+	},
+})
 
 -- =======================================================================================
 -- LSP Configuration
@@ -538,4 +543,3 @@ telescope.setup({
 -- Setup Telescope Extensions
 require("telescope").load_extension("file_browser")
 require("telescope").load_extension("media_files")
-quire("telescope").load_extension("media_files")
