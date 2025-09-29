@@ -119,15 +119,17 @@ in
           bufferline-nvim # Buffer Tab tool
           glow-nvim # Markdown rendering tool
           lualine-nvim # Status line
+          markdown-preview-nvim # Mardown http rendering tool
+          neoformat # Markdown formatter
           noice-nvim # Replaces the UI for messages and cmdline
           nui-nvim # Dependency for noice
           nvim-notify # Recommended dependency for better notifications
           nvim-tree-lua # File Tree for navigation
           nvim-web-devicons # nice icons
-          render-markdown-nvim # Render markdown inside nvim
+          obsidian-nvim # Obsidian plugin for nvim
           telescope-file-browser-nvim # File browser
-          telescope-nvim # Fuzzy finder (files, buffers, grep, etc.)
           telescope-media-files-nvim # media file previewer for telescope
+          telescope-nvim # Fuzzy finder (files, buffers, grep, etc.)
           toggleterm-nvim # integrated nvim term
           vim-floaterm # integrated floating nvim terminal
           vim-tmux-navigator # tmux plugin for vim
