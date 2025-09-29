@@ -126,7 +126,6 @@ in
           nvim-notify # Recommended dependency for better notifications
           nvim-tree-lua # File Tree for navigation
           nvim-web-devicons # nice icons
-          obsidian-nvim # Obsidian plugin for nvim
           telescope-file-browser-nvim # File browser
           telescope-media-files-nvim # media file previewer for telescope
           telescope-nvim # Fuzzy finder (files, buffers, grep, etc.)
