@@ -115,6 +115,25 @@ map("t", "<F9>", "<C-\\><C-n>:FloatermToggle<CR>", { desc = "Toggle Floating ter
 -- =======================================================================================
 -- colorscheme
 vim.cmd.colorscheme("vscode")
+-- Additional colors to override vscode mapping for markdown
+vim.api.nvim_create_autocmd("FileType", {
+	pattern = "markdown",
+	callback = function()
+		vim.api.nvim_set_hl(0, "@markup.heading.1.markdown", { fg = "#D4D4D4", bold = true, bg = "NONE" })
+		vim.api.nvim_set_hl(0, "@markup.heading.2.markdown", { fg = "#C586C0", bold = true, bg = "NONE" })
+		vim.api.nvim_set_hl(0, "@markup.heading.3.markdown", { fg = "#CE9178", bold = true, bg = "NONE" })
+		vim.api.nvim_set_hl(0, "@markup.heading.4.markdown", { fg = "#569CD6", bold = true, bg = "NONE" })
+		vim.api.nvim_set_hl(0, "@markup.heading.5.markdown", { fg = "#DCDCAA", bold = true, bg = "NONE" })
+		vim.api.nvim_set_hl(0, "@markup.heading.6.markdown", { fg = "#B5CEA8", bold = true, bg = "NONE" })
+
+		vim.api.nvim_set_hl(0, "RenderMarkdownH1Bg", { bg = "#2D2D2D" })
+		vim.api.nvim_set_hl(0, "RenderMarkdownH2Bg", { bg = "#392837" })
+		vim.api.nvim_set_hl(0, "RenderMarkdownH3Bg", { bg = "#3E2E28" })
+		vim.api.nvim_set_hl(0, "RenderMarkdownH4Bg", { bg = "#1E2D3D" })
+		vim.api.nvim_set_hl(0, "RenderMarkdownH5Bg", { bg = "#424231" })
+		vim.api.nvim_set_hl(0, "RenderMarkdownH6Bg", { bg = "#323E30" })
+	end,
+})
 
 -- Transparency
 vim.api.nvim_set_hl(0, "Normal", { bg = "none" })
@@ -212,7 +231,7 @@ require("nvim-tree").setup({
 		group_empty = true,
 	},
 	filters = {
-		dotfiles = true,
+		dotfiles = false,
 	},
 })
 
@@ -221,6 +240,7 @@ require("nvim-treesitter.configs").setup({
 	ensure_installed = {},
 	highlight = {
 		enable = true,
+		additional_vim_regex_highlighting = { "ruby", "markdown" },
 	},
 	indent = {
 		enable = true,
@@ -283,8 +303,9 @@ vim.g.floaterm_height = 0.95 -- Uses xx% screen height
 -- Enabling markdown rendering tools
 require("glow").setup({})
 require("render-markdown").setup({
-	heading = {
-		atx = false,
+	latex = { enabled = false },
+	code = {
+		width = "block",
 	},
 })
 
@@ -530,10 +551,14 @@ telescope.setup({
 			"--column",
 			"--smart-case",
 			"--no-ignore",
+			"--hidden",
 		},
 	},
 	pickers = {
 		-- Configure specific pickers if needed
+		find_files = {
+			find_command = { "fd", "--type", "f", "--hidden", "--exclude", ".git" },
+		},
 	},
 	extensions = {
 		-- Load extensions if you add any
