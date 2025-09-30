@@ -349,8 +349,6 @@ require("lint").linters_by_ft = {
 	go = { "golangcilint" },
 	nix = { "statix" },
 	python = { "pylint" },
-	yaml = { "yamllint" },
-	json = { "jsonlint" },
 }
 
 -- Lint on save
