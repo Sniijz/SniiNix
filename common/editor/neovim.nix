@@ -147,6 +147,13 @@ in
         ];
         extraLuaConfig = builtins.readFile ../../assets/neovim/init.lua;
       };
+      # Formatters and linters tuning
+      # yamlfmt config
+      xdg.configFile."yamlfmt/.yamlfmt".text = ''
+        formatter:
+          retain_line_breaks: true
+      '';
+
     };
   };
 }
