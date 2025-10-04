@@ -353,6 +353,7 @@ in
       lazygit # git tui tool
       libimobiledevice # package to plug iphone through usb
       linux-firmware # Binary firmware collection needed for ollama
+      protonvpn-gui # protonvpn client
       lsp-plugins # Collection of open-source audio mastering plugins
       lua-language-server # lua lsp for vim
       lutris # Open Source Gaming Platform
