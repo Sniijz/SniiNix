@@ -281,6 +281,17 @@ require("noice").setup({
 		command_palette = true,
 		long_message_to_split = true,
 	},
+	routes = {
+		{
+			view = "mini",
+			filter = {
+				event = "msg_showmode",
+				any = {
+					{ find = "recording" },
+				},
+			},
+		},
+	},
 })
 
 -- Configuration pour nvim-notify
