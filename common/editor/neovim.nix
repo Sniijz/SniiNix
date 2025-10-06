@@ -18,18 +18,36 @@ let
   #   };
   # };
   nvim-treesitter-with-parsers = pkgs.vimPlugins.nvim-treesitter.withPlugins (p: [
-    p.html
-    p.latex
-    p.markdown_inline
+    p.angular
     p.bash
+    p.c
+    p.c_sharp
+    p.css
+    p.csv
+    p.dockerfile
     p.go
+    p.gdscript
+    p.hcl
+    p.html
+    p.html
+    p.jinja
     p.json
+    p.latex
+    p.latex
     p.lua
     p.markdown
+    p.markdown_inline
     p.nix
+    p.perl
+    p.php
     p.python
     p.regex
+    p.ruby
+    p.rust
+    p.terraform
+    p.typescript
     p.yaml
+    p.zig
   ]);
 in
 {

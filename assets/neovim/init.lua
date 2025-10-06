@@ -135,6 +135,14 @@ vim.api.nvim_create_autocmd("FileType", {
 	end,
 })
 
+-- Associate Jinja2 extensions for treesitter
+vim.api.nvim_create_autocmd({ "BufNewFile", "BufRead" }, {
+	pattern = { "*.jinja", "*.jinja2", "*.j2" },
+	callback = function()
+		vim.bo.filetype = "jinja"
+	end,
+})
+
 -- Transparency
 vim.api.nvim_set_hl(0, "Normal", { bg = "none" })
 -- vim.api.nvim_set_hl(0, "NormalFloat", { bg = "none" })
@@ -221,6 +229,10 @@ vim.api.nvim_create_autocmd("TextYankPost", {
 -- nvim-tree config
 -- setup with some options
 require("nvim-tree").setup({
+	update_focused_file = {
+		enable = true,
+		update_cwd = false,
+	},
 	sort = {
 		sorter = "case_sensitive",
 	},
