@@ -229,6 +229,11 @@ vim.api.nvim_create_autocmd("TextYankPost", {
 -- nvim-tree config
 -- setup with some options
 require("nvim-tree").setup({
+	git = {
+		enable = true,
+		ignore = false,
+		timeout = 400,
+	},
 	update_focused_file = {
 		enable = true,
 		update_cwd = false,
