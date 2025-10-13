@@ -22,7 +22,8 @@
 # in
 let
   cfg = config.customModules.ghostty;
-in {
+in
+{
   options.customModules.ghostty = {
     enable = lib.mkOption {
       type = lib.types.bool;
@@ -40,7 +41,7 @@ in {
         settings = {
           font-family = "DroidSansM Nerd Font";
           theme = "Horizon";
-          background-opacity = "0.8";
+          background-opacity = "0.9";
           background-blur = true;
           background = "#1B1E20";
           window-padding-balance = true;
