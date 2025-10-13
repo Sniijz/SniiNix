@@ -105,7 +105,6 @@ in
         ];
         plugins = with pkgs.vimPlugins; [
           # --- Core Dependencies ---
-          plenary-nvim
 
           # --- ColorScheme ---
           vscode-nvim
@@ -138,12 +137,13 @@ in
           glow-nvim # Markdown rendering tool
           lualine-nvim # Status line
           markdown-preview-nvim # Mardown http rendering tool
+          neo-tree-nvim # File tree for navigation
           neoformat # Markdown formatter
           noice-nvim # Replaces the UI for messages and cmdline
-          nui-nvim # Dependency for noice
+          nui-nvim # Dependency for noice and neo-tree
           nvim-notify # Recommended dependency for better notifications
-          nvim-tree-lua # File Tree for navigation
           nvim-web-devicons # nice icons
+          plenary-nvim # Dependency for noice and neo-tree
           render-markdown-nvim # rendering markdown directly inside neovim
           telescope-file-browser-nvim # File browser
           telescope-media-files-nvim # media file previewer for telescope

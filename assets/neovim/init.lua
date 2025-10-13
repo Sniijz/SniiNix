@@ -85,9 +85,9 @@ map("n", "<leader>fb", "<cmd>Telescope buffers<cr>", { desc = "Find Buffers" })
 map("n", "<leader>fh", "<cmd>Telescope help_tags<cr>", { desc = "Help Tags" })
 map("n", "<leader>fo", "<cmd>Telescope oldfiles<cr>", { desc = "previous files" })
 
--- Hotkey configuration for nvim-tree
+-- Hotkey configuration for neo-tree
 -- <C-b> means Ctrl + b in normal mode
-map("n", "<C-b>", ":NvimTreeToggle<CR>", { desc = "Toggle NvimTree" })
+map("n", "<C-b>", ":Neotree toggle<CR>", { desc = "Toggle Neo-tree (Files)" })
 
 -- Keymaps for bufferline
 map("n", "<leader>bn", ":bnext<CR>", { desc = "Next buffer" })
@@ -187,7 +187,7 @@ require("lualine").setup({
 	tabline = {},
 	winbar = {},
 	inactive_winbar = {},
-	extensions = { "nvim-tree" },
+	extensions = {},
 })
 
 -- Configuration de Bufferline (onglets)
@@ -226,29 +226,46 @@ vim.api.nvim_create_autocmd("TextYankPost", {
 -- Plugin Configuration
 -- =======================================================================================
 
--- nvim-tree config
--- setup with some options
-require("nvim-tree").setup({
-	git = {
-		enable = true,
-		ignore = false,
-		timeout = 400,
+-- Neo-tree configuration
+require("neo-tree").setup({
+	close_if_last_window = true,
+	popup_border_style = "rounded",
+	enable_git_status = true,
+	enable_diagnostics = true,
+	default_source = "filesystem",
+	source_selector = {
+		winbar = false,
+		statusline = false,
 	},
-	update_focused_file = {
-		enable = true,
-		update_cwd = false,
+	sources = {
+		"filesystem",
+		"git_status",
+		"document_symbols",
 	},
-	sort = {
-		sorter = "case_sensitive",
+	window = {
+		position = "left",
+		width = 40,
+		mappings = {
+			["<C-b>"] = "close_window",
+		},
+		split = "horizontal",
 	},
-	view = {
-		width = 30,
+	filesystem = {
+		follow_current_file = {
+			enabled = true,
+			debounce_delay = 200,
+		},
+		hijack_netrw_behavior = "open_current",
+		filtered_items = {
+			visible = true,
+			hide_dotfiles = false,
+			hide_gitignored = false,
+			hide_hidden = true,
+		},
 	},
-	renderer = {
-		group_empty = true,
-	},
-	filters = {
-		dotfiles = false,
+	git_status = {},
+	document_symbols = {
+		follow_current_file = true,
 	},
 })
 
@@ -594,3 +611,4 @@ telescope.setup({
 -- Setup Telescope Extensions
 require("telescope").load_extension("file_browser")
 require("telescope").load_extension("media_files")
+equire("telescope").load_extension("media_files")
