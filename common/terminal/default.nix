@@ -1,10 +1,11 @@
 {
-vars,
-pkgs,
-lib,
-config,
-...
-}: let
+  vars,
+  pkgs,
+  lib,
+  config,
+  ...
+}:
+let
   sharedShellAbbrs = {
     # General Terminal Aliases
     ll = "exa -alh";
@@ -16,15 +17,60 @@ config,
   sharedShellAliases = {
   };
 
-  sharedShellFunctions = {};
-in {
+  sharedShellFunctions = { };
+in
+{
   imports = [
-    (import ./bash.nix {inherit pkgs config;})
-    (import ./fish.nix {inherit pkgs config sharedShellAbbrs sharedShellAliases sharedShellFunctions;})
-    (import ./tmux.nix {inherit pkgs config;})
-    (import ./starship.nix {inherit vars pkgs lib config;})
-    (import ./konsole.nix {inherit vars lib pkgs config;})
-    (import ./ghostty.nix {inherit vars lib pkgs config;})
-    (import ./kitty.nix {inherit vars lib pkgs config;})
+    (import ./bash.nix { inherit pkgs config; })
+    (import ./fish.nix {
+      inherit
+        pkgs
+        config
+        sharedShellAbbrs
+        sharedShellAliases
+        sharedShellFunctions
+        ;
+    })
+    (import ./tmux.nix { inherit pkgs config; })
+    (import ./starship.nix {
+      inherit
+        vars
+        pkgs
+        lib
+        config
+        ;
+    })
+    (import ./konsole.nix {
+      inherit
+        vars
+        lib
+        pkgs
+        config
+        ;
+    })
+    (import ./ghostty.nix {
+      inherit
+        vars
+        lib
+        pkgs
+        config
+        ;
+    })
+    (import ./kitty.nix {
+      inherit
+        vars
+        lib
+        pkgs
+        config
+        ;
+    })
+    (import ./crush.nix {
+      inherit
+        vars
+        lib
+        pkgs
+        config
+        ;
+    })
   ];
 }

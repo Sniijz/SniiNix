@@ -110,7 +110,7 @@ in
               "org.kde.plasma.timer"
               "org.kde.plasma.pager"
               "org.kde.plasma.colorpicker"
-              # "org.kde.plasma.systemtray"
+              # "org.kde.plasma.systemtray" # Bug when deploying it through home-manager, add it manually
               "org.kde.plasma.digitalclock"
               "org.kde.plasma.showdesktop"
             ];

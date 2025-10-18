@@ -110,6 +110,7 @@ in
   customModules = {
     # Terminal
     ghostty.enable = true;
+    crush.enable = true;
     kitty.enable = false;
     konsole.enable = true;
     neovim.enable = true;

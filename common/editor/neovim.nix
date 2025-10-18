@@ -86,11 +86,6 @@ in
           nixfmt-rfc-style
           nodePackages.jsonlint
           nodejs-slim
-          lua-language-server
-          nixd
-          nixfmt-rfc-style
-          nodePackages.jsonlint
-          nodejs-slim
           python313Packages.pynvim
           ripgrep
           statix
