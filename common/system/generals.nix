@@ -3,7 +3,8 @@
   pkgs,
   lib,
   ...
-}: let
+}:
+let
   themeCyberpunk = pkgs.fetchFromGitHub {
     owner = "anoopmsivadas";
     repo = "Cyberpunk-GRUB-Theme";
@@ -16,7 +17,8 @@
     rev = "40ac048df9aacfc053c515b97fcd24af1a06762f";
     sha256 = "sha256-ProTKsFocIxWAFbYgQ46A+GVZ7mUHXxZrvdiPJqZJ6I=";
   };
-in {
+in
+{
   # Bootloader.
   # boot.loader.systemd-boot.enable = true;
   # https://discourse.nixos.org/t/how-to-customize-grub-cfg/59311
@@ -67,10 +69,16 @@ in {
     keyMap = "fr";
   };
 
+  # Fix Emoji rendering in Firefox
+  fonts.fontconfig.useEmbeddedBitmaps = true;
+
   # Enable CUPS to print documents.
   services.printing = {
     enable = true;
-    drivers = with pkgs; [epson-escpr epson-escpr2];
+    drivers = with pkgs; [
+      epson-escpr
+      epson-escpr2
+    ];
     browsing = true;
     defaultShared = true;
   };
@@ -78,6 +86,6 @@ in {
   # Scanner activation
   hardware.sane = {
     enable = true;
-    extraBackends = [pkgs.epsonscan2];
+    extraBackends = [ pkgs.epsonscan2 ];
   };
 }
