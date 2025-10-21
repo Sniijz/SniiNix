@@ -5,8 +5,7 @@
   lib,
   vars,
   ...
-}:
-let
+}: let
   cfg = config.customModules.neovim;
   # minimap-vim = pkgs.vimUtils.buildVimPlugin {
   #   name = "minimap-vim";
@@ -17,8 +16,7 @@ let
   #     sha256 = "1l9di7q0mlbcgs4xbqg2ias3hy5qib72zi1nwjw06snxlffz2hpq";
   #   };
   # };
-in
-{
+in {
   options.customModules.neovim = {
     enable = lib.mkOption {
       type = lib.types.bool;
@@ -135,7 +133,6 @@ in
         formatter:
           retain_line_breaks: true
       '';
-
     };
   };
 }

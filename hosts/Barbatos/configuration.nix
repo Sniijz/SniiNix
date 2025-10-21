@@ -354,7 +354,6 @@ in
       lazygit # git tui tool
       libimobiledevice # package to plug iphone through usb
       linux-firmware # Binary firmware collection needed for ollama
-      protonvpn-gui # protonvpn client
       lsp-plugins # Collection of open-source audio mastering plugins
       lua-language-server # lua lsp for vim
       lutris # Open Source Gaming Platform
@@ -377,6 +376,7 @@ in
       onedrivegui # Gui for onedrive configuration
       onlyoffice-desktopeditors # Document editor
       pinta # image editor
+      protonvpn-gui # protonvpn client
       qjackctl # QT app to control Jack Sound Server
       qpwgraph # Qt graph manager for PipeWire, similar to QjackCtl
       radeontop # Top like for AMD GPU
@@ -384,11 +384,13 @@ in
       remmina # XRDP & VNC Client
       rocmPackages.rocminfo
       rsync # Syncer
+      rustdesk # Teamviewer alternative
       smartmontools # Tool for monitoring health of packages
       spotify # Music Streaming Service
       starship # theme for terminal
       strace # debugging log tool
       surge-XT # VST3 Synth
+      teamviewer # teamviewer
       thunderbird # E-mail Client
       tldr # man summary
       tmux # Terminal multiplexer
