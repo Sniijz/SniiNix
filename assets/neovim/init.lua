@@ -82,8 +82,9 @@ map("v", "<A-Up>", ":m'<-2<CR>gv=gv", { desc = "Move selection up" })
 map("n", "<leader>ff", "<cmd>Telescope find_files<cr>", { desc = "Find Files" })
 map("n", "<leader>fg", "<cmd>Telescope live_grep<cr>", { desc = "Live Grep" })
 map("n", "<leader>fb", "<cmd>Telescope buffers<cr>", { desc = "Find Buffers" })
-map("n", "<leader>fh", "<cmd>Telescope help_tags<cr>", { desc = "Help Tags" })
+map("n", "<leader>fu", "<cmd>Telescope undo<cr>", { desc = "Show undo tree of active buffer" })
 map("n", "<leader>fo", "<cmd>Telescope oldfiles<cr>", { desc = "previous files" })
+map("n", "<leader>fh", "<cmd>Telescope help_tags<cr>", { desc = "Help Tags" })
 
 -- Hotkey configuration for neo-tree
 -- <C-b> means Ctrl + b in normal mode
