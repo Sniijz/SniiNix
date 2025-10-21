@@ -17,38 +17,6 @@ let
   #     sha256 = "1l9di7q0mlbcgs4xbqg2ias3hy5qib72zi1nwjw06snxlffz2hpq";
   #   };
   # };
-  nvim-treesitter-with-parsers = pkgs.vimPlugins.nvim-treesitter.withPlugins (p: [
-    p.angular
-    p.bash
-    p.c
-    p.c_sharp
-    p.css
-    p.csv
-    p.dockerfile
-    p.go
-    p.gdscript
-    p.hcl
-    p.html
-    p.html
-    p.jinja
-    p.json
-    p.latex
-    p.latex
-    p.lua
-    p.markdown
-    p.markdown_inline
-    p.nix
-    p.perl
-    p.php
-    p.python
-    p.regex
-    p.ruby
-    p.rust
-    p.terraform
-    p.typescript
-    p.yaml
-    p.zig
-  ]);
 in
 {
   options.customModules.neovim = {
@@ -119,7 +87,7 @@ in
           nvim-cmp # Autocompletion plugin
 
           # --- Syntax Highlighting ---
-          nvim-treesitter-with-parsers # Treesitter for better syntax highlighting
+          nvim-treesitter.withAllGrammars # Parsers/Syntax Highlighting for all languages detailed in lockfile
 
           # --- Typing and Formatting ---
           auto-pairs # Pluging to autoclose opening brackets
