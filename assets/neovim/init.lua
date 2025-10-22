@@ -5,6 +5,7 @@ vim.g.loaded_netrw = 1
 vim.g.loaded_netrwPlugin = 1
 vim.g.mapleader = " " -- Set leader key to space
 vim.g.maplocalleader = " " -- Set localleader key to space
+vim.g.mkdp_browser = "firefox" -- set firefox as default browser
 
 -- =======================================================================================
 -- Basic Neovim Options
@@ -140,13 +141,6 @@ vim.api.nvim_create_autocmd("FileType", {
 		vim.api.nvim_set_hl(0, "@markup.heading.4.markdown", { fg = "#569CD6", bold = true, bg = "NONE" })
 		vim.api.nvim_set_hl(0, "@markup.heading.5.markdown", { fg = "#DCDCAA", bold = true, bg = "NONE" })
 		vim.api.nvim_set_hl(0, "@markup.heading.6.markdown", { fg = "#B5CEA8", bold = true, bg = "NONE" })
-
-		vim.api.nvim_set_hl(0, "RenderMarkdownH1Bg", { bg = "#2D2D2D" })
-		vim.api.nvim_set_hl(0, "RenderMarkdownH2Bg", { bg = "#392837" })
-		vim.api.nvim_set_hl(0, "RenderMarkdownH3Bg", { bg = "#3E2E28" })
-		vim.api.nvim_set_hl(0, "RenderMarkdownH4Bg", { bg = "#1E2D3D" })
-		vim.api.nvim_set_hl(0, "RenderMarkdownH5Bg", { bg = "#424231" })
-		vim.api.nvim_set_hl(0, "RenderMarkdownH6Bg", { bg = "#323E30" })
 	end,
 })
 
@@ -363,12 +357,6 @@ vim.g.floaterm_height = 0.95 -- Uses xx% screen height
 
 -- Enabling markdown rendering tools
 require("glow").setup({})
-require("render-markdown").setup({
-	latex = { enabled = false },
-	code = {
-		width = "block",
-	},
-})
 
 -- =======================================================================================
 -- LSP Configuration
@@ -478,6 +466,16 @@ local servers = {
 	jsonls = {},
 	terraformls = {},
 	yamlls = {},
+	ltex = {
+		settings = {
+			ltex = {
+				language = "fr",
+				additionalRules = {
+					languageModel = "~/models/ngrams/",
+				},
+			},
+		},
+	},
 
 	-- Specific configurations servers
 	gopls = {

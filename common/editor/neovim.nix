@@ -35,6 +35,7 @@ in
         enable = true;
         viAlias = true;
         vimAlias = true;
+        withNodeJs = true;
         extraPackages = with pkgs; [
           ansible-lint
           black
@@ -49,11 +50,13 @@ in
           gotools
           isort
           lazygit
+          ltex-ls
+          ltex-ls-plus
           lua-language-server
           nixd
           nixfmt-rfc-style
           nodePackages.jsonlint
-          nodejs-slim
+          nodejs
           python313Packages.pynvim
           ripgrep
           statix
@@ -107,7 +110,6 @@ in
           nvim-notify # Recommended dependency for better notifications
           nvim-web-devicons # nice icons
           plenary-nvim # Dependency for noice and neo-tree
-          render-markdown-nvim # rendering markdown directly inside neovim
           telescope-file-browser-nvim # File browser
           telescope-media-files-nvim # media file previewer for telescope
           telescope-nvim # Fuzzy finder (files, buffers, grep, etc.)
