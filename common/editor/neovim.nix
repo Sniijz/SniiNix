@@ -5,7 +5,8 @@
   lib,
   vars,
   ...
-}: let
+}:
+let
   cfg = config.customModules.neovim;
   # minimap-vim = pkgs.vimUtils.buildVimPlugin {
   #   name = "minimap-vim";
@@ -16,7 +17,8 @@
   #     sha256 = "1l9di7q0mlbcgs4xbqg2ias3hy5qib72zi1nwjw06snxlffz2hpq";
   #   };
   # };
-in {
+in
+{
   options.customModules.neovim = {
     enable = lib.mkOption {
       type = lib.types.bool;
@@ -94,7 +96,7 @@ in {
 
           # --- User Interface & Utility ---
           auto-session # automatic session recover
-          bufferline-nvim # Buffer Tab tool
+          barbar-nvim # Buffer Tab tool
           glow-nvim # Markdown rendering tool
           lualine-nvim # Status line
           markdown-preview-nvim # Mardown http rendering tool

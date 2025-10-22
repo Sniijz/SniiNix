@@ -90,10 +90,24 @@ map("n", "<leader>fh", "<cmd>Telescope help_tags<cr>", { desc = "Help Tags" })
 -- <C-b> means Ctrl + b in normal mode
 map("n", "<C-b>", ":Neotree toggle<CR>", { desc = "Toggle Neo-tree (Files)" })
 
--- Keymaps for bufferline
-map("n", "<leader>bn", ":bnext<CR>", { desc = "Next buffer" })
-map("n", "<leader>bp", ":bprevious<CR>", { desc = "Previous buffer" })
-map("n", "<leader>bq", ":bdelete<CR>", { desc = "Close actual buffer" })
+-- Keymaps for barbar (replace bufferline)
+map("n", "<leader>bn", ":BufferNext<CR>", { desc = "Next buffer" })
+map("n", "<leader>bb", ":BufferPrevious<CR>", { desc = "Previous buffer" })
+map("n", "<leader>bq", ":BufferClose<CR>", { desc = "Close actual buffer" })
+map("n", "<leader>bu", ":BufferRestore<CR>", { desc = "Reopen last closed buffer" })
+map("n", "<leader>bh", ":BufferMovePrevious<CR>", { desc = "Move actual buffer before Previous buffer" })
+map("n", "<leader>bl", ":BufferMoveNext<CR>", { desc = "Move actual buffer after next buffer" })
+map("n", "<leader>bp", ":BufferPin<CR>", { desc = "Pin actual buffer" })
+-- Keymaps for barbar buffer navigation (<leader> + Shift + <num>)
+map("n", "<leader>&", ":BufferGoto 1<CR>", { desc = "Go to buffer 1" })
+map("n", "<leader>é", ":BufferGoto 2<CR>", { desc = "Go to buffer 2" })
+map("n", '<leader>"', ":BufferGoto 3<CR>", { desc = "Go to buffer 3" })
+map("n", "<leader>'", ":BufferGoto 4<CR>", { desc = "Go to buffer 4" })
+map("n", "<leader>(", ":BufferGoto 5<CR>", { desc = "Go to buffer 5" })
+map("n", "<leader>-", ":BufferGoto 6<CR>", { desc = "Go to buffer 6" })
+map("n", "<leader>è", ":BufferGoto 7<CR>", { desc = "Go to buffer 7" })
+map("n", "<leader>_", ":BufferGoto 8<CR>", { desc = "Go to buffer 8" })
+map("n", "<leader>ç", ":BufferGoto 9<CR>", { desc = "Go to buffer 9" })
 
 -- Keymaps for git blame
 map("n", "<leader>gb", ":GitBlameToggle<CR>", { desc = "Toggle Git blame" })
@@ -148,7 +162,7 @@ vim.api.nvim_create_autocmd({ "BufNewFile", "BufRead" }, {
 vim.api.nvim_set_hl(0, "Normal", { bg = "none" })
 -- vim.api.nvim_set_hl(0, "NormalFloat", { bg = "none" })
 
--- Lualine & Bufferline Configuration
+-- Lualine & Barbar Configuration
 -- Configuration de Lualine (status bar)
 require("lualine").setup({
 	options = {
@@ -196,22 +210,18 @@ require("lualine").setup({
 	extensions = {},
 })
 
--- Configuration de Bufferline (onglets)
-require("bufferline").setup({
-	options = {
-		mode = "buffers", -- style of tabs
-		separator_style = "thin", -- thin vertical bar to separate tabs
-		numbers = "ordinal", -- show buffers numbers
-		show_buffer_close_icons = true, -- close icons
-		show_close_icon = true,
-		offsets = { -- Offset tabs to not overlap nvimtree
-			{
-				filetype = "NvimTree",
-				text = "File Explorer",
-				text_align = "center",
-				separator = true,
-			},
-		},
+-- BarBar configuration
+require("barbar").setup({
+	icons = {
+		buffer_index = true,
+		buffer_numbner = true,
+		pinned = { button = "", filename = true },
+		modified = { button = "●" },
+	},
+	gitsigns = {
+		added = { enabled = true, icon = "+" },
+		changed = { enabled = true, icon = "~" },
+		deleted = { enabled = true, icon = "-" },
 	},
 })
 
@@ -616,5 +626,4 @@ telescope.setup({
 
 -- Setup Telescope Extensions
 require("telescope").load_extension("file_browser")
-require("telescope").load_extension("media_files")
 require("telescope").load_extension("media_files")
