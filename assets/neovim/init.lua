@@ -131,6 +131,17 @@ map("t", "<F9>", "<C-\\><C-n>:FloatermToggle<CR>", { desc = "Toggle Floating ter
 -- =======================================================================================
 -- colorscheme
 vim.cmd.colorscheme("vscode")
+
+-- Transparency
+vim.api.nvim_set_hl(0, "Normal", { bg = "none" })
+vim.api.nvim_set_hl(0, "CursorLine", { bg = "none" })
+-- vim.api.nvim_set_hl(0, "NormalFloat", { bg = "none" })
+
+-- Remove grey background on diagnostics
+vim.api.nvim_set_hl(0, "DiagnosticVirtualTextError", { bg = "none" })
+vim.api.nvim_set_hl(0, "DiagnosticVirtualTextInfo", { bg = "none" })
+vim.api.nvim_set_hl(0, "DiagnosticVirtualTextHint", { bg = "none" })
+
 -- Additional colors to override vscode mapping for markdown
 vim.api.nvim_create_autocmd("FileType", {
 	pattern = "markdown",
@@ -151,10 +162,6 @@ vim.api.nvim_create_autocmd({ "BufNewFile", "BufRead" }, {
 		vim.bo.filetype = "jinja"
 	end,
 })
-
--- Transparency
-vim.api.nvim_set_hl(0, "Normal", { bg = "none" })
--- vim.api.nvim_set_hl(0, "NormalFloat", { bg = "none" })
 
 -- Lualine & Barbar Configuration
 -- Configuration de Lualine (status bar)
@@ -317,6 +324,22 @@ require("noice").setup({
 					{ find = "recording" },
 				},
 			},
+		},
+	},
+})
+
+vim.diagnostic.config({ virtual_text = false })
+require("tiny-inline-diagnostic").setup({
+	preset = "powerline",
+	options = {
+		multilines = {
+			enabled = true,
+			always_show = true,
+			trim_whitespaces = true,
+		},
+		show_all_diags_on_cursorline = true,
+		show_source = {
+			enabled = true,
 		},
 	},
 })

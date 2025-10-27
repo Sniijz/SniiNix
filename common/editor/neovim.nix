@@ -114,6 +114,7 @@ in
           telescope-media-files-nvim # media file previewer for telescope
           telescope-nvim # Fuzzy finder (files, buffers, grep, etc.)
           telescope-undo-nvim # Parse through file/git history of actual buffer
+          tiny-inline-diagnostic-nvim # inline diagnostic
           toggleterm-nvim # integrated nvim term
           vim-floaterm # integrated floating nvim terminal
           vim-tmux-navigator # tmux plugin for vim
