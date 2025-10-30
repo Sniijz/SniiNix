@@ -321,6 +321,7 @@ in
       firefox # Web browser
       fzf # Fuzzy finder
       gamescope-wsi # game performance HDR tool
+      gemini-cli # google cli ai tool
       gimp # Image editor
       gitmoji-cli # Git commit emjoji-cli support
       glances # Top nicolargo tool
