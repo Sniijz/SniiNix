@@ -163,22 +163,54 @@
       set -g @resurrect-dir $resurrect_dir
       set -g @resurrect-hook-post-save-all 'target=$(readlink -f $resurrect_dir/last); sed "s| --cmd .*-vim-pack-dir||g; s|/etc/profiles/per-user/$USER/bin/||g; s|/home/$USER/.nix-profile/bin/||g" $target | sponge $target'
 
+      #####################
       ####### Theme #######
-      # # This tmux statusbar config was created based on gruvbox colorscheme
+      #####################
 
+      ###### Manual tmux statusbar
+      # # This tmux statusbar config was created based on gruvbox colorscheme
+      # --- Icons ---
+      set -g @rarrow ""
+      set -g @larrow ""
+      set -g @nix_icon ""
+      set -g @session_icon ""
+      set -g @time_icon ""
+      set -g @date_icon ""
+      set -g @cpu_icon ""   
+      set -g @ram_icon ""   
+      set -g @nix_blue "colour81" 
+
+      # --- General config ---
+      set -g status-interval 1
       set -g status "on"
       set -g status-position top
       set -g status-justify "left"
       set -g status-left-length "100"
       set -g status-right-length "100"
-      set -g status-bg "colour237"
+      set -g status-bg "colour237"  
       setw -g window-status-separator ""
 
-      set -g status-left "#[fg=colour248,bg=colour241] #S #[fg=colour241,bg=colour237,nobold,nounderscore,noitalics]"
-      set -g status-right "#[fg=colour239,bg=colour237,nobold,nounderscore,noitalics]#[fg=colour223,bg=colour239] %Y-%m-%d %H:%M  CPU 🖥️: #{cpu_percentage} RAM 🗄️: #{ram_percentage} #[fg=colour248,bg=colour239,nobold,nounderscore,noitalics]#[fg=colour237,bg=colour248] #h"
-      setw -g window-status-format "#[fg=colour237,bg=colour239,noitalics]#[fg=colour223,bg=colour239] #I #[fg=colour223,bg=colour239] #W #[fg=colour239,bg=colour237,noitalics]"
-      setw -g window-status-current-format "#[fg=colour239,bg=colour248,:nobold,nounderscore,noitalics]#[fg=colour239,bg=colour39] #I #[fg=colour239,bg=colour39,bold] #W #[fg=colour39,bg=colour237,nobold,nounderscore,noitalics]"
+      # --- Left side bar (Nix + Session) ---
+      set -g status-left "#[fg=colour237,bg=#{@nix_blue},bold] #{@nix_icon} #[fg=#{@nix_blue},bg=colour241,nobold,nounderscore,noitalics]#{@rarrow}#[fg=colour248,bg=colour241,bold] #{@session_icon} #S #[fg=colour241,bg=colour237,nobold,nounderscore,noitalics]#{@rarrow}"
+
+      # --- Right side bar  ---
+      set -g status-right "#[fg=colour239,bg=colour237,nobold,nounderscore,noitalics]#{@larrow}#[fg=colour223,bg=colour239] #{@time_icon} %H:%M  #{@date_icon} %d-%m-%Y  #{@cpu_icon} #{cpu_percentage}  #{@ram_icon} #{ram_percentage} #[fg=colour248,bg=colour239,nobold,nounderscore,noitalics]#{@larrow}#[fg=colour237,bg=colour248,bold] #h "
+
+      # --- Inactive Windows ---
+      setw -g window-status-format "#[fg=colour237,bg=colour239,noitalics]#{@rarrow}#[fg=colour223,bg=colour239] #I #[fg=colour223,bg=colour239] #W #[fg=colour239,bg=colour237,noitalics]#{@rarrow}"
+
+      # --- Active Windows ---
+      setw -g window-status-current-format "#[fg=colour239,bg=colour248,:nobold,nounderscore,noitalics]#{@rarrow}#[fg=colour239,bg=colour39] #I #[fg=colour239,bg=colour39,bold] #W #[fg=colour39,bg=colour237,nobold,nounderscore,noitalics]#{@rarrow}"
+
+      # --- Copy Mode ---
+      set -g mode-style "fg=colour237,bg=colour223,bold"
+       
+      # Active pane border 
+      set -g pane-active-border-style "fg=colour237,bg=colour223,bold"
+
+      # --- Launching CPU plugin ---
       run-shell ${pkgs.tmuxPlugins.cpu}/share/tmux-plugins/cpu/cpu.tmux
+
     '';
   };
 }
