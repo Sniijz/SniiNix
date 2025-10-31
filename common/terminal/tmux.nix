@@ -202,16 +202,17 @@
       set -g status-bg "#3c3836"
 
       # --- Left side bar (Nix + Session) ---
-      set -g status-left "#[fg=#{@c_bg_dark},bg=#{@c_blue},bold] #{@nix_icon} #[fg=#{@c_blue},bg=#{@c_aqua},nobold,nounderscore,noitalics]#{@rarrow}#[fg=#{@c_bg_dark},bg=#{@c_aqua},bold] #{@session_icon} #S #[fg=#{@c_aqua},bg=#{@c_bg_dark},nobold,nounderscore,noitalics]#{@rarrow}"
+      set -g status-left "#[fg=#{@c_text_cream},bg=#{@c_blue},bold] #{@nix_icon} #[fg=#{@c_blue},bg=#{@c_aqua},nobold,nounderscore,noitalics]#{@rarrow}#[fg=#{@c_bg_dark},bg=#{@c_aqua},bold] #{@session_icon} #S #[fg=#{@c_aqua},bg=#{@c_bg_dark},nobold,nounderscore,noitalics]#{@rarrow}"
 
       # --- Right side bar  ---
-      set -g status-right "#[fg=#{@c_bg_med},bg=#{@c_bg_dark},nobold,nounderscore,noitalics]#{@larrow}#[fg=#{@c_yellow},bg=#{@c_bg_med}] #{@cpu_icon} #{cpu_percentage}  #{@ram_icon} #{ram_percentage}  #{@date_icon} %d-%m-%Y  #{@time_icon} %H:%M #[fg=#{@c_orange},bg=#{@c_bg_med},nobold,nounderscore,noitalics]#{@larrow}#[fg=#{@c_bg_dark},bg=#{@c_orange},bold] #h "
+      set -g status-right "#[fg=#{@c_bg_med},bg=#{@c_bg_dark},nobold,nounderscore,noitalics]#{@larrow}#[fg=#{@c_text_cream},bg=#{@c_bg_med}] #{@cpu_icon} #{cpu_percentage}  #{@ram_icon} #{ram_percentage}  #{@date_icon} %d-%m-%Y  #{@time_icon} %H:%M #[fg=#{@c_orange},bg=#{@c_bg_med},nobold,nounderscore,noitalics]#{@larrow}#[fg=#{@c_bg_dark},bg=#{@c_orange},bold] #h "
 
       # --- Inactive Windows ---
-      setw -g window-status-format "#[fg=#{@c_bg_dark},bg=#{@c_bg_med},noitalics]#{@rarrow}#[fg=#{@c_yellow},bg=#{@c_bg_med}] #I #[fg=#{@c_yellow},bg=#{@c_bg_med}] #W #[fg=#{@c_bg_med},bg=#{@c_bg_dark},noitalics]#{@rarrow}"
+      setw -g window-status-format "#[fg=#{@c_bg_dark},bg=#{@c_bg_med},noitalics]#{@rarrow}#[fg=#{@c_text_cream},bg=#{@c_bg_med}] #I #[fg=#{@c_text_cream},bg=#{@c_bg_med}] #W #[fg=#{@c_bg_med},bg=#{@c_bg_dark},noitalics]#{@rarrow}"
 
       # --- Active Windows ---
       setw -g window-status-current-format "#[fg=#{@c_bg_dark},bg=#{@c_green},nobold,nounderscore,noitalics]#{@rarrow}#[fg=#{@c_bg_dark},bg=#{@c_green},bold] #I #[fg=#{@c_bg_dark},bg=#{@c_green},bold] #W #[fg=#{@c_green},bg=#{@c_bg_dark},nobold,nounderscore,noitalics]#{@rarrow}"
+      # setw -g window-status-current-format "#[fg=#{@c_bg_dark},bg=#{@c_green},nobold,nounderscore,noitalics]#{@rarrow}#[fg=#{@c_text_cream},bg=#{@c_green},bold] #I #[fg=#{@c_text_cream},bg=#{@c_green},bold] #W #[fg=#{@c_green},bg=#{@c_bg_dark},nobold,nounderscore,noitalics]#{@rarrow}"
 
       # --- Copy Mode ---
       set -g mode-style "fg=#3c3836,bg=#98971a,bold"
