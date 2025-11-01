@@ -27,6 +27,8 @@ let
   #   };
   # });
 
+  sources = import ../../nix/sources.nix;
+
   pythonSubPackages =
     ps: with ps; [
       ansible # ansible love nix
@@ -62,6 +64,7 @@ in
         lib
         pkgs
         config
+        sources
         ;
     })
     (import ../../common/desktop {
@@ -120,6 +123,7 @@ in
 
   customModules = {
     # Terminal
+    claude.enable = true;
     ghostty.enable = true;
     crush.enable = true;
     kitty.enable = false;
@@ -329,6 +333,7 @@ in
       gnomeExtensions.easyeffects-preset-selector # Presets easyeffects
       go # Golang language
       godot_4 # Video Game Editor
+      google-cloud-sdk # gcloud cli tools
       gotop # top tool written in go
       goverlay # GUI to configure Mangohud
       guitarix # Virtual guitar amplifier
@@ -337,6 +342,7 @@ in
       htop # Top tool with colors
       ifuse # Tpol to plug iphone through usb
       iperf # Network latency tool
+      jq # cli json processor
       k9s # Kubernetes mgmt
       kdePackages.ark # Archive Manager Tool
       kdePackages.dolphin # File manager
@@ -370,12 +376,14 @@ in
       niv # Painless dependencies for Nix projects
       nix-index # Files database for nixpkgs : gives nix-locate /bin/sleep command
       nix-search-cli # Tool to search for nixpkgs
+      nodejs # install nodejs and npm tools
       nvtopPackages.amd # GPU tui graph tool for amd gpu
       obsidian # markdown documentation tool
       odin2 # Music Odin2 synthesizer plugin
       onedrive # Onedrive native linux filesystem for Microsoft Onedrive
       onedrivegui # Gui for onedrive configuration
       onlyoffice-desktopeditors # Document editor
+      opencode # CLI AI coding agent like crush
       pinta # image editor
       protonvpn-gui # protonvpn client
       qjackctl # QT app to control Jack Sound Server
@@ -415,6 +423,7 @@ in
       xclip # xclip copying clipboard tool
       yabridge # Use Windows VST2/3 On Linux
       yabridgectl # Utility to setup and update yabridge
+      yq # jq wrapper for YAML, XML toml
       zram-generator # systemd unit generator for zram devices
     ];
   };

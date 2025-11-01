@@ -3,6 +3,7 @@
   pkgs,
   lib,
   config,
+  sources,
   ...
 }:
 let
@@ -70,6 +71,15 @@ in
         lib
         pkgs
         config
+        ;
+    })
+    (import ./claude.nix {
+      inherit
+        vars
+        lib
+        pkgs
+        config
+        sources
         ;
     })
   ];

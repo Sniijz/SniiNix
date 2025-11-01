@@ -16,6 +16,8 @@ let
     editor = "code";
   };
 
+  sources = import ../../nix/sources.nix;
+
   pythonSubPackages =
     ps: with ps; [
       ansible # ansible love nix
@@ -51,6 +53,7 @@ in
         lib
         pkgs
         config
+        sources
         ;
     })
     (import ../../common/desktop {
@@ -109,6 +112,7 @@ in
 
   customModules = {
     # Terminal
+    claude.enable = true;
     ghostty.enable = true;
     crush.enable = true;
     kitty.enable = false;

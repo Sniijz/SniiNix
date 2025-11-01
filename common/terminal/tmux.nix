@@ -168,9 +168,9 @@
       #####################
 
       # --- Color Palett ---
-      set -g @c_bg_dark "#3c3836"        
-      set -g @c_bg_med "#665c54"         
-      set -g @c_text_cream "#fbf1c7"     
+      set -g @c_bg_dark "#3c3836"
+      set -g @c_bg_med "#665c54"
+      set -g @c_text_cream "#fbf1c7"
       set -g @c_blue "#458588"
       set -g @c_aqua "#689d6a"
       set -g @c_green "#98971a"
@@ -186,9 +186,9 @@
       set -g @session_icon ""
       set -g @time_icon ""
       set -g @date_icon ""
-      set -g @cpu_icon ""   
-      set -g @ram_icon ""   
-      set -g @nix_blue "colour81" 
+      set -g @cpu_icon ""
+      set -g @ram_icon ""
+      set -g @nix_blue "colour81"
 
       # --- General config ---
       set -g status-interval 1
@@ -205,7 +205,7 @@
       set -g status-left "#[fg=#{@c_text_cream},bg=#{@c_blue},bold] #{@nix_icon} #[fg=#{@c_blue},bg=#{@c_aqua},nobold,nounderscore,noitalics]#{@rarrow}#[fg=#{@c_bg_dark},bg=#{@c_aqua},bold] #{@session_icon} #S #[fg=#{@c_aqua},bg=#{@c_bg_dark},nobold,nounderscore,noitalics]#{@rarrow}"
 
       # --- Right side bar  ---
-      set -g status-right "#[fg=#{@c_bg_med},bg=#{@c_bg_dark},nobold,nounderscore,noitalics]#{@larrow}#[fg=#{@c_text_cream},bg=#{@c_bg_med}] #{@cpu_icon} #{cpu_percentage}  #{@ram_icon} #{ram_percentage}  #{@date_icon} %d-%m-%Y  #{@time_icon} %H:%M #[fg=#{@c_orange},bg=#{@c_bg_med},nobold,nounderscore,noitalics]#{@larrow}#[fg=#{@c_bg_dark},bg=#{@c_orange},bold] #h "
+      set -g status-right "#[fg=#{@c_bg_med},bg=#{@c_bg_dark},nobold,nounderscore,noitalics]#{@larrow}#[fg=#{@c_text_cream},bg=#{@c_bg_med}] #{@cpu_icon} #{cpu_percentage}  #{@ram_icon} #{ram_percentage}  #{@date_icon} %d/%m/%Y  #{@time_icon} %H:%M #[fg=#{@c_orange},bg=#{@c_bg_med},nobold,nounderscore,noitalics]#{@larrow}#[fg=#{@c_bg_dark},bg=#{@c_orange},bold] #h "
 
       # --- Inactive Windows ---
       setw -g window-status-format "#[fg=#{@c_bg_dark},bg=#{@c_bg_med},noitalics]#{@rarrow}#[fg=#{@c_text_cream},bg=#{@c_bg_med}] #I #[fg=#{@c_text_cream},bg=#{@c_bg_med}] #W #[fg=#{@c_bg_med},bg=#{@c_bg_dark},noitalics]#{@rarrow}"
@@ -217,9 +217,9 @@
       # --- Copy Mode ---
       set -g mode-style "fg=#3c3836,bg=#98971a,bold"
 
-      # Pane border 
-      set -g pane-border-style "fg=#665c54"     
-      set -g pane-active-border-style "fg=#98971a"  
+      # Pane border
+      set -g pane-border-style "fg=#665c54"
+      set -g pane-active-border-style "fg=#98971a"
 
       # --- Launching CPU plugin ---
       run-shell ${pkgs.tmuxPlugins.cpu}/share/tmux-plugins/cpu/cpu.tmux

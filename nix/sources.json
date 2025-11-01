@@ -1,4 +1,16 @@
 {
+    "claude-code": {
+        "branch": "main",
+        "description": "Always up-to-date Nix package for Claude Code with automatic daily updates, bundled Node.js runtime, Cachix pre-built binaries, and macOS permission persistence",
+        "homepage": null,
+        "owner": "sadjow",
+        "repo": "claude-code-nix",
+        "rev": "d9a9bba479b5977ce0d2ae893bf73ce01b18e3e4",
+        "sha256": "1lga7hz80xbp77z5x4hd77vgly97kkfcmv09l757k4834lyw1951",
+        "type": "tarball",
+        "url": "https://github.com/sadjow/claude-code-nix/archive/d9a9bba479b5977ce0d2ae893bf73ce01b18e3e4.tar.gz",
+        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
+    },
     "lazyjournal": {
         "branch": "main",
         "description": "A TUI for reading logs from journalctl, file system, Docker and Podman containers, as well Kubernetes pods for quick viewing and filtering with fuzzy find, regex support and coloring the output, written in Go with the gocui.",
