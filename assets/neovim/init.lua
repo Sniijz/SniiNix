@@ -405,6 +405,18 @@ require("smear_cursor").setup({
 	smear_insert_mode = true,
 })
 
+-- Smooth scrolling
+require("cinnamon").setup({
+	-- Enable all provided keymaps
+	keymaps = {
+		basic = true,
+		extra = true,
+	},
+	-- Only scroll the window
+	options = { mode = "window" },
+})
+
+
 -- =======================================================================================
 -- LSP Configuration
 -- =======================================================================================
@@ -520,6 +532,18 @@ local servers = {
 	terraformls = {},
 	yamlls = {},
 	ltex = {
+		filetypes = {
+			"bib",
+			"gitcommit",
+			"latex",
+			"markdown",
+			"org",
+			"plaintext",
+			"rst",
+			"rnoweb",
+			"quarto",
+			"context",
+		},
 		settings = {
 			ltex = {
 				language = "fr",
