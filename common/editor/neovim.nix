@@ -41,6 +41,7 @@ in
           black
           chafa
           dprint
+          eslint
           fd
           fontpreview
           gccgo
@@ -48,6 +49,7 @@ in
           golangci-lint
           gopls
           gotools
+          htmlhint
           isort
           lazygit
           ltex-ls
@@ -60,6 +62,7 @@ in
           python313Packages.pynvim
           ripgrep
           statix
+          stylelint
           stylua
           terraform-ls
           tree-sitter
@@ -100,6 +103,7 @@ in
           # --- User Interface & Utility ---
           auto-session # automatic session recover
           barbar-nvim # Buffer Tab tool
+          colorizer # Show colors when using hexcodes
           glow-nvim # Markdown rendering tool
           lualine-nvim # Status line
           markdown-preview-nvim # Mardown http rendering tool
@@ -110,6 +114,7 @@ in
           nvim-notify # Recommended dependency for better notifications
           nvim-web-devicons # nice icons
           plenary-nvim # Dependency for noice and neo-tree
+          smear-cursor-nvim # cursors animation
           telescope-file-browser-nvim # File browser
           telescope-media-files-nvim # media file previewer for telescope
           telescope-nvim # Fuzzy finder (files, buffers, grep, etc.)
