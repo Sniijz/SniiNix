@@ -3,7 +3,8 @@
   pkgs,
   lib,
   ...
-}: let
+}:
+let
   secrets = import ./secrets.nix;
   vars = {
     user = "sniijz";
@@ -11,18 +12,69 @@
     gitUser = "robin.cassagne";
   };
   sources = import ../../nix/sources.nix;
-in {
+in
+{
   imports = [
     # Include the results of the hardware scan.
     ./hardware-configuration.nix
     <home-manager/nixos>
-    (import ../../common/terminal {inherit vars lib pkgs sources config;})
-    (import ../../common/desktop {inherit vars pkgs config lib;})
-    (import ../../common/app {inherit vars pkgs config lib;})
-    (import ../../common/games {inherit vars pkgs config lib;})
-    (import ../../common/editor {inherit vars pkgs config lib;})
-    (import ../../common/compose {inherit vars pkgs config lib;})
-    (import ../../common/system {inherit vars pkgs config lib;})
+    (import ../../common/terminal {
+      inherit
+        vars
+        lib
+        pkgs
+        sources
+        config
+        ;
+    })
+    (import ../../common/desktop {
+      inherit
+        vars
+        pkgs
+        config
+        lib
+        ;
+    })
+    (import ../../common/app {
+      inherit
+        vars
+        pkgs
+        config
+        lib
+        ;
+    })
+    (import ../../common/games {
+      inherit
+        vars
+        pkgs
+        config
+        lib
+        ;
+    })
+    (import ../../common/editor {
+      inherit
+        vars
+        pkgs
+        config
+        lib
+        ;
+    })
+    (import ../../common/compose {
+      inherit
+        vars
+        pkgs
+        config
+        lib
+        ;
+    })
+    (import ../../common/system {
+      inherit
+        vars
+        pkgs
+        config
+        lib
+        ;
+    })
   ];
 
   customModules = {
@@ -30,9 +82,6 @@ in {
     starship.PastelPowerline.enable = true;
     neovim.enable = true;
   };
-
-  # Rook/Ceph support
-  boot.kernelModules = ["rbd"];
 
   ######################### Global Settings #########################
 
@@ -49,6 +98,9 @@ in {
   boot.loader.efi.canTouchEfiVariables = lib.mkForce true;
   boot.loader.grub.enable = lib.mkForce false;
 
+  # Rook/Ceph support
+  boot.kernelModules = [ "rbd" ];
+
   ######################### Networking #########################
 
   # Define your hostname.
@@ -60,7 +112,10 @@ in {
     dhcpcd.enable = lib.mkForce false;
     useDHCP = lib.mkForce false;
     networkmanager.enable = lib.mkForce false;
-    nameservers = ["192.168.1.2" "192.168.1.3"];
+    nameservers = [
+      "192.168.1.2"
+      "192.168.1.3"
+    ];
     interfaces.eno1.ipv4.addresses = [
       {
         address = "192.168.1.9";
@@ -94,8 +149,11 @@ in {
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.sniijz = {
     isNormalUser = true;
-    extraGroups = ["networkmanager" "wheel"];
-    packages = with pkgs; [];
+    extraGroups = [
+      "networkmanager"
+      "wheel"
+    ];
+    packages = with pkgs; [ ];
     openssh.authorizedKeys.keys = secrets.pubKeys;
   };
 
@@ -105,11 +163,13 @@ in {
   # sudo nix-channel --update
 
   # users.users.sniijz.isNormalUser = true;
-  home-manager.users.sniijz = {pkgs, ...}: {
-    # The state version is required and should stay at the version you
-    # originally installed.
-    home.stateVersion = "24.11";
-  };
+  home-manager.users.sniijz =
+    { pkgs, ... }:
+    {
+      # The state version is required and should stay at the version you
+      # originally installed.
+      home.stateVersion = "25.05";
+    };
 
   ######################### Packages #########################
 

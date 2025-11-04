@@ -3,25 +3,78 @@
   pkgs,
   lib,
   ...
-}: let
+}:
+let
   secrets = import ./secrets.nix;
   vars = {
     user = "sniijz";
     location = "$HOME/.setup";
     gitUser = "robin.cassagne";
   };
-in {
+  sources = import ../../nix/sources.nix;
+in
+{
   imports = [
     # Include the results of the hardware scan.
     ./hardware-configuration.nix
     <home-manager/nixos>
-    (import ../../common/terminal {inherit vars lib pkgs config;})
-    (import ../../common/desktop {inherit vars pkgs config lib;})
-    (import ../../common/app {inherit vars pkgs config lib;})
-    (import ../../common/games {inherit vars pkgs config lib;})
-    (import ../../common/editor {inherit vars pkgs config lib;})
-    (import ../../common/compose {inherit vars pkgs config lib;})
-    (import ../../common/system {inherit vars pkgs config lib;})
+    (import ../../common/terminal {
+      inherit
+        vars
+        lib
+        pkgs
+        sources
+        config
+        ;
+    })
+    (import ../../common/desktop {
+      inherit
+        vars
+        pkgs
+        config
+        lib
+        ;
+    })
+    (import ../../common/app {
+      inherit
+        vars
+        pkgs
+        config
+        lib
+        ;
+    })
+    (import ../../common/games {
+      inherit
+        vars
+        pkgs
+        config
+        lib
+        ;
+    })
+    (import ../../common/editor {
+      inherit
+        vars
+        pkgs
+        config
+        lib
+        ;
+    })
+    (import ../../common/compose {
+      inherit
+        vars
+        pkgs
+        config
+        lib
+        ;
+    })
+    (import ../../common/system {
+      inherit
+        vars
+        pkgs
+        config
+        lib
+        ;
+    })
   ];
 
   customModules = {
@@ -29,9 +82,6 @@ in {
     starship.PastelPowerline.enable = true;
     neovim.enable = true;
   };
-
-  # Rook/Ceph support
-  boot.kernelModules = ["rbd"];
 
   ######################### Global Settings #########################
 
@@ -42,6 +92,16 @@ in {
   # Before changing this value read the documentation for this option
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
   system.stateVersion = "24.05"; # Did you read the comment?
+  # KEEP IT LIKE THIS ON GOBLIN-2, THIS ONE HAS BEEN UPGRADED FROM 24.05, GOBLIN-1
+  # HAS BEEN DIRECTLY INSTALLED IN 25.05
+
+  # Use systemd-boot as bootloader and not grub like Aerial and Barbatos
+  boot.loader.systemd-boot.enable = lib.mkForce true;
+  boot.loader.efi.canTouchEfiVariables = lib.mkForce true;
+  boot.loader.grub.enable = lib.mkForce false;
+
+  # Rook/Ceph support
+  boot.kernelModules = [ "rbd" ];
 
   ######################### Networking #########################
 
@@ -50,8 +110,14 @@ in {
 
   # Enable networking
   networking = {
-    networkmanager.enable = true;
-    nameservers = ["192.168.1.2" "192.168.1.3"];
+    useNetworkd = lib.mkForce true;
+    dhcpcd.enable = lib.mkForce false;
+    useDHCP = lib.mkForce false;
+    networkmanager.enable = lib.mkForce false;
+    nameservers = [
+      "192.168.1.2"
+      "192.168.1.3"
+    ];
     interfaces.eno1.ipv4.addresses = [
       {
         address = "192.168.1.10";
@@ -80,13 +146,16 @@ in {
   networking.firewall.enable = false;
   # List services that you want to enable:
 
-  ######################### Accounts #########################
+  ######################### Accounts ###########################
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.sniijz = {
     isNormalUser = true;
-    extraGroups = ["networkmanager" "wheel"];
-    packages = with pkgs; [];
+    extraGroups = [
+      "networkmanager"
+      "wheel"
+    ];
+    packages = with pkgs; [ ];
     openssh.authorizedKeys.keys = secrets.pubKeys;
   };
 
@@ -96,16 +165,25 @@ in {
   # sudo nix-channel --update
 
   # users.users.sniijz.isNormalUser = true;
-  home-manager.users.sniijz = {pkgs, ...}: {
-    # The state version is required and should stay at the version you
-    # originally installed.
-    home.stateVersion = "24.05";
-  };
+  home-manager.users.sniijz =
+    { pkgs, ... }:
+    {
+      # The state version is required and should stay at the version you
+      # originally installed.
+      home.stateVersion = "24.05";
+    };
 
   ######################### Packages #########################
 
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
+
+  # Install and configure git
+  programs.git.enable = true;
+  programs.git.config = {
+    user.name = "Robin CASSAGNE";
+    user.email = "robin.jean.cassagne@gmail.com";
+  };
 
   environment = {
     variables = {
@@ -152,6 +230,7 @@ in {
       "user"
     ];
   };
+
   ##################### K3S Configuration ##########################
 
   services.k3s = {
