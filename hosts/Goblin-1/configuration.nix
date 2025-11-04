@@ -10,12 +10,13 @@
     location = "$HOME/.setup";
     gitUser = "robin.cassagne";
   };
+  sources = import ../../nix/sources.nix;
 in {
   imports = [
     # Include the results of the hardware scan.
     ./hardware-configuration.nix
     <home-manager/nixos>
-    (import ../../common/terminal {inherit vars lib pkgs config;})
+    (import ../../common/terminal {inherit vars lib pkgs sources config;})
     (import ../../common/desktop {inherit vars pkgs config lib;})
     (import ../../common/app {inherit vars pkgs config lib;})
     (import ../../common/games {inherit vars pkgs config lib;})
@@ -41,7 +42,12 @@ in {
   # this value at the release version of the first install of this system.
   # Before changing this value read the documentation for this option
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
-  system.stateVersion = "24.05"; # Did you read the comment?
+  system.stateVersion = "25.05"; # Did you read the comment?
+
+  # Use systemd-boot as bootloader and not grub like Aerial and Barbatos
+  boot.loader.systemd-boot.enable = lib.mkForce true;
+  boot.loader.efi.canTouchEfiVariables = lib.mkForce true;
+  boot.loader.grub.enable = lib.mkForce false;
 
   ######################### Networking #########################
 
@@ -50,7 +56,10 @@ in {
 
   # Enable networking
   networking = {
-    networkmanager.enable = true;
+    useNetworkd = lib.mkForce true;
+    dhcpcd.enable = lib.mkForce false;
+    useDHCP = lib.mkForce false;
+    networkmanager.enable = lib.mkForce false;
     nameservers = ["192.168.1.2" "192.168.1.3"];
     interfaces.eno1.ipv4.addresses = [
       {

@@ -315,6 +315,7 @@ in
       bottles # Easy to use wineprefix manager
       btop # Top tool written in C++
       cardinal # Music Plugin wrapper around VCV Rack
+      chromium # Alternate browser
       cmake # Compilation
       cmatrix # matrix effect package
       compose2nix # Tool to convert docker-compose files for nix
@@ -394,6 +395,7 @@ in
       rocmPackages.rocminfo
       rsync # Syncer
       rustdesk # Teamviewer alternative
+      signal-desktop-bin # signal client
       smartmontools # Tool for monitoring health of packages
       spotify # Music Streaming Service
       starship # theme for terminal
