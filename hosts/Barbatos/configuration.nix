@@ -384,8 +384,10 @@ in
       onedrive # Onedrive native linux filesystem for Microsoft Onedrive
       onedrivegui # Gui for onedrive configuration
       onlyoffice-desktopeditors # Document editor
+      openapi-generator-cli # Allows generation of API client libraries
       opencode # CLI AI coding agent like crush
       pinta # image editor
+      playerctl # cli tool and library to control media players
       protonvpn-gui # protonvpn client
       qjackctl # QT app to control Jack Sound Server
       qpwgraph # Qt graph manager for PipeWire, similar to QjackCtl

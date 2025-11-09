@@ -32,7 +32,7 @@ in
         sharedShellFunctions
         ;
     })
-    (import ./tmux.nix { inherit pkgs config; })
+    (import ./tmux.nix { inherit pkgs vars config; })
     (import ./starship.nix {
       inherit
         vars

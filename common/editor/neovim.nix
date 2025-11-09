@@ -76,7 +76,9 @@ in
           # --- Core Dependencies ---
 
           # --- ColorScheme ---
-          vscode-nvim
+          vscode-nvim # vscode theme
+          everforest # everforest theme
+          gruvbox-material # gruvbox-material theme
 
           # --- LSP (Language Server Protocol) ---
           nvim-lspconfig # Configurations for the built-in LSP client

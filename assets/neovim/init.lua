@@ -130,12 +130,11 @@ map("t", "<F9>", "<C-\\><C-n>:FloatermToggle<CR>", { desc = "Toggle Floating ter
 -- Neovim Theme
 -- =======================================================================================
 -- colorscheme
-vim.cmd.colorscheme("vscode")
-
--- Transparency
-vim.api.nvim_set_hl(0, "Normal", { bg = "none" })
-vim.api.nvim_set_hl(0, "CursorLine", { bg = "none" })
--- vim.api.nvim_set_hl(0, "NormalFloat", { bg = "none" })
+-- vim.cmd.colorscheme("vscode")
+vim.g.everforest_background = "soft" -- Background Contrast ('hard', 'medium', 'soft')
+vim.g.everforest_transparent_background = 1 -- Enable transparency for everforest theme
+vim.cmd.colorscheme("everforest")
+vim.api.nvim_set_hl(0, "NormalFloat", { bg = "none" })
 
 -- Remove grey background on diagnostics
 vim.api.nvim_set_hl(0, "DiagnosticVirtualTextError", { bg = "none" })
