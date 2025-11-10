@@ -527,8 +527,8 @@ in
           "kwinrc"."Desktops"."Rows" = 2;
           "kwinrc"."Plugins"."shakecursorEnabled" = false;
           "kwinrc"."Effect-overview"."BorderActivate" = 9;
-          "kwinrc"."Effect-blur"."BlurStrength" = 6;
-          "kwinrc"."Effect-blur"."NoiseStrength" = 8;
+          "kwinrc"."Effect-blur"."BlurStrength" = 8;
+          "kwinrc"."Effect-blur"."NoiseStrength" = 11;
           "kwinrc"."Plugins"."blurEnabled" = true;
           "plasma-localerc"."Formats"."LANG" = "en_US.UTF-8";
           "plasmanotifyrc"."Applications/com.usebottles.bottles"."Seen" = true;
