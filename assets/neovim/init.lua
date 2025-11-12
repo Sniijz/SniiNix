@@ -24,7 +24,7 @@ vim.opt.sidescrolloff = 8 -- Keep 8 columns visible left/right of cursor when sc
 vim.opt.hlsearch = true -- Highlight search results
 vim.opt.incsearch = true -- Show search results incrementally
 vim.opt.undofile = true -- Enable persistent undo
-vim.opt.updatetime = 300 -- Faster update time for CursorHold events (e.g., LSP hover)
+vim.opt.updatetime = 1000 -- Faster update time for CursorHold events (e.g., LSP hover)
 vim.opt.signcolumn = "yes" -- Always show the sign column to avoid layout shifts
 vim.opt.laststatus = 3 -- Use a global statusline, required for lualine
 vim.opt.wrap = false -- Force vim to show all text in actual window/pane
@@ -32,30 +32,21 @@ vim.opt.linebreak = true -- Avoid to open a new line in a middle of a word for t
 vim.opt.completeopt = { "menu", "menuone" } -- Setup completion
 vim.opt.sessionoptions = "blank,buffers,curdir,folds,help,tabpages,winsize,winpos,terminal,localoptions"
 
+-- =======================================================================================
+-- Neovim Optimization
+-- =======================================================================================
+vim.g.loaded_netrw = 1
+vim.g.loaded_netrwPlugin = 1
+vim.g.loaded_zipPlugin = 1
+vim.g.loaded_tarPlugin = 1
+vim.g.loaded_getscriptPlugin = 1
+vim.g.loaded_vimballPlugin = 1
+vim.g.loaded_2html_plugin = 1
+vim.g.loaded_matchparen = 1
+
 if vim.fn.has("clipboard") == 1 then -- Configure unique clipboard between vim and system
 	vim.opt.clipboard = "unnamedplus"
 end
-
--- Configure diagnostics/errors/warning/info
--- vim.diagnostic.config({
--- 	virtual_lines = true,
--- 	signs = true,
--- })
-
-vim.diagnostic.config({
-	signs = {
-		text = {
-			[vim.diagnostic.severity.ERROR] = "",
-			[vim.diagnostic.severity.WARN] = "",
-			[vim.diagnostic.severity.INFO] = "󰋼",
-			[vim.diagnostic.severity.HINT] = "󰌵",
-		},
-	},
-	virtual_text = true,
-	underline = true,
-	update_in_insert = false,
-	severity_sort = true,
-})
 
 -- =======================================================================================
 -- Keymaps
@@ -126,6 +117,11 @@ map("t", "<A-t>", [[<Cmd>ToggleTerm<CR>]], { desc = "Toggle Terminal" }) -- hori
 map("n", "<F9>", ":FloatermToggle<CR>", { desc = "Toggle Floating terminal on current file" })
 map("t", "<F9>", "<C-\\><C-n>:FloatermToggle<CR>", { desc = "Toggle Floating terminal on current file" })
 
+-- Keymaps for diagnostics
+map("n", "gl", vim.diagnostic.open_float, { desc = "Show Line Diagnostics" })
+map("n", "[d", vim.diagnostic.goto_prev, { desc = "Previous Diagnostic" })
+map("n", "]d", vim.diagnostic.goto_next, { desc = "Next Diagnostic" })
+
 -- =======================================================================================
 -- Neovim Theme
 -- =======================================================================================
@@ -138,6 +134,7 @@ vim.api.nvim_set_hl(0, "NormalFloat", { bg = "none" })
 
 -- Remove grey background on diagnostics
 vim.api.nvim_set_hl(0, "DiagnosticVirtualTextError", { bg = "none" })
+vim.api.nvim_set_hl(0, "DiagnosticVirtualTextWarn", { bg = "none" })
 vim.api.nvim_set_hl(0, "DiagnosticVirtualTextInfo", { bg = "none" })
 vim.api.nvim_set_hl(0, "DiagnosticVirtualTextHint", { bg = "none" })
 
@@ -327,21 +324,43 @@ require("noice").setup({
 	},
 })
 
-vim.diagnostic.config({ virtual_text = false })
-require("tiny-inline-diagnostic").setup({
-	preset = "powerline",
-	options = {
-		multilines = {
-			enabled = true,
-			always_show = true,
-			trim_whitespaces = true,
-		},
-		show_all_diags_on_cursorline = true,
-		show_source = {
-			enabled = true,
+-- Configure diagnostics/errors/warning/info
+-- vim.diagnostic.config({
+-- 	virtual_lines = true,
+-- 	signs = true,
+-- })
+
+vim.diagnostic.config({
+	signs = {
+		text = {
+			[vim.diagnostic.severity.ERROR] = "",
+			[vim.diagnostic.severity.WARN] = "",
+			[vim.diagnostic.severity.INFO] = "󰋼",
+			[vim.diagnostic.severity.HINT] = "󰌵",
 		},
 	},
+	virtual_text = true,
+	underline = true,
+	update_in_insert = false,
+	severity_sort = true,
 })
+
+-- vim.diagnostic.config({ virtual_text = false })
+-- require("tiny-inline-diagnostic").setup({
+-- 	preset = "powerline",
+-- 	options = {
+-- 		multilines = {
+-- 			enabled = true,
+-- 			always_show = true,
+-- 			trim_whitespaces = true,
+-- 		},
+-- 		show_all_diags_on_cursorline = true,
+-- 		show_diags_only_under_cursor = false,
+-- 		show_source = {
+-- 			enabled = true,
+-- 		},
+-- 	},
+-- })
 
 -- Configuration pour nvim-notify
 require("notify").setup({
@@ -456,7 +475,7 @@ require("lint").linters_by_ft = {
 local lint = require("lint")
 local lint_augroup = vim.api.nvim_create_augroup("lint", { clear = true })
 
-vim.api.nvim_create_autocmd({ "BufEnter", "BufWritePost", "InsertLeave" }, {
+vim.api.nvim_create_autocmd({ "BufWritePost" }, {
 	group = lint_augroup,
 	callback = function()
 		lint.try_lint()
@@ -478,9 +497,6 @@ local on_attach = function(client, bufnr)
 	map("n", "gr", vim.lsp.buf.references, { buffer = bufnr, desc = "LSP: Show References" })
 	map("n", "<F2>", vim.lsp.buf.rename, { buffer = bufnr, desc = "LSP: Rename" })
 	map("n", "<leader>ca", vim.lsp.buf.code_action, { buffer = bufnr, desc = "LSP: Code Action" })
-	map("n", "gl", vim.diagnostic.open_float, { buffer = bufnr, desc = "LSP: Show Line Diagnostics" })
-	map("n", "[d", vim.diagnostic.goto_prev, { buffer = bufnr, desc = "LSP: Previous Diagnostic" })
-	map("n", "]d", vim.diagnostic.goto_next, { buffer = bufnr, desc = "LSP: Next Diagnostic" })
 
 	-- Enable formatting via conformif the LSP server doesn't provide it natively
 	if client.server_capabilities.documentFormattingProvider then
@@ -518,6 +534,7 @@ local servers = {
 	jsonls = {},
 	terraformls = {},
 	yamlls = {},
+	statix = {},
 	ltex = {
 		filetypes = {
 			"bib",
@@ -537,6 +554,8 @@ local servers = {
 				additionalRules = {
 					languageModel = "~/models/ngrams/",
 				},
+				checkOnType = false,
+				checkOnSave = true,
 			},
 		},
 	},
@@ -585,6 +604,7 @@ local servers = {
 				},
 				diagnostics = {
 					globals = { "vim" },
+					delay = 500,
 				},
 				format = {
 					enable = true,

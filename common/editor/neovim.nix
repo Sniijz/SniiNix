@@ -98,7 +98,7 @@ in
           nvim-treesitter.withAllGrammars # Parsers/Syntax Highlighting for all languages detailed in lockfile
 
           # --- Typing and Formatting ---
-          auto-pairs # Pluging to autoclose opening brackets
+          nvim-autopairs # Pluging to autoclose opening brackets
           conform-nvim # Lightweight formatting plugin
           vim-commentary # comment tool
 
@@ -131,7 +131,7 @@ in
           # --- git ---
           lazygit-nvim # to integrate lazygit into vim
           vim-fugitive # better git for merge conflict, blame
-          vim-gitgutter # to show modifications made in the gutter (left side of editor)
+          gitsigns-nvim # to show modifications made in the gutter (left side of editor)
           git-blame-nvim # git blame inline plugin
 
           # --- Vim Game ---
