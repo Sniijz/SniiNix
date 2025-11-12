@@ -98,7 +98,6 @@ in
           nvim-treesitter.withAllGrammars # Parsers/Syntax Highlighting for all languages detailed in lockfile
 
           # --- Typing and Formatting ---
-          nvim-autopairs # Pluging to autoclose opening brackets
           conform-nvim # Lightweight formatting plugin
           vim-commentary # comment tool
 
