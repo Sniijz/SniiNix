@@ -130,7 +130,7 @@ in
           # --- git ---
           lazygit-nvim # to integrate lazygit into vim
           vim-fugitive # better git for merge conflict, blame
-          gitsigns-nvim # to show modifications made in the gutter (left side of editor)
+          vim-gitgutter # to show modifications made in the gutter (left side of editor)
           git-blame-nvim # git blame inline plugin
 
           # --- Vim Game ---

@@ -45,6 +45,11 @@ in
     environment.plasma5.excludePackages = with pkgs.libsForQt5; [ elisa ];
     environment.plasma6.excludePackages = with pkgs.kdePackages; [ ];
 
+    # Adding KDE custom widgets/plasmoids
+    environment.systemPackages = with pkgs; [
+      plasmusic-toolbar
+    ];
+
     # Fix issue of having both gnome and plasma5 :
     # programs.ssh.askPassword = pkgs.lib.mkForce "${pkgs.gnome.seahorse.out}/libexec/seahorse/ssh-askpass";
 
@@ -107,6 +112,7 @@ in
                   ];
                 };
               }
+              "plasmusic-toolbar"
               "org.kde.plasma.timer"
               "org.kde.plasma.pager"
               "org.kde.plasma.colorpicker"

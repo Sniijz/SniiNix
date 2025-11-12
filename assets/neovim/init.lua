@@ -605,6 +605,7 @@ local servers = {
 				diagnostics = {
 					globals = { "vim" },
 					delay = 500,
+					checkOnType = false,
 				},
 				format = {
 					enable = true,
