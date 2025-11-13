@@ -42,7 +42,6 @@ vim.g.loaded_tarPlugin = 1
 vim.g.loaded_getscriptPlugin = 1
 vim.g.loaded_vimballPlugin = 1
 vim.g.loaded_2html_plugin = 1
-vim.g.loaded_matchparen = 1
 
 if vim.fn.has("clipboard") == 1 then -- Configure unique clipboard between vim and system
 	vim.opt.clipboard = "unnamedplus"
@@ -345,22 +344,22 @@ vim.diagnostic.config({
 	severity_sort = true,
 })
 
--- vim.diagnostic.config({ virtual_text = false })
--- require("tiny-inline-diagnostic").setup({
--- 	preset = "powerline",
--- 	options = {
--- 		multilines = {
--- 			enabled = true,
--- 			always_show = true,
--- 			trim_whitespaces = true,
--- 		},
--- 		show_all_diags_on_cursorline = true,
--- 		show_diags_only_under_cursor = false,
--- 		show_source = {
--- 			enabled = true,
--- 		},
--- 	},
--- })
+vim.diagnostic.config({ virtual_text = false })
+require("tiny-inline-diagnostic").setup({
+	preset = "powerline",
+	options = {
+		multilines = {
+			enabled = true,
+			always_show = true,
+			trim_whitespaces = true,
+		},
+		show_all_diags_on_cursorline = true,
+		show_diags_only_under_cursor = false,
+		show_source = {
+			enabled = true,
+		},
+	},
+})
 
 -- Configuration pour nvim-notify
 require("notify").setup({
@@ -395,6 +394,11 @@ vim.api.nvim_create_autocmd("VimLeave", {
 -- Floaterm configuration
 vim.g.floaterm_width = 0.95 -- Uses xx% screen width
 vim.g.floaterm_height = 0.95 -- Uses xx% screen height
+
+-- autopairs
+require("nvim-autopairs").setup({
+	disable_filetype = { "TelescopePrompt", "vim" },
+})
 
 -- Enabling markdown rendering tools
 require("glow").setup({})

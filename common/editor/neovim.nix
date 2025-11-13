@@ -100,6 +100,7 @@ in
           # --- Typing and Formatting ---
           conform-nvim # Lightweight formatting plugin
           vim-commentary # comment tool
+          nvim-autopairs # autopairs completion tool
 
           # --- User Interface & Utility ---
           auto-session # automatic session recover
