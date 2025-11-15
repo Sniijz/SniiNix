@@ -39,7 +39,9 @@ in
         enable = true;
         # package = ghostty-updated;
         settings = {
-          font-family = "DroidSansM Nerd Font";
+          font-style-bold = true;
+          font-family-bold = "DroidSansM Nerd Font";
+          font-size = 12;
           theme = "Horizon";
           background-opacity = "0.9";
           background-blur = true;
@@ -53,9 +55,6 @@ in
           app-notifications = "no-clipboard-copy";
 
           keybind = [
-            "ctrl+shift+t=new_tab"
-            "ctrl+t=new_split:auto"
-            "super+q=close_window"
             "ctrl+0=reset_font_size"
             # "keybind = ctrl+tab=next_tab"
             # "keybind = ctrl+shift+tab=previous_tab"

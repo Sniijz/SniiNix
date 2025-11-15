@@ -1,13 +1,15 @@
 # konsole
 {
-vars,
-config,
-lib,
-pkgs,
-...
-}: let
+  vars,
+  config,
+  lib,
+  pkgs,
+  ...
+}:
+let
   cfg = config.customModules.konsole;
-in {
+in
+{
   options.customModules.konsole = {
     enable = lib.mkOption {
       type = lib.types.bool;
@@ -39,7 +41,7 @@ in {
             extraConfig = {
               Appearance = {
                 ColorScheme = "SniiBreeze";
-                BackgroundMode = "Blur"; 
+                BackgroundMode = "Blur";
               };
 
               General = {
@@ -59,6 +61,7 @@ in {
               # Scrollback HistorySize default value changed from 1000 to 2000
               Scrolling = {
                 HistorySize = 2000;
+                ScrollBarPosition = 2; # 2 -> hidden
               };
 
               "Notification Messages" = {

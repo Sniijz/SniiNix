@@ -121,6 +121,9 @@ map("n", "gl", vim.diagnostic.open_float, { desc = "Show Line Diagnostics" })
 map("n", "[d", vim.diagnostic.goto_prev, { desc = "Previous Diagnostic" })
 map("n", "]d", vim.diagnostic.goto_next, { desc = "Next Diagnostic" })
 
+-- Keymap for highlight
+map("n", "<F3>", ":noh<CR>", { desc = "Remove search highlight" })
+
 -- =======================================================================================
 -- Neovim Theme
 -- =======================================================================================
