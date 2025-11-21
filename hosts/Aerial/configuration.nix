@@ -115,7 +115,7 @@ in
     claude.enable = true;
     ghostty.enable = true;
     crush.enable = true;
-    kitty.enable = false;
+    kitty.enable = true;
     konsole.enable = true;
     neovim.enable = true;
     starship.GruvboxRainbow.enable = true;

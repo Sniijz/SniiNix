@@ -5,9 +5,11 @@
   pkgs,
   lib,
   ...
-}: let
+}:
+let
   cfg = config.customModules.kitty;
-in {
+in
+{
   options.customModules.kitty = {
     enable = lib.mkOption {
       type = lib.types.bool;
@@ -24,13 +26,20 @@ in {
         font.name = "DroidSansM Nerd Font";
         settings = {
           term = "xterm-256color";
+          # SSH configuration
+          ssh_env = "TERM=xterm-256color"; # Use compatible TERM for SSH
+          # SSH clipboard integration
+          share_connections = true;
+          remote_kitty = "if-needed";
           close_window_with_confirmation = false;
+          scrollback = "10000";
           bold_font = "auto";
           italic_font = "auto";
           bold_italic_font = "auto";
-          url_style = "dotted";
+          # url_style = "dotted";
           open_url_with = "default";
           url_prefixes = "file ftp ftps gemini git gopher http https irc ircs kitty mailto news sftp ssh";
+          url_style = "curly";
           detect_urls = "yes";
           show_hyperlink_targets = "yes";
           underline_hyperlinks = "hover";
@@ -40,29 +49,28 @@ in {
           mouse_map = "right click ungrabbed paste_from_clipboard";
           window_margin_width = 2;
           single_window_margin_width = -1;
-          hide_window_decorations = "no";
-          background_opacity = "0.80";
-          background_blur = "0";
+          hide_window_decorations = "yes";
+          background_opacity = "0.85";
+          background_blur = "7";
           enabled_layouts = "splits";
           remember_window_size = "yes";
+          cursor_trail = 3;
+          cursor_trail_decay = "0.1 0.3";
+          cursor_trail_start_threshold = 1;
+          cursor_shape = "block";
+          enable_audio_bell = false;
+          window_alert_on_bell = true;
+          bell_on_tab = true;
         };
         keybindings = {
           "ctrl+v" = "paste_from_clipboard";
-          "alt+t" = "launch --location=hsplit";
-          "ctrl+t" = "launch --location=vsplit";
-          "ctrl+left" = "neighboring_window left";
-          "ctrl+right" = "neighboring_window right";
-          "ctrl+up" = "neighboring_window up";
-          "ctrl+down" = "neighboring_window down";
-          "ctrl+tab" = "next_window";
-          "ctrl+shift+tab" = "previous_window";
-          "ctrl+shift+equal" = "change_font_size all +2.0";
-          "ctrl+equal" = "change_font_size all +2.0";
-          "ctrl+plus" = "change_font_size all +2.0";
-          "ctrl+kp_add" = "change_font_size all +2.0";
-          "ctrl+shift+minus" = "change_font_size all -2.0";
-          "ctrl+minus" = "change_font_size all -2.0";
-          "ctrl+kp_subtract" = "change_font_size all -2.0";
+          "ctrl+shift+equal" = "change_font_size all +1.0";
+          "ctrl+equal" = "change_font_size all +1.0";
+          "ctrl+plus" = "change_font_size all +1.0";
+          "ctrl+kp_add" = "change_font_size all +1.0";
+          "ctrl+shift+minus" = "change_font_size all -1.0";
+          "ctrl+minus" = "change_font_size all -1.0";
+          "ctrl+kp_subtract" = "change_font_size all -1.0";
           "super+q" = "quit";
         };
       };

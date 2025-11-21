@@ -100,7 +100,7 @@ in
                 config = {
                   General.launchers = [
                     "applications:org.kde.dolphin.desktop"
-                    "applications:org.kde.konsole.desktop"
+                    "applications:kitty.desktop"
                     "applications:firefox.desktop"
                     "applications:thunderbird.desktop"
                     "applications:code.desktop"
@@ -435,7 +435,11 @@ in
             "none,,Switch to Previous Activity";
           "plasmashell"."toggle do not disturb" = "none,,Toggle do not disturb";
           # "services/com.mitchellh.kde.desktop"."_launch" = "Meta+A";
-          "services/org.kde.konsole.desktop"."_launch" = [
+          # "services/org.kde.konsole.desktop"."_launch" = [
+          #   "Meta+A"
+          #   "Ctrl+Alt+T"
+          # ];
+          "services/kitty.desktop"."_launch" = [
             "Meta+A"
             "Ctrl+Alt+T"
           ];
