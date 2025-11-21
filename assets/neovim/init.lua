@@ -106,11 +106,6 @@ map("n", "<leader>gb", ":GitBlameToggle<CR>", { desc = "Toggle Git blame" })
 -- Keymaps for Lazygit
 map("n", "<leader>lg", ":LazyGitCurrentFile<CR>", { desc = "Open LazyGit on current file" })
 
--- Keymaps for Toggleterm
--- Keymaps for opening horizontal terminal
-map("n", "<A-t>", "<cmd>ToggleTerm<CR>", { desc = "Toggle Terminal horizontally" }) -- horizontal term toggle in insert mode
-map("t", "<A-t>", [[<Cmd>ToggleTerm<CR>]], { desc = "Toggle Terminal" }) -- horizontal term toggle in terminal mode
-
 -- Keymaps for Floaterm
 -- Keymaps for opening horizontal terminal
 map("n", "<F9>", ":FloatermToggle<CR>", { desc = "Toggle Floating terminal on current file" })
@@ -379,24 +374,6 @@ require("auto-session").setup({
 	log_level = "error",
 	suppressed_dirs = { "~/", "~/Projects" },
 })
-
--- Toggleterm configuration
-require("toggleterm").setup({
-	direction = "horizontal", -- open termin in split horizontal
-	size = 20, -- Height of terminal (20 lines)
-	start_in_insert = true, -- Start in insert mode at opening
-	close_on_exit = true, -- Close windows on shell closing
-})
-
--- Autoclose toggleterm when leaving vim
-vim.api.nvim_create_autocmd("VimLeave", {
-	pattern = "*",
-	command = "ToggleTermToggleAll",
-})
-
--- Floaterm configuration
-vim.g.floaterm_width = 0.95 -- Uses xx% screen width
-vim.g.floaterm_height = 0.95 -- Uses xx% screen height
 
 -- autopairs
 require("nvim-autopairs").setup({

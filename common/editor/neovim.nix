@@ -122,8 +122,6 @@ in
           telescope-nvim # Fuzzy finder (files, buffers, grep, etc.)
           telescope-undo-nvim # Parse through file/git history of actual buffer
           tiny-inline-diagnostic-nvim # inline diagnostic
-          toggleterm-nvim # integrated nvim term
-          vim-floaterm # integrated floating nvim terminal
           vim-tmux-navigator # tmux plugin for vim
           zoomwintab-vim # plugin to zoominout with ctrl+w + o
           zoxide-vim # add zoxide z support in vim -> :Z
