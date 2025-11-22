@@ -342,6 +342,8 @@ in
       hollywood # flex hacker package
       htop # Top tool with colors
       ifuse # Tpol to plug iphone through usb
+      inetutils # basic network tooling
+      ipcalc # ip calculator tool
       iperf # Network latency tool
       jq # cli json processor
       k9s # Kubernetes mgmt
@@ -377,6 +379,7 @@ in
       niv # Painless dependencies for Nix projects
       nix-index # Files database for nixpkgs : gives nix-locate /bin/sleep command
       nix-search-cli # Tool to search for nixpkgs
+      nmap # network discovery tool
       nodejs # install nodejs and npm tools
       nvtopPackages.amd # GPU tui graph tool for amd gpu
       obsidian # markdown documentation tool
@@ -386,6 +389,7 @@ in
       onlyoffice-desktopeditors # Document editor
       openapi-generator-cli # Allows generation of API client libraries
       opencode # CLI AI coding agent like crush
+      openvpn # vpn tool
       pinta # image editor
       playerctl # cli tool and library to control media players
       protonvpn-gui # protonvpn client

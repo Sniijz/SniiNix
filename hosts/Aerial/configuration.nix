@@ -300,7 +300,9 @@ in
       hollywood # flex hacker package
       htop # Top tool with colors
       ifuse # Tpol to plug iphone through usb
+      inetutils # basic network tooling
       inetutils # network tools like telnet
+      ipcalc # ip calculator tool
       iperf # Network latency tool
       k9s # Kubernetes mgmt
       kdePackages.ark # Archive Manager Tool
@@ -330,12 +332,14 @@ in
       niv # Painless dependencies for Nix projects
       nix-index # Files database for nixpkgs : gives nix-locate /bin/sleep command
       nix-search-cli # Tool to search for nixpkgs
+      nmap # network discovery tool
       nvtopPackages.amd # GPU tui graph tool for amd gpu
       obsidian # markdown documentation tool
       odin2 # Music Odin2 synthesizer plugin
       onedrive # Onedrive native linux filesystem for Microsoft Onedrive
       onedrivegui # Gui for onedrive configuration
       onlyoffice-desktopeditors # Document editor
+      openvpn # vpn tool
       pinta # image editor
       qjackctl # QT app to control Jack Sound Server
       qpwgraph # Qt graph manager for PipeWire, similar to QjackCtl
