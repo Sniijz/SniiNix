@@ -50,8 +50,8 @@ in
           window_margin_width = 2;
           single_window_margin_width = -1;
           hide_window_decorations = "yes";
-          background_opacity = "0.85";
-          background_blur = "7";
+          background_opacity = "0.70";
+          background_blur = "9";
           enabled_layouts = "splits";
           remember_window_size = "yes";
           cursor_trail = 3;

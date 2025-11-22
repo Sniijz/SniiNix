@@ -40,6 +40,7 @@ in
           ansible-lint
           black
           chafa
+          delve
           dprint
           eslint
           fd
@@ -124,6 +125,11 @@ in
           vim-tmux-navigator # tmux plugin for vim
           zoomwintab-vim # plugin to zoominout with ctrl+w + o
           zoxide-vim # add zoxide z support in vim -> :Z
+
+          # --- Debug Adapter Protocol ---
+          nvim-dap
+          nvim-dap-ui
+          nvim-dap-go
 
           # --- git ---
           lazygit-nvim # to integrate lazygit into vim
