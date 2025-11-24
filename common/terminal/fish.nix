@@ -6,7 +6,8 @@
   sharedShellAliases,
   sharedShellFunctions,
   ...
-}: {
+}:
+{
   # Install DroidSansMono NerdFont
   fonts.packages = with pkgs; [
     nerd-fonts.droid-sans-mono
@@ -25,6 +26,11 @@
     shellInit = ''
       starship init fish | source
       set -U fish_user_paths (go env GOPATH)/bin $fish_user_paths
+    ''
+    + ''
+      # Fix pour l'erreur TERMINFO avec sudo dans Kitty
+      # On force le TERM à xterm-256color quand on utilise sudo
+      alias sudo="env TERM=xterm-256color sudo"
     '';
 
     # bind ctrl+f to launch fzf
