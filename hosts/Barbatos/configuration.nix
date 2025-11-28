@@ -320,6 +320,7 @@ in
       cmatrix # matrix effect package
       compose2nix # Tool to convert docker-compose files for nix
       corectrl # Control your computer hardware via app profiles, perfect for FAN control
+      dig # net tools dig, nslookup
       easyeffects # pipewire mastering tool
       etlegacy # Wolfenstein open source
       eza # Modern replacement of ls
@@ -392,7 +393,6 @@ in
       openvpn # vpn tool
       pinta # image editor
       playerctl # cli tool and library to control media players
-      protonvpn-gui # protonvpn client
       qjackctl # QT app to control Jack Sound Server
       qpwgraph # Qt graph manager for PipeWire, similar to QjackCtl
       radeontop # Top like for AMD GPU

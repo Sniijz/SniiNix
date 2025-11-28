@@ -46,7 +46,7 @@ in
           copy_on_select = "yes";
           paste_actions = "quote-urls-at-prompt,confirm";
           strip_trailing_spaces = "smart";
-          mouse_map = "right click ungrabbed paste_from_clipboard";
+          mouse_map = "ctrl+left release grabbed,ungrabbed mouse_handle_click link";
           window_margin_width = 2;
           single_window_margin_width = -1;
           hide_window_decorations = "yes";

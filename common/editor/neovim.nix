@@ -37,7 +37,7 @@ in
         vimAlias = true;
         withNodeJs = true;
         extraPackages = with pkgs; [
-          ansible-lint
+          # ansible-lint
           black
           chafa
           delve
