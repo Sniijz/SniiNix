@@ -351,6 +351,7 @@ in
       kdePackages.ark # Archive Manager Tool
       kdePackages.dolphin # File manager
       kdePackages.dolphin-plugins # additionals plugins for dolphin file explorer
+      kdePackages.filelight # graphical disk usage tool
       kdePackages.isoimagewriter # Iso Writer for bootable USB key
       kdePackages.kcalc # kde calc
       kdePackages.kdeconnect-kde # Mobile management
