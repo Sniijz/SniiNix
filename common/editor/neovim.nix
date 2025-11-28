@@ -106,7 +106,6 @@ in
           # --- User Interface & Utility ---
           auto-session # automatic session recover
           barbar-nvim # Buffer Tab tool
-          colorizer # Show colors when using hexcodes
           glow-nvim # Markdown rendering tool
           lualine-nvim # Status line
           markdown-preview-nvim # Mardown http rendering tool

@@ -383,9 +383,6 @@ require("nvim-autopairs").setup({
 -- Enabling markdown rendering tools
 require("glow").setup({})
 
--- Enabling colors rendering
--- require("colorizer").setup({})
-
 -- =======================================================================================
 -- LSP Configuration
 -- =======================================================================================
@@ -701,11 +698,27 @@ dap.listeners.before.event_exited.dapui_config = function()
 end
 
 -- Keymaps for debugging
-vim.keymap.set("n", "<Leader>db", function() require("dap").toggle_breakpoint() end, { desc = "[D]ebug [B]reakpoint" })
-vim.keymap.set("n", "<Leader>dc", function() require("dap").continue() end, { desc = "[D]ebug [C]ontinue" })
-vim.keymap.set("n", "<Leader>do", function() require("dap").step_over() end, { desc = "[D]ebug Step [O]ver" })
-vim.keymap.set("n", "<Leader>di", function() require("dap").step_into() end, { desc = "[D]ebug Step [I]nto" })
-vim.keymap.set("n", "<Leader>du", function() require("dap").step_out() end, { desc = "[D]ebug Step O[u]t" })
-vim.keymap.set("n", "<Leader>dx", function() require("dap").terminate() end, { desc = "[D]ebug Terminate/[D]isconnect" })
-vim.keymap.set("n", "<Leader>dr", function() require("dap").repl.open() end, { desc = "[D]ebug Open [R]EPL" })
-vim.keymap.set("n", "<Leader>dt", function() require("dapui").toggle() end, { desc = "[D]ebug [T]oggle UI" })
+vim.keymap.set("n", "<Leader>db", function()
+	require("dap").toggle_breakpoint()
+end, { desc = "[D]ebug [B]reakpoint" })
+vim.keymap.set("n", "<Leader>dc", function()
+	require("dap").continue()
+end, { desc = "[D]ebug [C]ontinue" })
+vim.keymap.set("n", "<Leader>do", function()
+	require("dap").step_over()
+end, { desc = "[D]ebug Step [O]ver" })
+vim.keymap.set("n", "<Leader>di", function()
+	require("dap").step_into()
+end, { desc = "[D]ebug Step [I]nto" })
+vim.keymap.set("n", "<Leader>du", function()
+	require("dap").step_out()
+end, { desc = "[D]ebug Step O[u]t" })
+vim.keymap.set("n", "<Leader>dx", function()
+	require("dap").terminate()
+end, { desc = "[D]ebug Terminate/[D]isconnect" })
+vim.keymap.set("n", "<Leader>dr", function()
+	require("dap").repl.open()
+end, { desc = "[D]ebug Open [R]EPL" })
+vim.keymap.set("n", "<Leader>dt", function()
+	require("dapui").toggle()
+end, { desc = "[D]ebug [T]oggle UI" })
