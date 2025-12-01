@@ -76,6 +76,7 @@ map("n", "<leader>fb", "<cmd>Telescope buffers<cr>", { desc = "Find Buffers" })
 map("n", "<leader>fu", "<cmd>Telescope undo<cr>", { desc = "Show undo tree of active buffer" })
 map("n", "<leader>fo", "<cmd>Telescope oldfiles<cr>", { desc = "previous files" })
 map("n", "<leader>fh", "<cmd>Telescope help_tags<cr>", { desc = "Help Tags" })
+map("n", "<leader>fe", "<cmd>Telescope emoji<cr>", { desc = "Show emoji" })
 
 -- Hotkey configuration for neo-tree
 -- <C-b> means Ctrl + b in normal mode
@@ -670,6 +671,7 @@ telescope.setup({
 -- Setup Telescope Extensions
 require("telescope").load_extension("file_browser")
 require("telescope").load_extension("media_files")
+require("telescope").load_extension("emoji")
 
 -- =======================================================================================
 -- DAP Configuration

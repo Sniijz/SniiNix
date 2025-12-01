@@ -116,6 +116,7 @@ in
           nvim-notify # Recommended dependency for better notifications
           nvim-web-devicons # nice icons
           plenary-nvim # Dependency for noice and neo-tree
+          telescope-emoji-nvim # emoji finder for telescope
           telescope-file-browser-nvim # File browser
           telescope-media-files-nvim # media file previewer for telescope
           telescope-nvim # Fuzzy finder (files, buffers, grep, etc.)
