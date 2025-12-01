@@ -100,8 +100,6 @@ in
 
           # --- Typing and Formatting ---
           conform-nvim # Lightweight formatting plugin
-          vim-commentary # comment tool
-          nvim-autopairs # autopairs completion tool
 
           # --- User Interface & Utility ---
           auto-session # automatic session recover
@@ -109,12 +107,12 @@ in
           glow-nvim # Markdown rendering tool
           lualine-nvim # Status line
           markdown-preview-nvim # Mardown http rendering tool
+          mini-nvim # All-in-one plugin
           neo-tree-nvim # File tree for navigation
           neoformat # Markdown formatter
           noice-nvim # Replaces the UI for messages and cmdline
           nui-nvim # Dependency for noice and neo-tree
           nvim-notify # Recommended dependency for better notifications
-          nvim-web-devicons # nice icons
           plenary-nvim # Dependency for noice and neo-tree
           telescope-emoji-nvim # emoji finder for telescope
           telescope-file-browser-nvim # File browser
@@ -123,7 +121,6 @@ in
           telescope-undo-nvim # Parse through file/git history of actual buffer
           tiny-inline-diagnostic-nvim # inline diagnostic
           vim-tmux-navigator # tmux plugin for vim
-          zoomwintab-vim # plugin to zoominout with ctrl+w + o
           zoxide-vim # add zoxide z support in vim -> :Z
 
           # --- Debug Adapter Protocol ---
@@ -134,8 +131,6 @@ in
           # --- git ---
           lazygit-nvim # to integrate lazygit into vim
           vim-fugitive # better git for merge conflict, blame
-          vim-gitgutter # to show modifications made in the gutter (left side of editor)
-          git-blame-nvim # git blame inline plugin
 
           # --- Vim Game ---
           vim-be-good

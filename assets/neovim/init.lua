@@ -101,9 +101,6 @@ map("n", "<leader>è", ":BufferGoto 7<CR>", { desc = "Go to buffer 7" })
 map("n", "<leader>_", ":BufferGoto 8<CR>", { desc = "Go to buffer 8" })
 map("n", "<leader>ç", ":BufferGoto 9<CR>", { desc = "Go to buffer 9" })
 
--- Keymaps for git blame
-map("n", "<leader>gb", ":GitBlameToggle<CR>", { desc = "Toggle Git blame" })
-
 -- Keymaps for Lazygit
 map("n", "<leader>lg", ":LazyGitCurrentFile<CR>", { desc = "Open LazyGit on current file" })
 
@@ -119,6 +116,54 @@ map("n", "]d", vim.diagnostic.goto_next, { desc = "Next Diagnostic" })
 
 -- Keymap for highlight
 map("n", "<F3>", ":noh<CR>", { desc = "Remove search highlight" })
+
+-- =======================================================================================
+-- Mini.nvim Configuration
+-- =======================================================================================
+
+-- Setup Icons
+-- Must be called before barbar, telescope init
+require("mini.icons").setup()
+require("mini.icons").mock_nvim_web_devicons()
+
+-- Git & Diff
+require("mini.git").setup()
+
+-- show git blame with leader gb
+map("n", "<leader>gb", function()
+	require("mini.git").show_at_cursor()
+end, { desc = "Show git blame info" })
+
+require("mini.diff").setup({
+	view = {
+		style = "sign",
+		signs = { add = "│", change = "│", delete = "_" },
+	},
+	mappings = {
+		apply = "<leader>hs",
+		reset = "<leader>hu",
+		textobject = "gh",
+		goto_first = "[H",
+		goto_last = "]H",
+		goto_prev = "[h",
+		goto_next = "]h",
+	},
+})
+
+vim.keymap.set("n", "<leader>hp", function()
+	require("mini.diff").toggle_overlay(0)
+end, { desc = "Preview Hunk (Overlay)" })
+
+-- Editing tools
+require("mini.pairs").setup()
+require("mini.comment").setup()
+
+-- Misc (vim zoom with ctrl+w + o)
+require("mini.misc").setup()
+vim.keymap.set("n", "<C-w>o", MiniMisc.zoom, { desc = "Zoom Toggle" })
+
+-- Indent Scope
+require("mini.indentscope").setup()
 
 -- =======================================================================================
 -- Neovim Theme
@@ -365,20 +410,10 @@ require("notify").setup({
 	background_colour = "#000000",
 })
 
--- Configuration for git-blame
-require("gitblame").setup({
-	enabled = false,
-})
-
 -- Autosession plugin to save and resurrect session
 require("auto-session").setup({
 	log_level = "error",
 	suppressed_dirs = { "~/", "~/Projects" },
-})
-
--- autopairs
-require("nvim-autopairs").setup({
-	disable_filetype = { "TelescopePrompt", "vim" },
 })
 
 -- Enabling markdown rendering tools
