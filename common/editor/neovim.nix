@@ -114,6 +114,7 @@ in
           nui-nvim # Dependency for noice and neo-tree
           nvim-notify # Recommended dependency for better notifications
           plenary-nvim # Dependency for noice and neo-tree
+          satellite-nvim # scrollbar
           telescope-emoji-nvim # emoji finder for telescope
           telescope-file-browser-nvim # File browser
           telescope-media-files-nvim # media file previewer for telescope

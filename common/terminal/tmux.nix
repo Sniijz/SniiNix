@@ -131,6 +131,7 @@
             display-popup -d "#{pane_current_path}" -xC -yC -w 90% -h 90% -E 'tmux new-session -A -s scratch -c "#{pane_current_path}"'
         }
 
+
         # Restore a closed pane
         bind u respawn-pane -k
 
