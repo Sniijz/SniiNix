@@ -374,6 +374,7 @@ in
       mangohud # overlay for monitoring system  perf inside app or games
       mesa-demos # Mesa tools/utilities
       moreutils # unix tools like sponge for tmux
+      mysql84 # open source database
       ncdu # Disk Usage Analyzer with ncurses interface
       neofetch # System Info Script
       neovim # text editor
@@ -435,6 +436,11 @@ in
       yq # jq wrapper for YAML, XML toml
       zram-generator # systemd unit generator for zram devices
     ];
+  };
+
+  services.mysql = {
+    enable = true;
+    package = pkgs.mariadb;
   };
 
   # Override Package download, fix will be applied in NixOS 25.05

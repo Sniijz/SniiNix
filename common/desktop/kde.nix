@@ -36,13 +36,13 @@ in
     # services.displayManager.defaultSession = "plasmax11";
 
     # Enable/disable the plasma5 Desktop Environment
-    services.xserver.desktopManager.plasma5.enable = false;
+    # services.xserver.desktopManager.plasma5.enable = false;
 
     # Enable/disable plasma6 enable the following
     services.desktopManager.plasma6.enable = true;
 
     # To exclude default plasma packages
-    environment.plasma5.excludePackages = with pkgs.libsForQt5; [ elisa ];
+    # environment.plasma5.excludePackages = with pkgs.libsForQt5; [ ];
     environment.plasma6.excludePackages = with pkgs.kdePackages; [ ];
 
     # Adding KDE custom widgets/plasmoids
@@ -104,7 +104,7 @@ in
                     "applications:firefox.desktop"
                     "applications:thunderbird.desktop"
                     "applications:code.desktop"
-                    "applications:org.godotengine.Godot4.4.desktop"
+                    "applications:org.godotengine.Godot4.5.desktop"
                     "applications:obsidian.desktop"
                     "applications:spotify.desktop"
                     "applications:cockos-reaper.desktop"
@@ -116,7 +116,7 @@ in
               "org.kde.plasma.timer"
               "org.kde.plasma.pager"
               "org.kde.plasma.colorpicker"
-              # "org.kde.plasma.systemtray" # Bug when deploying it through home-manager, add it manually
+              "org.kde.plasma.systemtray" # Bug when deploying it through home-manager, add it manually
               "org.kde.plasma.digitalclock"
               "org.kde.plasma.showdesktop"
             ];

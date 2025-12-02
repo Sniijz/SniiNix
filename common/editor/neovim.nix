@@ -58,7 +58,6 @@ in
           lua-language-server
           nixd
           nixfmt-rfc-style
-          nodePackages.jsonlint
           nodejs
           python313Packages.pynvim
           ripgrep
