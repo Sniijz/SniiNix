@@ -25,7 +25,6 @@
 
     shellInit = ''
       starship init fish | source
-      set -U fish_user_paths (go env GOPATH)/bin $fish_user_paths
     ''
     + ''
       # Fix pour l'erreur TERMINFO avec sudo dans Kitty
@@ -39,8 +38,6 @@
           commandline -r (find . | fzf)
       end
       bind \cf fzf_find
-
-      bind \ck 'k9s'
 
       function journalctl_fzf
           journalctl -n 1500 --no-pager | fzf

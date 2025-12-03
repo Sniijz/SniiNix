@@ -104,6 +104,14 @@ in
         lib
         ;
     })
+    (import ../../common/dev {
+      inherit
+        vars
+        pkgs
+        config
+        lib
+        ;
+    })
     # Include the results of the hardware scan.
     ./hardware-configuration.nix
     # Install home manager as a module : https://nix-community.github.io/home-manager/index.xhtml#sec-install-nixos-module
@@ -113,34 +121,44 @@ in
   customModules = {
     # Terminal
     claude.enable = true;
-    ghostty.enable = true;
     crush.enable = true;
+    ghostty.enable = true;
     kitty.enable = true;
     konsole.enable = true;
     neovim.enable = true;
     starship.GruvboxRainbow.enable = true;
     starship.PastelPowerline.enable = false;
-    # Editor
+
+    # dev
+    golang.enable = true;
+    mysql.enable = true;
+
+    # editor
     vscode.enable = true;
-    # Desktop
-    kde.enable = true;
+
+    # desktop
     dolphin.enable = true;
-    # Compose
+    kde.enable = true;
+
+    # compose
     ollama.enable = false;
-    wolf.enable = false;
     syncthing.enable = true;
-    # App
+    wolf.enable = false;
+
+    # app
+    discord.enable = true;
     flatpak.enable = true;
     gamemode.enable = true;
+    lazyjournal.enable = true;
+    onedrive.enable = true;
     steam.enable = true;
     sunshine.enable = false;
-    lazyjournal.enable = true;
-    discord.enable = true;
-    onedrive.enable = true;
-    # Games
+
+    # games
     TurtleWoW.enable = true;
     WarThunder.enable = false;
-    # System
+
+    # system
     audio.enable = true;
     bluetooth.enable = true;
     printer.enable = true;

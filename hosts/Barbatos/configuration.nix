@@ -115,6 +115,14 @@ in
         lib
         ;
     })
+    (import ../../common/dev {
+      inherit
+        vars
+        pkgs
+        config
+        lib
+        ;
+    })
     # Include the results of the hardware scan.
     ./hardware-configuration.nix
     # Install home manager as a module : https://nix-community.github.io/home-manager/index.xhtml#sec-install-nixos-module
@@ -124,33 +132,43 @@ in
   customModules = {
     # Terminal
     claude.enable = true;
-    ghostty.enable = true;
     crush.enable = true;
+    ghostty.enable = true;
     kitty.enable = true;
     konsole.enable = true;
     neovim.enable = true;
     starship.GruvboxRainbow.enable = true;
     starship.PastelPowerline.enable = false;
+
+    # dev
+    golang.enable = true;
+    mysql.enable = true;
+
     # Editor
     vscode.enable = true;
+
     # Desktop
-    kde.enable = true;
     dolphin.enable = true;
+    kde.enable = true;
+
     # Compose
     ollama.enable = false;
-    wolf.enable = false;
     syncthing.enable = true;
+    wolf.enable = false;
+
     # App
+    discord.enable = true;
     flatpak.enable = true;
     gamemode.enable = true;
+    lazyjournal.enable = true;
+    onedrive.enable = true;
     steam.enable = true;
     sunshine.enable = false;
-    lazyjournal.enable = true;
-    discord.enable = true;
-    onedrive.enable = true;
+
     # Games
     TurtleWoW.enable = true;
     WarThunder.enable = false;
+
     # System
     audio.enable = true;
     bluetooth.enable = true;
@@ -274,6 +292,10 @@ in
           # ".config/konsolerc".source = ./terminal/configs/konsolerc;
           # ".config/kglobalshortcutsrc".source = ./desktop/configs/kglobalshortcutsrc;
         };
+
+        sessionPath = [
+          "$HOME/go/bin"
+        ];
 
         sessionVariables = {
         };
@@ -436,11 +458,6 @@ in
       yq # jq wrapper for YAML, XML toml
       zram-generator # systemd unit generator for zram devices
     ];
-  };
-
-  services.mysql = {
-    enable = true;
-    package = pkgs.mariadb;
   };
 
   # Override Package download, fix will be applied in NixOS 25.05

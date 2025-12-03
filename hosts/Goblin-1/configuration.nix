@@ -75,6 +75,14 @@ in
         lib
         ;
     })
+    (import ../../common/dev {
+      inherit
+        vars
+        pkgs
+        config
+        lib
+        ;
+    })
   ];
 
   customModules = {
