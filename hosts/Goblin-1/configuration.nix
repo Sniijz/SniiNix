@@ -189,29 +189,28 @@ in
     };
 
     systemPackages = with pkgs; [
-      atuin # Shell History
-      rsync # Syncer
       ansible # Automation tool
-      vim # text editor
-      neovim # text editor
+      btop # Top tool written in C++
       cmatrix # matrix effect package
       eza # modern replacement of ls
+      fish # alternative to bash
+      fishPlugins.fzf-fish # fzf plugin for fish
+      fishPlugins.z # zoxide plugin for fish
       fzf # fuzzy finder
       go # Golang language
       gotop # top tool written in go
-      btop # Top tool written in C++
       htop # Graphical top
-      fish # alternative to bash
-      fishPlugins.z # zoxide plugin for fish
-      fishPlugins.fzf-fish # fzf plugin for fish
-      starship # theme for terminal
-      tldr # man summary
-      wget # cli tool for download
-      termshark # cli packet capture
-      nfs-utils # Needed for Longhorn
-      util-linux # contains nsenter for longhorn
       jellyfin-ffmpeg # For Jellyfin transcoding
       jellyfin-mpv-shim # For Jellyfin transcoding
+      neovim # text editor
+      nfs-utils # Needed for Longhorn
+      rsync # Syncer
+      starship # theme for terminal
+      termshark # cli packet capture
+      tldr # man summary
+      util-linux # contains nsenter for longhorn
+      vim # text editor
+      wget # cli tool for download
     ];
   };
 
