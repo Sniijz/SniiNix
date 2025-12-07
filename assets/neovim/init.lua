@@ -485,12 +485,15 @@ vim.api.nvim_create_autocmd({ "BufWritePost" }, {
 })
 
 -- Setup LSP (nvim-lspconfig)
-local lspconfig = require("lspconfig")
 local cmp_nvim_lsp = require("cmp_nvim_lsp")
 
 local capabilities = cmp_nvim_lsp.default_capabilities(vim.lsp.protocol.make_client_capabilities())
 
 local on_attach = function(client, bufnr)
+	-- Prevent Neovim's default K key behavior (keywordprg) from interfering with LSP hover
+	vim.bo[bufnr].keywordprg = ""
+
+	local map = vim.keymap.set
 	map("n", "gd", vim.lsp.buf.definition, { buffer = bufnr, desc = "LSP: Go to Definition" })
 	map("n", "K", vim.lsp.buf.hover, { buffer = bufnr, desc = "LSP: Hover Documentation" })
 	map("n", "gi", vim.lsp.buf.implementation, { buffer = bufnr, desc = "LSP: Go to Implementation" })
@@ -593,15 +596,31 @@ local servers = {
 	},
 }
 
--- Loop to start all servers
+-- Configure and Enable servers according to new API (nvim-lspconfig for nvim 0.11+)
 for server_name, custom_config in pairs(servers) do
 	local final_config = vim.tbl_deep_extend("force", {
 		on_attach = on_attach,
 		capabilities = capabilities,
-	}, custom_config)
+	}, custom_config or {})
 
-	lspconfig[server_name].setup(final_config)
+	-- Set the configuration using the new API
+	vim.lsp.config[server_name] = vim.tbl_deep_extend("force", vim.lsp.config[server_name] or {}, final_config)
+
+	-- Enable the server so it starts on the correct filetypes
+	vim.lsp.enable(server_name)
 end
+
+-- The LspAttach event is triggered after a client attaches to a buffer.
+-- We use this to reliably call our on_attach function.
+vim.api.nvim_create_autocmd("LspAttach", {
+	group = vim.api.nvim_create_augroup("UserLspConfig", { clear = true }),
+	callback = function(event)
+		local client = vim.lsp.get_client_by_id(event.data.client_id)
+		if client and client.config and client.config.on_attach then
+			client.config.on_attach(client, event.buf)
+		end
+	end,
+})
 
 -- =======================================================================================
 -- CMP Configuration
