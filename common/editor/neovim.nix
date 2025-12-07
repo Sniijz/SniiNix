@@ -82,10 +82,10 @@ in
 
           # --- LSP (Language Server Protocol) ---
           nvim-lspconfig # Configurations for the built-in LSP client
-          cmp-nvim-lsp # LSP completion source for nvim-cmp
           nvim-lint # nvim linter
 
           # --- Completion ---
+          cmp-nvim-lsp # LSP completion source for nvim-cmp
           cmp-buffer # Completion source for text in current buffer
           cmp-path # Completion source for filesystem paths
           cmp_luasnip # Luasnip completion source for nvim-cmp
@@ -103,7 +103,6 @@ in
           # --- User Interface & Utility ---
           auto-session # automatic session recover
           barbar-nvim # Buffer Tab tool
-          glow-nvim # Markdown rendering tool
           lualine-nvim # Status line
           markdown-preview-nvim # Mardown http rendering tool
           mini-nvim # All-in-one plugin

@@ -2,7 +2,6 @@
 -- Global Variables and Settings
 -- =======================================================================================
 vim.g.loaded_netrw = 1
-vim.g.loaded_netrwPlugin = 1
 vim.g.mapleader = " " -- Set leader key to space
 vim.g.maplocalleader = " " -- Set localleader key to space
 vim.g.mkdp_browser = "firefox" -- set firefox as default browser
@@ -24,7 +23,7 @@ vim.opt.sidescrolloff = 8 -- Keep 8 columns visible left/right of cursor when sc
 vim.opt.hlsearch = true -- Highlight search results
 vim.opt.incsearch = true -- Show search results incrementally
 vim.opt.undofile = true -- Enable persistent undo
-vim.opt.updatetime = 1000 -- Faster update time for CursorHold events (e.g., LSP hover)
+vim.opt.updatetime = 500 -- Faster update time for CursorHold events (e.g., LSP hover)
 vim.opt.signcolumn = "yes" -- Always show the sign column to avoid layout shifts
 vim.opt.laststatus = 3 -- Use a global statusline, required for lualine
 vim.opt.wrap = false -- Force vim to show all text in actual window/pane
@@ -46,6 +45,12 @@ vim.g.loaded_2html_plugin = 1
 if vim.fn.has("clipboard") == 1 then -- Configure unique clipboard between vim and system
 	vim.opt.clipboard = "unnamedplus"
 end
+
+-- Autosession plugin to save and resurrect session
+require("auto-session").setup({
+	log_level = "error",
+	suppressed_dirs = { "~/", "~/Projects" },
+})
 
 -- =======================================================================================
 -- Keymaps
@@ -103,11 +108,6 @@ map("n", "<leader>ç", ":BufferGoto 9<CR>", { desc = "Go to buffer 9" })
 
 -- Keymaps for Lazygit
 map("n", "<leader>lg", ":LazyGitCurrentFile<CR>", { desc = "Open LazyGit on current file" })
-
--- Keymaps for Floaterm
--- Keymaps for opening horizontal terminal
-map("n", "<F9>", ":FloatermToggle<CR>", { desc = "Toggle Floating terminal on current file" })
-map("t", "<F9>", "<C-\\><C-n>:FloatermToggle<CR>", { desc = "Toggle Floating terminal on current file" })
 
 -- Keymaps for diagnostics
 map("n", "gl", vim.diagnostic.open_float, { desc = "Show Line Diagnostics" })
@@ -173,7 +173,7 @@ require("mini.indentscope").setup()
 vim.g.everforest_background = "soft" -- Background Contrast ('hard', 'medium', 'soft')
 vim.g.everforest_transparent_background = 1 -- Enable transparency for everforest theme
 vim.cmd.colorscheme("everforest")
-vim.api.nvim_set_hl(0, "NormalFloat", { bg = "none" })
+-- vim.api.nvim_set_hl(0, "NormalFloat", { bg = "none" })
 
 -- Remove grey background on diagnostics
 vim.api.nvim_set_hl(0, "DiagnosticVirtualTextError", { bg = "none" })
@@ -194,14 +194,9 @@ vim.api.nvim_create_autocmd("FileType", {
 	end,
 })
 
--- Associate Jinja2 extensions for treesitter
-vim.api.nvim_create_autocmd({ "BufNewFile", "BufRead" }, {
-	pattern = { "*.jinja", "*.jinja2", "*.j2" },
-	callback = function()
-		vim.bo.filetype = "jinja"
-	end,
-})
-
+-- =======================================================================================
+-- Interface Configuration
+-- =======================================================================================
 -- Lualine & Barbar Configuration
 -- Configuration de Lualine (status bar)
 require("lualine").setup({
@@ -265,23 +260,6 @@ require("barbar").setup({
 	},
 })
 
--- =======================================================================================
--- Autocmds
--- =======================================================================================
-
--- hl on yank
-vim.api.nvim_create_autocmd("TextYankPost", {
-	group = vim.api.nvim_create_augroup("highlight_yank", {}),
-	pattern = "*",
-	callback = function()
-		vim.highlight.on_yank({ higroup = "IncSearch", timeout = 150 })
-	end,
-})
-
--- =======================================================================================
--- Plugin Configuration
--- =======================================================================================
-
 -- Neo-tree configuration
 require("neo-tree").setup({
 	close_if_last_window = true,
@@ -325,18 +303,6 @@ require("neo-tree").setup({
 	},
 })
 
--- Setup Treesitter
-require("nvim-treesitter.configs").setup({
-	ensure_installed = {},
-	highlight = {
-		enable = true,
-		additional_vim_regex_highlighting = { "ruby", "markdown" },
-	},
-	indent = {
-		enable = true,
-	},
-})
-
 -- Noice configuration
 require("noice").setup({
 	lsp = {
@@ -344,6 +310,7 @@ require("noice").setup({
 			["vim.lsp.util.convert_input_to_markdown_lines"] = true,
 			["vim.lsp.util.stylize_markdown"] = true,
 			["cmp.entry.get_documentation"] = true,
+			["vim.lsp.buf.hover"] = true,
 		},
 		progress = {
 			enabled = true,
@@ -353,8 +320,16 @@ require("noice").setup({
 		bottom_search = true,
 		command_palette = true,
 		long_message_to_split = true,
+		inc_rename = true,
 	},
 	routes = {
+		{
+			filter = {
+				event = "lsp",
+				kind = "hover",
+			},
+			view = "hover",
+		},
 		{
 			view = "mini",
 			filter = {
@@ -381,11 +356,23 @@ require("noice").setup({
 	},
 })
 
--- Configure diagnostics/errors/warning/info
--- vim.diagnostic.config({
--- 	virtual_lines = true,
--- 	signs = true,
--- })
+-- Configuration pour nvim-notify
+require("notify").setup({
+	background_colour = "#000000",
+})
+
+-- hl on yank animation
+vim.api.nvim_create_autocmd("TextYankPost", {
+	group = vim.api.nvim_create_augroup("highlight_yank", {}),
+	pattern = "*",
+	callback = function()
+		vim.highlight.on_yank({ higroup = "IncSearch", timeout = 150 })
+	end,
+})
+
+-- =======================================================================================
+-- Diagnostics Configuration
+-- =======================================================================================
 
 vim.diagnostic.config({
 	signs = {
@@ -396,13 +383,12 @@ vim.diagnostic.config({
 			[vim.diagnostic.severity.HINT] = "󰌵",
 		},
 	},
-	virtual_text = true,
+	virtual_text = false,
 	underline = true,
 	update_in_insert = false,
 	severity_sort = true,
 })
 
-vim.diagnostic.config({ virtual_text = false })
 require("tiny-inline-diagnostic").setup({
 	preset = "powerline",
 	options = {
@@ -419,23 +405,29 @@ require("tiny-inline-diagnostic").setup({
 	},
 })
 
--- Configuration pour nvim-notify
-require("notify").setup({
-	background_colour = "#000000",
-})
-
--- Autosession plugin to save and resurrect session
-require("auto-session").setup({
-	log_level = "error",
-	suppressed_dirs = { "~/", "~/Projects" },
-})
-
--- Enabling markdown rendering tools
-require("glow").setup({})
-
 -- =======================================================================================
 -- LSP Configuration
 -- =======================================================================================
+
+-- Setup Treesitter
+require("nvim-treesitter.configs").setup({
+	ensure_installed = {},
+	highlight = {
+		enable = true,
+		additional_vim_regex_highlighting = { "ruby", "markdown" },
+	},
+	indent = {
+		enable = true,
+	},
+})
+
+-- Associate Jinja2 extensions for treesitter
+vim.api.nvim_create_autocmd({ "BufNewFile", "BufRead" }, {
+	pattern = { "*.jinja", "*.jinja2", "*.j2" },
+	callback = function()
+		vim.bo.filetype = "jinja"
+	end,
+})
 
 -- Autoformat on save
 require("conform").setup({
@@ -496,10 +488,8 @@ vim.api.nvim_create_autocmd({ "BufWritePost" }, {
 local lspconfig = require("lspconfig")
 local cmp_nvim_lsp = require("cmp_nvim_lsp")
 
--- Defines capabilities for LSP servers based on nvim-cmp setup
 local capabilities = cmp_nvim_lsp.default_capabilities(vim.lsp.protocol.make_client_capabilities())
 
--- Function to run on LSP attach (sets buffer-local keymaps)
 local on_attach = function(client, bufnr)
 	map("n", "gd", vim.lsp.buf.definition, { buffer = bufnr, desc = "LSP: Go to Definition" })
 	map("n", "K", vim.lsp.buf.hover, { buffer = bufnr, desc = "LSP: Hover Documentation" })
@@ -508,43 +498,19 @@ local on_attach = function(client, bufnr)
 	map("n", "<F2>", vim.lsp.buf.rename, { buffer = bufnr, desc = "LSP: Rename" })
 	map("n", "<leader>ca", vim.lsp.buf.code_action, { buffer = bufnr, desc = "LSP: Code Action" })
 
-	-- Enable formatting via conformif the LSP server doesn't provide it natively
 	if client.server_capabilities.documentFormattingProvider then
 		map("n", "<leader>f", function()
 			vim.lsp.buf.format({ async = true })
 		end, { buffer = bufnr, desc = "LSP: Format" })
 	end
-
-	-- Auto import package on save for go
-	if client.name == "gopls" then
-		if client.supports_method("textDocument/codeAction") then
-			local augroup = vim.api.nvim_create_augroup("GoImportsOnSave", { clear = true })
-			vim.api.nvim_create_autocmd("BufWritePre", {
-				group = augroup,
-				buffer = bufnr,
-				callback = function()
-					vim.lsp.buf.format()
-					vim.lsp.buf.code_action({
-						context = { only = { "source.organizeImports" }, diagnostics = vim.diagnostic.get(bufnr) },
-						apply = true,
-					})
-					vim.lsp.buf.code_action({
-						context = { only = { "source.fixAll" }, diagnostics = vim.diagnostic.get(bufnr) },
-						apply = true,
-					})
-				end,
-			})
-		end
-	end
 end
 
 local servers = {
-	-- Default values servers
 	bashls = {},
 	jsonls = {},
 	terraformls = {},
 	yamlls = {},
-	statix = {},
+	nixd = {},
 	ltex = {
 		filetypes = {
 			"bib",
@@ -570,7 +536,6 @@ local servers = {
 		},
 	},
 
-	-- Specific configurations servers
 	gopls = {
 		settings = {
 			gopls = {
@@ -690,7 +655,9 @@ cmp.setup({
 	},
 })
 
--- Setup Telescope (fuzzy finder)
+-- =======================================================================================
+-- Telescope Configuration
+-- =======================================================================================
 local telescope = require("telescope")
 telescope.setup({
 	defaults = {
@@ -713,21 +680,21 @@ telescope.setup({
 		},
 	},
 	extensions = {
-		-- Load extensions if you add any
+		"file_browser",
+		emoji = {
+			action = function(emoji)
+				-- insert emoji when picked
+				vim.api.nvim_put({ emoji.value }, "c", false, true)
+			end,
+		},
 	},
 })
 
--- Setup Telescope Extensions
-require("telescope").load_extension("file_browser")
-require("telescope").load_extension("media_files")
-require("telescope").load_extension("emoji")
-
 -- =======================================================================================
--- DAP Configuration
+-- DAP Debug Adapter Protocol Configuration
 -- =======================================================================================
 
 require("dapui").setup()
-
 require("dap-go").setup()
 
 local dap, dapui = require("dap"), require("dapui")

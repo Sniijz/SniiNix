@@ -21,11 +21,16 @@ in
   };
   config = lib.mkIf cfg.enable {
     home-manager.users.${vars.user} = {
+      home.packages = [ pkgs.gcc ];
       home.sessionPath = [
         "$HOME/go/bin"
       ];
       programs.go = {
         enable = true;
+        goPath = "go";
+      };
+      home.sessionVariables = {
+        CGO_ENABLED = "1";
       };
     };
   };

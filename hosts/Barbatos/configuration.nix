@@ -335,6 +335,8 @@ in
       bat # Better version of bat
       bitwarden-desktop # Password Manager
       bottles # Easy to use wineprefix manager
+      bruno # ide for exploring APIs
+      bruno-cli # cli of bruno for exploring APIs
       btop # Top tool written in C++
       cardinal # Music Plugin wrapper around VCV Rack
       chromium # Alternate browser

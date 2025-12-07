@@ -63,7 +63,6 @@ in
           bell_on_tab = true;
         };
         keybindings = {
-          "ctrl+v" = "paste_from_clipboard";
           "ctrl+shift+equal" = "change_font_size all +1.0";
           "ctrl+equal" = "change_font_size all +1.0";
           "ctrl+plus" = "change_font_size all +1.0";
