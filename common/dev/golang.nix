@@ -27,7 +27,6 @@ in
       ];
       programs.go = {
         enable = true;
-        goPath = "go";
       };
       home.sessionVariables = {
         CGO_ENABLED = "1";
