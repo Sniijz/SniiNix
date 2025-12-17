@@ -75,13 +75,14 @@ map("v", "<A-Down>", ":m'>+1<CR>gv=gv", { desc = "Move selection down" })
 map("v", "<A-Up>", ":m'<-2<CR>gv=gv", { desc = "Move selection up" })
 
 -- Add keymaps for Telescope
+map("n", "<leader>fe", "<cmd>Telescope file_browser<cr>", { desc = "Telescope file browser into all system" })
 map("n", "<leader>ff", "<cmd>Telescope find_files<cr>", { desc = "Find Files" })
 map("n", "<leader>fg", "<cmd>Telescope live_grep<cr>", { desc = "Live Grep" })
 map("n", "<leader>fb", "<cmd>Telescope buffers<cr>", { desc = "Find Buffers" })
 map("n", "<leader>fu", "<cmd>Telescope undo<cr>", { desc = "Show undo tree of active buffer" })
 map("n", "<leader>fo", "<cmd>Telescope oldfiles<cr>", { desc = "previous files" })
 map("n", "<leader>fh", "<cmd>Telescope help_tags<cr>", { desc = "Help Tags" })
-map("n", "<leader>fe", "<cmd>Telescope emoji<cr>", { desc = "Show emoji" })
+map("n", "<leader>fj", "<cmd>Telescope emoji<cr>", { desc = "Show emoji" })
 
 -- Hotkey configuration for neo-tree
 -- <C-b> means Ctrl + b in normal mode
