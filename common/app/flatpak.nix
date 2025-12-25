@@ -3,7 +3,8 @@
   lib,
   pkgs,
   ...
-}: let
+}:
+let
   # We point directly to 'gnugrep' instead of 'grep'
   grep = pkgs.gnugrep;
 
@@ -14,9 +15,11 @@
     "com.vysp3r.ProtonPlus"
     "org.jdownloader.JDownloader"
     "com.github.Matoking.protontricks"
+    "io.github.v81d.Wattage"
   ];
   cfg = config.customModules.flatpak;
-in {
+in
+{
   options.customModules.flatpak = {
     enable = lib.mkOption {
       type = lib.types.bool;
@@ -37,7 +40,7 @@ in {
     programs.dconf.enable = true;
     xdg.portal = {
       enable = true;
-      extraPortals = [pkgs.xdg-desktop-portal-gtk];
+      extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
       config.common.default = "*";
     };
 
