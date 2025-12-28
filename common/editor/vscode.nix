@@ -88,10 +88,16 @@ in {
             ]
             ++ pkgs.vscode-utils.extensionsFromVscodeMarketplace [
               {
-                name = "vscode-proto3";
-                publisher = "zxh404";
-                version = "0.5.5";
-                hash = "sha256-Em+w3FyJLXrpVAe9N7zsHRoMcpvl+psmG1new7nA8iE=";
+                name = "protobuf-vsc";
+                publisher = "DrBlury";
+                version = "1.4.26";
+                hash = "sha256-rfgZA81hT0Q3Qmc9cMGHT5+cpwDAWAlJ673RMA9NrfU=";
+              }
+              {
+                name = "pico8-ls";
+                publisher = "pollywoggames";
+                version = "0.6.1";
+                hash = "sha256-TlULqIKb3R+bvjN3f4Bwha0bewqCHpPVFiePHNV2kmE=";
               }
             ];
 
@@ -182,6 +188,14 @@ in {
             "terminal.integrated.cwd" = "\${fileDirname}";
             "files.trimTrailingWhitespace" = true;
             "files.trimFinalNewlines" = true;
+            "files.associations" = {
+              "*.p8" = "pico-8";
+            };
+            "[pico-8]" = {
+              "editor.defaultFormatter" = "pollywoggames.pico8-ls";
+              "editor.formatOnSave" = true;
+              "files.trimTrailingWhitespace" = false;
+            };
             "[xml]" = {
               "editor.defaultFormatter" = "DotJoshJohnson.xml";
             };

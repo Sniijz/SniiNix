@@ -409,7 +409,6 @@ require("tiny-inline-diagnostic").setup({
 -- =======================================================================================
 -- LSP Configuration
 -- =======================================================================================
-
 -- Setup Treesitter
 require("nvim-treesitter.configs").setup({
 	ensure_installed = {},
@@ -419,6 +418,13 @@ require("nvim-treesitter.configs").setup({
 	},
 	indent = {
 		enable = true,
+	},
+})
+
+-- pico8 support
+vim.filetype.add({
+	extension = {
+		p8 = "pico8",
 	},
 })
 
@@ -515,6 +521,7 @@ local servers = {
 	terraformls = {},
 	yamlls = {},
 	nixd = {},
+
 	ltex = {
 		filetypes = {
 			"bib",
@@ -575,7 +582,14 @@ local servers = {
 		},
 	},
 
+	pico_ls = {
+		cmd = { "pico8-ls", "--stdio" },
+		filetypes = { "pico8" },
+		root_dir = require("lspconfig.util").root_pattern("*.p8"),
+	},
+
 	lua_ls = {
+		filetypes = { "lua" },
 		settings = {
 			Lua = {
 				workspace = {

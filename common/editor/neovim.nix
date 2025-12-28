@@ -17,6 +17,21 @@ let
   #     sha256 = "1l9di7q0mlbcgs4xbqg2ias3hy5qib72zi1nwjw06snxlffz2hpq";
   #   };
   # };
+
+  pico8-extension = pkgs.vscode-utils.buildVscodeMarketplaceExtension {
+    mktplcRef = {
+      name = "pico8-ls";
+      publisher = "pollywoggames";
+      version = "0.6.1";
+      sha256 = "sha256-TlULqIKb3R+bvjN3f4Bwha0bewqCHpPVFiePHNV2kmE=";
+    };
+  };
+
+  pico8-ls = pkgs.writeShellScriptBin "pico8-ls" ''
+    exec ${pkgs.nodejs}/bin/node \
+      ${pico8-extension}/share/vscode/extensions/pollywoggames.pico8-ls/server/out/server.js \
+      "$@"
+  '';
 in
 {
   options.customModules.neovim = {
@@ -59,6 +74,7 @@ in
           nixd
           nixfmt-rfc-style
           nodejs
+          pico8-ls
           python313Packages.pynvim
           ripgrep
           statix
@@ -83,6 +99,7 @@ in
           # --- LSP (Language Server Protocol) ---
           nvim-lspconfig # Configurations for the built-in LSP client
           nvim-lint # nvim linter
+          vim-pico8-syntax # pico8 syntax
 
           # --- Completion ---
           cmp-nvim-lsp # LSP completion source for nvim-cmp
