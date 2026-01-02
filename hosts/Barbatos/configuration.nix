@@ -333,6 +333,7 @@ in
       arandr # graphical tool for monitor/screen mgmt
       aseprite # Pixel art editor
       bat # Better version of bat
+      beeref # Reference image viewer
       bitwarden-desktop # Password Manager
       bottles # Easy to use wineprefix manager
       bruno # ide for exploring APIs

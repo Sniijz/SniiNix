@@ -5,7 +5,7 @@
 
     programs.tmux = {
       enable = true;
-      shortcut = "a";
+      shortcut = "q";
       terminal = "tmux-256color";
       clock24 = true;
       escapeTime = 100;

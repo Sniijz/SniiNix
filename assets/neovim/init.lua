@@ -459,10 +459,26 @@ require("conform").setup({
 	},
 
 	-- Enable format on save
-	format_on_save = {
-		timeout_ms = 500,
-		lsp_fallback = true, -- use lsp formatter as fallback
-	},
+	-- format_on_save = {
+	-- 	timeout_ms = 500,
+	-- 	lsp_fallback = true, -- use lsp formatter as fallback
+	-- },
+	format_on_save = function(bufnr)
+		-- Si c'est un fichier PICO-8
+		if vim.bo[bufnr].filetype == "pico8" then
+			return {
+				timeout_ms = 5000, -- On laisse du temps à Node.js
+				lsp_fallback = true, -- OUI, utilise le LSP
+				formatters = {}, -- On vide la liste pour écraser le "_" (dprint)
+			}
+		end
+
+		-- Pour tous les autres fichiers
+		return {
+			timeout_ms = 500,
+			lsp_fallback = true,
+		}
+	end,
 })
 
 -- Linters
@@ -583,9 +599,12 @@ local servers = {
 	},
 
 	pico_ls = {
-		cmd = { "pico8-ls", "--stdio" },
+		cmd = { "pico8-ls" },
 		filetypes = { "pico8" },
-		root_dir = require("lspconfig.util").root_pattern("*.p8"),
+		root_dir = function()
+			return nil
+		end,
+		single_file_support = true,
 	},
 
 	lua_ls = {

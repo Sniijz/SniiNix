@@ -29,7 +29,7 @@ let
 
   pico8-ls = pkgs.writeShellScriptBin "pico8-ls" ''
     exec ${pkgs.nodejs}/bin/node \
-      ${pico8-extension}/share/vscode/extensions/pollywoggames.pico8-ls/server/out/server.js \
+      ${pico8-extension}/share/vscode/extensions/PollywogGames.pico8-ls/server/out-min/main.js \
       "$@"
   '';
 in
