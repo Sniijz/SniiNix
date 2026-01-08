@@ -42,7 +42,9 @@ vim.g.loaded_getscriptPlugin = 1
 vim.g.loaded_vimballPlugin = 1
 vim.g.loaded_2html_plugin = 1
 
-if vim.fn.has("clipboard") == 1 then -- Configure unique clipboard between vim and system
+if vim.fn.has("clipboard") == 1 then
+	-- OSC 52 feature to remote copy/paste
+	vim.g.clipboard = "osc52"
 	vim.opt.clipboard = "unnamedplus"
 end
 

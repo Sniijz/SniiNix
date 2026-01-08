@@ -43,6 +43,8 @@
         ######## Copy ##########
         # Enable mouse + scrolling + copy paste + vim keymaps
         set -g mouse on
+        set -s set-clipboard on
+        set -g allow-passthrough on
         # Enable VI keymaps in copymode
         set-window-option -g mode-keys vi
         # Enter copy mode with Prefix + Enter
