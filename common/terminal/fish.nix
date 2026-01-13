@@ -43,6 +43,16 @@
           journalctl -n 1500 --no-pager | fzf
       end
       bind \cj journalctl_fzf
+
+      # https://fishshell.com/docs/current/cmds/bind.html#cmd-bind-backward-kill-path-component
+      # Alt+Right (move to next punct)
+      bind alt-right forward-word
+
+      # Alt+Left (move to previous punct)
+      bind alt-left backward-word
+
+      # delete to previous punct
+      bind alt-backspace backward-kill-word
     '';
 
     shellAbbrs = sharedShellAbbrs;
