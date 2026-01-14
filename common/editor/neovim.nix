@@ -120,6 +120,7 @@ in
           # --- User Interface & Utility ---
           auto-session # automatic session recover
           barbar-nvim # Buffer Tab tool
+          grug-far-nvim # search and replace ripgrep
           lualine-nvim # Status line
           markdown-preview-nvim # Mardown http rendering tool
           mini-nvim # All-in-one plugin

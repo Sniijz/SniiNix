@@ -86,6 +86,13 @@ map("n", "<leader>fo", "<cmd>Telescope oldfiles<cr>", { desc = "previous files" 
 map("n", "<leader>fh", "<cmd>Telescope help_tags<cr>", { desc = "Help Tags" })
 map("n", "<leader>fj", "<cmd>Telescope emoji<cr>", { desc = "Show emoji" })
 
+-- Add keympas for grug-far search and replace
+-- Mode Normal
+map("n", "<leader>sr", ":GrugFar<CR>", { desc = "Search and Replace (Grug-far)" })
+map("n", "<leader>sw", grug_far_word_under_cursor, { desc = "Search and Replace current Word" })
+-- Visual Mode
+map("v", "<leader>sr", grug_far_visual_selection, { desc = "Search and Replace Selection" })
+
 -- Hotkey configuration for neo-tree
 -- <C-b> means Ctrl + b in normal mode
 map("n", "<C-b>", ":Neotree toggle<CR>", { desc = "Toggle Neo-tree (Files)" })
@@ -744,6 +751,26 @@ telescope.setup({
 		},
 	},
 })
+
+-- =======================================================================================
+-- Grug-far (Search and Replace)
+-- =======================================================================================
+require("grug-far").setup({
+	icons = {
+		enabled = true,
+	},
+	keymaps = {
+		close = { n = "q" },
+	},
+})
+
+local function grug_far_word_under_cursor()
+	require("grug-far").open({ prefills = { search = vim.fn.expand("<cword>") } })
+end
+
+local function grug_far_visual_selection()
+	require("grug-far").with_visual_selection({ prefills = { search = vim.fn.expand("<cword>") } })
+end
 
 -- =======================================================================================
 -- DAP Debug Adapter Protocol Configuration
