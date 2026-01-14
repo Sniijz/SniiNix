@@ -178,7 +178,8 @@ require("mini.indentscope").setup()
 vim.g.everforest_background = "soft" -- Background Contrast ('hard', 'medium', 'soft')
 vim.g.everforest_transparent_background = 1 -- Enable transparency for everforest theme
 vim.cmd.colorscheme("everforest")
--- vim.api.nvim_set_hl(0, "NormalFloat", { bg = "none" })
+vim.api.nvim_set_hl(0, "NormalFloat", { bg = "none" })
+vim.api.nvim_set_hl(0, "FloatBorder", { bg = "none" })
 
 -- Remove grey background on diagnostics
 vim.api.nvim_set_hl(0, "DiagnosticVirtualTextError", { bg = "none" })
