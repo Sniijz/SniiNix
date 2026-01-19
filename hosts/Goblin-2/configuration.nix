@@ -251,6 +251,7 @@ in
     role = "agent";
     extraFlags = toString [
       "--node-name=goblin-2"
+      "--kubelet-arg=cgroup-driver=systemd"
       #"--disable servicelb"
       #"--disable traefik"
     ];
