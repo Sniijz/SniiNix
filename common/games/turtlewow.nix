@@ -1,12 +1,13 @@
 {
   config,
-  pkgs,
   lib,
   vars,
   ...
-}: let
+}:
+let
   cfg = config.customModules.TurtleWoW;
-in {
+in
+{
   options.customModules.TurtleWoW = {
     enable = lib.mkOption {
       type = lib.types.bool;
@@ -23,7 +24,8 @@ in {
       xdg.desktopEntries.TurtleWoW = {
         name = "TurtleWoW";
         genericName = "Turtle WoW Private Server";
-        exec = "appimage-run /home/sniijz/Games/TurtleWoW/TurtleWoW.AppImage";
+        # exec = "appimage-run /home/sniijz/Games/TurtleWoW/TurtleWoW.AppImage";
+        exec = "steam-run /home/sniijz/Games/TurtleWoW/TurtleWoW.AppImage";
         icon = "/home/sniijz/Games/TurtleWoW/Banners/appimage.ico";
         terminal = false;
         settings = {
