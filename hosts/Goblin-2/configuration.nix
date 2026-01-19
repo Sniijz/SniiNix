@@ -234,7 +234,10 @@ in
       "rw"
       "hard"
       "nolock"
-      "user"
+      "noauto"
+      "x-systemd.automount"
+      "x-systemd.device-timeout=5s"
+      "x-systemd.mount-timeout=5s"
     ];
   };
 
