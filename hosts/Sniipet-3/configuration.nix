@@ -111,7 +111,10 @@ in
       grub.enable = lib.mkForce false;
     };
     # Rook/Ceph support
-    kernelModules = [ "rbd" ];
+    kernelModules = [
+      "configs"
+      "rbd"
+    ];
   };
 
   ######################### Networking #########################
@@ -199,13 +202,17 @@ in
 
     systemPackages = with pkgs; [
       ansible # Automation tool
+      bash # Universal linux shell
       btop # Top tool written in C++
       cmatrix # matrix effect package
+      curl # Universal cli tool
+      cryptsetup # luks for dm-crypt needed for longhorn
       eza # modern replacement of ls
       fish # alternative to bash
       fishPlugins.fzf-fish # fzf plugin for fish
       fishPlugins.z # zoxide plugin for fish
       fzf # fuzzy finder
+      gawk # gnuw implem of awk
       go # Golang language
       gotop # top tool written in go
       htop # Graphical top
@@ -213,6 +220,7 @@ in
       jellyfin-mpv-shim # For Jellyfin transcoding
       neovim # text editor
       nfs-utils # Needed for Longhorn
+      openiscsi # Needed for longhorn
       rsync # Syncer
       starship # theme for terminal
       termshark # cli packet capture
@@ -233,7 +241,10 @@ in
       "rw"
       "hard"
       "nolock"
-      "user"
+      "noauto"
+      "x-systemd.automount"
+      "x-systemd.device-timeout=5s"
+      "x-systemd.mount-timeout=5s"
     ];
   };
 
@@ -267,6 +278,9 @@ in
 
   systemd.tmpfiles.rules = [
     "L+ /usr/local/bin - - - - /run/current-system/sw/bin/"
+    "L+ /usr/local/bin/nsenter - - - - ${pkgs.util-linux}/bin/nsenter"
+    "L+ /usr/bin/nsenter - - - - ${pkgs.util-linux}/bin/nsenter"
+    "L+ /bin/bash - - - - ${pkgs.bash}/bin/bash"
   ];
 
 }
