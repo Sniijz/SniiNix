@@ -104,20 +104,24 @@ in
   # HAS BEEN DIRECTLY INSTALLED IN 25.05
 
   # Use systemd-boot as bootloader and not grub like Aerial and Barbatos
-  boot.loader.systemd-boot.enable = lib.mkForce true;
-  boot.loader.efi.canTouchEfiVariables = lib.mkForce true;
-  boot.loader.grub.enable = lib.mkForce false;
-
-  # Rook/Ceph support
-  boot.kernelModules = [ "rbd" ];
+  boot = {
+    loader = {
+      systemd-boot.enable = lib.mkForce true;
+      efi.canTouchEfiVariables = lib.mkForce true;
+      grub.enable = lib.mkForce false;
+    };
+    # Rook/Ceph support
+    kernelModules = [
+      "configs"
+      "rbd"
+    ];
+  };
 
   ######################### Networking #########################
 
-  # Define your hostname.
-  networking.hostName = "Goblin-2";
-
   # Enable networking
   networking = {
+    hostName = "Goblin-2";
     useNetworkd = lib.mkForce true;
     dhcpcd.enable = lib.mkForce false;
     useDHCP = lib.mkForce false;
@@ -137,10 +141,6 @@ in
       interface = "eno1";
     };
   };
-
-  programs.ssh.startAgent = true;
-  services.openssh.enable = true;
-  services.openssh.settings.PasswordAuthentication = false;
 
   # Configure network proxy if necessary
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
@@ -163,7 +163,6 @@ in
       "networkmanager"
       "wheel"
     ];
-    packages = with pkgs; [ ];
     openssh.authorizedKeys.keys = secrets.pubKeys;
   };
 
@@ -173,24 +172,25 @@ in
   # sudo nix-channel --update
 
   # users.users.sniijz.isNormalUser = true;
-  home-manager.users.sniijz =
-    { pkgs, ... }:
-    {
-      # The state version is required and should stay at the version you
-      # originally installed.
-      home.stateVersion = "24.05";
-    };
+  home-manager.users.sniijz = {
+    # The state version is required and should stay at the version you
+    # originally installed.
+    home.stateVersion = "24.05";
+  };
 
   ######################### Packages #########################
 
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
 
-  # Install and configure git
-  programs.git.enable = true;
-  programs.git.config = {
-    user.name = "Robin CASSAGNE";
-    user.email = "robin.jean.cassagne@gmail.com";
+  programs = {
+    # Install and configure git
+    ssh.startAgent = true;
+    git.enable = true;
+    git.config = {
+      user.name = "Robin CASSAGNE";
+      user.email = "robin.jean.cassagne@gmail.com";
+    };
   };
 
   environment = {
@@ -200,13 +200,17 @@ in
 
     systemPackages = with pkgs; [
       ansible # Automation tool
+      bash # Universal linux shell
       btop # Top tool written in C++
       cmatrix # matrix effect package
+      curl # Universal cli tool
+      cryptsetup # luks for dm-crypt needed for longhorn
       eza # modern replacement of ls
       fish # alternative to bash
       fishPlugins.fzf-fish # fzf plugin for fish
       fishPlugins.z # zoxide plugin for fish
       fzf # fuzzy finder
+      gawk # gnuw implem of awk
       go # Golang language
       gotop # top tool written in go
       htop # Graphical top
@@ -214,6 +218,7 @@ in
       jellyfin-mpv-shim # For Jellyfin transcoding
       neovim # text editor
       nfs-utils # Needed for Longhorn
+      openiscsi # Needed for longhorn
       rsync # Syncer
       starship # theme for terminal
       termshark # cli packet capture
@@ -241,30 +246,37 @@ in
     ];
   };
 
-  ##################### K3S Configuration ##########################
+  services = {
+    openssh.enable = true;
+    openssh.settings.PasswordAuthentication = false;
+    ##################### K3S Configuration ##########################
 
-  services.k3s = {
-    enable = true;
-    package = pkgs.k3s_1_30;
-    serverAddr = "https://192.168.1.30:6443";
-    token = secrets.apiTokens.k3s;
-    role = "agent";
-    extraFlags = toString [
-      "--node-name=goblin-2"
-      "--kubelet-arg=cgroup-driver=systemd"
-      #"--disable servicelb"
-      #"--disable traefik"
-    ];
+    k3s = {
+      enable = true;
+      package = pkgs.k3s_1_30;
+      serverAddr = "https://192.168.1.30:6443";
+      token = secrets.apiTokens.k3s;
+      role = "agent";
+      extraFlags = toString [
+        "--node-name=goblin-2"
+        "--kubelet-arg=cgroup-driver=systemd"
+        #"--disable servicelb"
+        #"--disable traefik"
+      ];
+    };
+    openiscsi = {
+      enable = true;
+      name = "${config.networking.hostName}-initiatorhost";
+    };
   };
 
   ###################### iscsi configuration for longhorn ###########
 
   systemd.tmpfiles.rules = [
     "L+ /usr/local/bin - - - - /run/current-system/sw/bin/"
+    "L+ /usr/local/bin/nsenter - - - - ${pkgs.util-linux}/bin/nsenter"
+    "L+ /usr/bin/nsenter - - - - ${pkgs.util-linux}/bin/nsenter"
+    "L+ /bin/bash - - - - ${pkgs.bash}/bin/bash"
   ];
 
-  services.openiscsi = {
-    enable = true;
-    name = "${config.networking.hostName}-initiatorhost";
-  };
 }
