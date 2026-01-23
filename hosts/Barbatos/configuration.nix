@@ -357,6 +357,7 @@ in
       gitmoji-cli # Git commit emjoji-cli support
       glances # Top nicolargo tool
       glow # terminal markdown renderer
+      gnome-disk-utility # graphical front-end to manage disks
       gnomeExtensions.easyeffects-preset-selector # Presets easyeffects
       go # Golang language
       godot_4 # Video Game Editor

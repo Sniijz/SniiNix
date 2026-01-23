@@ -12,6 +12,19 @@ let
     gitUser = "robin.cassagne";
   };
   sources = import ../../nix/sources.nix;
+  k3s_old =
+    pkgs.runCommand "k3s-1.27.4"
+      {
+        src = pkgs.fetchurl {
+          url = "https://github.com/k3s-io/k3s/releases/download/v1.27.4%2Bk3s1/k3s";
+          sha256 = "sha256-dDiq3n9aqrOQT5UzO2eqByzuKPoGdItu5m68vT5ba9M=";
+        };
+      }
+      ''
+        mkdir -p $out/bin
+        cp $src $out/bin/k3s
+        chmod +x $out/bin/k3s
+      '';
 in
 {
   imports = [
@@ -132,7 +145,7 @@ in
       "192.168.1.2"
       "192.168.1.3"
     ];
-    interfaces.eno1.ipv4.addresses = [
+    interfaces.enp0s31f6.ipv4.addresses = [
       {
         address = "192.168.1.8";
         prefixLength = 24;
@@ -140,7 +153,7 @@ in
     ];
     defaultGateway = {
       address = "192.168.1.1";
-      interface = "eno1";
+      interface = "enp0s31f6";
     };
   };
 
@@ -231,6 +244,12 @@ in
     ];
   };
 
+  ##################### Disk2 SSD dedicated for Longhorn ############
+  fileSystems."/mnt/ssd1" = {
+    device = "/dev/disk/by-uuid/c1b22e9d-d3dc-4ed2-8894-2ec2e924e0a6";
+    fsType = "ext4";
+  };
+
   ##################### NFS Configuration ##########################
 
   fileSystems."/mnt/SniiNAS" = {
@@ -257,7 +276,7 @@ in
 
     k3s = {
       enable = true;
-      package = pkgs.k3s_1_30;
+      package = k3s_old;
       serverAddr = "https://192.168.1.30:6443";
       token = secrets.apiTokens.k3s;
       role = "server";
