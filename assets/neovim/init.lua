@@ -748,6 +748,21 @@ telescope.setup({
 	},
 })
 
+-- Search selected text in visual mode
+local function get_visual_selection()
+	local saved_reg = vim.fn.getreg("v")
+	vim.cmd('noau normal! "vy"')
+	local text = vim.fn.getreg("v")
+	vim.fn.setreg("v", saved_reg)
+	text = string.gsub(text, "\n", "")
+	return text
+end
+
+map("v", "<leader>fg", function()
+	local text = get_visual_selection()
+	require("telescope.builtin").live_grep({ default_text = text })
+end, { desc = "Live Grep sur la sélection" })
+
 -- =======================================================================================
 -- Grug-far (Search and Replace)
 -- =======================================================================================
