@@ -127,6 +127,8 @@ in
     kernelModules = [
       "configs"
       "rbd"
+      "br_netfilter"
+      "overlay"
     ];
   };
 
@@ -235,7 +237,7 @@ in
       nfs-utils # Needed for Longhorn
       openiscsi # Needed for longhorn
       rsync # Syncer
-      starship # theme for terminal
+      smartmontools # disk utility tool
       termshark # cli packet capture
       tldr # man summary
       util-linux # contains nsenter for longhorn

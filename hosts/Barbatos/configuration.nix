@@ -428,7 +428,6 @@ in
       remmina # XRDP & VNC Client
       rocmPackages.rocminfo
       rsync # Syncer
-      rustdesk # Teamviewer alternative
       signal-desktop-bin # signal client
       smartmontools # Tool for monitoring health of packages
       spotify # Music Streaming Service

@@ -127,6 +127,8 @@ in
     kernelModules = [
       "configs"
       "rbd"
+      "br_netfilter"
+      "overlay"
     ];
   };
 
