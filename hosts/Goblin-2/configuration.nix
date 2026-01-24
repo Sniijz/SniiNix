@@ -12,6 +12,21 @@ let
     gitUser = "robin.cassagne";
   };
   sources = import ../../nix/sources.nix;
+
+  customK3S =
+    pkgs.runCommand "k3s-1.31.5"
+      {
+        src = pkgs.fetchurl {
+          url = "https://github.com/k3s-io/k3s/releases/download/v1.31.5%2Bk3s1/k3s";
+          sha256 = "14ch0cgs9f6l0b7njwzr1mpgbv74m1rdbnhsm0zh2mff6as8g6rr";
+        };
+      }
+      ''
+        mkdir -p $out/bin
+        cp $src $out/bin/k3s
+        chmod +x $out/bin/k3s
+      '';
+
 in
 {
   imports = [
@@ -184,6 +199,7 @@ in
 
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
+  nixpkgs.config.allowBroken = true;
 
   programs = {
     # Install and configure git
@@ -255,7 +271,7 @@ in
 
     k3s = {
       enable = true;
-      package = pkgs.k3s_1_31;
+      package = customK3S;
       serverAddr = "https://192.168.1.30:6443";
       token = secrets.apiTokens.k3s;
       role = "agent";
