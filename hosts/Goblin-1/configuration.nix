@@ -261,7 +261,7 @@ in
 
     k3s = {
       enable = true;
-      package = pkgs.k3s_1_30;
+      package = pkgs.k3s_1_31;
       serverAddr = "https://192.168.1.30:6443";
       token = secrets.apiTokens.k3s;
       role = "agent";

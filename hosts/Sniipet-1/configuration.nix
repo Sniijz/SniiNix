@@ -12,19 +12,22 @@ let
     gitUser = "robin.cassagne";
   };
   sources = import ../../nix/sources.nix;
-  oldK3S =
-    pkgs.runCommand "k3s-1.30.9"
-      {
-        src = pkgs.fetchurl {
-          url = "https://github.com/k3s-io/k3s/releases/download/v1.30.9%2Bk3s1/k3s";
-          sha256 = "0kf2hy3qri3gylhwjf7y9dk93j02iv6ncvb33yvk1xb4kf81kg5h";
-        };
-      }
-      ''
-        mkdir -p $out/bin
-        cp $src $out/bin/k3s
-        chmod +x $out/bin/k3s
-      '';
+  # To retrieve sha256, use the following :
+  # nix-prefetch-url https://github.com/k3s-io/k3s/releases/download/v1.30.9%2Bk3s1/k3s
+
+  # oldK3S =
+  #   pkgs.runCommand "k3s-1.30.9"
+  #     {
+  #       src = pkgs.fetchurl {
+  #         url = "https://github.com/k3s-io/k3s/releases/download/v1.30.9%2Bk3s1/k3s";
+  #         sha256 = "0kf2hy3qri3gylhwjf7y9dk93j02iv6ncvb33yvk1xb4kf81kg5h";
+  #       };
+  #     }
+  #     ''
+  #       mkdir -p $out/bin
+  #       cp $src $out/bin/k3s
+  #       chmod +x $out/bin/k3s
+  #     '';
 
 in
 {
@@ -272,7 +275,7 @@ in
 
     k3s = {
       enable = true;
-      package = oldK3S;
+      package = pkgs.k3s_1_31;
       serverAddr = "https://192.168.1.30:6443";
       token = secrets.apiTokens.k3s;
       role = "server";
