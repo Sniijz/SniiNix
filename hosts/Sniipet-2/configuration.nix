@@ -218,8 +218,8 @@ in
       bash # Universal linux shell
       btop # Top tool written in C++
       cmatrix # matrix effect package
-      curl # Universal cli tool
       cryptsetup # luks for dm-crypt needed for longhorn
+      curl # Universal cli tool
       eza # modern replacement of ls
       fish # alternative to bash
       fishPlugins.fzf-fish # fzf plugin for fish
@@ -235,6 +235,7 @@ in
       nfs-utils # Needed for Longhorn
       openiscsi # Needed for longhorn
       rsync # Syncer
+      smartmontools # disk utility tool
       starship # theme for terminal
       termshark # cli packet capture
       tldr # man summary
@@ -242,6 +243,12 @@ in
       vim # text editor
       wget # cli tool for download
     ];
+  };
+
+  ############ Disk2 HDD dedicated for Longhorn Cold Backups ######
+  fileSystems."/mnt/hdd1" = {
+    device = "/dev/disk/by-uuid/0d2b3cb7-87ab-4fa7-a230-2e6c6327009e";
+    fsType = "ext4";
   };
 
   ##################### NFS Configuration ##########################
