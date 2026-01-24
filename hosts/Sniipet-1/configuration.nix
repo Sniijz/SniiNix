@@ -12,12 +12,12 @@ let
     gitUser = "robin.cassagne";
   };
   sources = import ../../nix/sources.nix;
-  newK3S =
-    pkgs.runCommand "k3s-1.29.13"
+  oldK3S =
+    pkgs.runCommand "k3s-1.30.9"
       {
         src = pkgs.fetchurl {
-          url = "https://github.com/k3s-io/k3s/releases/download/v1.29.13%2Bk3s1/k3s";
-          sha256 = "126hnn3bh9ffy3qrqnyhn6v3jf71k1cpg8mw9k93ql15305xnldg";
+          url = "https://github.com/k3s-io/k3s/releases/download/v1.30.9%2Bk3s1/k3s";
+          sha256 = "0kf2hy3qri3gylhwjf7y9dk93j02iv6ncvb33yvk1xb4kf81kg5h";
         };
       }
       ''
@@ -272,7 +272,7 @@ in
 
     k3s = {
       enable = true;
-      package = newK3S;
+      package = oldK3S;
       serverAddr = "https://192.168.1.30:6443";
       token = secrets.apiTokens.k3s;
       role = "server";
