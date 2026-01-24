@@ -247,6 +247,12 @@ in
     ];
   };
 
+  ############ Disk2 ssd dedicated for Longhorn ####################
+  fileSystems."/mnt/ssd1" = {
+    device = "/dev/disk/by-uuid/03ec95f1-8730-4cc8-8c81-dd8dda0d7413";
+    fsType = "ext4";
+  };
+
   ##################### NFS Configuration ##########################
 
   fileSystems."/mnt/SniiNAS" = {
