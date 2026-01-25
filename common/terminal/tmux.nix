@@ -116,6 +116,9 @@
         if-shell -b '[ "$(echo "''$tmux_version >= 3.0" | bc)" = 1 ]' \
             "bind-key -n 'C-\\' if-shell \"''$is_vim\" 'send-keys C-\\\\'  'select-pane -l'"
 
+        # Binding to activate synchronize-panes
+        bind m setw synchronize-panes\; display-message "Sync panes: #{?pane_synchronized,ON,OFF}"
+
         # Bindings for copy-mode-vi
         bind-key -T copy-mode-vi 'C-h' select-pane -L
         bind-key -T copy-mode-vi 'C-j' select-pane -D
@@ -220,8 +223,11 @@
         # --- Inactive Windows ---
         setw -g window-status-format "#[fg=#{@c_bg_dark},bg=#{@c_bg_med},noitalics]#{@rarrow}#[fg=#{@c_text_cream},bg=#{@c_bg_med}] #I #[fg=#{@c_text_cream},bg=#{@c_bg_med}] #W #[fg=#{@c_bg_med},bg=#{@c_bg_dark},noitalics]#{@rarrow}"
 
+        # --- Active windows and synchronized effect ----
+        setw -g window-status-current-format "#[fg=#{@c_bg_dark},bg=#{?pane_synchronized,#{@c_red},#{@c_green}},nobold,nounderscore,noitalics]#{@rarrow}#[fg=#{@c_bg_dark},bg=#{?pane_synchronized,#{@c_red},#{@c_green}},bold] #I #[fg=#{@c_bg_dark},bg=#{?pane_synchronized,#{@c_red},#{@c_green}},bold] #W #[fg=#{?pane_synchronized,#{@c_red},#{@c_green}},bg=#{@c_bg_dark},nobold,nounderscore,noitalics]#{@rarrow}"
+
         # --- Active Windows ---
-        setw -g window-status-current-format "#[fg=#{@c_bg_dark},bg=#{@c_green},nobold,nounderscore,noitalics]#{@rarrow}#[fg=#{@c_bg_dark},bg=#{@c_green},bold] #I #[fg=#{@c_bg_dark},bg=#{@c_green},bold] #W #[fg=#{@c_green},bg=#{@c_bg_dark},nobold,nounderscore,noitalics]#{@rarrow}"
+        # setw -g window-status-current-format "#[fg=#{@c_bg_dark},bg=#{@c_green},nobold,nounderscore,noitalics]#{@rarrow}#[fg=#{@c_bg_dark},bg=#{@c_green},bold] #I #[fg=#{@c_bg_dark},bg=#{@c_green},bold] #W #[fg=#{@c_green},bg=#{@c_bg_dark},nobold,nounderscore,noitalics]#{@rarrow}"
         # setw -g window-status-current-format "#[fg=#{@c_bg_dark},bg=#{@c_green},nobold,nounderscore,noitalics]#{@rarrow}#[fg=#{@c_text_cream},bg=#{@c_green},bold] #I #[fg=#{@c_text_cream},bg=#{@c_green},bold] #W #[fg=#{@c_green},bg=#{@c_bg_dark},nobold,nounderscore,noitalics]#{@rarrow}"
 
         # --- Copy Mode ---
@@ -229,7 +235,7 @@
 
         # Pane border
         set -g pane-border-style "fg=#665c54"
-        set -g pane-active-border-style "fg=#689d6a"
+        set -g pane-active-border-style "fg=#{?pane_synchronized,#{@c_red},#{@c_aqua}}"
 
         # --- Launching CPU plugin ---
         run-shell ${pkgs.tmuxPlugins.cpu}/share/tmux-plugins/cpu/cpu.tmux
