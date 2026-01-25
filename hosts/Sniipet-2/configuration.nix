@@ -16,11 +16,11 @@ let
   # nix-prefetch-url https://github.com/k3s-io/k3s/releases/download/v1.30.9%2Bk3s1/k3s
 
   customK3S =
-    pkgs.runCommand "k3s-1.34.1"
+    pkgs.runCommand "k3s-1.35.0"
       {
         src = pkgs.fetchurl {
-          url = "https://github.com/k3s-io/k3s/releases/download/v1.34.1%2Bk3s1/k3s";
-          sha256 = "18zng0mkb5409r937avg678dpc043i0y7d98w182v8v32gz5i2gc";
+          url = "https://github.com/k3s-io/k3s/releases/download/v1.35.0%2Bk3s1/k3s";
+          sha256 = "0cf3dndkcnghh0hq7j1h8s4dgscxc3bwany9s5c3k2dblq89774m";
         };
       }
       ''
