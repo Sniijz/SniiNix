@@ -93,6 +93,22 @@ map("n", "<leader>fu", "<cmd>Telescope undo<cr>", { desc = "Show undo tree of ac
 map("n", "<leader>fo", "<cmd>Telescope oldfiles<cr>", { desc = "previous files" })
 map("n", "<leader>fh", "<cmd>Telescope help_tags<cr>", { desc = "Help Tags" })
 map("n", "<leader>fj", "<cmd>Telescope emoji<cr>", { desc = "Show emoji" })
+map("n", "<leader>fc", "<cmd>Telescope git_bcommits<cr>", { desc = "Git History (Current File)" })
+map("n", "<leader>fC", "<cmd>Telescope git_commits<cr>", { desc = "Git History (Project)" })
+
+-- Switch with showing absolute and relatives numbers
+map("n", "<leader>no", function()
+	local nu = vim.opt.number:get()
+	local rnu = vim.opt.relativenumber:get()
+
+	if nu and rnu then
+		vim.cmd("set nonumber norelativenumber")
+	elseif nu and not rnu then
+		vim.cmd("set nonumber norelativenumber")
+	else
+		vim.cmd("set number relativenumber")
+	end
+end, { desc = "Cycle Numbering (Hybrid -> Absolute -> None)" })
 
 -- Hotkey configuration for neo-tree
 -- <C-b> means Ctrl + b in normal mode
@@ -720,8 +736,15 @@ cmp.setup({
 -- Telescope Configuration
 -- =======================================================================================
 local telescope = require("telescope")
+local actions = require("telescope.actions")
 telescope.setup({
 	defaults = {
+		mappings = {
+			i = {
+				["<Up>"] = actions.cycle_history_prev,
+				["<Down>"] = actions.cycle_history_next,
+			},
+		},
 		vimgrep_arguments = {
 			"rg",
 			"--color=never",
@@ -738,6 +761,12 @@ telescope.setup({
 		-- Configure specific pickers if needed
 		find_files = {
 			find_command = { "fd", "--type", "f", "--hidden", "--exclude", ".git" },
+		},
+		git_bcommits = {
+			git_command = { "git", "log", "--pretty=format:%h %an (%ar) - %s", "--follow" },
+		},
+		git_commits = {
+			git_command = { "git", "log", "--pretty=format:%h %an (%ar) - %s" },
 		},
 	},
 	extensions = {
