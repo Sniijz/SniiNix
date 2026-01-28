@@ -327,6 +327,7 @@ in
       kdePackages.ark # Archive Manager Tool
       kdePackages.dolphin # File manager
       kdePackages.dolphin-plugins # additionals plugins for dolphin file explorer
+      kdePackages.filelight # graphical disk usage tool
       kdePackages.kcalc # kde calc
       kdePackages.kscreen # Additional options to display & monitor in kde
       kdePackages.skanlite # KDE Scanner tool

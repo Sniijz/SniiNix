@@ -760,7 +760,8 @@ telescope.setup({
 	pickers = {
 		-- Configure specific pickers if needed
 		find_files = {
-			find_command = { "fd", "--type", "f", "--hidden", "--exclude", ".git" },
+			hidden = false,
+			find_command = { "fd", "--type", "f", "--strip-cwd-prefix" },
 		},
 		git_bcommits = {
 			git_command = { "git", "log", "--pretty=format:%h %an (%ar) - %s", "--follow" },
