@@ -310,6 +310,7 @@ in
       gitmoji-cli # Git commit emjoji-cli support
       glances # Top nicolargo tool
       glow # markdown documentation renderer
+      gnome-disk-utility # graphical front-end to manage disks
       go # Golang language
       godot_4 # Video Game Editor
       gotop # top tool written in go
