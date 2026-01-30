@@ -12,8 +12,8 @@ let
     user = "sniijz";
     location = "$HOME/.setup";
     gitUser = "robin.cassagne";
-    terminal = "konsole";
-    editor = "code";
+    terminal = "kitty";
+    editor = "nvim";
   };
 
   sources = import ../../nix/sources.nix;
