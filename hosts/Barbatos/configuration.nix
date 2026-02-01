@@ -420,6 +420,7 @@ in
       openapi-generator-cli # Allows generation of API client libraries
       opencode # CLI AI coding agent like crush
       openvpn # vpn tool
+      p7zip # 7zip archiver utility
       pinta # image editor
       playerctl # cli tool and library to control media players
       qjackctl # QT app to control Jack Sound Server

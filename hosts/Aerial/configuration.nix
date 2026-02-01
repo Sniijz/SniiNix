@@ -361,6 +361,7 @@ in
       onedrivegui # Gui for onedrive configuration
       onlyoffice-desktopeditors # Document editor
       openvpn # vpn tool
+      p7zip # 7zip archiver utility
       pinta # image editor
       qjackctl # QT app to control Jack Sound Server
       qpwgraph # Qt graph manager for PipeWire, similar to QjackCtl
