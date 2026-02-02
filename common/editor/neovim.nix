@@ -119,7 +119,6 @@ in
           conform-nvim # Lightweight formatting plugin
 
           # --- User Interface & Utility ---
-          auto-session # automatic session recover
           barbar-nvim # Buffer Tab tool
           grug-far-nvim # search and replace ripgrep
           lualine-nvim # Status line
@@ -127,16 +126,9 @@ in
           mini-nvim # All-in-one plugin
           neo-tree-nvim # File tree for navigation
           neoformat # Markdown formatter
-          noice-nvim # Replaces the UI for messages and cmdline
           nui-nvim # Dependency for noice and neo-tree
-          nvim-notify # Recommended dependency for better notifications
           plenary-nvim # Dependency for noice and neo-tree
-          satellite-nvim # scrollbar
-          telescope-emoji-nvim # emoji finder for telescope
-          telescope-file-browser-nvim # File browser
-          telescope-media-files-nvim # media file previewer for telescope
-          telescope-nvim # Fuzzy finder (files, buffers, grep, etc.)
-          telescope-undo-nvim # Parse through file/git history of actual buffer
+          snacks-nvim # All-in-one plugin by folke
           tiny-inline-diagnostic-nvim # inline diagnostic
           vim-tmux-navigator # tmux plugin for vim
           zoxide-vim # add zoxide z support in vim -> :Z
@@ -147,7 +139,6 @@ in
           nvim-dap-go
 
           # --- git ---
-          lazygit-nvim # to integrate lazygit into vim
           vim-fugitive # better git for merge conflict, blame
 
           # --- Vim Game ---

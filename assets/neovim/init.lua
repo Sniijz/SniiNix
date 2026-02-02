@@ -57,10 +57,10 @@ if vim.fn.has("clipboard") == 1 then
 end
 
 -- Autosession plugin to save and resurrect session
-require("auto-session").setup({
-	log_level = "error",
-	suppressed_dirs = { "~/", "~/Projects" },
-})
+-- require("auto-session").setup({
+-- 	log_level = "error",
+-- 	suppressed_dirs = { "~/", "~/Projects" },
+-- })
 
 -- =======================================================================================
 -- Keymaps
@@ -84,31 +84,91 @@ map("n", "<A-Up>", ":m-2<CR>==", { desc = "Move line up" })
 map("v", "<A-Down>", ":m'>+1<CR>gv=gv", { desc = "Move selection down" })
 map("v", "<A-Up>", ":m'<-2<CR>gv=gv", { desc = "Move selection up" })
 
--- Add keymaps for Telescope
-map("n", "<leader>fe", "<cmd>Telescope file_browser<cr>", { desc = "Telescope file browser into all system" })
-map("n", "<leader>ff", "<cmd>Telescope find_files<cr>", { desc = "Find Files" })
-map("n", "<leader>fg", "<cmd>Telescope live_grep<cr>", { desc = "Live Grep" })
-map("n", "<leader>fb", "<cmd>Telescope buffers<cr>", { desc = "Find Buffers" })
-map("n", "<leader>fu", "<cmd>Telescope undo<cr>", { desc = "Show undo tree of active buffer" })
-map("n", "<leader>fo", "<cmd>Telescope oldfiles<cr>", { desc = "previous files" })
-map("n", "<leader>fh", "<cmd>Telescope help_tags<cr>", { desc = "Help Tags" })
-map("n", "<leader>fj", "<cmd>Telescope emoji<cr>", { desc = "Show emoji" })
-map("n", "<leader>fc", "<cmd>Telescope git_bcommits<cr>", { desc = "Git History (Current File)" })
-map("n", "<leader>fC", "<cmd>Telescope git_commits<cr>", { desc = "Git History (Project)" })
+-- --- Snacks keymaps
+-- --- Picker (Recherche) ---
+map("n", "<leader>ff", function()
+	Snacks.picker.files()
+end, { desc = "Find Files" })
+map("n", "<leader>fg", function()
+	Snacks.picker.grep()
+end, { desc = "Live Grep" })
+map("n", "<leader>fb", function()
+	Snacks.picker.buffers()
+end, { desc = "Buffers" })
+map("n", "<leader>fo", function()
+	Snacks.picker.recent()
+end, { desc = "Old Files" })
+map("n", "<leader>fu", function()
+	Snacks.picker.undo()
+end, { desc = "Undo Tree" })
+map("n", "<leader>fj", function()
+	Snacks.picker.icons()
+end, { desc = "Emojis/Icons" })
+map("n", "<leader>fh", function()
+	Snacks.picker.help()
+end, { desc = "Help Tags" })
+
+-- --- Git ---
+map("n", "<leader>lg", function()
+	Snacks.lazygit()
+end, { desc = "Lazygit" })
+map("n", "<leader>gb", function()
+	Snacks.git.blame_line()
+end, { desc = "Git Blame" })
+map("n", "<leader>go", function()
+	Snacks.gitbrowse()
+end, { desc = "Git Browse (Repo)" })
+map("n", "<leader>gf", function()
+	Snacks.picker.git_log_file()
+end, { desc = "Git History (File)" })
+map("n", "<leader>gl", function()
+	Snacks.picker.git_log()
+end, { desc = "Git Log (Project)" })
+
+-- --- LSP & UI ---
+map("n", "<leader>rn", function()
+	Snacks.rename.rename_file()
+end, { desc = "Rename File" })
+map("n", "<leader>z", function()
+	Snacks.zen()
+end, { desc = "Zen Mode" })
+map("n", "<C-/>", function()
+	Snacks.terminal.toggle()
+end, { desc = "Terminal" })
+
+-- --- Navigation de mots (Words) ---
+map("n", "]]", function()
+	Snacks.words.jump(1, true)
+end, { desc = "Next Reference" })
+map("n", "[[", function()
+	Snacks.words.jump(-1, true)
+end, { desc = "Prev Reference" })
+
+-- -- Add keymaps for Telescope
+-- map("n", "<leader>fe", "<cmd>Telescope file_browser<cr>", { desc = "Telescope file browser into all system" })
+-- map("n", "<leader>ff", "<cmd>Telescope find_files<cr>", { desc = "Find Files" })
+-- map("n", "<leader>fg", "<cmd>Telescope live_grep<cr>", { desc = "Live Grep" })
+-- map("n", "<leader>fb", "<cmd>Telescope buffers<cr>", { desc = "Find Buffers" })
+-- map("n", "<leader>fu", "<cmd>Telescope undo<cr>", { desc = "Show undo tree of active buffer" })
+-- map("n", "<leader>fo", "<cmd>Telescope oldfiles<cr>", { desc = "previous files" })
+-- map("n", "<leader>fh", "<cmd>Telescope help_tags<cr>", { desc = "Help Tags" })
+-- map("n", "<leader>fj", "<cmd>Telescope emoji<cr>", { desc = "Show emoji" })
+-- map("n", "<leader>fc", "<cmd>Telescope git_bcommits<cr>", { desc = "Git History (Current File)" })
+-- map("n", "<leader>fC", "<cmd>Telescope git_commits<cr>", { desc = "Git History (Project)" })
 
 -- Switch with showing absolute and relatives numbers
-map("n", "<leader>no", function()
-	local nu = vim.opt.number:get()
-	local rnu = vim.opt.relativenumber:get()
-
-	if nu and rnu then
-		vim.cmd("set nonumber norelativenumber")
-	elseif nu and not rnu then
-		vim.cmd("set nonumber norelativenumber")
-	else
-		vim.cmd("set number relativenumber")
-	end
-end, { desc = "Cycle Numbering (Hybrid -> Absolute -> None)" })
+-- map("n", "<leader>no", function()
+-- 	local nu = vim.opt.number:get()
+-- 	local rnu = vim.opt.relativenumber:get()
+--
+-- 	if nu and rnu then
+-- 		vim.cmd("set nonumber norelativenumber")
+-- 	elseif nu and not rnu then
+-- 		vim.cmd("set nonumber norelativenumber")
+-- 	else
+-- 		vim.cmd("set number relativenumber")
+-- 	end
+-- end, { desc = "Cycle Numbering (Hybrid -> Absolute -> None)" })
 
 -- Hotkey configuration for neo-tree
 -- <C-b> means Ctrl + b in normal mode
@@ -146,6 +206,96 @@ map("n", "]d", vim.diagnostic.goto_next, { desc = "Next Diagnostic" })
 
 -- Keymap for highlight
 map("n", "<F3>", ":noh<CR>", { desc = "Remove search highlight" })
+
+-- =======================================================================================
+-- Snacks.nvim Configuration
+-- =======================================================================================
+require("snacks").setup({
+	-- --- Modules demandés ---
+	bigfile = { enabled = true },
+	git = {
+		enabled = true,
+		backdrop = false,
+		position = "float",
+		border = true,
+		title_pos = "center",
+		height = 1,
+		width = 60,
+		relative = "editor",
+		noautocmd = true,
+		row = 2,
+		-- relative = "cursor",
+		-- row = -3,
+		-- col = 0,
+		wo = {
+			winhighlight = "NormalFloat:SnacksInputNormal,FloatBorder:SnacksInputBorder,FloatTitle:SnacksInputTitle",
+			cursorline = false,
+		},
+		bo = {
+			filetype = "snacks_input",
+			buftype = "prompt",
+		},
+		--- buffer local variables
+		b = {
+			completion = false, -- disable blink completions in input
+		},
+		keys = {
+			n_esc = { "<esc>", { "cmp_close", "cancel" }, mode = "n", expr = true },
+			i_esc = { "<esc>", { "cmp_close", "stopinsert" }, mode = "i", expr = true },
+			i_cr = { "<cr>", { "cmp_accept", "confirm" }, mode = { "i", "n" }, expr = true },
+			i_tab = { "<tab>", { "cmp_select_next", "cmp" }, mode = "i", expr = true },
+			i_ctrl_w = { "<c-w>", "<c-s-w>", mode = "i", expr = true },
+			i_up = { "<up>", { "hist_up" }, mode = { "i", "n" } },
+			i_down = { "<down>", { "hist_down" }, mode = { "i", "n" } },
+			q = "cancel",
+		},
+	},
+
+	gitbrowse = { enabled = true },
+	input = { enabled = true },
+	layout = { enabled = true },
+	notifier = { enabled = true },
+	rename = { enabled = true },
+	statuscolumn = { enabled = true },
+	scroll = {
+		enabled = true,
+		animate = {
+			duration = { step = 10, total = 200 },
+			easing = "linear",
+		},
+		-- faster animation when repeating scroll after delay
+		animate_repeat = {
+			delay = 100, -- delay in ms before using the repeat animation
+			duration = { step = 5, total = 50 },
+			easing = "linear",
+		},
+		-- what buffers to animate
+		filter = function(buf)
+			return vim.g.snacks_scroll ~= false
+				and vim.b[buf].snacks_scroll ~= false
+				and vim.bo[buf].buftype ~= "terminal"
+		end,
+	},
+	terminal = { enabled = true },
+	win = { enabled = true },
+	words = { enabled = true },
+	zen = { enabled = true },
+
+	-- --- Picker (Remplacement Telescope) ---
+	picker = {
+		enabled = true,
+		ui_select = true, -- Remplace l'interface de sélection native
+		win = {
+			input = {
+				keys = {
+					-- Retrouver l'historique avec les flèches en mode insertion
+					["<Up>"] = { "history_prev", mode = { "i", "n" } },
+					["<Down>"] = { "history_next", mode = { "i", "n" } },
+				},
+			},
+		},
+	},
+})
 
 -- =======================================================================================
 -- Mini.nvim Configuration
@@ -330,62 +480,62 @@ require("neo-tree").setup({
 })
 
 -- Noice configuration
-require("noice").setup({
-	lsp = {
-		override = {
-			["vim.lsp.util.convert_input_to_markdown_lines"] = true,
-			["vim.lsp.util.stylize_markdown"] = true,
-			["cmp.entry.get_documentation"] = true,
-			["vim.lsp.buf.hover"] = true,
-		},
-		progress = {
-			enabled = true,
-		},
-	},
-	presets = {
-		bottom_search = true,
-		command_palette = true,
-		long_message_to_split = true,
-		inc_rename = true,
-	},
-	routes = {
-		{
-			filter = {
-				event = "lsp",
-				kind = "hover",
-			},
-			view = "hover",
-		},
-		{
-			view = "mini",
-			filter = {
-				event = "msg_showmode",
-				any = {
-					{ find = "recording" },
-				},
-			},
-		},
-		{
-			filter = {
-				event = "msg_show",
-				any = {
-					{ find = "%d+L, %d+B" },
-					{ find = "; after #%d+" },
-					{ find = "; before #%d+" },
-					{ find = "%d+ fewer lines" },
-					{ find = "%d+ more lines" },
-					{ find = "%d+ lines yanked" },
-				},
-			},
-			opts = { skip = true },
-		},
-	},
-})
-
--- Configuration pour nvim-notify
-require("notify").setup({
-	background_colour = "#000000",
-})
+-- require("noice").setup({
+-- 	lsp = {
+-- 		override = {
+-- 			["vim.lsp.util.convert_input_to_markdown_lines"] = true,
+-- 			["vim.lsp.util.stylize_markdown"] = true,
+-- 			["cmp.entry.get_documentation"] = true,
+-- 			["vim.lsp.buf.hover"] = true,
+-- 		},
+-- 		progress = {
+-- 			enabled = true,
+-- 		},
+-- 	},
+-- 	presets = {
+-- 		bottom_search = true,
+-- 		command_palette = true,
+-- 		long_message_to_split = true,
+-- 		inc_rename = true,
+-- 	},
+-- 	routes = {
+-- 		{
+-- 			filter = {
+-- 				event = "lsp",
+-- 				kind = "hover",
+-- 			},
+-- 			view = "hover",
+-- 		},
+-- 		{
+-- 			view = "mini",
+-- 			filter = {
+-- 				event = "msg_showmode",
+-- 				any = {
+-- 					{ find = "recording" },
+-- 				},
+-- 			},
+-- 		},
+-- 		{
+-- 			filter = {
+-- 				event = "msg_show",
+-- 				any = {
+-- 					{ find = "%d+L, %d+B" },
+-- 					{ find = "; after #%d+" },
+-- 					{ find = "; before #%d+" },
+-- 					{ find = "%d+ fewer lines" },
+-- 					{ find = "%d+ more lines" },
+-- 					{ find = "%d+ lines yanked" },
+-- 				},
+-- 			},
+-- 			opts = { skip = true },
+-- 		},
+-- 	},
+-- })
+--
+-- -- Configuration pour nvim-notify
+-- require("notify").setup({
+-- 	background_colour = "#000000",
+-- })
 
 -- hl on yank animation
 vim.api.nvim_create_autocmd("TextYankPost", {
@@ -736,66 +886,66 @@ cmp.setup({
 -- =======================================================================================
 -- Telescope Configuration
 -- =======================================================================================
-local telescope = require("telescope")
-local actions = require("telescope.actions")
-telescope.setup({
-	defaults = {
-		mappings = {
-			i = {
-				["<Up>"] = actions.cycle_history_prev,
-				["<Down>"] = actions.cycle_history_next,
-			},
-		},
-		vimgrep_arguments = {
-			"rg",
-			"--color=never",
-			"--no-heading",
-			"--with-filename",
-			"--line-number",
-			"--column",
-			"--smart-case",
-			"--no-ignore",
-			"--hidden",
-		},
-	},
-	pickers = {
-		-- Configure specific pickers if needed
-		find_files = {
-			hidden = false,
-			find_command = { "fd", "--type", "f", "--strip-cwd-prefix" },
-		},
-		git_bcommits = {
-			git_command = { "git", "log", "--pretty=format:%h %an (%ar) - %s", "--follow" },
-		},
-		git_commits = {
-			git_command = { "git", "log", "--pretty=format:%h %an (%ar) - %s" },
-		},
-	},
-	extensions = {
-		"file_browser",
-		emoji = {
-			action = function(emoji)
-				-- insert emoji when picked
-				vim.api.nvim_put({ emoji.value }, "c", false, true)
-			end,
-		},
-	},
-})
+-- local telescope = require("telescope")
+-- local actions = require("telescope.actions")
+-- telescope.setup({
+-- 	defaults = {
+-- 		mappings = {
+-- 			i = {
+-- 				["<Up>"] = actions.cycle_history_prev,
+-- 				["<Down>"] = actions.cycle_history_next,
+-- 			},
+-- 		},
+-- 		vimgrep_arguments = {
+-- 			"rg",
+-- 			"--color=never",
+-- 			"--no-heading",
+-- 			"--with-filename",
+-- 			"--line-number",
+-- 			"--column",
+-- 			"--smart-case",
+-- 			"--no-ignore",
+-- 			"--hidden",
+-- 		},
+-- 	},
+-- 	pickers = {
+-- 		-- Configure specific pickers if needed
+-- 		find_files = {
+-- 			hidden = false,
+-- 			find_command = { "fd", "--type", "f", "--strip-cwd-prefix" },
+-- 		},
+-- 		git_bcommits = {
+-- 			git_command = { "git", "log", "--pretty=format:%h %an (%ar) - %s", "--follow" },
+-- 		},
+-- 		git_commits = {
+-- 			git_command = { "git", "log", "--pretty=format:%h %an (%ar) - %s" },
+-- 		},
+-- 	},
+-- 	extensions = {
+-- 		"file_browser",
+-- 		emoji = {
+-- 			action = function(emoji)
+-- 				-- insert emoji when picked
+-- 				vim.api.nvim_put({ emoji.value }, "c", false, true)
+-- 			end,
+-- 		},
+-- 	},
+-- })
 
 -- Search selected text in visual mode
-local function get_visual_selection()
-	local saved_reg = vim.fn.getreg("v")
-	vim.cmd('noau normal! "vy"')
-	local text = vim.fn.getreg("v")
-	vim.fn.setreg("v", saved_reg)
-	text = string.gsub(text, "\n", "")
-	return text
-end
-
-map("v", "<leader>fg", function()
-	local text = get_visual_selection()
-	require("telescope.builtin").live_grep({ default_text = text })
-end, { desc = "Live Grep sur la sélection" })
+-- local function get_visual_selection()
+-- 	local saved_reg = vim.fn.getreg("v")
+-- 	vim.cmd('noau normal! "vy"')
+-- 	local text = vim.fn.getreg("v")
+-- 	vim.fn.setreg("v", saved_reg)
+-- 	text = string.gsub(text, "\n", "")
+-- 	return text
+-- end
+--
+-- map("v", "<leader>fg", function()
+-- 	local text = get_visual_selection()
+-- 	require("telescope.builtin").live_grep({ default_text = text })
+-- end, { desc = "Live Grep sur la sélection" })
 
 -- =======================================================================================
 -- Grug-far (Search and Replace)
