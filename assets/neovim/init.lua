@@ -56,12 +56,6 @@ if vim.fn.has("clipboard") == 1 then
 	vim.opt.clipboard = "unnamedplus"
 end
 
--- Autosession plugin to save and resurrect session
-require("auto-session").setup({
-	log_level = "error",
-	suppressed_dirs = { "~/", "~/Projects" },
-})
-
 -- =======================================================================================
 -- Keymaps
 -- =======================================================================================
@@ -93,8 +87,8 @@ map("n", "<leader>fu", "<cmd>Telescope undo<cr>", { desc = "Show undo tree of ac
 map("n", "<leader>fo", "<cmd>Telescope oldfiles<cr>", { desc = "previous files" })
 map("n", "<leader>fh", "<cmd>Telescope help_tags<cr>", { desc = "Help Tags" })
 map("n", "<leader>fj", "<cmd>Telescope emoji<cr>", { desc = "Show emoji" })
-map("n", "<leader>fc", "<cmd>Telescope git_bcommits<cr>", { desc = "Git History (Current File)" })
-map("n", "<leader>fC", "<cmd>Telescope git_commits<cr>", { desc = "Git History (Project)" })
+map("n", "<leader>fc", "<cmd>GitConflictListQf<cr>", { desc = "Git Conflicts (Current File)" })
+map("n", "<leader>fm", "<cmd>Telescope marks<cr>", { desc = "Navigate through marks" })
 
 -- Switch with showing absolute and relatives numbers
 map("n", "<leader>no", function()
@@ -222,11 +216,53 @@ vim.api.nvim_create_autocmd("FileType", {
 -- =======================================================================================
 -- Interface Configuration
 -- =======================================================================================
+-- Starter Dashboard Alpha nvim
+local alpha = require("alpha")
+local dashboard = require("alpha.themes.dashboard")
+
+dashboard.section.header.val = {
+	[[=================     ===============     ===============   ========  ========]],
+	[[\\ . . . . . . .\\   //. . . . . . .\\   //. . . . . . .\\  \\. . .\\// . . //]],
+	[[||. . ._____. . .|| ||. . ._____. . .|| ||. . ._____. . .|| || . . .\/ . . .||]],
+	[[|| . .||   ||. . || || . .||   ||. . || || . .||   ||. . || ||. . . . . . . ||]],
+	[[||. . ||   || . .|| ||. . ||   || . .|| ||. . ||   || . .|| || . | . . . . .||]],
+	[[|| . .||   ||. _-|| ||-_ .||   ||. . || || . .||   ||. _-|| ||-_.|\ . . . . ||]],
+	[[||. . ||   ||-'  || ||  `-||   || . .|| ||. . ||   ||-'  || ||  `|\_ . .|. .||]],
+	[[|| . _||   ||    || ||    ||   ||_ . || || . _||   ||    || ||   |\ `-_/| . ||]],
+	[[||_-' ||  .|/    || ||    \|.  || `-_|| ||_-' ||  .|/    || ||   | \  / |-_.||]],
+	[[||    ||_-'      || ||      `-_||    || ||    ||_-'      || ||   | \  / |  `||]],
+	[[||    `'         || ||         `'    || ||    `'         || ||   | \  / |   ||]],
+	[[||            .===' `===.         .==='.`===.         .===' /==. |  \/  |   ||]],
+	[[||         .=='   \_|-_ `===. .==='   _|_   `===. .===' _-|/   `==  \/  |   ||]],
+	[[||      .=='    _-'    `-_  `='    _-'   `-_    `='  _-'   `-_  /|  \/  |   ||]],
+	[[||   .=='    _-'          '-__\._-'         '-_./__-'         `' |. /|  |   ||]],
+	[[||.=='    _-'                                                     `' |  /==.||]],
+	[[=='    _-'                        N E O V I M                         \/   `==]],
+	[[\   _-'                                                                `-_   /]],
+	[[ `''                                                                      ``' ]],
+}
+
+dashboard.section.buttons.val = {
+	dashboard.button("f", "󰈞  Find file", ":Telescope find_files<CR>"),
+	dashboard.button("r", "󰄉  Recent files", ":Telescope oldfiles<CR>"),
+	dashboard.button("a", "󰃀  Marks", ":Telescope marks<CR>"),
+	dashboard.button("g", "󰊄  Live grep", ":Telescope live_grep<CR>"),
+	dashboard.button("e", "󰙅  Explorer", function()
+		_G.open_file_browser()
+	end),
+	dashboard.button("q", "󰅚  Quit", ":qa<CR>"),
+}
+dashboard.section.header.opts.position = "center"
+dashboard.section.buttons.opts.position = "center"
+
+alpha.setup(dashboard.config)
+vim.api.nvim_set_hl(0, "AlphaHeader", { fg = "#A7C080", bold = true })
+
 -- Lualine & Barbar Configuration
 -- Configuration de Lualine (status bar)
 require("lualine").setup({
 	options = {
-		theme = "vscode",
+		theme = "everforest",
 		icons_enabled = true,
 		component_separators = { left = "", right = "" },
 		section_separators = { left = "", right = "" },
@@ -327,64 +363,6 @@ require("neo-tree").setup({
 	document_symbols = {
 		follow_current_file = true,
 	},
-})
-
--- Noice configuration
-require("noice").setup({
-	lsp = {
-		override = {
-			["vim.lsp.util.convert_input_to_markdown_lines"] = true,
-			["vim.lsp.util.stylize_markdown"] = true,
-			["cmp.entry.get_documentation"] = true,
-			["vim.lsp.buf.hover"] = true,
-		},
-		progress = {
-			enabled = true,
-		},
-	},
-	presets = {
-		bottom_search = true,
-		command_palette = true,
-		long_message_to_split = true,
-		inc_rename = true,
-	},
-	routes = {
-		{
-			filter = {
-				event = "lsp",
-				kind = "hover",
-			},
-			view = "hover",
-		},
-		{
-			view = "mini",
-			filter = {
-				event = "msg_showmode",
-				any = {
-					{ find = "recording" },
-				},
-			},
-		},
-		{
-			filter = {
-				event = "msg_show",
-				any = {
-					{ find = "%d+L, %d+B" },
-					{ find = "; after #%d+" },
-					{ find = "; before #%d+" },
-					{ find = "%d+ fewer lines" },
-					{ find = "%d+ more lines" },
-					{ find = "%d+ lines yanked" },
-				},
-			},
-			opts = { skip = true },
-		},
-	},
-})
-
--- Configuration pour nvim-notify
-require("notify").setup({
-	background_colour = "#000000",
 })
 
 -- hl on yank animation
@@ -738,6 +716,7 @@ cmp.setup({
 -- =======================================================================================
 local telescope = require("telescope")
 local actions = require("telescope.actions")
+local fb_actions = require("telescope").extensions.file_browser.actions
 telescope.setup({
 	defaults = {
 		mappings = {
@@ -772,13 +751,67 @@ telescope.setup({
 		},
 	},
 	extensions = {
-		"file_browser",
 		emoji = {
 			action = function(emoji)
-				-- insert emoji when picked
 				vim.api.nvim_put({ emoji.value }, "c", false, true)
 			end,
 		},
+	},
+})
+
+-- =======================================================================================
+-- FILE BROWSER EXTENSION CONFIG
+-- =======================================================================================
+
+-- On crée une fonction dédiée pour garantir que les mappings sont appliqués
+function _G.open_file_browser()
+	local telescope = require("telescope")
+	local actions = require("telescope.actions")
+	local fb_actions = telescope.extensions.file_browser.actions
+
+	telescope.extensions.file_browser.file_browser({
+		path = "%:p:h",
+		cwd = vim.fn.expand("%:p:h"),
+		cwd_to_path = true,
+		respect_gitignore = false,
+		hidden = true,
+		grouped = true,
+		initial_mode = "normal",
+
+		attach_mappings = function(prompt_bufnr, map)
+			map("n", "l", actions.select_default)
+			map("n", "<CR>", actions.select_default)
+
+			map("n", "h", fb_actions.goto_parent_dir)
+			map("n", "<BS>", fb_actions.goto_parent_dir)
+			map("n", "<C-h>", fb_actions.goto_parent_dir)
+
+			map("n", "c", fb_actions.create)
+			map("n", "r", fb_actions.rename)
+			map("n", "m", fb_actions.move)
+			map("n", "y", fb_actions.copy)
+			map("n", "d", fb_actions.remove)
+
+			map("n", "e", fb_actions.goto_home_dir)
+			map("n", "w", fb_actions.goto_cwd)
+			map("n", "t", fb_actions.change_cwd)
+			map("n", "f", fb_actions.toggle_browser)
+			map("n", ".", fb_actions.toggle_hidden)
+
+			return true
+		end,
+	})
+end
+
+vim.keymap.set("n", "<leader>fe", open_file_browser, { desc = "File Browser (Config Forcée)" })
+
+require("git-conflict").setup({
+	default_mappings = true,
+	disable_diagnostics = false,
+	list_opener = "copen",
+	highlights = {
+		incoming = "DiffAdd",
+		current = "DiffText",
 	},
 })
 

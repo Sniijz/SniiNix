@@ -93,14 +93,13 @@ in
           # --- Core Dependencies ---
 
           # --- ColorScheme ---
-          vscode-nvim # vscode theme
           everforest # everforest theme
-          gruvbox-material # gruvbox-material theme
 
           # --- LSP (Language Server Protocol) ---
           nvim-lspconfig # Configurations for the built-in LSP client
           nvim-lint # nvim linter
           vim-pico8-syntax # pico8 syntax
+          neoformat # Markdown formatter
 
           # --- Completion ---
           cmp-nvim-lsp # LSP completion source for nvim-cmp
@@ -119,27 +118,23 @@ in
           conform-nvim # Lightweight formatting plugin
 
           # --- User Interface & Utility ---
-          auto-session # automatic session recover
+          alpha-nvim # Dashboard plugin
           barbar-nvim # Buffer Tab tool
           grug-far-nvim # search and replace ripgrep
           lualine-nvim # Status line
           markdown-preview-nvim # Mardown http rendering tool
           mini-nvim # All-in-one plugin
           neo-tree-nvim # File tree for navigation
-          neoformat # Markdown formatter
-          noice-nvim # Replaces the UI for messages and cmdline
           nui-nvim # Dependency for noice and neo-tree
-          nvim-notify # Recommended dependency for better notifications
           plenary-nvim # Dependency for noice and neo-tree
           satellite-nvim # scrollbar
           telescope-emoji-nvim # emoji finder for telescope
           telescope-file-browser-nvim # File browser
-          telescope-media-files-nvim # media file previewer for telescope
+          telescope-git-conflicts-nvim # git conflicts
           telescope-nvim # Fuzzy finder (files, buffers, grep, etc.)
           telescope-undo-nvim # Parse through file/git history of actual buffer
           tiny-inline-diagnostic-nvim # inline diagnostic
           vim-tmux-navigator # tmux plugin for vim
-          zoxide-vim # add zoxide z support in vim -> :Z
 
           # --- Debug Adapter Protocol ---
           nvim-dap
@@ -147,11 +142,8 @@ in
           nvim-dap-go
 
           # --- git ---
+          git-conflict-nvim # Tool for better git conflict mgmt
           lazygit-nvim # to integrate lazygit into vim
-          vim-fugitive # better git for merge conflict, blame
-
-          # --- Vim Game ---
-          vim-be-good
         ];
         extraLuaConfig = builtins.readFile ../../assets/neovim/init.lua;
       };
