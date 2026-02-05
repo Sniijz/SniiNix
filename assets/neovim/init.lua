@@ -87,7 +87,8 @@ map("n", "<leader>fu", "<cmd>Telescope undo<cr>", { desc = "Show undo tree of ac
 map("n", "<leader>fo", "<cmd>Telescope oldfiles<cr>", { desc = "previous files" })
 map("n", "<leader>fh", "<cmd>Telescope help_tags<cr>", { desc = "Help Tags" })
 map("n", "<leader>fj", "<cmd>Telescope emoji<cr>", { desc = "Show emoji" })
-map("n", "<leader>fc", "<cmd>GitConflictListQf<cr>", { desc = "Git Conflicts (Current File)" })
+map("n", "<leader>fc", "<cmd>Telescope git_bcommits<cr>", { desc = "Git commits (Current File)" })
+map("n", "<leader>fC", "<cmd>GitConflictListQf<cr>", { desc = "Git Conflicts (Current File)" })
 map("n", "<leader>fm", "<cmd>Telescope marks<cr>", { desc = "Navigate through marks" })
 
 -- Switch with showing absolute and relatives numbers
@@ -210,167 +211,6 @@ vim.api.nvim_create_autocmd("FileType", {
 		vim.api.nvim_set_hl(0, "@markup.heading.4.markdown", { fg = "#569CD6", bold = true, bg = "NONE" })
 		vim.api.nvim_set_hl(0, "@markup.heading.5.markdown", { fg = "#DCDCAA", bold = true, bg = "NONE" })
 		vim.api.nvim_set_hl(0, "@markup.heading.6.markdown", { fg = "#B5CEA8", bold = true, bg = "NONE" })
-	end,
-})
-
--- =======================================================================================
--- Interface Configuration
--- =======================================================================================
--- Starter Dashboard Alpha nvim
-local alpha = require("alpha")
-local dashboard = require("alpha.themes.dashboard")
-
-dashboard.section.header.val = {
-	[[=================     ===============     ===============   ========  ========]],
-	[[\\ . . . . . . .\\   //. . . . . . .\\   //. . . . . . .\\  \\. . .\\// . . //]],
-	[[||. . ._____. . .|| ||. . ._____. . .|| ||. . ._____. . .|| || . . .\/ . . .||]],
-	[[|| . .||   ||. . || || . .||   ||. . || || . .||   ||. . || ||. . . . . . . ||]],
-	[[||. . ||   || . .|| ||. . ||   || . .|| ||. . ||   || . .|| || . | . . . . .||]],
-	[[|| . .||   ||. _-|| ||-_ .||   ||. . || || . .||   ||. _-|| ||-_.|\ . . . . ||]],
-	[[||. . ||   ||-'  || ||  `-||   || . .|| ||. . ||   ||-'  || ||  `|\_ . .|. .||]],
-	[[|| . _||   ||    || ||    ||   ||_ . || || . _||   ||    || ||   |\ `-_/| . ||]],
-	[[||_-' ||  .|/    || ||    \|.  || `-_|| ||_-' ||  .|/    || ||   | \  / |-_.||]],
-	[[||    ||_-'      || ||      `-_||    || ||    ||_-'      || ||   | \  / |  `||]],
-	[[||    `'         || ||         `'    || ||    `'         || ||   | \  / |   ||]],
-	[[||            .===' `===.         .==='.`===.         .===' /==. |  \/  |   ||]],
-	[[||         .=='   \_|-_ `===. .==='   _|_   `===. .===' _-|/   `==  \/  |   ||]],
-	[[||      .=='    _-'    `-_  `='    _-'   `-_    `='  _-'   `-_  /|  \/  |   ||]],
-	[[||   .=='    _-'          '-__\._-'         '-_./__-'         `' |. /|  |   ||]],
-	[[||.=='    _-'                                                     `' |  /==.||]],
-	[[=='    _-'                        N E O V I M                         \/   `==]],
-	[[\   _-'                                                                `-_   /]],
-	[[ `''                                                                      ``' ]],
-}
-
-dashboard.section.buttons.val = {
-	dashboard.button("f", "󰈞  Find file", ":Telescope find_files<CR>"),
-	dashboard.button("r", "󰄉  Recent files", ":Telescope oldfiles<CR>"),
-	dashboard.button("a", "󰃀  Marks", ":Telescope marks<CR>"),
-	dashboard.button("g", "󰊄  Live grep", ":Telescope live_grep<CR>"),
-	dashboard.button("e", "󰙅  Explorer", function()
-		_G.open_file_browser()
-	end),
-	dashboard.button("q", "󰅚  Quit", ":qa<CR>"),
-}
-dashboard.section.header.opts.position = "center"
-dashboard.section.buttons.opts.position = "center"
-
-alpha.setup(dashboard.config)
-vim.api.nvim_set_hl(0, "AlphaHeader", { fg = "#A7C080", bold = true })
-
--- Lualine & Barbar Configuration
--- Configuration de Lualine (status bar)
-require("lualine").setup({
-	options = {
-		theme = "everforest",
-		icons_enabled = true,
-		component_separators = { left = "", right = "" },
-		section_separators = { left = "", right = "" },
-		disabled_filetypes = {
-			statusline = {},
-			winbar = {},
-		},
-		ignore_focus = {},
-		always_divide_middle = true,
-		globalstatus = true,
-		refresh = {
-			statusline = 1000,
-			tabline = 1000,
-			winbar = 1000,
-		},
-	},
-	sections = {
-		lualine_a = { "mode" },
-		lualine_b = { "branch", "diff", "diagnostics" },
-		lualine_c = {
-			{
-				"filename",
-				path = 1,
-			},
-		},
-		lualine_x = { "encoding", "fileformat", "filetype" },
-		lualine_y = { "progress" },
-		lualine_z = { "location" },
-	},
-	inactive_sections = {
-		lualine_a = {},
-		lualine_b = {},
-		lualine_c = { "filename" },
-		lualine_x = { "location" },
-		lualine_y = {},
-		lualine_z = {},
-	},
-	tabline = {},
-	winbar = {},
-	inactive_winbar = {},
-	extensions = {},
-})
-
--- BarBar configuration
-require("barbar").setup({
-	icons = {
-		buffer_index = true,
-		buffer_numbner = true,
-		pinned = { button = "", filename = true },
-		modified = { button = "●" },
-	},
-	gitsigns = {
-		added = { enabled = true, icon = "+" },
-		changed = { enabled = true, icon = "~" },
-		deleted = { enabled = true, icon = "-" },
-	},
-})
-
--- Neo-tree configuration
-require("neo-tree").setup({
-	close_if_last_window = true,
-	popup_border_style = "rounded",
-	enable_git_status = true,
-	enable_diagnostics = true,
-	auto_clean_after_session_restore = true,
-	default_source = "filesystem",
-	source_selector = {
-		winbar = false,
-		statusline = false,
-	},
-	sources = {
-		"filesystem",
-		"git_status",
-		"document_symbols",
-	},
-	window = {
-		position = "left",
-		width = 40,
-		mappings = {
-			["<C-b>"] = "close_window",
-		},
-		split = "horizontal",
-	},
-	filesystem = {
-		follow_current_file = {
-			enabled = true,
-			debounce_delay = 200,
-		},
-		hijack_netrw_behavior = "open_current",
-		filtered_items = {
-			visible = true,
-			hide_dotfiles = false,
-			hide_gitignored = false,
-			hide_hidden = true,
-		},
-	},
-	git_status = {},
-	document_symbols = {
-		follow_current_file = true,
-	},
-})
-
--- hl on yank animation
-vim.api.nvim_create_autocmd("TextYankPost", {
-	group = vim.api.nvim_create_augroup("highlight_yank", {}),
-	pattern = "*",
-	callback = function()
-		vim.highlight.on_yank({ higroup = "IncSearch", timeout = 150 })
 	end,
 })
 
@@ -716,7 +556,6 @@ cmp.setup({
 -- =======================================================================================
 local telescope = require("telescope")
 local actions = require("telescope.actions")
-local fb_actions = require("telescope").extensions.file_browser.actions
 telescope.setup({
 	defaults = {
 		mappings = {
@@ -743,12 +582,6 @@ telescope.setup({
 			hidden = false,
 			find_command = { "fd", "--type", "f", "--strip-cwd-prefix" },
 		},
-		git_bcommits = {
-			git_command = { "git", "log", "--pretty=format:%h %an (%ar) - %s", "--follow" },
-		},
-		git_commits = {
-			git_command = { "git", "log", "--pretty=format:%h %an (%ar) - %s" },
-		},
 	},
 	extensions = {
 		emoji = {
@@ -760,15 +593,12 @@ telescope.setup({
 })
 
 -- =======================================================================================
--- FILE BROWSER EXTENSION CONFIG
+-- TELESCOPE FILE BROWSER EXTENSION CONFIG
 -- =======================================================================================
 
 -- On crée une fonction dédiée pour garantir que les mappings sont appliqués
-function _G.open_file_browser()
-	local telescope = require("telescope")
-	local actions = require("telescope.actions")
-	local fb_actions = telescope.extensions.file_browser.actions
-
+local function open_file_browser()
+	local fb_actions = require("telescope").extensions.file_browser.actions
 	telescope.extensions.file_browser.file_browser({
 		path = "%:p:h",
 		cwd = vim.fn.expand("%:p:h"),
@@ -805,6 +635,9 @@ end
 
 vim.keymap.set("n", "<leader>fe", open_file_browser, { desc = "File Browser (Config Forcée)" })
 
+-- =======================================================================================
+-- TELESCOPE FILE BROWSER EXTENSION CONFIG
+-- =======================================================================================
 require("git-conflict").setup({
 	default_mappings = true,
 	disable_diagnostics = false,
@@ -907,3 +740,162 @@ end, { desc = "[D]ebug Open [R]EPL" })
 vim.keymap.set("n", "<Leader>dt", function()
 	require("dapui").toggle()
 end, { desc = "[D]ebug [T]oggle UI" })
+
+-- =======================================================================================
+-- Interface Configuration
+-- =======================================================================================
+-- Starter Dashboard Alpha nvim
+local alpha = require("alpha")
+local dashboard = require("alpha.themes.dashboard")
+
+dashboard.section.header.val = {
+	[[=================     ===============     ===============   ========  ========]],
+	[[\\ . . . . . . .\\   //. . . . . . .\\   //. . . . . . .\\  \\. . .\\// . . //]],
+	[[||. . ._____. . .|| ||. . ._____. . .|| ||. . ._____. . .|| || . . .\/ . . .||]],
+	[[|| . .||   ||. . || || . .||   ||. . || || . .||   ||. . || ||. . . . . . . ||]],
+	[[||. . ||   || . .|| ||. . ||   || . .|| ||. . ||   || . .|| || . | . . . . .||]],
+	[[|| . .||   ||. _-|| ||-_ .||   ||. . || || . .||   ||. _-|| ||-_.|\ . . . . ||]],
+	[[||. . ||   ||-'  || ||  `-||   || . .|| ||. . ||   ||-'  || ||  `|\_ . .|. .||]],
+	[[|| . _||   ||    || ||    ||   ||_ . || || . _||   ||    || ||   |\ `-_/| . ||]],
+	[[||_-' ||  .|/    || ||    \|.  || `-_|| ||_-' ||  .|/    || ||   | \  / |-_.||]],
+	[[||    ||_-'      || ||      `-_||    || ||    ||_-'      || ||   | \  / |  `||]],
+	[[||    `'         || ||         `'    || ||    `'         || ||   | \  / |   ||]],
+	[[||            .===' `===.         .==='.`===.         .===' /==. |  \/  |   ||]],
+	[[||         .=='   \_|-_ `===. .==='   _|_   `===. .===' _-|/   `==  \/  |   ||]],
+	[[||      .=='    _-'    `-_  `='    _-'   `-_    `='  _-'   `-_  /|  \/  |   ||]],
+	[[||   .=='    _-'          '-__\._-'         '-_./__-'         `' |. /|  |   ||]],
+	[[||.=='    _-'                                                     `' |  /==.||]],
+	[[=='    _-'                        N E O V I M                         \/   `==]],
+	[[\   _-'                                                                `-_   /]],
+	[[ `''                                                                      ``' ]],
+}
+
+dashboard.section.buttons.val = {
+	dashboard.button("f", "󰈞  Find file", ":Telescope find_files<CR>"),
+	dashboard.button("r", "󰄉  Recent files", ":Telescope oldfiles<CR>"),
+	dashboard.button("a", "󰃀  Marks", ":Telescope marks<CR>"),
+	dashboard.button("g", "󰊄  Live grep", ":Telescope live_grep<CR>"),
+	dashboard.button("e", "󰙅  Explorer", open_file_browser),
+	dashboard.button("q", "󰅚  Quit", ":qa<CR>"),
+}
+dashboard.section.header.opts.position = "center"
+dashboard.section.buttons.opts.position = "center"
+
+alpha.setup(dashboard.config)
+vim.api.nvim_set_hl(0, "AlphaHeader", { fg = "#A7C080", bold = true })
+
+-- Lualine & Barbar Configuration
+-- Configuration de Lualine (status bar)
+require("lualine").setup({
+	options = {
+		theme = "everforest",
+		icons_enabled = true,
+		component_separators = { left = "", right = "" },
+		section_separators = { left = "", right = "" },
+		disabled_filetypes = {
+			statusline = {},
+			winbar = {},
+		},
+		ignore_focus = {},
+		always_divide_middle = true,
+		globalstatus = true,
+		refresh = {
+			statusline = 1000,
+			tabline = 1000,
+			winbar = 1000,
+		},
+	},
+	sections = {
+		lualine_a = { "mode" },
+		lualine_b = { "branch", "diff", "diagnostics" },
+		lualine_c = {
+			{
+				"filename",
+				path = 1,
+			},
+		},
+		lualine_x = { "encoding", "fileformat", "filetype" },
+		lualine_y = { "progress" },
+		lualine_z = { "location" },
+	},
+	inactive_sections = {
+		lualine_a = {},
+		lualine_b = {},
+		lualine_c = { "filename" },
+		lualine_x = { "location" },
+		lualine_y = {},
+		lualine_z = {},
+	},
+	tabline = {},
+	winbar = {},
+	inactive_winbar = {},
+	extensions = {},
+})
+
+-- BarBar configuration
+require("barbar").setup({
+	icons = {
+		buffer_index = true,
+		buffer_numbner = true,
+		pinned = { button = "", filename = true },
+		modified = { button = "●" },
+	},
+	gitsigns = {
+		added = { enabled = true, icon = "+" },
+		changed = { enabled = true, icon = "~" },
+		deleted = { enabled = true, icon = "-" },
+	},
+})
+
+-- Neo-tree configuration
+require("neo-tree").setup({
+	close_if_last_window = true,
+	popup_border_style = "rounded",
+	enable_git_status = true,
+	enable_diagnostics = true,
+	auto_clean_after_session_restore = true,
+	default_source = "filesystem",
+	source_selector = {
+		winbar = false,
+		statusline = false,
+	},
+	sources = {
+		"filesystem",
+		"git_status",
+		"document_symbols",
+	},
+	window = {
+		position = "left",
+		width = 40,
+		mappings = {
+			["<C-b>"] = "close_window",
+		},
+		split = "horizontal",
+	},
+	filesystem = {
+		follow_current_file = {
+			enabled = true,
+			debounce_delay = 200,
+		},
+		hijack_netrw_behavior = "open_current",
+		filtered_items = {
+			visible = true,
+			hide_dotfiles = false,
+			hide_gitignored = false,
+			hide_hidden = true,
+		},
+	},
+	git_status = {},
+	document_symbols = {
+		follow_current_file = true,
+	},
+})
+
+-- hl on yank animation
+vim.api.nvim_create_autocmd("TextYankPost", {
+	group = vim.api.nvim_create_augroup("highlight_yank", {}),
+	pattern = "*",
+	callback = function()
+		vim.highlight.on_yank({ higroup = "IncSearch", timeout = 150 })
+	end,
+})
