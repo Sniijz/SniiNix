@@ -512,7 +512,8 @@ local vim_cmd = vim.cmd
 map("n", "<leader>gt", ":GoAddTest<CR>", { desc = "Générer Test (Func)" })
 map("n", "<leader>gT", ":GoAddExpTest<CR>", { desc = "Générer Test (Exported)" })
 map("n", "<leader>gf", ":GoFillStruct<CR>", { desc = "Auto Fill Struct" })
-map("n", "<leader>gie", ":GoIfErr<CR>", { desc = "Add if err" })
+map("n", "<leader>ge", ":GoIfErr<CR>", { desc = "Add if err" })
+map("n", "<leader>gi", ":GoToggleInlay<CR>", { desc = "Toggle inlay variables types" })
 
 -- =======================================================================================
 -- CMP Configuration
