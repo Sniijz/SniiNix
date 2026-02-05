@@ -137,7 +137,6 @@ in
           telescope-git-conflicts-nvim # git conflicts
           telescope-nvim # Fuzzy finder (files, buffers, grep, etc.)
           telescope-undo-nvim # Parse through file/git history of actual buffer
-          tiny-inline-diagnostic-nvim # inline diagnostic
           vim-tmux-navigator # tmux plugin for vim
 
           # --- Debug Adapter Protocol ---

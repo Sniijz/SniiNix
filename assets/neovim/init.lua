@@ -215,41 +215,6 @@ vim.api.nvim_create_autocmd("FileType", {
 })
 
 -- =======================================================================================
--- Diagnostics Configuration
--- =======================================================================================
-
-vim.diagnostic.config({
-	signs = {
-		text = {
-			[vim.diagnostic.severity.ERROR] = "",
-			[vim.diagnostic.severity.WARN] = "",
-			[vim.diagnostic.severity.INFO] = "󰋼",
-			[vim.diagnostic.severity.HINT] = "󰌵",
-		},
-	},
-	virtual_text = false,
-	underline = true,
-	update_in_insert = false,
-	severity_sort = true,
-})
-
-require("tiny-inline-diagnostic").setup({
-	preset = "powerline",
-	options = {
-		multilines = {
-			enabled = true,
-			always_show = true,
-			trim_whitespaces = true,
-		},
-		show_all_diags_on_cursorline = true,
-		show_diags_only_under_cursor = false,
-		show_source = {
-			enabled = true,
-		},
-	},
-})
-
--- =======================================================================================
 -- LSP Configuration
 -- =======================================================================================
 -- Setup Treesitter
@@ -372,6 +337,10 @@ local on_attach = function(client, bufnr)
 			vim.lsp.buf.format({ async = true })
 		end, { buffer = bufnr, desc = "LSP: Format" })
 	end
+
+	if client.server_capabilities.inlayHintProvider then
+		vim.lsp.inlay_hint.enable(false, { bufnr = bufnr })
+	end
 end
 
 local servers = {
@@ -402,24 +371,6 @@ local servers = {
 				},
 				checkOnType = false,
 				checkOnSave = true,
-			},
-		},
-	},
-
-	gopls = {
-		settings = {
-			gopls = {
-				gofumpt = true,
-				staticcheck = true,
-				analyses = {
-					unusedparams = true,
-					unreachable = true,
-					shadow = true,
-					ifaceassert = true,
-					unusedwrite = true,
-					nilness = true,
-					ifelse = true,
-				},
 			},
 		},
 	},
@@ -504,7 +455,11 @@ require("go").setup({
 	comment_placeholder = "   ",
 	lsp_cfg = true,
 	lsp_gofumpt = true,
-	lsp_on_attach = function(client, bufnr) end,
+	lsp_on_attach = on_attach,
+	capabilities = capabilities,
+	lsp_keymaps = true,
+
+	lsp_diag_hdlr = true,
 	dap_debug = true,
 })
 
@@ -513,7 +468,11 @@ map("n", "<leader>gt", ":GoAddTest<CR>", { desc = "Générer Test (Func)" })
 map("n", "<leader>gT", ":GoAddExpTest<CR>", { desc = "Générer Test (Exported)" })
 map("n", "<leader>gf", ":GoFillStruct<CR>", { desc = "Auto Fill Struct" })
 map("n", "<leader>ge", ":GoIfErr<CR>", { desc = "Add if err" })
-map("n", "<leader>gi", ":GoToggleInlay<CR>", { desc = "Toggle inlay variables types" })
+
+map("n", "<leader>gi", function()
+	local is_enabled = vim.lsp.inlay_hint.is_enabled({ bufnr = 0 })
+	vim.lsp.inlay_hint.enable(not is_enabled, { bufnr = 0 })
+end, { desc = "Toggle inlay variables types" })
 
 -- =======================================================================================
 -- CMP Configuration
@@ -914,4 +873,23 @@ vim.api.nvim_create_autocmd("TextYankPost", {
 	callback = function()
 		vim.highlight.on_yank({ higroup = "IncSearch", timeout = 150 })
 	end,
+})
+
+-- =======================================================================================
+-- Diagnostics Configuration
+-- =======================================================================================
+
+vim.diagnostic.config({
+	signs = {
+		text = {
+			[vim.diagnostic.severity.ERROR] = "",
+			[vim.diagnostic.severity.WARN] = "",
+			[vim.diagnostic.severity.INFO] = "󰋼",
+			[vim.diagnostic.severity.HINT] = "󰌵",
+		},
+	},
+	virtual_text = true,
+	underline = true,
+	update_in_insert = false,
+	severity_sort = true,
 })
