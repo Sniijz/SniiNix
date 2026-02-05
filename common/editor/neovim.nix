@@ -64,9 +64,13 @@ in
           gccgo
           gofumpt
           golangci-lint
+          gomodifytags
           gopls
+          gotests
           gotools
           htmlhint
+          iferr
+          impl
           isort
           lazygit
           ltex-ls
@@ -75,7 +79,6 @@ in
           nixd
           nixfmt-rfc-style
           nodejs
-          pico8-ls
           python313Packages.pynvim
           ripgrep
           statix
@@ -96,10 +99,11 @@ in
           everforest # everforest theme
 
           # --- LSP (Language Server Protocol) ---
-          nvim-lspconfig # Configurations for the built-in LSP client
-          nvim-lint # nvim linter
-          vim-pico8-syntax # pico8 syntax
+          go-nvim # Multitools for go
           neoformat # Markdown formatter
+          nvim-lint # nvim linter
+          nvim-lspconfig # Configurations for the built-in LSP client
+          vim-pico8-syntax # pico8 syntax
 
           # --- Completion ---
           cmp-nvim-lsp # LSP completion source for nvim-cmp

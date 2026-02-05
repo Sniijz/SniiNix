@@ -411,13 +411,9 @@ local servers = {
 			gopls = {
 				gofumpt = true,
 				staticcheck = true,
-				ui = {
-					semanticTokens = true,
-				},
 				analyses = {
 					unusedparams = true,
 					unreachable = true,
-					fieldalignment = true,
 					shadow = true,
 					ifaceassert = true,
 					unusedwrite = true,
@@ -498,6 +494,25 @@ vim.api.nvim_create_autocmd("LspAttach", {
 		end
 	end,
 })
+
+-- =======================================================================================
+-- GO.NVIM Configuration
+-- =======================================================================================
+require("go").setup({
+	test_template = "",
+	test_template_dir = "",
+	comment_placeholder = "   ",
+	lsp_cfg = true,
+	lsp_gofumpt = true,
+	lsp_on_attach = function(client, bufnr) end,
+	dap_debug = true,
+})
+
+local vim_cmd = vim.cmd
+map("n", "<leader>gt", ":GoAddTest<CR>", { desc = "Générer Test (Func)" })
+map("n", "<leader>gT", ":GoAddExpTest<CR>", { desc = "Générer Test (Exported)" })
+map("n", "<leader>gf", ":GoFillStruct<CR>", { desc = "Auto Fill Struct" })
+map("n", "<leader>gie", ":GoIfErr<CR>", { desc = "Add if err" })
 
 -- =======================================================================================
 -- CMP Configuration
