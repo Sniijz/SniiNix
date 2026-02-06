@@ -196,7 +196,6 @@ require("conform").setup({
 -- https://github.com/mfussenegger/nvim-lint
 require("lint").linters_by_ft = {
 	ansible = { "ansiblelint" },
-	go = { "golangcilint" },
 	nix = { "statix" },
 	python = { "pylint" },
 	html = { "htmlhint" },
