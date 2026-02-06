@@ -90,7 +90,6 @@ require("mini.icons").mock_nvim_web_devicons()
 
 -- Git & Diff
 require("mini.git").setup()
-
 require("mini.diff").setup({
 	view = {
 		style = "sign",
