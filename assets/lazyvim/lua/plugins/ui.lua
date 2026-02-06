@@ -1,4 +1,19 @@
 return {
+	-- Theme
+	{
+		"sainnhe/everforest",
+		lazy = true,
+		priority = 1000,
+	},
+	{
+		"LazyVim/LazyVim",
+		opts = {
+			colorscheme = "everforest",
+		},
+	},
+
+	-- Disable Bufferline (using Barbar instead)
+	{ "akinsho/bufferline.nvim", enabled = false },
 	-- Barbar (Tabs)
 	{
 		"romgrk/barbar.nvim",
@@ -40,6 +55,10 @@ return {
 	-- Noice (Configure to disable scroll animation if any remains)
 	{
 		"folke/noice.nvim",
+		keys = {
+			{ "<C-b>", false, mode = { "n", "i", "s" } },
+			{ "<C-f>", false, mode = { "n", "i", "s" } },
+		},
 		opts = {
 			lsp = {
 				-- override markdown rendering so that **cmp** and other plugins use **Treesitter**

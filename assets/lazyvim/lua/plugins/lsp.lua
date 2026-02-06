@@ -82,7 +82,7 @@ return {
 		opts = {
 			linters_by_ft = {
 				ansible = { "ansiblelint" },
-				go = { "golangcilint" },
+				-- go = { "golangcilint" },
 				nix = { "statix" },
 				python = { "pylint" },
 				html = { "htmlhint" },

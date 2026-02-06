@@ -1,99 +1,167 @@
 return {
-  -- Telescope
-  {
-    "nvim-telescope/telescope.nvim",
-    dependencies = {
-      "nvim-telescope/telescope-file-browser.nvim",
-    },
-    keys = {
-      {
-        "<leader>fe",
-        function()
-          local telescope = require("telescope")
-          local actions = require("telescope.actions")
-          local fb_actions = telescope.extensions.file_browser.actions
-          telescope.extensions.file_browser.file_browser({
-            path = "%:p:h",
-            cwd = vim.fn.expand("%:p:h"),
-            cwd_to_path = true,
-            respect_gitignore = false,
-            hidden = true,
-            grouped = true,
-            initial_mode = "normal",
-            attach_mappings = function(prompt_bufnr, map)
-              map("n", "l", actions.select_default)
-              map("n", "h", fb_actions.goto_parent_dir)
-              map("n", "<BS>", fb_actions.goto_parent_dir)
-              map("n", "<C-h>", fb_actions.goto_parent_dir)
-              map("n", "c", fb_actions.create)
-              map("n", "r", fb_actions.rename)
-              map("n", "m", fb_actions.move)
-              map("n", "y", fb_actions.copy)
-              map("n", "d", fb_actions.remove)
-              map("n", "e", fb_actions.goto_home_dir)
-              map("n", "w", fb_actions.goto_cwd)
-              map("n", "t", fb_actions.change_cwd)
-              map("n", "f", fb_actions.toggle_browser)
-              map("n", ".", fb_actions.toggle_hidden)
-              return true
-            end,
-          })
-        end,
-        desc = "File Browser",
-      },
-    },
-    opts = {
-      defaults = {
-        vimgrep_arguments = {
-          "rg",
-          "--color=never",
-          "--no-heading",
-          "--with-filename",
-          "--line-number",
-          "--column",
-          "--smart-case",
-          "--no-ignore",
-          "--hidden",
-        },
-      },
-    },
-  },
+	-- Telescope
+	{
+		"nvim-telescope/telescope.nvim",
+		dependencies = {
+			"nvim-telescope/telescope-file-browser.nvim",
+			"debugloop/telescope-undo.nvim",
+			"xiyaowong/telescope-emoji.nvim",
+		},
+		keys = {
+			{
+				"<leader>fe",
+				function()
+					require("telescope").extensions.file_browser.file_browser({
+						cwd = "/", -- "into all system" implies starting from root or allowing broad access
+						hidden = true,
+						respect_gitignore = false,
+					})
+				end,
+				desc = "Telescope file browser into all system",
+			},
+			{ "<leader>ff", "<cmd>Telescope find_files<cr>", desc = "Find Files" },
+			{ "<leader>fg", "<cmd>Telescope live_grep<cr>", desc = "Live Grep" },
+			{
+				"<leader>fg",
+				function()
+					local function get_visual_selection()
+						local _, ls, cs = unpack(vim.fn.getpos("v"))
+						local _, le, ce = unpack(vim.fn.getpos("."))
+						-- Handle potential reverse selection
+						if ls > le or (ls == le and cs > ce) then
+							ls, cs, le, ce = le, ce, ls, cs
+						end
+						local lines = vim.api.nvim_buf_get_text(0, ls - 1, cs - 1, le - 1, ce, {})
+						return table.concat(lines, " ")
+					end
+					require("telescope.builtin").live_grep({ default_text = get_visual_selection() })
+				end,
+				mode = "v",
+				desc = "Live Grep sur la sélection",
+			},
+			{ "<leader>fb", "<cmd>Telescope buffers<cr>", desc = "Find Buffers" },
+			{
+				"<leader>fu",
+				function()
+					require("telescope").extensions.undo.undo()
+				end,
+				desc = "Show undo tree of active buffer",
+			},
+			{ "<leader>fo", "<cmd>Telescope oldfiles<cr>", desc = "Previous files" },
+			{ "<leader>fh", "<cmd>Telescope help_tags<cr>", desc = "Help Tags" },
+			{
+				"<leader>fj",
+				function()
+					require("telescope").extensions.emoji.emoji()
+				end,
+				desc = "Show emoji",
+			},
+			{ "<leader>fc", "<cmd>Telescope git_bcommits<cr>", desc = "Git commits (Current File)" },
+			{ "<leader>fm", "<cmd>Telescope marks<cr>", desc = "Navigate through marks" },
+		},
+		config = function(_, opts)
+			local telescope = require("telescope")
+			telescope.setup(opts)
+			telescope.load_extension("file_browser")
+			telescope.load_extension("undo")
+			telescope.load_extension("emoji")
+		end,
+		opts = {
+			defaults = {
+				mappings = {
+					i = {},
+				},
+				vimgrep_arguments = {
+					"rg",
+					"--color=never",
+					"--no-heading",
+					"--with-filename",
+					"--line-number",
+					"--column",
+					"--smart-case",
+					"--no-ignore",
+					"--hidden",
+				},
+				pickers = {
+					find_files = {
+						hidden = false,
+						find_command = { "fd", "--type", "f", "--strip-cwd-prefix" },
+					},
+				},
+				extensions = {
+					emoji = {
+						action = function(emoji)
+							vim.api.nvim_put({ emoji.value }, "c", false, true)
+						end,
+					},
+				},
+			},
+		},
+	},
 
-  -- Grug-far (Search and Replace)
-  {
-    "MagicDuck/grug-far.nvim",
-    opts = { headerMaxWidth = 80 },
-    cmd = "GrugFar",
-    keys = {
-      {
-        "<leader>sr",
-        function()
-          local grug = require("grug-far")
-          local ext = vim.bo.buftype == "terminal" and vim.fn.expand("%:e")
-          grug.open({
-            transient = true,
-            prefills = {
-              filesFilter = ext and ext ~= "" and "*." .. ext or nil,
-            },
-          })
-        end,
-        mode = { "n", "v" },
-        desc = "Search and Replace",
-      },
-    },
-  },
+	-- Git Conflict
+	{
+		"akinsho/git-conflict.nvim",
+		version = "*",
+		config = true,
+		keys = {
+			{ "<leader>fC", "<cmd>GitConflictListQf<cr>", desc = "Git Conflicts (Current File)" },
+		},
+	},
 
-  -- Neo-tree
-  {
-    "nvim-neo-tree/neo-tree.nvim",
-    opts = {
-      filesystem = {
-        filtered_items = {
-          visible = true,
-          hide_dotfiles = false,
-          hide_gitignored = false,
-        },
-      },
-    },
-  },
+	-- Grug-far (Search and Replace)
+	{
+		"MagicDuck/grug-far.nvim",
+		opts = { headerMaxWidth = 80 },
+		cmd = "GrugFar",
+		keys = {
+			{
+				"<leader>sr",
+				function()
+					local grug = require("grug-far")
+					local ext = vim.bo.buftype == "terminal" and vim.fn.expand("%:e")
+					grug.open({
+						transient = true,
+						prefills = {
+							filesFilter = ext and ext ~= "" and "*." .. ext or nil,
+						},
+					})
+				end,
+				mode = { "n", "v" },
+				desc = "Search and Replace",
+			},
+		},
+	},
+
+	-- Neo-tree
+	{
+		"nvim-neo-tree/neo-tree.nvim",
+		dependencies = {
+			"nvim-lua/plenary.nvim",
+			"MunifTanjim/nui.nvim",
+		},
+		keys = {
+			{
+				"<C-b>",
+				function()
+					require("neo-tree.command").execute({ toggle = true, dir = LazyVim.root() })
+				end,
+				desc = "Explorer NeoTree (Root Dir)",
+			},
+		},
+		opts = {
+			window = {
+				mappings = {
+					["<C-b>"] = "close_window",
+				},
+			},
+			filesystem = {
+				filtered_items = {
+					visible = true,
+					hide_dotfiles = false,
+					hide_gitignored = false,
+				},
+			},
+		},
+	},
 }
