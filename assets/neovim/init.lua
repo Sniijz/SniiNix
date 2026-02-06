@@ -601,7 +601,7 @@ dashboard.section.buttons.val = {
 	dashboard.button("r", "󰄉  Recent files", ":Telescope oldfiles<CR>"),
 	dashboard.button("a", "󰃀  Marks", ":Telescope marks<CR>"),
 	dashboard.button("g", "󰊄  Live grep", ":Telescope live_grep<CR>"),
-	dashboard.button("e", "󰙅  Explorer", open_file_browser),
+	dashboard.button("e", "󰙅  Explorer", ":Telescope file_browser<CR>"),
 	dashboard.button("q", "󰅚  Quit", ":qa<CR>"),
 }
 dashboard.section.header.opts.position = "center"

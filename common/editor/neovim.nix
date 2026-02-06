@@ -4,19 +4,9 @@
   pkgs,
   lib,
   vars,
-  ...
-}:
+  ...}:
 let
   cfg = config.customModules.neovim;
-  # minimap-vim = pkgs.vimUtils.buildVimPlugin {
-  #   name = "minimap-vim";
-  #   src = pkgs.fetchFromGitHub {
-  #     owner = "wfxr";
-  #     repo = "minimap.vim";
-  #     rev = "3fe7878d83156cc9351fa94e25b0de854bcd6f8d";
-  #     sha256 = "1l9di7q0mlbcgs4xbqg2ias3hy5qib72zi1nwjw06snxlffz2hpq";
-  #   };
-  # };
 
   pico8-extension = pkgs.vscode-utils.buildVscodeMarketplaceExtension {
     mktplcRef = {
@@ -44,7 +34,6 @@ in
     };
   };
   config = lib.mkIf cfg.enable {
-    # environment.systemPackages = with pkgs; [code-minimap];
     home-manager.users.${vars.user} = {
       programs.neovim = {
         enable = true;
@@ -52,29 +41,33 @@ in
         viAlias = true;
         vimAlias = true;
         withNodeJs = true;
+        
+        # Tools and LSPs managed by Nix
         extraPackages = with pkgs; [
-          # ansible-lint
+          # Build tools & Formatters
+          gcc
+          gnumake
+          unzip
+          wget
+          curl
+          gzip
+          gnutar
+          
+          # LSPs and Linters
+          ansible-lint
           black
-          chafa
           delve
           dprint
           eslint
           fd
-          fontpreview
-          gccgo
           gofumpt
           golangci-lint
-          gomodifytags
           gopls
           gotests
           gotools
           htmlhint
-          iferr
-          impl
           isort
           lazygit
-          ltex-ls
-          ltex-ls-plus
           lua-language-server
           nixd
           nixfmt-rfc-style
@@ -85,73 +78,31 @@ in
           stylelint
           stylua
           terraform-ls
-          tree-sitter
           vscode-langservers-extracted
           yaml-language-server
           yamlfmt
           yamllint
-          yq
+          
+          # Custom
+          pico8-ls
         ];
-        plugins = with pkgs.vimPlugins; [
-          # --- Core Dependencies ---
-
-          # --- ColorScheme ---
-          everforest # everforest theme
-
-          # --- LSP (Language Server Protocol) ---
-          go-nvim # Multitools for go
-          neoformat # Markdown formatter
-          nvim-lint # nvim linter
-          nvim-lspconfig # Configurations for the built-in LSP client
-          vim-pico8-syntax # pico8 syntax
-
-          # --- Completion ---
-          cmp-nvim-lsp # LSP completion source for nvim-cmp
-          cmp-buffer # Completion source for text in current buffer
-          cmp-path # Completion source for filesystem paths
-          cmp_luasnip # Luasnip completion source for nvim-cmp
-          friendly-snippets # Provides useful snippets for many languages
-          lspkind-nvim # Nice icons in lsp helps messages
-          luasnip # Snippet engine
-          nvim-cmp # Autocompletion plugin
-
-          # --- Syntax Highlighting ---
-          nvim-treesitter.withAllGrammars # Parsers/Syntax Highlighting for all languages detailed in lockfile
-
-          # --- Typing and Formatting ---
-          conform-nvim # Lightweight formatting plugin
-
-          # --- User Interface & Utility ---
-          alpha-nvim # Dashboard plugin
-          barbar-nvim # Buffer Tab tool
-          grug-far-nvim # search and replace ripgrep
-          lualine-nvim # Status line
-          markdown-preview-nvim # Mardown http rendering tool
-          mini-nvim # All-in-one plugin
-          neo-tree-nvim # File tree for navigation
-          nui-nvim # Dependency for noice and neo-tree
-          plenary-nvim # Dependency for noice and neo-tree
-          satellite-nvim # scrollbar
-          telescope-emoji-nvim # emoji finder for telescope
-          telescope-file-browser-nvim # File browser
-          telescope-git-conflicts-nvim # git conflicts
-          telescope-nvim # Fuzzy finder (files, buffers, grep, etc.)
-          telescope-undo-nvim # Parse through file/git history of actual buffer
-          vim-tmux-navigator # tmux plugin for vim
-
-          # --- Debug Adapter Protocol ---
-          nvim-dap
-          nvim-dap-ui
-          nvim-dap-go
-
-          # --- git ---
-          git-conflict-nvim # Tool for better git conflict mgmt
-          lazygit-nvim # to integrate lazygit into vim
-        ];
-        extraLuaConfig = builtins.readFile ../../assets/neovim/init.lua;
       };
-      # Formatters and linters tuning
-      # yamlfmt config
+
+      # Link LazyVim configuration files
+      xdg.configFile."nvim/init.lua".source = ../../assets/lazyvim/init.lua;
+      xdg.configFile."nvim/lua/config/lazy.lua".source = ../../assets/lazyvim/lua/config/lazy.lua;
+      xdg.configFile."nvim/lua/config/options.lua".source = ../../assets/lazyvim/lua/config/options.lua;
+      xdg.configFile."nvim/lua/config/keymaps.lua".source = ../../assets/lazyvim/lua/config/keymaps.lua;
+      xdg.configFile."nvim/lua/config/autocmds.lua".source = ../../assets/lazyvim/lua/config/autocmds.lua;
+      
+      # Plugins Configuration
+      xdg.configFile."nvim/lua/plugins/core.lua".source = ../../assets/lazyvim/lua/plugins/core.lua;
+      xdg.configFile."nvim/lua/plugins/ui.lua".source = ../../assets/lazyvim/lua/plugins/ui.lua;
+      xdg.configFile."nvim/lua/plugins/editor.lua".source = ../../assets/lazyvim/lua/plugins/editor.lua;
+      xdg.configFile."nvim/lua/plugins/coding.lua".source = ../../assets/lazyvim/lua/plugins/coding.lua;
+      xdg.configFile."nvim/lua/plugins/lsp.lua".source = ../../assets/lazyvim/lua/plugins/lsp.lua;
+
+      # YAML formatter config
       xdg.configFile."yamlfmt/.yamlfmt".text = ''
         formatter:
           retain_line_breaks: true
