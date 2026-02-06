@@ -2,6 +2,12 @@
 -- Global Variables and Settings
 -- =======================================================================================
 vim.g.loaded_netrw = 1
+vim.g.loaded_netrwPlugin = 1
+vim.g.loaded_zipPlugin = 1
+vim.g.loaded_tarPlugin = 1
+vim.g.loaded_getscriptPlugin = 1
+vim.g.loaded_vimballPlugin = 1
+vim.g.loaded_2html_plugin = 1
 vim.g.mapleader = " " -- Set leader key to space
 vim.g.maplocalleader = " " -- Set localleader key to space
 vim.g.mkdp_browser = "firefox" -- set firefox as default browser
@@ -27,162 +33,18 @@ vim.opt.updatetime = 500 -- Faster update time for CursorHold events (e.g., LSP 
 vim.opt.signcolumn = "yes" -- Always show the sign column to avoid layout shifts
 vim.opt.laststatus = 3 -- Use a global statusline, required for lualine
 vim.opt.wrap = false -- Force vim to show all text in actual window/pane
-vim.opt.linebreak = true -- Avoid to open a new line in a middle of a word for too long lines
 vim.opt.completeopt = { "menu", "menuone" } -- Setup completion
 vim.opt.sessionoptions = "blank,buffers,curdir,folds,help,tabpages,winsize,winpos,terminal,localoptions"
 
 -- =======================================================================================
--- Race condition plugin to launch asap
--- =======================================================================================
--- Setup Icons
--- Must be called before barbar, telescope init
-require("mini.icons").setup()
-require("mini.icons").mock_nvim_web_devicons()
-
--- =======================================================================================
 -- Neovim Optimization
 -- =======================================================================================
-vim.g.loaded_netrw = 1
-vim.g.loaded_netrwPlugin = 1
-vim.g.loaded_zipPlugin = 1
-vim.g.loaded_tarPlugin = 1
-vim.g.loaded_getscriptPlugin = 1
-vim.g.loaded_vimballPlugin = 1
-vim.g.loaded_2html_plugin = 1
 
 if vim.fn.has("clipboard") == 1 then
 	-- OSC 52 feature to remote copy/paste
 	vim.g.clipboard = "osc52"
 	vim.opt.clipboard = "unnamedplus"
 end
-
--- =======================================================================================
--- Keymaps
--- =======================================================================================
--- Helper function for keymaps
-local function map(mode, lhs, rhs, opts)
-	local options = { noremap = true, silent = true }
-	if opts then
-		options = vim.tbl_extend("force", options, opts)
-	end
-	vim.keymap.set(mode, lhs, rhs, options)
-end
-
--- Move lines up/down
-map("n", "<A-j>", ":m+1<CR>==", { desc = "Move line down" })
-map("n", "<A-k>", ":m-2<CR>==", { desc = "Move line up" })
-map("v", "<A-j>", ":m'>+1<CR>gv=gv", { desc = "Move selection down" })
-map("v", "<A-k>", ":m'<-2<CR>gv=gv", { desc = "Move selection up" })
-map("n", "<A-Down>", ":m+1<CR>==", { desc = "Move line down" })
-map("n", "<A-Up>", ":m-2<CR>==", { desc = "Move line up" })
-map("v", "<A-Down>", ":m'>+1<CR>gv=gv", { desc = "Move selection down" })
-map("v", "<A-Up>", ":m'<-2<CR>gv=gv", { desc = "Move selection up" })
-
--- Add keymaps for Telescope
-map("n", "<leader>fe", "<cmd>Telescope file_browser<cr>", { desc = "Telescope file browser into all system" })
-map("n", "<leader>ff", "<cmd>Telescope find_files<cr>", { desc = "Find Files" })
-map("n", "<leader>fg", "<cmd>Telescope live_grep<cr>", { desc = "Live Grep" })
-map("n", "<leader>fb", "<cmd>Telescope buffers<cr>", { desc = "Find Buffers" })
-map("n", "<leader>fu", "<cmd>Telescope undo<cr>", { desc = "Show undo tree of active buffer" })
-map("n", "<leader>fo", "<cmd>Telescope oldfiles<cr>", { desc = "previous files" })
-map("n", "<leader>fh", "<cmd>Telescope help_tags<cr>", { desc = "Help Tags" })
-map("n", "<leader>fj", "<cmd>Telescope emoji<cr>", { desc = "Show emoji" })
-map("n", "<leader>fc", "<cmd>Telescope git_bcommits<cr>", { desc = "Git commits (Current File)" })
-map("n", "<leader>fC", "<cmd>GitConflictListQf<cr>", { desc = "Git Conflicts (Current File)" })
-map("n", "<leader>fm", "<cmd>Telescope marks<cr>", { desc = "Navigate through marks" })
-
--- Switch with showing absolute and relatives numbers
-map("n", "<leader>no", function()
-	local nu = vim.opt.number:get()
-	local rnu = vim.opt.relativenumber:get()
-
-	if nu and rnu then
-		vim.cmd("set nonumber norelativenumber")
-	elseif nu and not rnu then
-		vim.cmd("set nonumber norelativenumber")
-	else
-		vim.cmd("set number relativenumber")
-	end
-end, { desc = "Cycle Numbering (Hybrid -> Absolute -> None)" })
-
--- Hotkey configuration for neo-tree
--- <C-b> means Ctrl + b in normal mode
-map("n", "<C-b>", ":Neotree toggle<CR>", { desc = "Toggle Neo-tree (Files)" })
-
--- Keymaps for barbar (replace bufferline)
-map("n", "<leader>bn", ":BufferNext<CR>", { desc = "Next buffer" })
-map("n", "<leader>bb", ":BufferPrevious<CR>", { desc = "Previous buffer" })
-map("n", "<leader>bq", ":BufferClose<CR>", { desc = "Close actual buffer" })
-map("n", "<leader>bx", ":BufferCloseAllButCurrent<CR>", { desc = "Close all buffer but current" })
-map("n", "<leader>bc", ":BufferCloseBuffersLeft<CR>", { desc = "Close all buffer left to current" })
-map("n", "<leader>bv", ":BufferCloseBuffersRight<CR>", { desc = "Close all buffer right to current" })
-map("n", "<leader>bu", ":BufferRestore<CR>", { desc = "Reopen last closed buffer" })
-map("n", "<leader>bh", ":BufferMovePrevious<CR>", { desc = "Move actual buffer before Previous buffer" })
-map("n", "<leader>bl", ":BufferMoveNext<CR>", { desc = "Move actual buffer after next buffer" })
-map("n", "<leader>bp", ":BufferPin<CR>", { desc = "Pin actual buffer" })
--- Keymaps for barbar buffer navigation (<leader> + Shift + <num>)
-map("n", "<leader>&", ":BufferGoto 1<CR>", { desc = "Go to buffer 1" })
-map("n", "<leader>é", ":BufferGoto 2<CR>", { desc = "Go to buffer 2" })
-map("n", '<leader>"', ":BufferGoto 3<CR>", { desc = "Go to buffer 3" })
-map("n", "<leader>'", ":BufferGoto 4<CR>", { desc = "Go to buffer 4" })
-map("n", "<leader>(", ":BufferGoto 5<CR>", { desc = "Go to buffer 5" })
-map("n", "<leader>-", ":BufferGoto 6<CR>", { desc = "Go to buffer 6" })
-map("n", "<leader>è", ":BufferGoto 7<CR>", { desc = "Go to buffer 7" })
-map("n", "<leader>_", ":BufferGoto 8<CR>", { desc = "Go to buffer 8" })
-map("n", "<leader>ç", ":BufferGoto 9<CR>", { desc = "Go to buffer 9" })
-
--- Keymaps for Lazygit
-map("n", "<leader>lg", ":LazyGitCurrentFile<CR>", { desc = "Open LazyGit on current file" })
-
--- Keymaps for diagnostics
-map("n", "gl", vim.diagnostic.open_float, { desc = "Show Line Diagnostics" })
-map("n", "[d", vim.diagnostic.goto_prev, { desc = "Previous Diagnostic" })
-map("n", "]d", vim.diagnostic.goto_next, { desc = "Next Diagnostic" })
-
--- Keymap for highlight
-map("n", "<F3>", ":noh<CR>", { desc = "Remove search highlight" })
-
--- =======================================================================================
--- Mini.nvim Configuration
--- =======================================================================================
--- Git & Diff
-require("mini.git").setup()
-
--- show git blame with leader gb
-map("n", "<leader>gb", function()
-	require("mini.git").show_at_cursor()
-end, { desc = "Show git blame info" })
-
-require("mini.diff").setup({
-	view = {
-		style = "sign",
-		signs = { add = "│", change = "│", delete = "_" },
-	},
-	mappings = {
-		apply = "<leader>hs",
-		reset = "<leader>hu",
-		textobject = "gh",
-		goto_first = "[H",
-		goto_last = "]H",
-		goto_prev = "[h",
-		goto_next = "]h",
-	},
-})
-
-vim.keymap.set("n", "<leader>hp", function()
-	require("mini.diff").toggle_overlay(0)
-end, { desc = "Preview Hunk (Overlay)" })
-
--- Editing tools
-require("mini.pairs").setup()
-require("mini.comment").setup()
-
--- Misc (vim zoom with ctrl+w + o)
-require("mini.misc").setup()
-vim.keymap.set("n", "<C-w>o", MiniMisc.zoom, { desc = "Zoom Toggle" })
-
--- Indent Scope
-require("mini.indentscope").setup()
 
 -- =======================================================================================
 -- Neovim Theme
@@ -213,6 +75,47 @@ vim.api.nvim_create_autocmd("FileType", {
 		vim.api.nvim_set_hl(0, "@markup.heading.6.markdown", { fg = "#B5CEA8", bold = true, bg = "NONE" })
 	end,
 })
+
+-- =======================================================================================
+-- Race condition plugin to launch asap
+-- =======================================================================================
+
+-- =======================================================================================
+-- Mini.nvim Configuration
+-- =======================================================================================
+-- Setup Icons
+-- Must be called before barbar, telescope init
+require("mini.icons").setup()
+require("mini.icons").mock_nvim_web_devicons()
+
+-- Git & Diff
+require("mini.git").setup()
+
+require("mini.diff").setup({
+	view = {
+		style = "sign",
+		signs = { add = "│", change = "│", delete = "_" },
+	},
+	mappings = {
+		apply = "<leader>hs",
+		reset = "<leader>hu",
+		textobject = "gh",
+		goto_first = "[H",
+		goto_last = "]H",
+		goto_prev = "[h",
+		goto_next = "]h",
+	},
+})
+
+-- Editing tools
+require("mini.pairs").setup()
+require("mini.comment").setup()
+
+-- Misc (vim zoom with ctrl+w + o)
+require("mini.misc").setup()
+
+-- Indent Scope
+require("mini.indentscope").setup()
 
 -- =======================================================================================
 -- LSP Configuration
@@ -455,24 +358,11 @@ require("go").setup({
 	comment_placeholder = "   ",
 	lsp_cfg = true,
 	lsp_gofumpt = true,
-	lsp_on_attach = on_attach,
-	capabilities = capabilities,
 	lsp_keymaps = true,
 
 	lsp_diag_hdlr = true,
 	dap_debug = true,
 })
-
-local vim_cmd = vim.cmd
-map("n", "<leader>gt", ":GoAddTest<CR>", { desc = "Générer Test (Func)" })
-map("n", "<leader>gT", ":GoAddExpTest<CR>", { desc = "Générer Test (Exported)" })
-map("n", "<leader>gf", ":GoFillStruct<CR>", { desc = "Auto Fill Struct" })
-map("n", "<leader>ge", ":GoIfErr<CR>", { desc = "Add if err" })
-
-map("n", "<leader>gi", function()
-	local is_enabled = vim.lsp.inlay_hint.is_enabled({ bufnr = 0 })
-	vim.lsp.inlay_hint.enable(not is_enabled, { bufnr = 0 })
-end, { desc = "Toggle inlay variables types" })
 
 -- =======================================================================================
 -- CMP Configuration
@@ -566,6 +456,7 @@ telescope.setup({
 		},
 	},
 })
+telescope.load_extension("emoji")
 
 -- =======================================================================================
 -- TELESCOPE FILE BROWSER EXTENSION CONFIG
@@ -608,10 +499,8 @@ local function open_file_browser()
 	})
 end
 
-vim.keymap.set("n", "<leader>fe", open_file_browser, { desc = "File Browser (Config Forcée)" })
-
 -- =======================================================================================
--- TELESCOPE FILE BROWSER EXTENSION CONFIG
+-- Git-conflict
 -- =======================================================================================
 require("git-conflict").setup({
 	default_mappings = true,
@@ -633,11 +522,6 @@ local function get_visual_selection()
 	return text
 end
 
-map("v", "<leader>fg", function()
-	local text = get_visual_selection()
-	require("telescope.builtin").live_grep({ default_text = text })
-end, { desc = "Live Grep sur la sélection" })
-
 -- =======================================================================================
 -- Grug-far (Search and Replace)
 -- =======================================================================================
@@ -657,13 +541,6 @@ end
 local function grug_far_visual_selection()
 	require("grug-far").with_visual_selection({ prefills = { search = vim.fn.expand("<cword>") } })
 end
-
--- Add keympas for grug-far search and replace
--- Mode Normal
-map("n", "<leader>sr", ":GrugFar<CR>", { desc = "Search and Replace (Grug-far)" })
-map("n", "<leader>sw", grug_far_word_under_cursor, { desc = "Search and Replace current Word" })
--- Visual Mode
-map("v", "<leader>sr", grug_far_visual_selection, { desc = "Search and Replace Selection" })
 
 -- =======================================================================================
 -- DAP Debug Adapter Protocol Configuration
@@ -689,32 +566,6 @@ end
 dap.listeners.before.event_exited.dapui_config = function()
 	dapui.close()
 end
-
--- Keymaps for debugging
-vim.keymap.set("n", "<Leader>db", function()
-	require("dap").toggle_breakpoint()
-end, { desc = "[D]ebug [B]reakpoint" })
-vim.keymap.set("n", "<Leader>dc", function()
-	require("dap").continue()
-end, { desc = "[D]ebug [C]ontinue" })
-vim.keymap.set("n", "<Leader>do", function()
-	require("dap").step_over()
-end, { desc = "[D]ebug Step [O]ver" })
-vim.keymap.set("n", "<Leader>di", function()
-	require("dap").step_into()
-end, { desc = "[D]ebug Step [I]nto" })
-vim.keymap.set("n", "<Leader>du", function()
-	require("dap").step_out()
-end, { desc = "[D]ebug Step O[u]t" })
-vim.keymap.set("n", "<Leader>dx", function()
-	require("dap").terminate()
-end, { desc = "[D]ebug Terminate/[D]isconnect" })
-vim.keymap.set("n", "<Leader>dr", function()
-	require("dap").repl.open()
-end, { desc = "[D]ebug Open [R]EPL" })
-vim.keymap.set("n", "<Leader>dt", function()
-	require("dapui").toggle()
-end, { desc = "[D]ebug [T]oggle UI" })
 
 -- =======================================================================================
 -- Interface Configuration
@@ -893,3 +744,150 @@ vim.diagnostic.config({
 	update_in_insert = false,
 	severity_sort = true,
 })
+
+-- =======================================================================================
+-- KEYMAPS - KEYMAPS - KEYMAPS
+-- =======================================================================================
+
+-- Helper function for keymaps
+local function map(mode, lhs, rhs, opts)
+	local options = { noremap = true, silent = true }
+	if opts then
+		options = vim.tbl_extend("force", options, opts)
+	end
+	vim.keymap.set(mode, lhs, rhs, options)
+end
+
+-- Move lines up/down
+map("n", "<A-j>", ":m+1<CR>==", { desc = "Move line down" })
+map("n", "<A-k>", ":m-2<CR>==", { desc = "Move line up" })
+map("v", "<A-j>", ":m'>+1<CR>gv=gv", { desc = "Move selection down" })
+map("v", "<A-k>", ":m'<-2<CR>gv=gv", { desc = "Move selection up" })
+map("n", "<A-Down>", ":m+1<CR>==", { desc = "Move line down" })
+map("n", "<A-Up>", ":m-2<CR>==", { desc = "Move line up" })
+map("v", "<A-Down>", ":m'>+1<CR>gv=gv", { desc = "Move selection down" })
+map("v", "<A-Up>", ":m'<-2<CR>gv=gv", { desc = "Move selection up" })
+
+-- Add keymaps for Telescope
+map("n", "<leader>fe", open_file_browser, { desc = "Telescope file browser into all system" })
+map("n", "<leader>ff", "<cmd>Telescope find_files<cr>", { desc = "Find Files" })
+map("n", "<leader>fg", "<cmd>Telescope live_grep<cr>", { desc = "Live Grep" })
+map("v", "<leader>fg", function()
+	local text = get_visual_selection()
+	require("telescope.builtin").live_grep({ default_text = text })
+end, { desc = "Live Grep sur la sélection" })
+map("n", "<leader>fb", "<cmd>Telescope buffers<cr>", { desc = "Find Buffers" })
+map("n", "<leader>fu", "<cmd>Telescope undo<cr>", { desc = "Show undo tree of active buffer" })
+map("n", "<leader>fo", "<cmd>Telescope oldfiles<cr>", { desc = "previous files" })
+map("n", "<leader>fh", "<cmd>Telescope help_tags<cr>", { desc = "Help Tags" })
+map("n", "<leader>fj", "<cmd>Telescope emoji<cr>", { desc = "Show emoji" })
+map("n", "<leader>fc", "<cmd>Telescope git_bcommits<cr>", { desc = "Git commits (Current File)" })
+map("n", "<leader>fC", "<cmd>GitConflictListQf<cr>", { desc = "Git Conflicts (Current File)" })
+map("n", "<leader>fm", "<cmd>Telescope marks<cr>", { desc = "Navigate through marks" })
+
+-- Add keympas for grug-far search and replace
+-- Mode Normal
+map("n", "<leader>sr", ":GrugFar<CR>", { desc = "Search and Replace (Grug-far)" })
+map("n", "<leader>sw", grug_far_word_under_cursor, { desc = "Search and Replace current Word" })
+-- Visual Mode
+map("v", "<leader>sr", grug_far_visual_selection, { desc = "Search and Replace Selection" })
+
+-- Switch with showing absolute and relatives numbers
+map("n", "<leader>no", function()
+	local nu = vim.opt.number:get()
+	local rnu = vim.opt.relativenumber:get()
+
+	if nu and rnu then
+		vim.cmd("set nonumber norelativenumber")
+	elseif nu and not rnu then
+		vim.cmd("set nonumber norelativenumber")
+	else
+		vim.cmd("set number relativenumber")
+	end
+end, { desc = "Cycle Numbering (Hybrid -> Absolute -> None)" })
+
+-- Mini keymap
+vim.keymap.set("n", "<C-w>o", MiniMisc.zoom, { desc = "Zoom Toggle" })
+
+-- Hotkey configuration for neo-tree
+-- <C-b> means Ctrl + b in normal mode
+map("n", "<C-b>", ":Neotree toggle<CR>", { desc = "Toggle Neo-tree (Files)" })
+
+-- Keymaps for barbar (replace bufferline)
+map("n", "<leader>bn", ":BufferNext<CR>", { desc = "Next buffer" })
+map("n", "<leader>bb", ":BufferPrevious<CR>", { desc = "Previous buffer" })
+map("n", "<leader>bq", ":BufferClose<CR>", { desc = "Close actual buffer" })
+map("n", "<leader>bx", ":BufferCloseAllButCurrent<CR>", { desc = "Close all buffer but current" })
+map("n", "<leader>bc", ":BufferCloseBuffersLeft<CR>", { desc = "Close all buffer left to current" })
+map("n", "<leader>bv", ":BufferCloseBuffersRight<CR>", { desc = "Close all buffer right to current" })
+map("n", "<leader>bu", ":BufferRestore<CR>", { desc = "Reopen last closed buffer" })
+map("n", "<leader>bh", ":BufferMovePrevious<CR>", { desc = "Move actual buffer before Previous buffer" })
+map("n", "<leader>bl", ":BufferMoveNext<CR>", { desc = "Move actual buffer after next buffer" })
+map("n", "<leader>bp", ":BufferPin<CR>", { desc = "Pin actual buffer" })
+-- Keymaps for barbar buffer navigation (<leader> + Shift + <num>)
+map("n", "<leader>&", ":BufferGoto 1<CR>", { desc = "Go to buffer 1" })
+map("n", "<leader>é", ":BufferGoto 2<CR>", { desc = "Go to buffer 2" })
+map("n", '<leader>"', ":BufferGoto 3<CR>", { desc = "Go to buffer 3" })
+map("n", "<leader>'", ":BufferGoto 4<CR>", { desc = "Go to buffer 4" })
+map("n", "<leader>(", ":BufferGoto 5<CR>", { desc = "Go to buffer 5" })
+map("n", "<leader>-", ":BufferGoto 6<CR>", { desc = "Go to buffer 6" })
+map("n", "<leader>è", ":BufferGoto 7<CR>", { desc = "Go to buffer 7" })
+map("n", "<leader>_", ":BufferGoto 8<CR>", { desc = "Go to buffer 8" })
+map("n", "<leader>ç", ":BufferGoto 9<CR>", { desc = "Go to buffer 9" })
+
+-- Keymaps for Lazygit
+map("n", "<leader>lg", ":LazyGitCurrentFile<CR>", { desc = "Open LazyGit on current file" })
+
+-- Keymaps for diagnostics
+map("n", "gl", vim.diagnostic.open_float, { desc = "Show Line Diagnostics" })
+map("n", "[d", vim.diagnostic.goto_prev, { desc = "Previous Diagnostic" })
+map("n", "]d", vim.diagnostic.goto_next, { desc = "Next Diagnostic" })
+
+-- Keymap for highlight
+map("n", "<F3>", ":noh<CR>", { desc = "Remove search highlight" })
+
+-- Keymaps for git
+map("n", "<leader>gb", function()
+	require("mini.git").show_at_cursor()
+end, { desc = "Show git blame info" })
+
+vim.keymap.set("n", "<leader>hp", function()
+	require("mini.diff").toggle_overlay(0)
+end, { desc = "Preview Hunk (Overlay)" })
+
+-- Go-nvim keymaps
+map("n", "<leader>gt", ":GoAddTest<CR>", { desc = "Generate Test (Func)" })
+map("n", "<leader>gT", ":GoAddExpTest<CR>", { desc = "Generate aals Tests (Exported)" })
+map("n", "<leader>gf", ":GoFillStruct<CR>", { desc = "Auto Fill Struct" })
+map("n", "<leader>ge", ":GoIfErr<CR>", { desc = "Add if err" })
+
+map("n", "<leader>gi", function()
+	local is_enabled = vim.lsp.inlay_hint.is_enabled({ bufnr = 0 })
+	vim.lsp.inlay_hint.enable(not is_enabled, { bufnr = 0 })
+end, { desc = "Toggle inlay variables types" })
+
+-- Debug Adapter Protocol (dap) keymaps
+vim.keymap.set("n", "<Leader>db", function()
+	require("dap").toggle_breakpoint()
+end, { desc = "[D]ebug [B]reakpoint" })
+vim.keymap.set("n", "<Leader>dc", function()
+	require("dap").continue()
+end, { desc = "[D]ebug [C]ontinue" })
+vim.keymap.set("n", "<Leader>do", function()
+	require("dap").step_over()
+end, { desc = "[D]ebug Step [O]ver" })
+vim.keymap.set("n", "<Leader>di", function()
+	require("dap").step_into()
+end, { desc = "[D]ebug Step [I]nto" })
+vim.keymap.set("n", "<Leader>du", function()
+	require("dap").step_out()
+end, { desc = "[D]ebug Step O[u]t" })
+vim.keymap.set("n", "<Leader>dx", function()
+	require("dap").terminate()
+end, { desc = "[D]ebug Terminate/[D]isconnect" })
+vim.keymap.set("n", "<Leader>dr", function()
+	require("dap").repl.open()
+end, { desc = "[D]ebug Open [R]EPL" })
+vim.keymap.set("n", "<Leader>dt", function()
+	require("dapui").toggle()
+end, { desc = "[D]ebug [T]oggle UI" })
