@@ -466,6 +466,21 @@ in
     ];
   };
 
+  fileSystems."/mnt/SniiNAS" = {
+    device = "192.168.1.5:/volume1/SniiNAS";
+    fsType = "nfs4";
+    options = [
+      "_netdev"
+      "rw"
+      "hard"
+      "nolock"
+      "noauto"
+      "x-systemd.automount"
+      "x-systemd.device-timeout=5s"
+      "x-systemd.mount-timeout=5s"
+    ];
+  };
+
   # Override Package download, fix will be applied in NixOS 25.05
   nixpkgs.overlays = [
     (final: prev: {
