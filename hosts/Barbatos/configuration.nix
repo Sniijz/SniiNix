@@ -424,6 +424,7 @@ in
       pinta # image editor
       playerctl # cli tool and library to control media players
       qjackctl # QT app to control Jack Sound Server
+      qbittorrent # qbittorrent client
       qpwgraph # Qt graph manager for PipeWire, similar to QjackCtl
       radeontop # Top like for AMD GPU
       reaper # DAW Music Editor
