@@ -455,6 +455,7 @@ telescope.setup({
 	},
 })
 telescope.load_extension("emoji")
+telescope.load_extension("manix")
 
 -- =======================================================================================
 -- TELESCOPE FILE BROWSER EXTENSION CONFIG

@@ -76,6 +76,7 @@ in
           ltex-ls
           ltex-ls-plus
           lua-language-server
+          manix
           nixd
           nixfmt-rfc-style
           nodejs
@@ -135,6 +136,7 @@ in
           telescope-emoji-nvim # emoji finder for telescope
           telescope-file-browser-nvim # File browser
           telescope-git-conflicts-nvim # git conflicts
+          telescope-manix # nix config telescope
           telescope-nvim # Fuzzy finder (files, buffers, grep, etc.)
           telescope-undo-nvim # Parse through file/git history of actual buffer
           vim-tmux-navigator # tmux plugin for vim
