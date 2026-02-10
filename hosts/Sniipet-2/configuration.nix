@@ -227,6 +227,7 @@ in
       cryptsetup # luks for dm-crypt needed for longhorn
       curl # Universal cli tool
       eza # modern replacement of ls
+      etcd # etcd and etcdctl commands
       fish # alternative to bash
       fishPlugins.fzf-fish # fzf plugin for fish
       fishPlugins.z # zoxide plugin for fish
@@ -237,6 +238,7 @@ in
       htop # Graphical top
       jellyfin-ffmpeg # For Jellyfin transcoding
       jellyfin-mpv-shim # For Jellyfin transcoding
+      kubectl # kube ctl cli
       neovim # text editor
       nfs-utils # Needed for Longhorn
       openiscsi # Needed for longhorn
