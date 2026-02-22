@@ -254,10 +254,10 @@ in
   };
 
   ############ Disk2 HDD dedicated for Longhorn Cold Backups ######
-  fileSystems."/mnt/hdd1" = {
-    device = "/dev/disk/by-uuid/0d2b3cb7-87ab-4fa7-a230-2e6c6327009e";
-    fsType = "ext4";
-  };
+#  fileSystems."/mnt/hdd1" = {
+#    device = "/dev/disk/by-uuid/0d2b3cb7-87ab-4fa7-a230-2e6c6327009e";
+#    fsType = "ext4";
+#  };
 
   ##################### NFS Configuration ##########################
 
