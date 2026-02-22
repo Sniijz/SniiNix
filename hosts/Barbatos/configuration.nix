@@ -400,6 +400,7 @@ in
       man # Linux Documentation
       mangohud # overlay for monitoring system  perf inside app or games
       mesa-demos # Mesa tools/utilities
+      mediainfo # Tool to identify source of video files
       moreutils # unix tools like sponge for tmux
       mysql84 # open source database
       ncdu # Disk Usage Analyzer with ncurses interface
@@ -444,6 +445,7 @@ in
       tonelib-gfx # Amp and effects modeling
       tonelib-jam # Rocksmith like tab player
       tonelib-metal # Metal Amp and effects modeling
+      unzip # zip extractor
       unrar-free # rar extractor
       urbanterror # Urban Terror Game
       usbmuxd # Drivers to plug iphone through usb
