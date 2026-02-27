@@ -293,6 +293,7 @@ in
         "--disable=servicelb"
         "--disable=traefik"
         "--kubelet-arg=cgroup-driver=systemd"
+        "--tls-san=192.168.1.30"
       ];
     };
 
