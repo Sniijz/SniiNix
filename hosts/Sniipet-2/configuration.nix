@@ -29,6 +29,133 @@ let
         chmod +x $out/bin/k3s
       '';
 
+  interface = "eno1";
+  vip = "192.168.1.30";
+
+  kubeVipRBAC = ''
+    apiVersion: v1
+    kind: ServiceAccount
+    metadata:
+      name: kube-vip
+      namespace: kube-system
+    ---
+    apiVersion: rbac.authorization.k8s.io/v1
+    kind: ClusterRole
+    metadata:
+      annotations:
+        rbac.authorization.kubernetes.io/autoupdate: "true"
+      name: system:kube-vip-role
+    rules:
+      - apiGroups: [""]
+        resources: ["services/status"]
+        verbs: ["update"]
+      - apiGroups: [""]
+        resources: ["services", "endpoints"]
+        verbs: ["list","get","watch", "update"]
+      - apiGroups: [""]
+        resources: ["nodes"]
+        verbs: ["list","get","watch", "update", "patch"]
+      - apiGroups: ["coordination.k8s.io"]
+        resources: ["leases"]
+        verbs: ["list", "get", "watch", "update", "create"]
+      - apiGroups: ["discovery.k8s.io"]
+        resources: ["endpointslices"]
+        verbs: ["list","get","watch", "update"]
+      - apiGroups: [""]
+        resources: ["pods"]
+        verbs: ["list"]
+    ---
+    kind: ClusterRoleBinding
+    apiVersion: rbac.authorization.k8s.io/v1
+    metadata:
+      name: system:kube-vip-binding
+    roleRef:
+      apiGroup: rbac.authorization.k8s.io
+      kind: ClusterRole
+      name: system:kube-vip-role
+    subjects:
+    - kind: ServiceAccount
+      name: kube-vip
+      namespace: kube-system
+  '';
+
+  kubeVipDS = ''
+    ---
+    apiVersion: apps/v1
+    kind: DaemonSet
+    metadata:
+      name: kube-vip-ds
+      namespace: kube-system
+    spec:
+      selector:
+        matchLabels:
+          name: kube-vip-ds
+      template:
+        metadata:
+          creationTimestamp: null
+          labels:
+            name: kube-vip-ds
+        spec:
+          affinity:
+            nodeAffinity:
+              requiredDuringSchedulingIgnoredDuringExecution:
+                nodeSelectorTerms:
+                - matchExpressions:
+                  - key: node-role.kubernetes.io/master
+                    operator: Exists
+                - matchExpressions:
+                  - key: node-role.kubernetes.io/control-plane
+                    operator: Exists
+          containers:
+          - args:
+            - manager
+            env:
+            - name: vip_arp
+              value: "true"
+            - name: port
+              value: "6443"
+            - name: vip_interface
+              value: "${interface}"
+            - name: vip_subnet
+              value: "32"
+            - name: cp_enable
+              value: "true"
+            - name: cp_namespace
+              value: kube-system
+            - name: vip_ddns
+              value: "false"
+            - name: svc_enable
+              value: "true"
+            - name: vip_leaderelection
+              value: "true"
+            - name: vip_leaseduration
+              value: "5"
+            - name: vip_renewdeadline
+              value: "3"
+            - name: vip_retryperiod
+              value: "1"
+            - name: address
+              value: "${vip}"
+            image: ghcr.io/kube-vip/kube-vip:v1.0.4
+            imagePullPolicy: IfNotPresent
+            name: kube-vip
+            resources: {}
+            securityContext:
+              capabilities:
+                add:
+                - NET_ADMIN
+                - NET_RAW
+                - SYS_TIME
+          hostNetwork: true
+          serviceAccountName: kube-vip
+          tolerations:
+          - effect: NoSchedule
+            operator: Exists
+          - effect: NoExecute
+            operator: Exists
+      updateStrategy: {}
+  '';
+
 in
 {
   imports = [
@@ -310,6 +437,10 @@ in
     "L+ /usr/local/bin/nsenter - - - - ${pkgs.util-linux}/bin/nsenter"
     "L+ /usr/bin/nsenter - - - - ${pkgs.util-linux}/bin/nsenter"
     "L+ /bin/bash - - - - ${pkgs.bash}/bin/bash"
+    "d /var/lib/rancher/k3s/server/manifests 0700 root root -"
+    "L+ /var/lib/rancher/k3s/server/manifests/kube-vip.yaml - - - - ${
+      pkgs.writeText "kube-vip-full.yaml" (kubeVipRBAC + kubeVipDS)
+    }"
   ];
 
 }
