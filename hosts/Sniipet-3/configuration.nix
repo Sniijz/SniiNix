@@ -29,7 +29,6 @@ let
         chmod +x $out/bin/k3s
       '';
 
-  interface = "enp0s31f6";
   vip = "192.168.1.30";
 
   kubeVipRBAC = ''
@@ -114,8 +113,6 @@ let
               value: "true"
             - name: port
               value: "6443"
-            - name: vip_interface
-              value: "${interface}"
             - name: vip_subnet
               value: "32"
             - name: cp_enable

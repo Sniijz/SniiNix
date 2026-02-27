@@ -399,8 +399,8 @@ in
       lyrebird # Voice changing tool
       man # Linux Documentation
       mangohud # overlay for monitoring system  perf inside app or games
-      mesa-demos # Mesa tools/utilities
       mediainfo # Tool to identify source of video files
+      mesa-demos # Mesa tools/utilities
       moreutils # unix tools like sponge for tmux
       mysql84 # open source database
       ncdu # Disk Usage Analyzer with ncurses interface
@@ -424,8 +424,8 @@ in
       p7zip # 7zip archiver utility
       pinta # image editor
       playerctl # cli tool and library to control media players
-      qjackctl # QT app to control Jack Sound Server
       qbittorrent # qbittorrent client
+      qjackctl # QT app to control Jack Sound Server
       qpwgraph # Qt graph manager for PipeWire, similar to QjackCtl
       radeontop # Top like for AMD GPU
       reaper # DAW Music Editor
@@ -445,8 +445,8 @@ in
       tonelib-gfx # Amp and effects modeling
       tonelib-jam # Rocksmith like tab player
       tonelib-metal # Metal Amp and effects modeling
-      unzip # zip extractor
       unrar-free # rar extractor
+      unzip # zip extractor
       urbanterror # Urban Terror Game
       usbmuxd # Drivers to plug iphone through usb
       vcv-rack # Music Open-source virtual modular synthesizer
