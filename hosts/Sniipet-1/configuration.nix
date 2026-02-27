@@ -278,7 +278,6 @@ in
     k3s = {
       enable = true;
       package = customK3S;
-      serverAddr = "https://192.168.1.30:6443";
       token = secrets.apiTokens.k3s;
       role = "server";
       extraFlags = toString [
@@ -286,6 +285,8 @@ in
         "--disable=servicelb"
         "--disable=traefik"
         "--kubelet-arg=cgroup-driver=systemd"
+        "--tls-san=192.168.1.30"
+        "--cluster-init"
       ];
     };
 
