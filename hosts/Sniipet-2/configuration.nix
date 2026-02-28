@@ -418,6 +418,7 @@ in
         "--disable=servicelb"
         "--disable=traefik"
         "--kubelet-arg=cgroup-driver=systemd"
+        "--etcd-expose-metrics=true"
         "--tls-san=192.168.1.30"
       ];
     };
