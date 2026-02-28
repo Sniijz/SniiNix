@@ -122,7 +122,7 @@ let
             - name: vip_ddns
               value: "false"
             - name: svc_enable
-              value: "true"
+              value: "false"
             - name: vip_leaderelection
               value: "true"
             - name: vip_leaseduration
