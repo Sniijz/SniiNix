@@ -51,8 +51,6 @@ in {
               esbenp.prettier-vscode
               christian-kohler.path-intellisense
               foxundermoon.shell-format
-              # AI Assistant
-              continue.continue
               # Nix Formater
               kamadorueda.alejandra
               bbenoist.nix
@@ -81,6 +79,8 @@ in {
               codezombiech.gitignore
               # gitmoji
               seatonjiang.gitmoji-vscode
+              # Nixfmt
+              brettm12345.nixfmt-vscode
               # Docker
               ms-azuretools.vscode-docker
               # errorlens
@@ -89,15 +89,15 @@ in {
             ++ pkgs.vscode-utils.extensionsFromVscodeMarketplace [
               {
                 name = "protobuf-vsc";
-                publisher = "DrBlury";
-                version = "1.4.26";
-                hash = "sha256-rfgZA81hT0Q3Qmc9cMGHT5+cpwDAWAlJ673RMA9NrfU=";
+                publisher = "drblury";
+                version = "1.6.0";
+                hash = "sha256-HvTJSFRKO0K7Ud9381viPrXp3TInB1FT97qZArosAjY=";
               }
               {
-                name = "pico8-ls";
-                publisher = "pollywoggames";
-                version = "0.6.1";
-                hash = "sha256-TlULqIKb3R+bvjN3f4Bwha0bewqCHpPVFiePHNV2kmE=";
+                name = "delirium-ui";
+                publisher = "mr4torr";
+                version = "2.4.0";
+                hash = "sha256-f4KBWD3Tn0SxpVqwJFIuJgLh4dG4nOwVmdCy9Ufg1vs=";
               }
             ];
 
@@ -142,10 +142,11 @@ in {
             "go.formatTool" = "gofmt";
             "go.lintTool" = "golint";
             "go.testOnSave" = false;
+            # Old custom Robin Theme
             "workbench.colorCustomizations" = {
               "statusBar.background" = "#1da063ec";
               "statusBar.noFolderBackground" = "#1da063ec";
-              "statusBar.debuggingBackground" = "#1da063ec";
+              "statusBar.debuggingBackgrsha256-Em+w3FyJLXrpVAe9N7zsHRoMcpvl+psmG1new7nA8iE=ound" = "#1da063ec";
               "list.activeSelectionBackground" = "#1da063ec";
               #titleBar.activeBackground" = "#1da063ec";
               "list.focusAndSelectionOutline" = "#1da063ec";
@@ -188,14 +189,6 @@ in {
             "terminal.integrated.cwd" = "\${fileDirname}";
             "files.trimTrailingWhitespace" = true;
             "files.trimFinalNewlines" = true;
-            "files.associations" = {
-              "*.p8" = "pico-8";
-            };
-            "[pico-8]" = {
-              "editor.defaultFormatter" = "pollywoggames.pico8-ls";
-              "editor.formatOnSave" = true;
-              "files.trimTrailingWhitespace" = false;
-            };
             "[xml]" = {
               "editor.defaultFormatter" = "DotJoshJohnson.xml";
             };
@@ -260,6 +253,10 @@ in {
             {
               command = "editor.action.commentLine";
               key = "ctrl+[Backquote]";
+            }
+            {
+              command = "workbench.action.toggleMaximizedPanel";
+              key = "ctrl+shift+m";
             }
           ];
         };
