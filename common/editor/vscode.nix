@@ -6,9 +6,11 @@
   lib,
   config,
   ...
-}: let
+}:
+let
   cfg = config.customModules.vscode;
-in {
+in
+{
   options.customModules.vscode = {
     enable = lib.mkOption {
       type = lib.types.bool;
@@ -30,7 +32,12 @@ in {
         icon = "vscode";
         terminal = false;
         type = "Application";
-        categories = ["Utility" "TextEditor" "Development" "IDE"];
+        categories = [
+          "Utility"
+          "TextEditor"
+          "Development"
+          "IDE"
+        ];
         mimeType = [
           "text/plain"
           "inode/directory"
@@ -44,7 +51,8 @@ in {
           enable = true;
           mutableExtensionsDir = false;
           # https://github.com/NixOS/nixpkgs/tree/master/pkgs/applications/editors/vscode/extensions
-          profiles.default.extensions = with pkgs.vscode-extensions;
+          profiles.default.extensions =
+            with pkgs.vscode-extensions;
             [
               # General
               oderwat.indent-rainbow
@@ -108,7 +116,7 @@ in {
             "workbench.startupEditor" = "newUntitledFile";
             "terminal.integrated.allowChords" = true;
             "git.autofetch" = true;
-            "workbench.colorTheme" = "Visual Studio Dark";
+            "workbench.colorTheme" = "Delirium Everforest";
             "nix.enableLanguageServer" = true;
             "nix.serverPath" = "nixd";
             "nix.serverSettings" = {
@@ -143,35 +151,35 @@ in {
             "go.lintTool" = "golint";
             "go.testOnSave" = false;
             # Old custom Robin Theme
-            "workbench.colorCustomizations" = {
-              "statusBar.background" = "#1da063ec";
-              "statusBar.noFolderBackground" = "#1da063ec";
-              "statusBar.debuggingBackgrsha256-Em+w3FyJLXrpVAe9N7zsHRoMcpvl+psmG1new7nA8iE=ound" = "#1da063ec";
-              "list.activeSelectionBackground" = "#1da063ec";
-              #titleBar.activeBackground" = "#1da063ec";
-              "list.focusAndSelectionOutline" = "#1da063ec";
-              "sideBar.dropBackground" = "#1da063ec";
-              "button.background" = "#1da063ec";
-              "scmGraph.historyItemRefColor" = "#1da063ec";
-              "editor.selectionBackground" = "#0f3f29";
-              "menubar.selectionBackground" = "#186943";
-              "menu.selectionBackground" = "#186943";
-              "checkbox.background" = "#186943";
-              "selection.background" = "#1da063ec";
-              "minimap.selectionHighlight" = "#186943";
-              "toolbar.hoverBackground" = "#186943";
-              "editorActionList.background" = "#186943";
-              "settings.dropdownBackground" = "#186943";
-              "dropdown.foreground" = "#186943";
-              "activityBarBadge.background" = "#186943";
-              "list.hoverBackground" = "#186943";
-              "inputOption.activeBorder" = "#186943";
-              "inputOption.activeBackground" = "#186943";
-              "input.activeBorder" = "#186943";
-              "panelInput.border" = "#186943";
-              "focusBorder" = "#186943";
-              "extensionButton.hoverBackground" = "#186943";
-            };
+            # "workbench.colorCustomizations" = {
+            #   "statusBar.background" = "#1da063ec";
+            #   "statusBar.noFolderBackground" = "#1da063ec";
+            #   "statusBar.debuggingBackgrsha256-Em+w3FyJLXrpVAe9N7zsHRoMcpvl+psmG1new7nA8iE=ound" = "#1da063ec";
+            #   "list.activeSelectionBackground" = "#1da063ec";
+            #   #titleBar.activeBackground" = "#1da063ec";
+            #   "list.focusAndSelectionOutline" = "#1da063ec";
+            #   "sideBar.dropBackground" = "#1da063ec";
+            #   "button.background" = "#1da063ec";
+            #   "scmGraph.historyItemRefColor" = "#1da063ec";
+            #   "editor.selectionBackground" = "#0f3f29";
+            #   "menubar.selectionBackground" = "#186943";
+            #   "menu.selectionBackground" = "#186943";
+            #   "checkbox.background" = "#186943";
+            #   "selection.background" = "#1da063ec";
+            #   "minimap.selectionHighlight" = "#186943";
+            #   "toolbar.hoverBackground" = "#186943";
+            #   "editorActionList.background" = "#186943";
+            #   "settings.dropdownBackground" = "#186943";
+            #   "dropdown.foreground" = "#186943";
+            #   "activityBarBadge.background" = "#186943";
+            #   "list.hoverBackground" = "#186943";
+            #   "inputOption.activeBorder" = "#186943";
+            #   "inputOption.activeBackground" = "#186943";
+            #   "input.activeBorder" = "#186943";
+            #   "panelInput.border" = "#186943";
+            #   "focusBorder" = "#186943";
+            #   "extensionButton.hoverBackground" = "#186943";
+            # };
             "git.blame.editorDecoration.enabled" = true;
             "python.terminal.activateEnvInCurrentTerminal" = true;
             "python.terminal.executeInFileDir" = true;
