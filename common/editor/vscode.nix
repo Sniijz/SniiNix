@@ -60,8 +60,7 @@ in
               christian-kohler.path-intellisense
               foxundermoon.shell-format
               # Nix Formater
-              kamadorueda.alejandra
-              bbenoist.nix
+              jnoortheen.nix-ide
               # Markdown
               yzhang.markdown-all-in-one
               bierner.markdown-mermaid
@@ -120,21 +119,6 @@ in
             "nix.enableLanguageServer" = true;
             "nix.serverPath" = "nixd";
             "nix.serverSettings" = {
-              # settings for 'nil' LSP
-              "nil" = {
-                "diagnostics" = {
-                  "ignored" = [
-                    "unused_binding"
-                    "unused_with"
-                  ];
-                };
-                "formatting" = {
-                  "command" = [
-                    "nixfmt"
-                    "--width=80"
-                  ];
-                };
-              };
               # settings for 'nixd' LSP
               "nixd" = {
                 "formatting" = {
